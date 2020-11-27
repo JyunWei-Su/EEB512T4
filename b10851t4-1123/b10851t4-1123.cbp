@@ -84,9 +84,6 @@
 		<Unit filename="myFunc1116_alg.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="myFunction_alg_font.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="myHeader1116.h" />
 		<Unit filename="myfunction.c">
 			<Option compilerVar="CC" />
@@ -94,9 +91,6 @@
 		<Unit filename="myheader.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
-			<code_completion />
-			<envvars />
-			<debugger />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
