@@ -84,6 +84,9 @@
 		<Unit filename="myFunc1116_alg.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="myFunc_alg_font.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="myHeader1116.h" />
 		<Unit filename="myfunction.c">
 			<Option compilerVar="CC" />
