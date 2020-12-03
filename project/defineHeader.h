@@ -6,8 +6,8 @@
 #define DefaultCol 9
 #define FillRange 6
 /* Definition of display size */
-#define DISPLAY_WIDTH   768
-#define DISPLAY_HEIGHT  960
+#define DISPLAY_WIDTH   1600
+#define DISPLAY_HEIGHT  900
 #define nl printf("\n")
 
 //====================
