@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="allegro_audio" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/allegro_audio" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="C:/Users/user/Desktop/allegro/allegro-x86_64-w64-mingw32-gcc-8.2.1-posix-seh-static-5.2.5.1/include" />
+				</Compiler>
+				<Linker>
+					<Add library="liballegro_monolith-static.a" />
+					<Add library="libdumb.a" />
+					<Add library="libFLAC.a" />
+					<Add library="libfreetype.a" />
+					<Add library="libjpeg.a" />
+					<Add library="libopusfile.a" />
+					<Add library="libopus.a" />
+					<Add library="libphysfs.a" />
+					<Add library="libpng16.a" />
+					<Add library="libtheoradec.a" />
+					<Add library="libvorbisfile.a" />
+					<Add library="libvorbis.a" />
+					<Add library="libogg.a" />
+					<Add library="libwebp.a" />
+					<Add library="libwebpdecoder.a" />
+					<Add library="libwebpdemux.a" />
+					<Add library="libzlib.a" />
+					<Add library="libpsapi.a" />
+					<Add library="libwinmm.a" />
+					<Add library="libshlwapi.a" />
+					<Add library="libgdi32.a" />
+					<Add library="libopengl32.a" />
+					<Add library="libole32.a" />
+					<Add library="libdsound.a" />
+					<Add library="libpthread.a" />
+					<Add library="libkernel32.a" />
+					<Add library="libuser32.a" />
+					<Add library="libwinspool.a" />
+					<Add library="libshell32.a" />
+					<Add library="liboleaut32.a" />
+					<Add library="libuuid.a" />
+					<Add library="libcomdlg32.a" />
+					<Add library="libadvapi32.a" />
+					<Add directory="C:/Users/user/Desktop/allegro/allegro-x86_64-w64-mingw32-gcc-8.2.1-posix-seh-static-5.2.5.1/lib" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/allegro_audio" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="init_func.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="music/test2.wav" />
+		<Unit filename="myHeader.h" />
+		<Unit filename="pic/cross.png" />
+		<Unit filename="pic/enlarge.png" />
+		<Unit filename="pic/frame.png" />
+		<Unit filename="pic/narrow.png" />
+		<Unit filename="pic/pause.png" />
+		<Unit filename="pic/play.png" />
+		<Unit filename="pic/stop.png" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
