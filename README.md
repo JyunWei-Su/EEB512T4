@@ -2,6 +2,9 @@
 Computer programming
 ## 關檔案一要記得存專案
 
+## Git Bash 內的 Vi 亂碼解決
+https://www.itread01.com/p/879487.html
+
 # 預定進度
 ## 12/03
 遊戲專案建立
