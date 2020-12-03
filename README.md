@@ -2,20 +2,6 @@
 Computer programming
 * 關檔案一要記得存專案
 
-## Git Bash 內的 Vi 亂碼解決
-* [解決方案參考](https://www.itread01.com/p/879487.html)
-* cd到 /etc 編輯vimrc 在set ai 前加上下方程式碼
-
-```
-set nu
-set ff=unix "fileformat
-set ffs=unix,dos,mac "fileformats (MUST)
-set enc=utf8 "encoding
-set fenc=utf8 "fileencoding
-set fencs=utf8,taiwan,chinese,ucs-bom,default,latin1 "fileencodings
-set termencoding=big5
-```
-
 ## 預定進度
 
 ### 12/03
@@ -40,3 +26,17 @@ set termencoding=big5
 
 ### 12/28
 - [ ] 整體的修正補足
+
+## Git Bash 內的 Vi 亂碼解決
+* [解決方案參考](https://www.itread01.com/p/879487.html)
+* cd到 /etc 編輯vimrc 在set ai 前加上下方程式碼
+
+```
+set nu
+set ff=unix "fileformat
+set ffs=unix,dos,mac "fileformats (MUST)
+set enc=utf8 "encoding
+set fenc=utf8 "fileencoding
+set fencs=utf8,taiwan,chinese,ucs-bom,default,latin1 "fileencodings
+set termencoding=big5
+```
