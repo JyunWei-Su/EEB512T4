@@ -13,8 +13,11 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="C:/Users/user/Desktop/allegro/allegro-x86_64-w64-mingw32-gcc-8.2.1-posix-seh-static-5.2.5.1/include" />
+					<Add directory="C:/API/Allegro/include" />
 				</Compiler>
+				<ResourceCompiler>
+					<Add option="C:\API\Allegro\include" />
+				</ResourceCompiler>
 				<Linker>
 					<Add library="liballegro_monolith-static.a" />
 					<Add library="libdumb.a" />
@@ -49,7 +52,7 @@
 					<Add library="libuuid.a" />
 					<Add library="libcomdlg32.a" />
 					<Add library="libadvapi32.a" />
-					<Add directory="C:/Users/user/Desktop/allegro/allegro-x86_64-w64-mingw32-gcc-8.2.1-posix-seh-static-5.2.5.1/lib" />
+					<Add directory="C:/API/Allegro/lib" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -83,10 +86,6 @@
 		<Unit filename="pic/pause.png" />
 		<Unit filename="pic/play.png" />
 		<Unit filename="pic/stop.png" />
-		<Extensions>
-			<code_completion />
-			<envvars />
-			<debugger />
-		</Extensions>
+		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
