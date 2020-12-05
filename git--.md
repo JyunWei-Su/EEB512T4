@@ -32,9 +32,9 @@ $ git merge <branch>
 	加上 --no-ff 參數，將建立合併提交，而不是使用 fast-forward 合併。這可以保留分支合併的紀錄，是個非常有用的參數。
 	
 ##  開發步驟參考：
-	在自己的分支中開發 -> 確認可執行
+	在自己的分支中開發 -> 確認可執行 -> push到自己的branch
 	-> checkout到develop -> merge 自己的專案到 develop
-	-> 再次確認可以執行 -> 回到自己的分支 merge develop
+	-> 再次確認可以執行 -> 回到自己的分支 merge develop -> push
 ##  每周(或重大進度)：
 	將 develop merge 到 main (merge develop)-> 確認可執行
 	develop merge main (同步)
