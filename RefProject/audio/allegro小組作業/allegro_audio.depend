@@ -304,10 +304,10 @@
 1606593607 source:c:\users\user\desktop\重要的資料夾\university\計程\allegro小組作業\main.c
 	"myHeader.h"
 
-1606593703 source:c:\users\jyun-wei\documents\github\eeb512t4\refproject\audio\allegro小組作業\init_func.c
+1606985889 source:c:\users\jyun-wei\documents\github\eeb512t4\refproject\audio\allegro小組作業\init_func.c
 	"myHeader.h"
 
-1606590649 c:\users\jyun-wei\documents\github\eeb512t4\refproject\audio\allegro小組作業\myheader.h
+1606985890 c:\users\jyun-wei\documents\github\eeb512t4\refproject\audio\allegro小組作業\myheader.h
 	<stdio.h>
 	<stdlib.h>
 	<allegro5/allegro.h>
@@ -606,6 +606,6 @@
 	"allegro5/allegro.h"
 	"allegro5/allegro_audio.h"
 
-1606593607 source:c:\users\jyun-wei\documents\github\eeb512t4\refproject\audio\allegro小組作業\main.c
+1606985889 source:c:\users\jyun-wei\documents\github\eeb512t4\refproject\audio\allegro小組作業\main.c
 	"myHeader.h"
 

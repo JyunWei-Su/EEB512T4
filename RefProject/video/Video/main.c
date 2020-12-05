@@ -56,16 +56,21 @@ int main()
 
         al_get_keyboard_state(&keyboard_state);
 
-        // Check whether ESC was held down or not.
-        while (al_key_down(&keyboard_state, ALLEGRO_KEY_ESCAPE)&&play==0)
+        while(al_key_down(&keyboard_state, ALLEGRO_KEY_ESCAPE)&&play==0)
         {
             al_set_video_playing(video,0) ;
             al_get_keyboard_state(&keyboard_state1);
             if(al_key_down(&keyboard_state1, ALLEGRO_KEY_ENTER))
             {
-                play=play+1 ;
-                al_set_video_playing(video,1) ;
+                play=play+1;
+                al_set_video_playing(video,play);
             }
+        }
+        if(al_key_down(&keyboard_state, ALLEGRO_KEY_RIGHT))
+        {
+            printf("------>");
+            al_seek_video(video, 0);
+            al_set_video_playing(video, 1);
         }
 
 

@@ -304,7 +304,7 @@
 	<allegro5/allegro_audio.h>
 	<allegro5/allegro_video.h>
 
-1573875763 source:c:\users\jyun-wei\documents\github\eeb512t4\refproject\video\video\main.c
+1607138057 source:c:\users\jyun-wei\documents\github\eeb512t4\refproject\video\video\main.c
 	<stdio.h>
 	<stdlib.h>
 	<allegro5/allegro.h>
@@ -601,4 +601,19 @@
 
 1553403848 c:\api\allegro\include\allegro5\allegro5.h
 	"allegro.h"
+
+1607136825 source:c:\users\jyun-wei\documents\github\eeb512t4\refproject\video\video\func.c
+	<stdio.h>
+	<stdlib.h>
+	<allegro5/allegro.h>
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_video.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_primitives.h>
+
+1553403849 c:\api\allegro\include\allegro5\allegro_font.h
+	"allegro5/allegro.h"
+
+1553403849 c:\api\allegro\include\allegro5\allegro_primitives.h
+	<allegro5/allegro.h>
 
