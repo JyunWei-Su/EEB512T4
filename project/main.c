@@ -8,6 +8,7 @@ int main(){
     int finish = 0;
     int row = 9, col = 9;
     int **mainArray;
+    int test = 0;
 
     ALLEGRO_DISPLAY *display = NULL;  //display
     ALLEGRO_BITMAP *bkgImg = NULL;    //back ground Img
