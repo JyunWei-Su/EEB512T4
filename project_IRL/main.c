@@ -10,6 +10,9 @@ int main(){
     int **mainArray;
     int test = 0;
 
+    int jws_test = 0;
+    printf("%d hahaha.", jws_test);
+
     ALLEGRO_DISPLAY *display = NULL;  //display
     ALLEGRO_BITMAP *bkgImg = NULL;    //back ground Img
     ALLEGRO_BITMAP **candyImg = NULL; //candy Imgs: candyImg[n]
