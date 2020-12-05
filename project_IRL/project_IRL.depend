@@ -316,3 +316,33 @@
 	<allegro5/allegro_image.h>
 	<allegro5/allegro_native_dialog.h>
 
+1607148479 source:c:\users\jyun-wei\documents\github\eeb512t4\project_irl\array2dfunctionusingpointer.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+
+1607175015 source:c:\users\jyun-wei\documents\github\eeb512t4\project_irl\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"defineHeader.h"
+
+1607148479 c:\users\jyun-wei\documents\github\eeb512t4\project_irl\defineheader.h
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	<allegro5/allegro_native_dialog.h>
+
+1607148479 source:c:\users\jyun-wei\documents\github\eeb512t4\project_irl\myfunc.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	"defineHeader.h"
+
+1607148479 source:c:\users\jyun-wei\documents\github\eeb512t4\project_irl\myfunc_alg.c
+	<stdio.h>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	<allegro5/allegro_native_dialog.h>
+
