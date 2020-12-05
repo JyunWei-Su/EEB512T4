@@ -8,6 +8,7 @@ int main(){
     int finish = 0;
     int row = 9, col = 9;
     int **mainArray;
+    int test = 0;
 
     ALLEGRO_DISPLAY *display = NULL;  //display
     ALLEGRO_BITMAP *bkgImg = NULL;    //back ground Img
@@ -21,15 +22,19 @@ int main(){
     al_install_keyboard();
     al_init_image_addon();
 
+
     display = al_create_display(DISPLAY_WIDTH, DISPLAY_HEIGHT); // Create allegro display
     event_queue = al_create_event_queue(); // Create allegro enevt detector #1
     al_register_event_source(event_queue, al_get_display_event_source(display)); // Create allegro enevt detector #2
     if(!event_queue) MY_ALGO_ErrMsg("Allegro5", "EVENT QUEUE HAS FAILED TO BE CREATED");
 
     /* Load bitmap(image) */
-    bkgImg = al_load_bitmap("./img/bkg.png");
+    bkgImg = al_load_bitmap("./img/back900.png");
     candyImg = MY_ALGO_CreateCandyImgs(FillRange);
     MY_ALGO_LoadCandyImgs(candyImg, FillRange); //candy 0 's img is candyImg[0] ext...
+
+    /* window title */
+    al_set_window_title(display,"our game");
 
     /*執行主要function*/
     srand(time(0));
@@ -39,7 +44,7 @@ int main(){
 
     // draw and display
     al_draw_bitmap(bkgImg, 0, 0, 0);
-    MY_ALGO_DrawCandyImgs(mainArray, row, col, candyImg);
+    //MY_ALGO_DrawCandyImgs(mainArray, row, col, candyImg);
     al_flip_display();
 
     while (finish != 1){
