@@ -334,3 +334,33 @@
 	<math.h>
 	"defineHeader.h"
 
+1607132431 source:c:\users\lu frank\documents\github\eeb512t4\project\array2dfunctionusingpointer.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+
+1607132432 source:c:\users\lu frank\documents\github\eeb512t4\project\myfunc.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	"defineHeader.h"
+
+1607132432 c:\users\lu frank\documents\github\eeb512t4\project\defineheader.h
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	<allegro5/allegro_native_dialog.h>
+
+1607132432 source:c:\users\lu frank\documents\github\eeb512t4\project\myfunc_alg.c
+	<stdio.h>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	<allegro5/allegro_native_dialog.h>
+
+1607141614 source:c:\users\lu frank\documents\github\eeb512t4\project\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"defineHeader.h"
+
