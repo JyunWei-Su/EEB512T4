@@ -9,7 +9,7 @@ Computer programming
 
 ### 12/06
 - [X] 遊戲畫面1600*900
-- [ ] 標題，icon(遊戲部分，不含選單)
+- [X] 標題，icon(遊戲部分，不含選單)
 - [ ] 人物移動(鍵盤控制)
 - [ ] 聲音
 - [ ] timer/event/loop
