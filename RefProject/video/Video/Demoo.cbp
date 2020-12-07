@@ -111,6 +111,9 @@
 			<Add library="libadvapi32.a" />
 			<Add directory="D:/project/allergo/allegro-x86_64-w64-mingw32-gcc-8.2.1-posix-seh-static-5.2.5.1/lib" />
 		</Linker>
+		<Unit filename="func.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
