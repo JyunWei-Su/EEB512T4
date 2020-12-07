@@ -20,6 +20,7 @@ int main(){
     ALLEGRO_DISPLAY *display = NULL;  //display
     ALLEGRO_BITMAP *bkgImg = NULL;    //back ground Img
     ALLEGRO_BITMAP **candyImg = NULL; //candy Imgs: candyImg[n]
+    ALLEGRO_BITMAP *icoImg = NULL;    //icon Img
     ALLEGRO_EVENT_QUEUE *event_queue = NULL; //拿來存事件 #1 (目前用於視窗X叉叉)
     ALLEGRO_EVENT event;                     //拿來存事件 #2 (目前用於視窗X叉叉)
     ALLEGRO_KEYBOARD_STATE keyboard_state;
@@ -33,12 +34,14 @@ int main(){
     if(!event_queue) MY_ALGO_ErrMsg("Allegro5", "EVENT QUEUE HAS FAILED TO BE CREATED");
 
     /* Load bitmap(image) */
+    icoImg = al_load_bitmap("./img/icon.tga");
     bkgImg = al_load_bitmap("./img/back900.png");
     candyImg = MY_ALGO_CreateCandyImgs(FillRange);
     MY_ALGO_LoadCandyImgs(candyImg, FillRange); //candy 0 's img is candyImg[0] ext...
 
     /* window title */
     al_set_window_title(display,"our game");
+    al_set_display_icon(display, icoImg);
 
     /*執行主要function*/
     srand(time(0));
@@ -51,6 +54,18 @@ int main(){
     //MY_ALGO_DrawCandyImgs(mainArray, row, col, candyImg);
     al_flip_display();
 
+    int x = 0,y = 0 ,i ;
+
+    for(i = 0; x > -3200 ; i--)
+    {
+        al_draw_bitmap(bkgImg, x, y, 0); // Draw bitmap
+        al_flip_display(); // Flip display to show the drawing result
+        al_rest(0.01); // Delay
+        x = x - 1;
+        al_clear_to_color(al_map_rgb(0, 0, 0)); // Clear display
+    }
+
+
     while (finish != 1){
         al_get_keyboard_state(&keyboard_state); // Save the state of the keyboard specified at the time
         if(al_wait_for_event_timed(event_queue, &event, 0.1)) printf("-----#####-----\n"); //偵測活動(可偵測視窗X叉叉)
@@ -58,6 +73,7 @@ int main(){
         if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) finish = 1; //檢查-視窗X叉叉
         if (event.type == ALLEGRO_EVENT_DISPLAY_SWITCH_IN) al_flip_display(); //修正視窗縮小後重新開啟東西會不見
         al_rest(0.01); // Delay
+        al_flip_display();
     }
 
     /* Cleanup, Free Dynamic Memory */
