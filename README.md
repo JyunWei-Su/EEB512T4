@@ -40,3 +40,4 @@ set fenc=utf8 "fileencoding
 set fencs=utf8,taiwan,chinese,ucs-bom,default,latin1 "fileencodings
 set termencoding=big5
 ```
+麥克風測試麥克風測試麥克風測試麥克風測試麥克風測試麥克風測試麥克風測試麥克風測試麥克風測試麥克風測試
