@@ -17,9 +17,11 @@ Computer programming
 ### 12/07~12/09
 - [ ] 12/6部分整合
 - [ ] 更新進度
+- [ ] 更新個人github頭貼
 
-### 12/14
+### 12/13
 - [ ] 物件設定(金幣、跟班、障礙)
+- [ ] 個人作業
 
 ### 12/21
 - [ ] 碰撞設定、分數計分、其他調教
@@ -40,4 +42,3 @@ set fenc=utf8 "fileencoding
 set fencs=utf8,taiwan,chinese,ucs-bom,default,latin1 "fileencodings
 set termencoding=big5
 ```
-麥克風測試麥克風測試麥克風測試麥克風測試麥克風測試麥克風測試麥克風測試麥克風測試麥克風測試麥克風測試
