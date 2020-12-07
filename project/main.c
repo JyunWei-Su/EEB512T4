@@ -4,11 +4,18 @@
 #include <time.h>
 #include "defineHeader.h"
 
+void allegroDriverInit();
+
 int main(){
     int finish = 0;
     int row = 9, col = 9;
     int **mainArray;
-    int test = 0;
+    /* 1207 範例合併 All the multimedia */
+    //Resource res; //這行不知道要幹嘛
+    //Match match;
+    //Ball* ballPtr = &match.ball;
+    //Paddle* paddlePtr = &match.paddle;
+    //Player* players = match.players;
 
     ALLEGRO_DISPLAY *display = NULL;  //display
     ALLEGRO_BITMAP *bkgImg = NULL;    //back ground Img
@@ -18,10 +25,7 @@ int main(){
     ALLEGRO_KEYBOARD_STATE keyboard_state;
 
     /* Initialize Allegro */
-    al_init();
-    al_install_keyboard();
-    al_init_image_addon();
-
+    allegroDriverInit();
 
     display = al_create_display(DISPLAY_WIDTH, DISPLAY_HEIGHT); // Create allegro display
     event_queue = al_create_event_queue(); // Create allegro enevt detector #1
