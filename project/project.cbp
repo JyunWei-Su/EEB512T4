@@ -76,7 +76,6 @@
 		</Unit>
 		<Unit filename="RefInfo.md" />
 		<Unit filename="defineHeader.h" />
-		<Unit filename="img/back900.png" />
 		<Unit filename="img/bkg.png" />
 		<Unit filename="img/candy.png" />
 		<Unit filename="img/candy0.png" />
@@ -85,6 +84,10 @@
 		<Unit filename="img/candy3.png" />
 		<Unit filename="img/candy4.png" />
 		<Unit filename="img/candy5.png" />
+		<Unit filename="img/music_icon/loudspeaker.jpg" />
+		<Unit filename="img/music_icon/minus.png" />
+		<Unit filename="img/music_icon/nosound.jpg" />
+		<Unit filename="img/music_icon/plus.png" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -92,6 +95,34 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="myFunc_alg.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="own/func_BYK.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="own/func_HYH.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="own/func_IRL.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="own/func_JWS.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="own/header_BYK.h" />
+		<Unit filename="own/header_HYH.h" />
+		<Unit filename="own/header_IRL.h" />
+		<Unit filename="own/header_JWS.h" />
+		<Unit filename="own/mthd_BYK.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="own/mthd_HYH.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="own/mthd_IRL.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="own/mthd_JWS.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>
