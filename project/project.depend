@@ -4,7 +4,7 @@
 	<stdlib.h>
 	<math.h>
 
-1606981737 source:c:\users\jyun-wei\documents\github\eeb512t4\project\main.c
+1607324189 source:c:\users\jyun-wei\documents\github\eeb512t4\project\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -316,16 +316,20 @@
 	<allegro5/allegro_image.h>
 	<allegro5/allegro_native_dialog.h>
 
-1606983498 c:\users\jyun-wei\documents\github\eeb512t4\project\defineheader.h
+1607324130 c:\users\jyun-wei\documents\github\eeb512t4\project\defineheader.h
 	<allegro5/allegro.h>
 	<allegro5/allegro_image.h>
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_acodec.h>
+	<allegro5/allegro_ttf.h>
+	<allegro5/allegro_font.h>
 	<allegro5/allegro_native_dialog.h>
+	<allegro5/allegro.h>
+	<allegro5/allegro_audio.h>
 
-1605959119 source:c:\users\jyun-wei\documents\github\eeb512t4\project\myfunc_alg.c
+1607324130 source:c:\users\jyun-wei\documents\github\eeb512t4\project\myfunc_alg.c
 	<stdio.h>
-	<allegro5/allegro.h>
-	<allegro5/allegro_image.h>
-	<allegro5/allegro_native_dialog.h>
+	"defineHeader.h"
 
 1606981749 source:c:\users\jyun-wei\documents\github\eeb512t4\project\myfunc.c
 	<stdio.h>
@@ -363,4 +367,34 @@
 	<string.h>
 	<time.h>
 	"defineHeader.h"
+
+1553403849 c:\api\allegro\include\allegro5\allegro_audio.h
+	"allegro5/allegro.h"
+
+1553403849 c:\api\allegro\include\allegro5\allegro_acodec.h
+	"allegro5/allegro.h"
+	"allegro5/allegro_audio.h"
+
+1553403848 c:\api\allegro\include\allegro5\allegro_ttf.h
+	"allegro5/allegro.h"
+	"allegro5/allegro_font.h"
+
+1553403849 c:\api\allegro\include\allegro5\allegro_font.h
+	"allegro5/allegro.h"
+
+1607322100 source:c:\users\jyun-wei\documents\github\eeb512t4\project\own\func_byk.c
+
+1607322122 source:c:\users\jyun-wei\documents\github\eeb512t4\project\own\func_hyh.c
+
+1607322080 source:c:\users\jyun-wei\documents\github\eeb512t4\project\own\func_irl.c
+
+1607322019 source:c:\users\jyun-wei\documents\github\eeb512t4\project\own\func_jws.c
+
+1607322122 source:c:\users\jyun-wei\documents\github\eeb512t4\project\own\mthd_byk.c
+
+1607322100 source:c:\users\jyun-wei\documents\github\eeb512t4\project\own\mthd_hyh.c
+
+1607322080 source:c:\users\jyun-wei\documents\github\eeb512t4\project\own\mthd_irl.c
+
+1607322019 source:c:\users\jyun-wei\documents\github\eeb512t4\project\own\mthd_jws.c
 
