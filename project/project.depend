@@ -4,7 +4,7 @@
 	<stdlib.h>
 	<math.h>
 
-1607324189 source:c:\users\jyun-wei\documents\github\eeb512t4\project\main.c
+1607325109 source:c:\users\jyun-wei\documents\github\eeb512t4\project\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -361,6 +361,8 @@
 	<allegro5/allegro_image.h>
 	<allegro5/allegro_native_dialog.h>
 
+1607146240 D
+
 1607146240 source:c:\users\lu frank\documents\github\eeb512t4\project\main.c
 	<stdio.h>
 	<stdlib.h>
@@ -397,4 +399,8 @@
 1607322080 source:c:\users\jyun-wei\documents\github\eeb512t4\project\own\mthd_irl.c
 
 1607322019 source:c:\users\jyun-wei\documents\github\eeb512t4\project\own\mthd_jws.c
+
+1607322019 n
+
+1607322019 elop
 
