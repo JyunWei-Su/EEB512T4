@@ -4,7 +4,7 @@
 	<stdlib.h>
 	<math.h>
 
-1606981737 source:c:\users\jyun-wei\documents\github\eeb512t4\project\main.c
+1607320413 source:c:\users\jyun-wei\documents\github\eeb512t4\project\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -316,7 +316,7 @@
 	<allegro5/allegro_image.h>
 	<allegro5/allegro_native_dialog.h>
 
-1606983498 c:\users\jyun-wei\documents\github\eeb512t4\project\defineheader.h
+1606985365 c:\users\jyun-wei\documents\github\eeb512t4\project\defineheader.h
 	<allegro5/allegro.h>
 	<allegro5/allegro_image.h>
 	<allegro5/allegro_native_dialog.h>
