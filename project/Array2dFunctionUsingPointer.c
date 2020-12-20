@@ -18,7 +18,7 @@ int *CreateIntArray1d(int col)
 // input col
 // output a pointer to 2D mat[row][col]
 {
-    int *addr = (int *) calloc(col, sizeof(int));
+    int *addr = (int *)calloc(col, sizeof(int));
     return addr;
 }
 
@@ -27,7 +27,7 @@ int **CreateIntArray2d(int row, int col)
 // output a pointer to 2D mat[row][col]
 {
     int **addr = (int **) calloc(row, sizeof(int *));
-    int i=0, j=0;
+    int i=0;
     for(i=0; i<row; i++){
         // Allocate array, store pointer
         addr[i] = (int *) calloc(col, sizeof(int));
@@ -63,6 +63,28 @@ int **CreateAndRandIntArray2d(int row, int col, int fillStart, int fillInterval)
     return addr;
 }
 
+void RandIntArray2d(int **src, int row, int col, int fillStart, int fillInterval)
+//printf a 2d array
+{
+    int i=0, j=0;
+    for(i=0; i<row; i++){
+        for(j=0; j<col; j++){
+            src[i][j] = (int)(rand()%fillInterval + fillStart);
+       }
+    }
+}
+
+void ClearIntArray2d(int **src, int row, int col)
+//clear a 2d array to 0
+{
+    int i=0, j=0;
+    for(i=0; i<row; i++){
+        for(j=0; j<col; j++){
+            src[i][j] = 0;
+       }
+    }
+}
+
 void FreeArray2d(int **addr, int row)
 {
     int i=0;
@@ -76,19 +98,19 @@ void FreeArray1d(int *addr)
     free(addr);
 }
 
-void PrintIntArray2d(int **src, int row, int col, char *delimiter)
+void PrintIntArray2d(int **src, int row, int col, const char *delimiter)
 //print a 2d array
 {
     int i=0,j=0;
     for(i=0; i<row; i++){
         for(j=0; j<col; j++){
-            printf("%d%s", src[i][j]);
+            printf("%d%s", src[i][j], delimiter);
         }
         printf("\n");
     }
 }
 
-void PrintfIntArray2d(int **src, int row, int col, char *message, char *delimiter)
+void PrintfIntArray2d(int **src, int row, int col, char *message, const char *delimiter)
 //printf a 2d array
 {
     int i=0,j=0;
@@ -106,12 +128,12 @@ void PrintIntArray1d(int *src, int col, char *delimiter)
 {
     int i=0;
     for(i=0; i<col; i++){
-        printf("%d%s", src[i]);
+        printf("%d%s", src[i], delimiter);
     }
     printf("\n");
 }
 
-void PrintfIntArray1d(int *src, int col, char *message, char *delimiter)
+void PrintfIntArray1d(int *src, int col, char *message, const char *delimiter)
 //printf a 1d array
 {
     int i=0;
@@ -202,21 +224,7 @@ int  **mat_multAB(int **a, int **b, int m, int n) //相乘
 */
 
 
-/* //以下尚未轉為pointer形式
-void CopyIntArray2d(int row, int col, int src[][col], int dst[][col])
-// 功能  : 將 int array src 複製到 char array dst
-// input : src:來源array ; dst:目的地array ; size:array大小 ; 建議src和dst大小要一樣
-// output: No Ouput, No Return, 只將src複製到dst
-{
-    int i, j;
-    for(i = 0; i < row; i++){
-        for(j = 0; i < col; j++){
-            dst[i][j] = src[i][j];
-        }
-    }
-}
-
-int MaxMinIntArray2d(int row, int col, int src[][col], int select)
+int MaxMinIntArray2d(int **src, int row, int col, int select)
 // 功能  : 找出一整數陣列最大值
 // input : 一整數陣列、元素個數、選擇最大(1)或最小(-1)
 // output: x中最大最小的數
@@ -238,6 +246,20 @@ int MaxMinIntArray2d(int row, int col, int src[][col], int select)
     }
     else ans = 0;
     return ans;
+}
+
+/* //以下尚未轉為pointer形式
+void CopyIntArray2d(int row, int col, int src[][col], int dst[][col])
+// 功能  : 將 int array src 複製到 char array dst
+// input : src:來源array ; dst:目的地array ; size:array大小 ; 建議src和dst大小要一樣
+// output: No Ouput, No Return, 只將src複製到dst
+{
+    int i, j;
+    for(i = 0; i < row; i++){
+        for(j = 0; i < col; j++){
+            dst[i][j] = src[i][j];
+        }
+    }
 }
 
 int SumIntArray2d(int row, int col, int src[][col])

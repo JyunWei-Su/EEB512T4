@@ -1,3 +1,8 @@
+#include "own/header_BYK.h"
+#include "own/header_HYH.h"
+#include "own/header_IRL.h"
+#include "own/header_JWS.h"
+
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h> //圖形
 #include <allegro5/allegro_audio.h>
@@ -12,6 +17,7 @@
 #define DefaultCol 9
 #define FillRange 6
 /* Definition of display size */
+#define FPS 60
 #define DISPLAY_WIDTH   1600
 #define DISPLAY_HEIGHT  900
 #define nl printf("\n")

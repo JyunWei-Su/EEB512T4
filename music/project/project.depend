@@ -402,3 +402,34 @@
 1607183856 source:c:\users\user\desktop\project\musicfunction.c
 	"defineHeader.h"
 
+1607326352 source:c:\users\jyun-wei\documents\github\eeb512t4\music\project\array2dfunctionusingpointer.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+
+1607326352 source:c:\users\jyun-wei\documents\github\eeb512t4\music\project\main.c
+	"defineHeader.h"
+
+1607326352 c:\users\jyun-wei\documents\github\eeb512t4\music\project\defineheader.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	<allegro5/allegro_native_dialog.h>
+	<allegro5/allegro_acodec.h>
+	<allegro5/allegro_audio.h>
+
+1607326352 source:c:\users\jyun-wei\documents\github\eeb512t4\music\project\musicfunction.c
+	"defineHeader.h"
+
+1607326353 source:c:\users\jyun-wei\documents\github\eeb512t4\music\project\myfunc.c
+	"defineHeader.h"
+
+1607326353 source:c:\users\jyun-wei\documents\github\eeb512t4\music\project\myfunc_alg.c
+	<stdio.h>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	<allegro5/allegro_native_dialog.h>
+
