@@ -1,5 +1,5 @@
-#include "header_HYH.h"
-#include "defineHeader.h"
+#include "../own/header_HYH.h"
+#include "../defineHeader.h"
 
 void allegro_init()
 {
