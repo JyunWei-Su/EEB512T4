@@ -4,16 +4,12 @@
 	<stdlib.h>
 	<math.h>
 
-1608476980 source:c:\users\jyun-wei\documents\github\eeb512t4\project\main.c
+1608478111 source:c:\users\jyun-wei\documents\github\eeb512t4\project\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"defineHeader.h"
-	"own/header_BYK.h"
-	"own/header_HYH.h"
-	"own/header_IRL.h"
-	"own/header_JWS.h"
 
 1605959204 c:\users\jyun-wei\documents\github\eeb512t4\project\myheader1116.h
 	<allegro5/allegro.h>
@@ -394,7 +390,9 @@
 
 1607326353 source:c:\users\jyun-wei\documents\github\eeb512t4\project\own\func_byk.c
 
-1607326353 source:c:\users\jyun-wei\documents\github\eeb512t4\project\own\func_hyh.c
+1608529112 source:c:\users\jyun-wei\documents\github\eeb512t4\project\own\func_hyh.c
+	"../own/header_HYH.h"
+	"../defineHeader.h"
 
 1607326353 source:c:\users\jyun-wei\documents\github\eeb512t4\project\own\func_irl.c
 
@@ -416,7 +414,16 @@
 
 1607326353 c:\users\jyun-wei\documents\github\eeb512t4\project\own\header_byk.h
 
-1607326353 c:\users\jyun-wei\documents\github\eeb512t4\project\own\header_hyh.h
+1608528886 c:\users\jyun-wei\documents\github\eeb512t4\project\own\header_hyh.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	<allegro5/allegro_native_dialog.h>
+	<allegro5/allegro_acodec.h>
+	<allegro5/allegro_audio.h>
 
 1607326353 c:\users\jyun-wei\documents\github\eeb512t4\project\own\header_irl.h
 
