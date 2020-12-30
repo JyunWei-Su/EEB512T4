@@ -75,6 +75,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="RefInfo.md" />
+		<Unit filename="TeamWork.md" />
 		<Unit filename="defineHeader.h" />
 		<Unit filename="img/bkg.png" />
 		<Unit filename="img/candy.png" />
