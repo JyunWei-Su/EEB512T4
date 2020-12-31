@@ -81,10 +81,15 @@
 		<Unit filename="function_check.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="function_check.h" />
 		<Unit filename="function_draw.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="function_draw.h" />
+		<Unit filename="function_sound.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="function_sound.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
