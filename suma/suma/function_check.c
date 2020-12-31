@@ -1,4 +1,4 @@
-//#include "function_check.h"
+#include "function_check.h"
 #include "defineHeader.h"
 #include "resource.h"
 
@@ -11,7 +11,7 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmSt
         while(al_get_next_event(allegroObj->event_queue, &allegroObj->events))
         {
             if(mainData->game_state == GAME_FINISH) break;
-            switch(allegroObj->events.type)//用->還是.
+            switch(allegroObj->events.type)
             {
             case ALLEGRO_EVENT_DISPLAY_CLOSE:
                 //result = MY_ALGO_Y_N_Msg("Notice", "Shutdown This Game?\nYou can press Q or Esc to return to MENU.");
@@ -25,6 +25,7 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmSt
                 //}
                 break;
             case ALLEGRO_EVENT_MOUSE_AXES:
+                dbp;
                 CheckMouseMove(mainData, allegroObj, layoutParm);
                 mainData->mouse.x = allegroObj->events.mouse.x;
                 mainData->mouse.y = allegroObj->events.mouse.y;
@@ -47,7 +48,7 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmSt
                 break;
             case ALLEGRO_EVENT_TIMER:
                 printf("%d\n", mainData->game_state);
-                //PlaySoundEffect(mainData, allegroObj);
+                PlaySoundEffect(mainData, allegroObj);
                 ParameterOperate(mainData, allegroObj, layoutParm);
                 //CheckGameState(mainData, allegroObj, layoutParm);
                 DrawDisplayAndFlip(mainData, allegroObj, layoutParm);
