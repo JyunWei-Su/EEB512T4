@@ -11,6 +11,6 @@ void DrawModeSelect(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutPa
 void DrawRule(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm);
 void DrawRank(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm);
 void DrawAbout(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm);
-
+void DrawScoreboard(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm);
 
 #endif //_FUNCTION_DRAW_H_

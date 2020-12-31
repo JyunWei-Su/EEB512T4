@@ -27,6 +27,12 @@ void DrawMenu(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut
     al_draw_textf(allegroObj->font_a.font24, COLOR_SCORE, DISPLAY_WIDTH, DISPLAY_HEIGHT-al_get_font_ascent(allegroObj->font_a.font24), ALLEGRO_ALIGN_RIGHT, "Ver:000");
 }
 
+void DrawScoreboard(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
+{
+    al_draw_bitmap(allegroObj->coins.img, allegroObj->coins.start_x, allegroObj->coins.start_y, 0);
+    al_draw_textf(allegroObj->font_a.font48, COLOR_SCORE, DISPLAY_WIDTH/2, 0, ALLEGRO_ALIGN_CENTER, "chars%d", mainData->score.chars);
+}
+
 void DrawModeButton(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
 {
     int i;
@@ -113,11 +119,14 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj, Layo
         DrawAbout(mainData, allegroObj, layoutParm);
         break;
     case GAME_PLAYING:
+
         if(allegroObj->background.x < DISPLAY_WIDTH - SIZE_IMG_BKG_WIDTH)
         {
             al_draw_bitmap(allegroObj->background.Img, allegroObj->background.x + SIZE_IMG_BKG_WIDTH, 0, 0); // Draw bitmap
         }
         al_draw_bitmap(allegroObj->background.Img, allegroObj->background.x, 0, 0); // Draw bitmap
+
+        DrawScoreboard(mainData, allegroObj, layoutParm);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
     case GAME_NONE:
         break;

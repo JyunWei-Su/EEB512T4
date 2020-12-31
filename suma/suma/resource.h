@@ -19,6 +19,7 @@
 
 #define PATH_IMG_BKG "./img/back900.png"
 #define PATH_IMG_ICON "./img/icon.tga"
+#define PATH_IMG_COIN "./img/coin.png"
 #define PATH_IMG_MENU_BUTTON "./img/menuButton.png"
 #define PATH_IMG_MODE_BUTTON "./img/menuButton.png"
 #define PATH_IMG_HOME_BUTTON_1 "./img/homeButton_1.png"
@@ -36,6 +37,8 @@
 
 #define SIZE_IMG_BKG_WIDTH 4800
 #define SIZE_IMG_BKG_HEIGHT 900
+#define SIZE_IMG_COIN_WIDTH 64
+#define SIZE_IMG_COIN_HEIGHT 64
 #define SIZE_IMG_MENU_BUTTON_WIDTH 480
 #define SIZE_IMG_MENU_BUTTON_HEIGHT 90
 #define SIZE_IMG_MODE_BUTTON_WIDTH 480
@@ -84,6 +87,12 @@ typedef struct ScoreDataStut{
     RowStut temp;
 } ScoreDataStut;
 
+typedef struct ScoreStut{
+    int chars;
+    int coins;
+    int score;
+} ScoreStut;
+
 typedef struct ButtonStut{
     float start_x, start_y;
     float end_x, end_y;
@@ -92,6 +101,11 @@ typedef struct ButtonStut{
     ALLEGRO_BITMAP *img;
     ALLEGRO_BITMAP *img2;
 } ButtonStut;
+
+typedef struct ScoreboardStut{
+    float start_x, start_y;
+    ALLEGRO_BITMAP *img;
+} ScoreboardStut;
 
 typedef struct BackgroundStut{
     float x, y;
@@ -119,6 +133,9 @@ typedef struct AllegroObjStut{
     ALLEGRO_MIXER *mixer; // for sfx
     ALLEGRO_VOICE *voice;
 
+    ScoreboardStut chars;
+    ScoreboardStut coins;
+
     FontStut font_a;
     ButtonStut menuButton[NUM_MENU_BUTTON]; //初始介面選單
     ButtonStut modeButton[NUM_MODE_BUTTON]; //遊戲難度選單
@@ -142,6 +159,7 @@ typedef struct MainDataStut{
     int breakPoint;
     int game_mode; //遊戲模式
     MouseStut mouse;
+    ScoreStut score;
 } MainDataStut;
 
 /* AllegroObjStut Function*/
@@ -150,6 +168,7 @@ void AllegroDriverInit();
 void AllegroObjectInit(AllegroObjStut *allegroObj);
 void image_init(AllegroObjStut *allegroObj);
 void font_init(AllegroObjStut *allegroObj);
+void score_board_init(AllegroObjStut *allegroObj);
 void menu_button_init(AllegroObjStut *allegroObj);
 void home_button_init(AllegroObjStut *allegroObj);
 void mode_button_init(AllegroObjStut *allegroObj);

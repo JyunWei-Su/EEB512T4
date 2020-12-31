@@ -41,6 +41,7 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     menu_button_init(allegroObj);
     mode_button_init(allegroObj);
     home_button_init(allegroObj);
+    score_board_init(allegroObj);
 
     /*load Font*/
     //allegroObj->font_60 = al_load_font("DFT_TL9.TTC", 60, 0);
@@ -55,6 +56,16 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     //menu_init(allegroObj);
 
     //al_hide_mouse_cursor(allegroObj->display);
+}
+
+void score_board_init(AllegroObjStut *allegroObj)
+{
+    allegroObj->coins.img = al_load_bitmap( PATH_IMG_COIN);
+    allegroObj->coins.start_x = 0;
+    allegroObj->coins.start_y = 0;
+    allegroObj->chars.img = al_load_bitmap( PATH_IMG_COIN);
+    allegroObj->chars.start_x = 150; //修正
+    allegroObj->chars.start_y = 0;
 }
 
 void font_init(AllegroObjStut *allegroObj)
