@@ -33,7 +33,7 @@ JWS 蘇浚緯 b1085151@mail.nuk.edu.tw 0958398969
 ### 待整理、分配
 - [ ] .c .h整理
 - [ ] 檔案資料夾整理
-- [ ] 聲音、音效挑選
+- [ ] 聲音、音效挑選 [連結](https://taira-komori.jpn.org/freesoundtw.html)
 - [ ] 腳色人物動畫
 
 
