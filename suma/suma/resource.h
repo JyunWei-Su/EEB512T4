@@ -25,6 +25,7 @@
 #define PATH_IMG_HOME_BUTTON_1 "./img/homeButton_1.png"
 #define PATH_IMG_HOME_BUTTON_2 "./img/homeButton_2.png"
 #define PATH_FNT_DFT "./DFT_TL9.TTC"
+#define PATH_SFX_BACKGROUND "./sfx/bkg.wav"
 #define PATH_FILE_SCORE "user.score"
 #define PATH_FONT_HIMAJI "./font/KFhimajiFACE.otf"
 
@@ -52,6 +53,7 @@
 #define SCORE_DATA 10 //rank 資料筆數
 #define NUM_MENU_BUTTON 4
 #define NUM_MODE_BUTTON 3
+#define NUM_SAMPLES 3 //聲音數量
 #define SCALE_MENU_BUTTON 1.2
 #define SCALE_MODE_BUTTON 1.2
 #define OFFSET_MENU 1.5
@@ -121,6 +123,15 @@ typedef struct FontStut{
     ALLEGRO_FONT *font120;
 } FontStut;
 
+typedef struct SoundStut{
+    ALLEGRO_MIXER *mixer; // for sfx
+    ALLEGRO_VOICE *voice;
+
+    ALLEGRO_SAMPLE *sfx_background;  /* pointer to sound file */
+    ALLEGRO_SAMPLE_INSTANCE *sfi_background; //https://www.allegro.cc/forums/thread/611901
+
+} SoundStut;
+
 typedef struct AllegroObjStut{
     ALLEGRO_DISPLAY *display;  //display
     ALLEGRO_BITMAP *iconImg;    //ICON Img
@@ -130,13 +141,12 @@ typedef struct AllegroObjStut{
 
     ALLEGRO_EVENT events;                     //拿來存事件 #2 (目前用於視窗X叉叉)
     ALLEGRO_TIMER *timer;
-    ALLEGRO_MIXER *mixer; // for sfx
-    ALLEGRO_VOICE *voice;
 
     ScoreboardStut chars;
     ScoreboardStut coins;
 
     FontStut font_a;
+    SoundStut sound;
     ButtonStut menuButton[NUM_MENU_BUTTON]; //初始介面選單
     ButtonStut modeButton[NUM_MODE_BUTTON]; //遊戲難度選單
     ButtonStut homeButton;
@@ -172,6 +182,7 @@ void score_board_init(AllegroObjStut *allegroObj);
 void menu_button_init(AllegroObjStut *allegroObj);
 void home_button_init(AllegroObjStut *allegroObj);
 void mode_button_init(AllegroObjStut *allegroObj);
+void sound_init(AllegroObjStut *allegroObj);
 /* MainDataStut Function*/
 MainDataStut *ClocMainData();
 void MainDataInit(MainDataStut *mainData);
@@ -189,23 +200,6 @@ void LayoutParmInit(LayoutParmStut *layoutParm);
     //ALLEGRO_BITMAP *handImg; //main layout img
     //ALLEGRO_BITMAP *candyBkgImg; //main layout img
     //ALLEGRO_BITMAP **candyImgs; //candy Imgs: candyImg[n]
-        //int elmtStep; //消除的時候使用(消除的過程總共拆為TIME_ELMT*FPS步)
-    //int elmtStepTotal; //TIME_ELMT*FPS
-    //int dropStep;
-    //int dropMax;
-    //int dropStepTotal;
-    //int scoreStep; //顯示分數的時候使用(消除的過程總共拆為TIME_SCORE*FPS步)
-    //int scoreStepTotal; //TIME_SCORE*FPS
-
-        //ALLEGRO_SAMPLE *sfx_elmt;       /* pointer to sound file */
-    //ALLEGRO_SAMPLE *sfx_drop;       /* pointer to sound file */
-    //ALLEGRO_SAMPLE *sfx_bkg;  /* pointer to sound file */
-    //ALLEGRO_SAMPLE_INSTANCE *sfi_elmt; //https://www.allegro.cc/forums/thread/611901
-    //ALLEGRO_SAMPLE_INSTANCE *sfi_drop;
-    //ALLEGRO_SAMPLE_INSTANCE *sfi_bkg;
-
-    //ALLEGRO_FONT *font_60;
-    //ALLEGRO_FONT *font_24;
 
     //ALLEGRO_MENU *menu; //待整併
     //LLEGRO_MENU *menu_1; //待整併

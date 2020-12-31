@@ -7,6 +7,7 @@
 #include "own/header_JWS.h"
 #include "resource.h"
 #include "function_draw.h"
+#include "function_sound.h"
 
 /* Definition of display size */
 #define FPS 60

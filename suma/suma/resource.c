@@ -38,6 +38,7 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     /*Load bitmap(image) */
     image_init(allegroObj);
     font_init(allegroObj);
+    sound_init(allegroObj);
     menu_button_init(allegroObj);
     mode_button_init(allegroObj);
     home_button_init(allegroObj);
@@ -56,6 +57,19 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     //menu_init(allegroObj);
 
     //al_hide_mouse_cursor(allegroObj->display);
+}
+
+void sound_init(AllegroObjStut *allegroObj)
+{
+    al_reserve_samples( NUM_SAMPLES );
+    allegroObj->sound.sfx_background = al_load_sample( PATH_SFX_BACKGROUND );
+    allegroObj->sound.sfi_background = al_create_sample_instance(allegroObj->sound.sfx_background);
+    //創建聲音輸出buffer
+    allegroObj->sound.mixer = al_get_default_mixer();
+    //創建聲音輸出連接口
+    allegroObj->sound.voice = al_get_default_voice();
+    al_attach_sample_instance_to_mixer(allegroObj->sound.sfi_background, allegroObj->sound.mixer);//將聲音物件link buffer
+    al_attach_mixer_to_voice(allegroObj->sound.mixer, allegroObj->sound.voice); //將buffer link 輸出連接口
 }
 
 void score_board_init(AllegroObjStut *allegroObj)

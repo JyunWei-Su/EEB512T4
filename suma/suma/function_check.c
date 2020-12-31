@@ -47,7 +47,7 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmSt
                 break;
             case ALLEGRO_EVENT_TIMER:
                 printf("%d\n", mainData->game_state);
-                //PlaySoundEffect(mainData, allegroObj);
+                PlaySoundEffect(mainData, allegroObj);
                 ParameterOperate(mainData, allegroObj, layoutParm);
                 //CheckGameState(mainData, allegroObj, layoutParm);
                 DrawDisplayAndFlip(mainData, allegroObj, layoutParm);
