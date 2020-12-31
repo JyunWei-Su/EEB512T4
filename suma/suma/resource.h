@@ -20,6 +20,7 @@
 #define PATH_IMG_BKG "./img/back900.png"
 #define PATH_IMG_ICON "./img/icon.tga"
 #define PATH_IMG_COIN "./img/coin.png"
+#define PATH_IMG_CHAR "./img/char.png"
 #define PATH_IMG_MENU_BUTTON "./img/menuButton.png"
 #define PATH_IMG_MODE_BUTTON "./img/menuButton.png"
 #define PATH_IMG_HOME_BUTTON_1 "./img/homeButton_1.png"
@@ -38,8 +39,8 @@
 
 #define SIZE_IMG_BKG_WIDTH 4800
 #define SIZE_IMG_BKG_HEIGHT 900
-#define SIZE_IMG_COIN_WIDTH 64
-#define SIZE_IMG_COIN_HEIGHT 64
+#define SIZE_IMG_SCOREBOARD_ICON_WIDTH 64
+#define SIZE_IMG_SCOREBOARD_ICON_HEIGHT 64
 #define SIZE_IMG_MENU_BUTTON_WIDTH 480
 #define SIZE_IMG_MENU_BUTTON_HEIGHT 90
 #define SIZE_IMG_MODE_BUTTON_WIDTH 480
@@ -58,6 +59,7 @@
 #define SCALE_MODE_BUTTON 1.2
 #define OFFSET_MENU 1.5
 #define OFFSET_MODE 1.5
+#define OFFSET_SCOREBOARD_TEXT 320
 
 #define FILE_EXIT_ID 1 //待整併
 
@@ -106,6 +108,7 @@ typedef struct ButtonStut{
 
 typedef struct ScoreboardStut{
     float start_x, start_y;
+    float end_x, end_y;
     ALLEGRO_BITMAP *img;
 } ScoreboardStut;
 
@@ -119,6 +122,7 @@ typedef struct FontStut{
     ALLEGRO_FONT *font24;
     ALLEGRO_FONT *font36;
     ALLEGRO_FONT *font48;
+    ALLEGRO_FONT *font64;
     ALLEGRO_FONT *font90;
     ALLEGRO_FONT *font120;
 } FontStut;
