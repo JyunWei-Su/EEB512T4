@@ -25,7 +25,6 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmSt
                 //}
                 break;
             case ALLEGRO_EVENT_MOUSE_AXES:
-                dbp;
                 CheckMouseMove(mainData, allegroObj, layoutParm);
                 mainData->mouse.x = allegroObj->events.mouse.x;
                 mainData->mouse.y = allegroObj->events.mouse.y;
@@ -40,7 +39,7 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmSt
                 mainData->mouse.isClick = 0;
                 CheckMouseClick(mainData, allegroObj, layoutParm);
                 break;
-            case ALLEGRO_EVENT_KEY_DOWN:
+            case ALLEGRO_EVENT_KEY_CHAR:
                 //CheckKeyboardDown(mainData, allegroObj);
                 break;
             case ALLEGRO_EVENT_DISPLAY_SWITCH_IN:
@@ -64,52 +63,73 @@ void CheckStateMenuSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj, 
 {
     int i;
     for(i = 0; i < NUM_MENU_BUTTON; i++)
+    {
+        if(allegroObj->menuButton[i].isSelected)
+        {
+            switch(i)
             {
-                if(allegroObj->menuButton[i].isSelected)
-                {
-                    switch(i)
-                    {
-                    case 0:
-                        mainData->game_state = GAME_MODE_SELECT;
-                        break;
-                    case 1:
-                        mainData->game_state = GAME_RULE;
-                        break;
-                    case 2:
-                        mainData->game_state = GAME_RANK;
-                        break;
-                    case 3:
-                        mainData->game_state = GAME_ABOUT;
-                        break;
-                    }
-                    allegroObj->menuButton[i].isSelected = 0; //切換狀態後要重設
-                }
+            case 0:
+                mainData->game_state = GAME_MODE_SELECT;
+                break;
+            case 1:
+                mainData->game_state = GAME_RULE;
+                break;
+            case 2:
+                mainData->game_state = GAME_RANK;
+                break;
+            case 3:
+                mainData->game_state = GAME_ABOUT;
+                break;
             }
+            allegroObj->menuButton[i].isSelected = 0; //切換狀態後要重設
+        }
+    }
+}
+
+void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    int state = mainData->game_state;
+    dbp;
+    switch(state)
+    {
+    case GAME_PLAYING:
+        switch(allegroObj->events.keyboard.keycode)
+        {
+        case ALLEGRO_KEY_W:
+
+            allegroObj->role.start_y -= 15;
+            Gravity(allegroObj);
+            break;
+        default:
+            break;
+        }
+
+    }
 }
 
 void CheckStateModeSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
 {
     int i;
     for(i = 0; i < NUM_MODE_BUTTON; i++)
+    {
+        if(allegroObj->modeButton[i].isSelected)
+        {
+            mainData->game_state = GAME_PLAYING;
+            switch(i)
             {
-                if(allegroObj->modeButton[i].isSelected)
-                {
-                    mainData->game_state = GAME_PLAYING;
-                    switch(i)
-                    {
-                    case 0:
-                        mainData->game_mode = MODE_EASY;
-                        break;
-                    case 1:
-                        mainData->game_mode = MODE_MEDIUM;
-                        break;
-                    case 2:
-                        mainData->game_mode = MODE_HARD;
-                        break;
-                    }
-                    allegroObj->modeButton[i].isSelected = 0; //切換狀態後要重設
-                }
+            case 0:
+                mainData->game_mode = MODE_EASY;
+                break;
+            case 1:
+                mainData->game_mode = MODE_MEDIUM;
+                break;
+            case 2:
+                mainData->game_mode = MODE_HARD;
+                break;
             }
+            allegroObj->modeButton[i].isSelected = 0; //切換狀態後要重設
+        }
+    }
 }
 
 void CheckMouseClick(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
@@ -129,25 +149,29 @@ void CheckMouseClick(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutP
             break;
         case GAME_MODE_SELECT:
             CheckStateModeSwitchTo(mainData, allegroObj, layoutParm);
-            if(allegroObj->homeButton.isSelected){
+            if(allegroObj->homeButton.isSelected)
+            {
                 mainData->game_state = GAME_MENU;
                 allegroObj->homeButton.isSelected = 0; //切換狀態後要重設
             }
             break;
         case GAME_RULE:
-            if(allegroObj->homeButton.isSelected){
+            if(allegroObj->homeButton.isSelected)
+            {
                 mainData->game_state = GAME_MENU;
                 allegroObj->homeButton.isSelected = 0; //切換狀態後要重設
             }
             break;
         case GAME_RANK:
-            if(allegroObj->homeButton.isSelected){
+            if(allegroObj->homeButton.isSelected)
+            {
                 mainData->game_state = GAME_MENU;
                 allegroObj->homeButton.isSelected = 0; //切換狀態後要重設
             }
             break;
         case GAME_ABOUT:
-            if(allegroObj->homeButton.isSelected){
+            if(allegroObj->homeButton.isSelected)
+            {
                 mainData->game_state = GAME_MENU;
                 allegroObj->homeButton.isSelected = 0; //切換狀態後要重設
             }
@@ -198,12 +222,12 @@ void CheckMouseMoveOnMenuButton(MainDataStut *mainData, AllegroObjStut *allegroO
 {
     int i;
     for(i = 0; i < NUM_MENU_BUTTON; i++)
-        {
-            if(allegroObj->menuButton[i].start_x <= mainData->mouse.x && mainData->mouse.x <= allegroObj->menuButton[i].end_x
-                    && allegroObj->menuButton[i].start_y <= mainData->mouse.y && mainData->mouse.y <= allegroObj->menuButton[i].end_y)
-                allegroObj->menuButton[i].isSelected = 1;
-            else
-                allegroObj->menuButton[i].isSelected = 0;
+    {
+        if(allegroObj->menuButton[i].start_x <= mainData->mouse.x && mainData->mouse.x <= allegroObj->menuButton[i].end_x
+                && allegroObj->menuButton[i].start_y <= mainData->mouse.y && mainData->mouse.y <= allegroObj->menuButton[i].end_y)
+            allegroObj->menuButton[i].isSelected = 1;
+        else
+            allegroObj->menuButton[i].isSelected = 0;
     }
 }
 
@@ -211,12 +235,12 @@ void CheckMouseMoveOnModeButton(MainDataStut *mainData, AllegroObjStut *allegroO
 {
     int i;
     for(i = 0; i < NUM_MODE_BUTTON; i++)
-        {
-            if(allegroObj->modeButton[i].start_x <= mainData->mouse.x && mainData->mouse.x <= allegroObj->modeButton[i].end_x
-                    && allegroObj->modeButton[i].start_y <= mainData->mouse.y && mainData->mouse.y <= allegroObj->modeButton[i].end_y)
-                allegroObj->modeButton[i].isSelected = 1;
-            else
-                allegroObj->modeButton[i].isSelected = 0;
+    {
+        if(allegroObj->modeButton[i].start_x <= mainData->mouse.x && mainData->mouse.x <= allegroObj->modeButton[i].end_x
+                && allegroObj->modeButton[i].start_y <= mainData->mouse.y && mainData->mouse.y <= allegroObj->modeButton[i].end_y)
+            allegroObj->modeButton[i].isSelected = 1;
+        else
+            allegroObj->modeButton[i].isSelected = 0;
     }
 }
 

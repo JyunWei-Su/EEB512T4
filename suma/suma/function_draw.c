@@ -60,10 +60,12 @@ void DrawModeButton(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutPa
 
 void DrawHomeButton(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
 {
-    if(allegroObj->homeButton.isSelected){
+    if(allegroObj->homeButton.isSelected)
+    {
         al_draw_bitmap(allegroObj->homeButton.img, allegroObj->homeButton.start_x, allegroObj->homeButton.start_y, 0);
     }
-    else{
+    else
+    {
         al_draw_bitmap(allegroObj->homeButton.img2, allegroObj->homeButton.start_x, allegroObj->homeButton.start_y, 0);
     }
 }
@@ -96,7 +98,12 @@ void DrawAbout(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStu
     al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "about");
     DrawHomeButton(mainData, allegroObj, layoutParm);
 }
-
+void DrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
+{
+    al_draw_bitmap(allegroObj->role.img, allegroObj->role.start_x, allegroObj->role.start_y, 0); // Draw bitmap
+    // al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "about");
+    //DrawHomeButton(mainData, allegroObj, layoutParm);
+}
 void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
 {
     int state = mainData->game_state;
@@ -127,7 +134,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj, Layo
             al_draw_bitmap(allegroObj->background.Img, allegroObj->background.x + SIZE_IMG_BKG_WIDTH, 0, 0); // Draw bitmap
         }
         al_draw_bitmap(allegroObj->background.Img, allegroObj->background.x, 0, 0); // Draw bitmap
-
+        DrawRole(mainData, allegroObj, layoutParm);
         DrawScoreboard(mainData, allegroObj, layoutParm);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
     case GAME_NONE:
