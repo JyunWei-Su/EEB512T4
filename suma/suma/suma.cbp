@@ -86,10 +86,17 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="function_draw.h" />
+		<Unit filename="function_operate.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="function_operate.h" />
 		<Unit filename="function_sound.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="function_sound.h" />
+		<Unit filename="icon.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -115,18 +122,6 @@
 		<Unit filename="own/header_HYH.h" />
 		<Unit filename="own/header_IRL.h" />
 		<Unit filename="own/header_JWS.h" />
-		<Unit filename="own/mthd_BYK.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="own/mthd_HYH.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="own/mthd_IRL.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="own/mthd_JWS.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="resource.c">
 			<Option compilerVar="CC" />
 		</Unit>

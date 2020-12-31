@@ -1,4 +1,3 @@
-#include "function_sound.h"
 #include "defineHeader.h"
 #include "resource.h"
 

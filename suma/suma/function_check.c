@@ -1,11 +1,10 @@
-#include "function_check.h"
 #include "defineHeader.h"
 #include "resource.h"
 
 
-void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
+void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    int result = 0;
+    //int result = 0;
     if(!al_is_event_queue_empty(allegroObj->event_queue))
     {
         while(al_get_next_event(allegroObj->event_queue, &allegroObj->events))
@@ -25,19 +24,19 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmSt
                 //}
                 break;
             case ALLEGRO_EVENT_MOUSE_AXES:
-                CheckMouseMove(mainData, allegroObj, layoutParm);
+                CheckMouseMove(mainData, allegroObj);
                 mainData->mouse.x = allegroObj->events.mouse.x;
                 mainData->mouse.y = allegroObj->events.mouse.y;
                 break;
             case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
                 if(!(allegroObj->events.mouse.button&1)) break; //不是按下左鍵就忽略
                 mainData->mouse.isClick = 1;
-                CheckMouseClick(mainData, allegroObj, layoutParm);
+                CheckMouseClick(mainData, allegroObj);
                 break;
             case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
                 if(!(allegroObj->events.mouse.button&1)) break; //不是按下左鍵就忽略
                 mainData->mouse.isClick = 0;
-                CheckMouseClick(mainData, allegroObj, layoutParm);
+                CheckMouseClick(mainData, allegroObj);
                 break;
             case ALLEGRO_EVENT_KEY_CHAR:
                 //CheckKeyboardDown(mainData, allegroObj);
@@ -48,9 +47,9 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmSt
             case ALLEGRO_EVENT_TIMER:
                 printf("%d\n", mainData->game_state);
                 PlaySoundEffect(mainData, allegroObj);
-                ParameterOperate(mainData, allegroObj, layoutParm);
-                //CheckGameState(mainData, allegroObj, layoutParm);
-                DrawDisplayAndFlip(mainData, allegroObj, layoutParm);
+                ParameterOperate(mainData, allegroObj);
+                //CheckGameState(mainData, allegroObj);
+                DrawDisplayAndFlip(mainData, allegroObj);
                 break;
             default:
                 break;
@@ -59,7 +58,7 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmSt
     }
 }
 
-void CheckStateMenuSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
+void CheckStateMenuSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int i;
     for(i = 0; i < NUM_MENU_BUTTON; i++)
@@ -107,7 +106,7 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
     }
 }
 
-void CheckStateModeSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
+void CheckStateModeSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int i;
     for(i = 0; i < NUM_MODE_BUTTON; i++)
@@ -132,10 +131,10 @@ void CheckStateModeSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj, 
     }
 }
 
-void CheckMouseClick(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
+void CheckMouseClick(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int state = mainData->game_state;
-    int i;
+    //int i;
     if(mainData->mouse.isClick == 1)  //按下
     {
 
@@ -145,10 +144,10 @@ void CheckMouseClick(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutP
         switch(state)
         {
         case GAME_MENU:
-            CheckStateMenuSwitchTo(mainData, allegroObj, layoutParm);
+            CheckStateMenuSwitchTo(mainData, allegroObj);
             break;
         case GAME_MODE_SELECT:
-            CheckStateModeSwitchTo(mainData, allegroObj, layoutParm);
+            CheckStateModeSwitchTo(mainData, allegroObj);
             if(allegroObj->homeButton.isSelected)
             {
                 mainData->game_state = GAME_MENU;
@@ -183,33 +182,33 @@ void CheckMouseClick(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutP
 
 }
 
-void CheckMouseMove(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
+void CheckMouseMove(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int state = mainData->game_state;
     switch(state)
     {
     case GAME_MENU:
-        CheckMouseMoveOnMenuButton(mainData, allegroObj, layoutParm);
+        CheckMouseMoveOnMenuButton(mainData, allegroObj);
         break;
     case GAME_MODE_SELECT:
-        CheckMouseMoveOnModeButton(mainData, allegroObj, layoutParm);
-        CheckMouseMoveOnHomeButton(mainData, allegroObj, layoutParm);
+        CheckMouseMoveOnModeButton(mainData, allegroObj);
+        CheckMouseMoveOnHomeButton(mainData, allegroObj);
         break;
     case GAME_RULE:
-        CheckMouseMoveOnHomeButton(mainData, allegroObj, layoutParm);
+        CheckMouseMoveOnHomeButton(mainData, allegroObj);
         break;
     case GAME_RANK:
-        CheckMouseMoveOnHomeButton(mainData, allegroObj, layoutParm);
+        CheckMouseMoveOnHomeButton(mainData, allegroObj);
         break;
     case GAME_ABOUT:
-        CheckMouseMoveOnHomeButton(mainData, allegroObj, layoutParm);
+        CheckMouseMoveOnHomeButton(mainData, allegroObj);
         break;
     default:
         break;
     }
 }
 
-void CheckMouseMoveOnHomeButton(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
+void CheckMouseMoveOnHomeButton(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     if(allegroObj->homeButton.start_x <= mainData->mouse.x && mainData->mouse.x <= allegroObj->homeButton.end_x
             && allegroObj->homeButton.start_y <= mainData->mouse.y && mainData->mouse.y <= allegroObj->homeButton.end_y)
@@ -218,7 +217,7 @@ void CheckMouseMoveOnHomeButton(MainDataStut *mainData, AllegroObjStut *allegroO
         allegroObj->homeButton.isSelected = 0;
 }
 
-void CheckMouseMoveOnMenuButton(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
+void CheckMouseMoveOnMenuButton(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int i;
     for(i = 0; i < NUM_MENU_BUTTON; i++)
@@ -231,7 +230,7 @@ void CheckMouseMoveOnMenuButton(MainDataStut *mainData, AllegroObjStut *allegroO
     }
 }
 
-void CheckMouseMoveOnModeButton(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
+void CheckMouseMoveOnModeButton(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int i;
     for(i = 0; i < NUM_MODE_BUTTON; i++)
@@ -244,21 +243,21 @@ void CheckMouseMoveOnModeButton(MainDataStut *mainData, AllegroObjStut *allegroO
     }
 }
 
-void CheckGameState(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
+void CheckGameState(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int state = mainData->game_state;
     //printf("state:%d\n", state);
     switch(state)
     {
     case GAME_DRAW:
-        DrawDisplayAndFlip(mainData, allegroObj, layoutParm);
+        DrawDisplayAndFlip(mainData, allegroObj);
         break;
     case GAME_TEST: //test
         //printf("Final Score: %d\n", mainData->tolScore); // After there is no elem. to eleimate, print the final score (each eleimate get 10 points)
         mainData->game_state = GAME_NONE;
         break;
     case GAME_NONE:
-        //DrawDisplayAndFlip(mainData, allegroObj, layoutParm);
+        //DrawDisplayAndFlip(mainData, allegroObj);
         break;
     default:
         break;

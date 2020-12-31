@@ -33,9 +33,9 @@
 
 #define COLOR_SCORE al_map_rgb(255, 255, 255)
 #define COLOR_CLEAR al_map_rgb(0,0,0)
-#define COLOR_MENU_BUTTON_A al_map_rgb(199, 258, 250)
+#define COLOR_MENU_BUTTON_A al_map_rgb(199, 0, 250)
 #define COLOR_MENU_BUTTON_B al_map_rgb(20, 119, 130)
-#define COLOR_MODE_BUTTON_A al_map_rgb(199, 258, 250)
+#define COLOR_MODE_BUTTON_A al_map_rgb(199, 0, 250)
 #define COLOR_MODE_BUTTON_B al_map_rgb(20, 119, 130)
 
 #define SIZE_IMG_BKG_WIDTH 4800
@@ -64,6 +64,7 @@
 
 #define FILE_EXIT_ID 1 //待整併
 
+/**  enum  **/
 typedef enum GameState {
     GAME_NONE, GAME_TEST, GAME_FINISH,
     GAME_OPERATE, GAME_DRAW,
@@ -79,6 +80,7 @@ typedef enum RoleState {
     ROLE_JUMP, ROLE_DROP, ROLE_MUST_DROP, ROLE_NULL,
 } RoleState;
 
+/**  struct  **/
 typedef struct RowStut{
     int id;
     int score;
@@ -173,10 +175,6 @@ typedef struct AllegroObjStut{
 } AllegroObjStut;
 
 
-typedef struct LayoutParmStut{
-    int X;
-} LayoutParmStut;
-
 typedef struct MouseStut{
     int x, y;
     bool isClick;
@@ -207,10 +205,6 @@ void role_init(AllegroObjStut *allegroObj);
 MainDataStut *ClocMainData();
 void MainDataInit(MainDataStut *mainData);
 
-/* LayoutParmStut Function*/
-LayoutParmStut *ClocLayoutParm();
-
-void LayoutParmInit(LayoutParmStut *layoutParm);
 void Gravity(AllegroObjStut *allegroObj); //運算
 #endif //_RESOURSE_H_
 
@@ -224,7 +218,7 @@ void Gravity(AllegroObjStut *allegroObj); //運算
     //int row;
     //int col;
     //int round;
-        //int mouse_x, mouse_y;
+    //int mouse_x, mouse_y;
     //int mouse_click, mouse_click_x, mouse_click_y;
     //NameStut usrName;
     //ScoreDataStut *scoreData;

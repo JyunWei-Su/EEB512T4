@@ -8,6 +8,8 @@
 #include "resource.h"
 #include "function_draw.h"
 #include "function_sound.h"
+#include "function_check.h"
+#include "function_operate.h"
 
 /* Definition of display size */
 #define FPS 60

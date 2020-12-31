@@ -3,6 +3,7 @@
 
 #include "../resource.h"
 
+/* 以下待整理 不需要者刪除 12.30 */
 void PrintTest_BYK();
 
 #define minpoint 800
@@ -10,19 +11,17 @@ void PrintTest_BYK();
 #define GameStateMove 8000
 #define GameStateMaxPoint 8001
 
-
 typedef struct Paddle
 {
     int yLeft;
     int xLeft;
     ALLEGRO_BITMAP* img;
 } Paddle;
+
 typedef struct Match
 {
     Paddle paddle;
 } Match;
-
-
 
 //void JumpPaddle(Paddle* paddlePtr, ALLEGRO_KEYBOARD_STATE* KBstatePtr);
 void JumpPaddle(Paddle* paddlePtr, ALLEGRO_KEYBOARD_STATE* KBstatePtr,ALLEGRO_BITMAP* img,ALLEGRO_BITMAP *bkgImg);
