@@ -61,11 +61,15 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
 void score_board_init(AllegroObjStut *allegroObj)
 {
     allegroObj->coins.img = al_load_bitmap( PATH_IMG_COIN);
-    allegroObj->coins.start_x = 0;
-    allegroObj->coins.start_y = 0;
-    allegroObj->chars.img = al_load_bitmap( PATH_IMG_COIN);
-    allegroObj->chars.start_x = 150; //修正
-    allegroObj->chars.start_y = 0;
+    allegroObj->coins.start_x = SIZE_IMG_SCOREBOARD_ICON_WIDTH/3;
+    allegroObj->coins.start_y = SIZE_IMG_SCOREBOARD_ICON_HEIGHT/4;
+    allegroObj->coins.end_x = allegroObj->coins.start_x + OFFSET_SCOREBOARD_TEXT;
+    allegroObj->coins.end_y = allegroObj->coins.start_y;
+    allegroObj->chars.img = al_load_bitmap( PATH_IMG_CHAR);
+    allegroObj->chars.start_x = allegroObj->coins.end_x + SIZE_IMG_SCOREBOARD_ICON_WIDTH; //修正
+    allegroObj->chars.start_y = allegroObj->coins.start_y;
+    allegroObj->chars.end_x = allegroObj->chars.start_x + OFFSET_SCOREBOARD_TEXT;
+    allegroObj->chars.end_y = allegroObj->chars.start_y;
 }
 
 void font_init(AllegroObjStut *allegroObj)
@@ -73,6 +77,7 @@ void font_init(AllegroObjStut *allegroObj)
     allegroObj->font_a.font24 = al_load_font( PATH_FONT_HIMAJI , 24, 0);
     allegroObj->font_a.font36 = al_load_font( PATH_FONT_HIMAJI , 36, 0);
     allegroObj->font_a.font48 = al_load_font( PATH_FONT_HIMAJI , 48, 0);
+    allegroObj->font_a.font64 = al_load_font( PATH_FONT_HIMAJI , 64, 0);
     allegroObj->font_a.font90 = al_load_font( PATH_FONT_HIMAJI , 90, 0);
     allegroObj->font_a.font120 = al_load_font( PATH_FONT_HIMAJI , 120, 0);
 }
