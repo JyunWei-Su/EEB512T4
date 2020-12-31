@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1609416852 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\main.c
+1609421635 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -11,7 +11,7 @@
 	<stdlib.h>
 	<math.h>
 
-1609415446 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\myfunc.c
+1609421635 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\myfunc.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -335,7 +335,7 @@
 1609415326 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\own\header_jws.h
 	"../resource.h"
 
-1609417611 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\resource.h
+1609424852 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\resource.h
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
@@ -368,7 +368,7 @@
 1553403849 c:\api\allegro\include\allegro5\allegro_primitives.h
 	<allegro5/allegro.h>
 
-1609347201 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\myfunc_alg.c
+1609421635 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\myfunc_alg.c
 	<stdio.h>
 	"defineHeader.h"
 
@@ -404,11 +404,11 @@
 	"../own/header_JWS.h"
 	"../defineHeader.h"
 
-1609417050 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\resource.c
+1609423496 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\resource.c
 	"resource.h"
 	"defineHeader.h"
 
-1609416370 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_draw.c
+1609424513 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_draw.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -681,7 +681,7 @@
 1609416969 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_operate.h
 	"resource.h"
 
-1609417155 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_operate.c
+1609423496 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_operate.c
 	"defineHeader.h"
 	"resource.h"
 

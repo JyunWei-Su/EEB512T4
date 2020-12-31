@@ -51,7 +51,8 @@ void Gravity(AllegroObjStut *allegroObj) //重力
 
 void role_init(AllegroObjStut *allegroObj)
 {
-    allegroObj->role.img = al_load_bitmap(PATH_IMG_ROLE_1);
+    allegroObj->role.img = al_load_bitmap( PATH_IMG_ROLE_1 );
+    allegroObj->role.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
     allegroObj->role.start_x=200;
     allegroObj->role.start_y=700;
     allegroObj->role.state = ROLE_NULL;
