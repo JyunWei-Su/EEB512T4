@@ -65,6 +65,16 @@
 #define OFFSET_MENU 1.5
 #define OFFSET_MODE 1.5
 #define OFFSET_SCOREBOARD_TEXT 320
+/*Role_Define*/
+#define OFFSET_ROLE_JUMP 10
+#define OFFSET_ROLE_WALK 3
+#define MAX_ROLE_Y 550
+#define MIN_ROLE_Y 700
+#define MAX_ROLE_X 1500
+#define MIN_ROLE_X 0
+#define GRAVITY 4.5
+
+
 
 #define FILE_EXIT_ID 1 //待整併
 
