@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1609421635 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\main.c
+1609425270 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -334,7 +334,7 @@
 1609415326 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\own\header_jws.h
 	"../resource.h"
 
-1609425091 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\resource.h
+1609425854 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\resource.h
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
