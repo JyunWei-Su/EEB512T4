@@ -30,7 +30,9 @@ void DrawMenu(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut
 void DrawScoreboard(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
 {
     al_draw_bitmap(allegroObj->coins.img, allegroObj->coins.start_x, allegroObj->coins.start_y, 0);
-    al_draw_textf(allegroObj->font_a.font48, COLOR_SCORE, DISPLAY_WIDTH/2, 0, ALLEGRO_ALIGN_CENTER, "chars%d", mainData->score.chars);
+    al_draw_bitmap(allegroObj->chars.img, allegroObj->chars.start_x, allegroObj->chars.start_y, 0);
+    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->coins.end_x, allegroObj->coins.end_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.chars);
+    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->chars.end_x, allegroObj->chars.end_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.chars);
 }
 
 void DrawModeButton(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
