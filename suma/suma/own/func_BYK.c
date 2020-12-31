@@ -1,7 +1,6 @@
 #include "../own/header_BYK.h"
 #include "../defineHeader.h"
 
-
 void initPaddle(Paddle* paddlePtr, ALLEGRO_BITMAP* img)//
 {
     // give left paddle its initial y-coordinate
@@ -9,14 +8,13 @@ void initPaddle(Paddle* paddlePtr, ALLEGRO_BITMAP* img)//
     paddlePtr->xLeft = 0;
     paddlePtr->img = img;
     // give right paddle its initial y-coordinate
-//    paddlePtr->yRight = SCREEN_H / 2;
-
+    // paddlePtr->yRight = SCREEN_H / 2;
 }
 
 void JumpPaddle(Paddle* paddlePtr, ALLEGRO_KEYBOARD_STATE* KBstatePtr,ALLEGRO_BITMAP* img,ALLEGRO_BITMAP *bkgImg)
 {
-    int vely=0;
-    const int Gravity=1;
+    //int vely=0;
+    //const int Gravity=1;
     bool jump =true;
     if(paddlePtr->yLeft < 650)
     {
@@ -60,9 +58,9 @@ void JumpPaddle(Paddle* paddlePtr, ALLEGRO_KEYBOARD_STATE* KBstatePtr,ALLEGRO_BI
         paddlePtr->xLeft += 3;
     if(al_key_down(KBstatePtr, ALLEGRO_KEY_A))
         paddlePtr->xLeft -=3;
-
-
 }
+
+/*
 void DropFromMaxPoint(Paddle* paddlePtr, ALLEGRO_KEYBOARD_STATE* KBstatePtr,ALLEGRO_BITMAP* img,ALLEGRO_BITMAP *bkgImg,int game_state)
 {
     while(paddlePtr->yLeft<800)
@@ -80,8 +78,9 @@ void DropFromMaxPoint(Paddle* paddlePtr, ALLEGRO_KEYBOARD_STATE* KBstatePtr,ALLE
         al_draw_bitmap(bkgImg, 0, 0, 0);
     }
     // game_state =  GameStateMove;
-BeyondPoint( paddlePtr);
+    BeyondPoint( paddlePtr);
 }
+
 void MoveItem(Paddle* paddlePtr, ALLEGRO_KEYBOARD_STATE* KBstatePtr,int game_state)
 {
 
@@ -115,18 +114,15 @@ void BeyondPoint(Paddle* paddlePtr)
         paddlePtr->xLeft = 0;
     if(paddlePtr->xLeft > 1500)
         paddlePtr->xLeft = 1500;
-
-
 }
 void JumpCheck(Paddle* paddlePtr, ALLEGRO_KEYBOARD_STATE* KBstatePtr,ALLEGRO_BITMAP* img,ALLEGRO_BITMAP *bkgImg)
 {
-
     int game_state=GameStateMove;
     switch(game_state)
     {
     case GameStateMove:
         MoveItem( paddlePtr,  KBstatePtr, game_state);
-Gravity0(0,3,paddlePtr);
+        Gravity0(0,3,paddlePtr);
         if(paddlePtr->yLeft == 650)
         {
             game_state = GameStateMaxPoint;
@@ -135,16 +131,10 @@ Gravity0(0,3,paddlePtr);
         break;
     case GameStateMaxPoint:
         DropFromMaxPoint(paddlePtr,  KBstatePtr, img,bkgImg, game_state);
-
         break;
-
-
     }
+}
 
-}
-void Gravity0(int vely,const int gravity,Paddle* paddlePtr)
-{
-    vely+=gravity;
-    paddlePtr->yLeft +=vely;
-}
+*/
+
 

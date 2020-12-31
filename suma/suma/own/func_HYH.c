@@ -5,26 +5,6 @@ void PrintTest_BYK(){
     printf("This is a print test by BYK.\n");
 }
 
-
-void allegro_init()
-{
-    al_init();
-    al_init_image_addon();
-    al_install_audio();
-    al_init_acodec_addon();
-    al_install_mouse();
-    al_reserve_samples(2);//預定聲音物件的空間
-}
-
-void voice_init(ALLEGRO_SAMPLE_INSTANCE *instance, ALLEGRO_MIXER **mixer, ALLEGRO_VOICE **voice)
-{
-    //init all voice value(mixer，voice)
-    *mixer = al_create_mixer(al_get_sample_instance_frequency(instance), al_get_sample_instance_depth(instance), al_get_sample_instance_channels(instance));
-    *voice = al_create_voice(al_get_sample_instance_frequency(instance), al_get_sample_instance_depth(instance), al_get_sample_instance_channels(instance));
-    al_attach_sample_instance_to_mixer(instance, *mixer);
-    al_attach_mixer_to_voice(*mixer, *voice);
-}
-
 void playing(ALLEGRO_MOUSE_STATE *mouse, ALLEGRO_SAMPLE_INSTANCE *instance, int *state){
     //play_state表示音樂是否在播放狀態, pause_state表示是否是暫停, 是:1 否:0
     int play_state = 1, pause_state = 0;

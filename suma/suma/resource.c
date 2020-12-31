@@ -60,41 +60,8 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     //al_hide_mouse_cursor(allegroObj->display);
 }
 
-void role_init(AllegroObjStut *allegroObj)
-{
-    allegroObj->role.img = al_load_bitmap(PATH_IMG_ROLE_1);
-    allegroObj->role.start_x=200;
-    allegroObj->role.start_y=700;
-    allegroObj->role.state = ROLE_NULL;
-}
-void role_jump(AllegroObjStut *allegroObj)
-{
-    int vely=0;
-    const int Gravity=1;
-    bool jump =true;
-    if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W))
-    {
-        allegroObj->role.start_y -= 15;
 
-    }
-    if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_D))
-        allegroObj->role.start_x += 3;
-    if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_A))
-        allegroObj->role.start_x -=3;
 
-    if(allegroObj->role.start_y> 800)
-        allegroObj->role.start_y = 800;
-    if(allegroObj->role.start_x < 0)
-        allegroObj->role.start_x = 0;
-    if(allegroObj->role.start_x > 1500)
-        allegroObj->role.start_x = 1500;
-
-}
-void Gravity(AllegroObjStut *allegroObj)
-{
-    const int gravity =3;
-    allegroObj->role.start_y +=gravity;
-}
 void sound_init(AllegroObjStut *allegroObj)
 {
 
@@ -107,7 +74,7 @@ void sound_init(AllegroObjStut *allegroObj)
     //for test
     allegroObj->sound.mixer = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32,ALLEGRO_CHANNEL_CONF_2);
     allegroObj->sound.voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16,ALLEGRO_CHANNEL_CONF_2);
-    printf("@@@ mixer : %x, voice : %x", allegroObj->sound.mixer, allegroObj->sound.voice);
+    //printf("@@@ mixer : %x, voice : %x", allegroObj->sound.mixer, allegroObj->sound.voice);
 
     al_attach_sample_instance_to_mixer(allegroObj->sound.sfi_background, allegroObj->sound.mixer);//將聲音物件link buffer
     al_attach_mixer_to_voice(allegroObj->sound.mixer, allegroObj->sound.voice); //將buffer link 輸出連接口
@@ -169,22 +136,22 @@ void menu_button_init(AllegroObjStut *allegroObj)
         switch(i)
         {
         case 0:
-            allegroObj->menuButton[i].text = "Play";
+            allegroObj->menuButton[i].text = (char*)"Play";
             break;
         case 1:
-            allegroObj->menuButton[i].text = "Rule";
+            allegroObj->menuButton[i].text = (char*)"Rule";
             break;
         case 2:
-            allegroObj->menuButton[i].text = "Rank";
+            allegroObj->menuButton[i].text = (char*)"Rank";
             break;
         case 3:
-            allegroObj->menuButton[i].text = "About";
+            allegroObj->menuButton[i].text = (char*)"About";
             break;
         default:
-            allegroObj->menuButton[i].text = "Default";
+            allegroObj->menuButton[i].text = (char*)"Default";
             break;
         }
-        printf("%f, %f\n", allegroObj->menuButton[i].start_x, allegroObj->menuButton[i].start_y);
+        //printf("%f, %f\n", allegroObj->menuButton[i].start_x, allegroObj->menuButton[i].start_y);
     }
     //printf("%f, %f\n", allegroObj->menuButton[i].start_x, allegroObj->menuButton[i].start_y);
 }
@@ -203,19 +170,19 @@ void mode_button_init(AllegroObjStut *allegroObj)
         switch(i)
         {
         case 0:
-            allegroObj->modeButton[i].text = "Easy";
+            allegroObj->modeButton[i].text = (char*)"Easy";
             break;
         case 1:
-            allegroObj->modeButton[i].text = "Medium";
+            allegroObj->modeButton[i].text = (char*)"Medium";
             break;
         case 2:
-            allegroObj->modeButton[i].text = "Hard";
+            allegroObj->modeButton[i].text = (char*)"Hard";
             break;
         default:
-            allegroObj->modeButton[i].text = "Default";
+            allegroObj->modeButton[i].text = (char*)"Default";
             break;
         }
-        printf("%f, %f\n", allegroObj->modeButton[i].start_x, allegroObj->modeButton[i].start_y);
+        //printf("%f, %f\n", allegroObj->modeButton[i].start_x, allegroObj->modeButton[i].start_y);
     }
     //printf("%f, %f\n", allegroObj->modeButton[i].start_x, allegroObj->modeButton[i].start_y);
 }
@@ -230,15 +197,7 @@ void MainDataInit(MainDataStut *mainData)
 {
     mainData->game_state = GAME_MENU;
     mainData->breakPoint = 0;
-}
-
-LayoutParmStut *ClocLayoutParm()
-{
-    LayoutParmStut *addr = (LayoutParmStut *)calloc(1, sizeof(LayoutParmStut)); //分配空間
-    return addr;
-}
-
-void LayoutParmInit(LayoutParmStut *layoutParm)
-{
-    int x = 0;
+    mainData->score.chars = 0;
+    mainData->score.coins = 0;
+    mainData->score.score = 0;
 }
