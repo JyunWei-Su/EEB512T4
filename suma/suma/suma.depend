@@ -341,7 +341,7 @@
 1609347201 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\own\header_jws.h
 	"../resource.h"
 
-1609397046 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\resource.h
+1609397672 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\resource.h
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
@@ -414,7 +414,7 @@
 	"resource.h"
 	"defineHeader.h"
 
-1609397046 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_draw.c
+1609397672 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_draw.c
 	"function_draw.h"
 	"defineHeader.h"
 	"resource.h"
@@ -422,7 +422,8 @@
 1609389027 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_draw.h
 	"resource.h"
 
-1609397123 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_check.c
+1609397672 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_check.c
+	"function_check.h"
 	"defineHeader.h"
 	"resource.h"
 
@@ -553,5 +554,8 @@
 1609395208 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_sound.c
 	"function_sound.h"
 	"defineHeader.h"
+	"resource.h"
+
+1609397057 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_check.h
 	"resource.h"
 

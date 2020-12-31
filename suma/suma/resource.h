@@ -198,16 +198,12 @@ void LayoutParmInit(LayoutParmStut *layoutParm);
 
 #endif //_RESOURSE_H_
 
-    //ALLEGRO_BITMAP *btnStartImg;
-    //ALLEGRO_BITMAP *btnRankImg;
-    //ALLEGRO_BITMAP *mainImg; //main layout img
-    //ALLEGRO_BITMAP *handImg; //main layout img
     //ALLEGRO_BITMAP *candyBkgImg; //main layout img
     //ALLEGRO_BITMAP **candyImgs; //candy Imgs: candyImg[n]
 
     //ALLEGRO_MENU *menu; //待整併
     //LLEGRO_MENU *menu_1; //待整併
-    //    FILE *fileStream;
+    //FILE *fileStream;
     //int scoreFileIsRead;
     //int row;
     //int col;
