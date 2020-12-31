@@ -60,8 +60,6 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     //al_hide_mouse_cursor(allegroObj->display);
 }
 
-
-
 void sound_init(AllegroObjStut *allegroObj)
 {
 

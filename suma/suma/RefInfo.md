@@ -11,3 +11,6 @@
 
 ## 圖片
  * https://www.flaticon.com/free-icon/home_1057118?related_item_id=1057118&term=home
+
+## printf詳細應用
+ * https://www.itdaan.com/tw/e932594201ca64b7c99341b294af43e9

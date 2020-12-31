@@ -97,12 +97,28 @@ void DrawAbout(MainDataStut *mainData, AllegroObjStut *allegroObj)
     al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "about");
     DrawHomeButton(mainData, allegroObj);
 }
+
 void DrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    al_draw_bitmap(allegroObj->role.img, allegroObj->role.start_x, allegroObj->role.start_y, 0); // Draw bitmap
-    // al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "about");
-    //DrawHomeButton(mainData, allegroObj);
+    switch(allegroObj->role.state)
+    {
+    case ROLE_NULL:
+        if(allegroObj->role.imgCount % 6 == 0){
+            allegroObj->role.imgCount = 0;
+            allegroObj->role.nowImg += 1;
+            if(allegroObj->role.nowImg % NUM_IMG_ROLE_SEQUENCE == 0) allegroObj->role.nowImg = 0;
+        }
+        al_draw_bitmap_region(allegroObj->role.imgs_runing, SIZE_IMG_ROLE_WIDTH*allegroObj->role.nowImg, 0, SIZE_IMG_ROLE_WIDTH, SIZE_IMG_ROLE_HEIGHT
+                              , allegroObj->role.start_x, allegroObj->role.start_y, 0);
+        allegroObj->role.imgCount += 1;
+        break;
+    default:
+        al_draw_bitmap(allegroObj->role.img, allegroObj->role.start_x, allegroObj->role.start_y, 0); // Draw bitmap
+        break;
+    }
+
 }
+
 void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int state = mainData->game_state;

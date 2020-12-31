@@ -26,6 +26,7 @@
 #define PATH_IMG_HOME_BUTTON_1 "./img/homeButton_1.png"
 #define PATH_IMG_HOME_BUTTON_2 "./img/homeButton_2.png"
 #define PATH_IMG_ROLE_1 "./img/role_1.png"
+#define PATH_IMG_ROLE_SEQ_RUNING "./img/comp1.png"
 #define PATH_FNT_DFT "./DFT_TL9.TTC"
 #define PATH_SFX_BACKGROUND "./sfx/bkg.wav"
 #define PATH_FILE_SCORE "user.score"
@@ -42,6 +43,8 @@
 #define SIZE_IMG_BKG_HEIGHT 900
 #define SIZE_IMG_SCOREBOARD_ICON_WIDTH 64
 #define SIZE_IMG_SCOREBOARD_ICON_HEIGHT 64
+#define SIZE_IMG_ROLE_WIDTH 150
+#define SIZE_IMG_ROLE_HEIGHT 200
 #define SIZE_IMG_MENU_BUTTON_WIDTH 480
 #define SIZE_IMG_MENU_BUTTON_HEIGHT 90
 #define SIZE_IMG_MODE_BUTTON_WIDTH 480
@@ -55,6 +58,7 @@
 #define SCORE_DATA 10 //rank 資料筆數
 #define NUM_MENU_BUTTON 4
 #define NUM_MODE_BUTTON 3
+#define NUM_IMG_ROLE_SEQUENCE 10
 #define NUM_SAMPLES 3 //聲音數量
 #define SCALE_MENU_BUTTON 1.2
 #define SCALE_MODE_BUTTON 1.2
@@ -107,7 +111,10 @@ typedef struct ScoreStut{
 typedef struct RoleStut
 {
     float start_x, start_y;
-    ALLEGRO_BITMAP* img;
+    float end_x, end_y;
+    ALLEGRO_BITMAP *img;
+    ALLEGRO_BITMAP *imgs_runing;
+    int imgCount, nowImg;
     int state;
 } RoleStut;
 
