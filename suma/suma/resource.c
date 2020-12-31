@@ -43,6 +43,7 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     mode_button_init(allegroObj);
     home_button_init(allegroObj);
     score_board_init(allegroObj);
+    role_init(allegroObj);
 
     /*load Font*/
     //allegroObj->font_60 = al_load_font("DFT_TL9.TTC", 60, 0);
@@ -59,15 +60,55 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     //al_hide_mouse_cursor(allegroObj->display);
 }
 
+void role_init(AllegroObjStut *allegroObj)
+{
+    allegroObj->role.img = al_load_bitmap(PATH_IMG_ROLE_1);
+    allegroObj->role.start_x=200;
+    allegroObj->role.start_y=700;
+    allegroObj->role.state = ROLE_NULL;
+}
+void role_jump(AllegroObjStut *allegroObj)
+{
+    int vely=0;
+    const int Gravity=1;
+    bool jump =true;
+    if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W))
+    {
+        allegroObj->role.start_y -= 15;
+
+    }
+    if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_D))
+        allegroObj->role.start_x += 3;
+    if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_A))
+        allegroObj->role.start_x -=3;
+
+    if(allegroObj->role.start_y> 800)
+        allegroObj->role.start_y = 800;
+    if(allegroObj->role.start_x < 0)
+        allegroObj->role.start_x = 0;
+    if(allegroObj->role.start_x > 1500)
+        allegroObj->role.start_x = 1500;
+
+}
+void Gravity(AllegroObjStut *allegroObj)
+{
+    const int gravity =3;
+    allegroObj->role.start_y +=gravity;
+}
 void sound_init(AllegroObjStut *allegroObj)
 {
+
     al_reserve_samples( NUM_SAMPLES );
     allegroObj->sound.sfx_background = al_load_sample( PATH_SFX_BACKGROUND );
     allegroObj->sound.sfi_background = al_create_sample_instance(allegroObj->sound.sfx_background);
-    //創建聲音輸出buffer
-    allegroObj->sound.mixer = al_get_default_mixer();
-    //創建聲音輸出連接口
-    allegroObj->sound.voice = al_get_default_voice();
+    //創建聲音輸出buffer 創建聲音輸出連接口
+    //allegroObj->sound.mixer = al_get_default_mixer(); //硬體設備不同 容易出錯
+    //allegroObj->sound.voice = al_get_default_voice(); //硬體設備不同 容易出錯
+    //for test
+    allegroObj->sound.mixer = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32,ALLEGRO_CHANNEL_CONF_2);
+    allegroObj->sound.voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16,ALLEGRO_CHANNEL_CONF_2);
+    printf("@@@ mixer : %x, voice : %x", allegroObj->sound.mixer, allegroObj->sound.voice);
+
     al_attach_sample_instance_to_mixer(allegroObj->sound.sfi_background, allegroObj->sound.mixer);//將聲音物件link buffer
     al_attach_mixer_to_voice(allegroObj->sound.mixer, allegroObj->sound.voice); //將buffer link 輸出連接口
 }
@@ -88,12 +129,12 @@ void score_board_init(AllegroObjStut *allegroObj)
 
 void font_init(AllegroObjStut *allegroObj)
 {
-    allegroObj->font_a.font24 = al_load_font( PATH_FONT_HIMAJI , 24, 0);
-    allegroObj->font_a.font36 = al_load_font( PATH_FONT_HIMAJI , 36, 0);
-    allegroObj->font_a.font48 = al_load_font( PATH_FONT_HIMAJI , 48, 0);
-    allegroObj->font_a.font64 = al_load_font( PATH_FONT_HIMAJI , 64, 0);
-    allegroObj->font_a.font90 = al_load_font( PATH_FONT_HIMAJI , 90, 0);
-    allegroObj->font_a.font120 = al_load_font( PATH_FONT_HIMAJI , 120, 0);
+    allegroObj->font_a.font24 = al_load_font( PATH_FONT_HIMAJI, 24, 0);
+    allegroObj->font_a.font36 = al_load_font( PATH_FONT_HIMAJI, 36, 0);
+    allegroObj->font_a.font48 = al_load_font( PATH_FONT_HIMAJI, 48, 0);
+    allegroObj->font_a.font64 = al_load_font( PATH_FONT_HIMAJI, 64, 0);
+    allegroObj->font_a.font90 = al_load_font( PATH_FONT_HIMAJI, 90, 0);
+    allegroObj->font_a.font120 = al_load_font( PATH_FONT_HIMAJI, 120, 0);
 }
 
 void image_init(AllegroObjStut *allegroObj)
@@ -117,7 +158,8 @@ void home_button_init(AllegroObjStut *allegroObj)
 void menu_button_init(AllegroObjStut *allegroObj)
 {
     int i;
-    for(i = 0; i < NUM_MENU_BUTTON; i++){
+    for(i = 0; i < NUM_MENU_BUTTON; i++)
+    {
         allegroObj->menuButton[i].start_x = (float)(DISPLAY_WIDTH-SIZE_IMG_MENU_BUTTON_WIDTH)/2;
         allegroObj->menuButton[i].start_y = (float)(DISPLAY_HEIGHT/(NUM_MENU_BUTTON+2))*(i+OFFSET_MENU);
         allegroObj->menuButton[i].end_x = allegroObj->menuButton[i].start_x + SIZE_IMG_MENU_BUTTON_WIDTH;
@@ -150,7 +192,8 @@ void menu_button_init(AllegroObjStut *allegroObj)
 void mode_button_init(AllegroObjStut *allegroObj)
 {
     int i;
-    for(i = 0; i < NUM_MODE_BUTTON; i++){
+    for(i = 0; i < NUM_MODE_BUTTON; i++)
+    {
         allegroObj->modeButton[i].start_x = (float)(DISPLAY_WIDTH-SIZE_IMG_MODE_BUTTON_WIDTH)/2;
         allegroObj->modeButton[i].start_y = (float)(DISPLAY_HEIGHT/(NUM_MODE_BUTTON+2))*(i+OFFSET_MODE);
         allegroObj->modeButton[i].end_x = allegroObj->modeButton[i].start_x + SIZE_IMG_MODE_BUTTON_WIDTH;

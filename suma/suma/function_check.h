@@ -3,6 +3,6 @@
 
 #include "resource.h"
 
-
+void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj);
 
 #endif //_FUNCTION_CHECK_H_

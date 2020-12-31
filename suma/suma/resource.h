@@ -25,6 +25,7 @@
 #define PATH_IMG_MODE_BUTTON "./img/menuButton.png"
 #define PATH_IMG_HOME_BUTTON_1 "./img/homeButton_1.png"
 #define PATH_IMG_HOME_BUTTON_2 "./img/homeButton_2.png"
+#define PATH_IMG_ROLE_1 "./img/role_1.png"
 #define PATH_FNT_DFT "./DFT_TL9.TTC"
 #define PATH_SFX_BACKGROUND "./sfx/bkg.wav"
 #define PATH_FILE_SCORE "user.score"
@@ -74,6 +75,10 @@ typedef enum PlayMode {
     MODE_EASY, MODE_MEDIUM, MODE_HARD,
 } PlayMode;
 
+typedef enum RoleState {
+    ROLE_JUMP, ROLE_DROP, ROLE_MUST_DROP, ROLE_NULL,
+} RoleState;
+
 typedef struct RowStut{
     int id;
     int score;
@@ -96,6 +101,14 @@ typedef struct ScoreStut{
     int coins;
     int score;
 } ScoreStut;
+
+typedef struct RoleStut
+{
+    float start_x, start_y;
+    ALLEGRO_BITMAP* img;
+    int state;
+} RoleStut;
+
 
 typedef struct ButtonStut{
     float start_x, start_y;
@@ -149,6 +162,8 @@ typedef struct AllegroObjStut{
     ScoreboardStut chars;
     ScoreboardStut coins;
 
+    RoleStut role;
+
     FontStut font_a;
     SoundStut sound;
     ButtonStut menuButton[NUM_MENU_BUTTON]; //初始介面選單
@@ -187,6 +202,7 @@ void menu_button_init(AllegroObjStut *allegroObj);
 void home_button_init(AllegroObjStut *allegroObj);
 void mode_button_init(AllegroObjStut *allegroObj);
 void sound_init(AllegroObjStut *allegroObj);
+void role_init(AllegroObjStut *allegroObj);
 /* MainDataStut Function*/
 MainDataStut *ClocMainData();
 void MainDataInit(MainDataStut *mainData);
@@ -195,7 +211,7 @@ void MainDataInit(MainDataStut *mainData);
 LayoutParmStut *ClocLayoutParm();
 
 void LayoutParmInit(LayoutParmStut *layoutParm);
-
+void Gravity(AllegroObjStut *allegroObj); //運算
 #endif //_RESOURSE_H_
 
     //ALLEGRO_BITMAP *candyBkgImg; //main layout img
