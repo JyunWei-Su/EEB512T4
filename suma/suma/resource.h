@@ -73,6 +73,7 @@
 #define MAX_ROLE_X 1500
 #define MIN_ROLE_X 0
 #define GRAVITY 4.5
+#define TIME_PER_IMG 0.1
 
 
 
