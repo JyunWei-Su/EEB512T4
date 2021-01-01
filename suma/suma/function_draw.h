@@ -13,4 +13,6 @@ void DrawAbout(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawScoreboard(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void DrawObjBoundary(float x1, float y1, float x2, float y2);
+void DrawObjBoundary_meteor(MeteorStut meteor);
 #endif //_FUNCTION_DRAW_H_
