@@ -30,8 +30,10 @@ void DrawScoreboard(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     al_draw_bitmap(allegroObj->coins.img, allegroObj->coins.start_x, allegroObj->coins.start_y, 0);
     al_draw_bitmap(allegroObj->chars.img, allegroObj->chars.start_x, allegroObj->chars.start_y, 0);
-    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->coins.end_x, allegroObj->coins.end_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.chars);
-    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->chars.end_x, allegroObj->chars.end_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.chars);
+    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->coins.end_x, allegroObj->coins.start_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.chars);
+    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->chars.end_x, allegroObj->chars.start_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.chars);
+    DrawObjBoundary(allegroObj->coins.start_x, allegroObj->coins.start_y, allegroObj->coins.end_x, allegroObj->coins.end_y);
+    DrawObjBoundary(allegroObj->chars.start_x, allegroObj->chars.start_y, allegroObj->chars.end_x, allegroObj->chars.end_y);
 }
 
 void DrawModeButton(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -117,22 +119,33 @@ void DrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
         al_draw_bitmap(allegroObj->role.img, allegroObj->role.start_x, allegroObj->role.start_y, 0); // Draw bitmap
         break;
     }
-
+    DrawObjBoundary(allegroObj->role.start_x, allegroObj->role.start_y, allegroObj->role.end_x, allegroObj->role.end_y);
 }
+
 void DrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int i;
+<<<<<<< HEAD
     //al_draw_bitmap(allegroObj->meteor.img, allegroObj->meteor.start_x, allegroObj->meteor.start_y, 0); // Draw bitmap
+=======
+    al_draw_bitmap(allegroObj->meteor.img, allegroObj->meteor.start_x, allegroObj->meteor.start_y, 0); // Draw bitmap
+    DrawObjBoundary(allegroObj->meteor.start_x, allegroObj->meteor.start_y, allegroObj->meteor.end_x, allegroObj->meteor.end_y);
+>>>>>>> e5812d8d954e7c4abf85e1f7238135294e06e2db
     for (i = 0; i < allegroObj->meteor_n; i++)
     {
         //««ª½±¼¸¨
         al_draw_bitmap(allegroObj->meteors[i].img, allegroObj->meteors[i].start_x, allegroObj->meteors[i].start_y, 0);
+<<<<<<< HEAD
         //¥ª±×¤U±¼¸¨
         al_draw_bitmap(allegroObj->meteors_right_drop[i].img, allegroObj->meteors_right_drop[i].start_x, allegroObj->meteors_right_drop[i].start_y, 0);
         //¥k±×¤U±¼¸¨
         al_draw_bitmap(allegroObj->meteors_left_drop[i].img, allegroObj->meteors_left_drop[i].start_x, allegroObj->meteors_left_drop[i].start_y, 0);
+=======
+        DrawObjBoundary(allegroObj->meteors[i].start_x, allegroObj->meteors[i].start_y, allegroObj->meteors[i].end_x, allegroObj->meteors[i].end_y);
+>>>>>>> e5812d8d954e7c4abf85e1f7238135294e06e2db
     }
 }
+
 void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int state = mainData->game_state;
@@ -142,6 +155,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
     switch(state)
     {
     case GAME_MENU:
+
         DrawMenu(mainData, allegroObj);
         break;
     case GAME_MODE_SELECT:
@@ -165,6 +179,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         al_draw_bitmap(allegroObj->background.img, allegroObj->background.x, 0, 0); // Draw bitmap
         DrawRole(mainData, allegroObj);
         al_draw_bitmap(allegroObj->floor.img, allegroObj->floor.start_x, allegroObj->floor.start_y, 0); // Draw bitmap
+        DrawObjBoundary(allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
         DrawMeteor(mainData, allegroObj);
         DrawScoreboard(mainData, allegroObj);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
@@ -173,4 +188,10 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
     }
     //al_draw_textf(allegroObj->font_a.font48, COLOR_SCORE, 0, 0, ALLEGRO_ALIGN_LEFT, "This is a text test.");
     al_flip_display();
+}
+
+void DrawObjBoundary(float x1, float y1, float x2, float y2)
+{
+    //printf("x1: %f, y1: %f\nx2: %f, y2: %f\n", x1, x2, y1, y2);
+    al_draw_rectangle(x1, y1, x2, y2, al_map_rgb(255, 0, 0), 3);
 }
