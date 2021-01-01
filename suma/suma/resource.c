@@ -133,6 +133,56 @@ void home_button_init(AllegroObjStut *allegroObj)
     allegroObj->homeButton.end_y = allegroObj->homeButton.start_y + SIZE_IMG_HOME_BUTTON_HEIGHT;
 }
 
+void role_init(AllegroObjStut *allegroObj)
+{
+    allegroObj->role.img = al_load_bitmap( PATH_IMG_ROLE_1 );
+    allegroObj->role.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
+    allegroObj->role.start_x=200;
+    allegroObj->role.start_y=700;
+    allegroObj->role.state = ROLE_NULL;
+}
+
+void meteor_init(AllegroObjStut *allegroObj)
+{
+    int i;
+    allegroObj->meteor_n = rand()%NUMBER_METEOR+15; //隕石數量
+    allegroObj->meteor.img = al_load_bitmap( PATH_IMG_METEOR);
+    allegroObj->meteor.imgs_runing = al_load_bitmap( PATH_IMG_METEOR_SEQ_RUNING );
+    // allegroObj->meteor.start_x = 500;
+    //allegroObj->meteor.start_y = 0;
+    //allegroObj->meteor.speed_y =1;
+    allegroObj->meteors = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
+    allegroObj->meteors_right_drop = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
+    allegroObj->meteors_left_drop = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
+
+    for (i = 0; i < allegroObj->meteor_n; i++)
+    {
+        //*meteors
+        allegroObj->meteors[i].img = al_load_bitmap(PATH_IMG_METEOR );
+        allegroObj->meteors[i].start_x = rand()%1600;
+        allegroObj->meteors[i].start_y = 0;
+        allegroObj->meteors[i].speed_y = rand()%SPEED_Y_METEOR+5;
+        //*meteors_right_drop
+        allegroObj->meteors_right_drop[i].img = al_load_bitmap(PATH_IMG_METEOR );
+        allegroObj->meteors_right_drop[i].imgs_runing = al_load_bitmap( PATH_IMG_METEOR_SEQ_RUNING );
+        allegroObj->meteors_right_drop[i].start_x = rand()%2000;
+        allegroObj->meteors_right_drop[i].start_y = 0;
+        allegroObj->meteors_right_drop[i].speed_x = rand()%SPEED_X_METEOR_RIGHT+1;
+        allegroObj->meteors_right_drop[i].speed_y = rand()%SPEED_Y_METEOR_RIGHT+2;
+        //*meteors_right_drop
+        allegroObj->meteors_left_drop[i].img = al_load_bitmap(PATH_IMG_METEOR );
+        allegroObj->meteors_left_drop[i].start_x = rand()%2000;
+        allegroObj->meteors_left_drop[i].start_y = 0;
+        allegroObj->meteors_left_drop[i].speed_x = rand()%SPEED_X_METEOR_RIGHT+1;
+        allegroObj->meteors_left_drop[i].speed_y = rand()%SPEED_Y_METEOR_RIGHT+3;
+
+    }
+    //allegroObj->meteor.start_x=800;
+    //allegroObj->meteor.start_y=0;
+    //allegroObj->role.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
+    //allegroObj->meteor.state = ROLE_NULL;
+}
+
 void menu_button_init(AllegroObjStut *allegroObj)
 {
     int i;

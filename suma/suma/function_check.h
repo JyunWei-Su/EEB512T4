@@ -13,5 +13,5 @@ void CheckMouseMoveOnHomeButton(MainDataStut *mainData, AllegroObjStut *allegroO
 void CheckMouseMoveOnMenuButton(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void CheckMouseMoveOnModeButton(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void CheckGameState(MainDataStut *mainData, AllegroObjStut *allegroObj);
-
+void CheckWantToFinish(MainDataStut *mainData, AllegroObjStut *allegroObj);
 #endif //_FUNCTION_CHECK_H_
