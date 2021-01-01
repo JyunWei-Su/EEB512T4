@@ -103,9 +103,6 @@
 		<Unit filename="myFunc.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="myFunc_alg.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="own/func_BYK.c">
 			<Option compilerVar="CC" />
 		</Unit>

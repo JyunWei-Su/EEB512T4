@@ -590,7 +590,7 @@
 1609426975 c:\users\user\documents\github\eeb512t4\suma\suma\function_check.h
 	"resource.h"
 
-1609473751 c:\users\user\documents\github\eeb512t4\suma\suma\resource.h
+1609485426 c:\users\user\documents\github\eeb512t4\suma\suma\resource.h
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
@@ -621,7 +621,7 @@
 1609469829 c:\users\user\documents\github\eeb512t4\suma\suma\own\header_byk.h
 	"../resource.h"
 
-1609472637 c:\users\user\documents\github\eeb512t4\suma\suma\own\header_hyh.h
+1609484391 c:\users\user\documents\github\eeb512t4\suma\suma\own\header_hyh.h
 	"../resource.h"
 
 1609399555 c:\users\user\documents\github\eeb512t4\suma\suma\own\header_irl.h
@@ -636,7 +636,7 @@
 1609399554 c:\users\user\documents\github\eeb512t4\suma\suma\function_sound.h
 	"resource.h"
 
-1609473751 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.c
+1609487855 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -647,7 +647,7 @@
 	<time.h>
 	"defineHeader.h"
 
-1609426975 source:c:\users\user\documents\github\eeb512t4\suma\suma\myfunc.c
+1609483236 source:c:\users\user\documents\github\eeb512t4\suma\suma\myfunc.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -662,7 +662,7 @@
 	"../own/header_BYK.h"
 	"../defineHeader.h"
 
-1609475789 source:c:\users\user\documents\github\eeb512t4\suma\suma\own\func_hyh.c
+1609487706 source:c:\users\user\documents\github\eeb512t4\suma\suma\own\func_hyh.c
 	"../own/header_HYH.h"
 	"../defineHeader.h"
 
@@ -690,7 +690,7 @@
 	"../own/header_JWS.h"
 	"../defineHeader.h"
 
-1609473751 source:c:\users\user\documents\github\eeb512t4\suma\suma\resource.c
+1609485426 source:c:\users\user\documents\github\eeb512t4\suma\suma\resource.c
 	"resource.h"
 	"defineHeader.h"
 
@@ -710,7 +710,7 @@
 1609475789 c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.h
 	"resource.h"
 
-1609481193 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.c
+1609488078 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.c
 	"defineHeader.h"
 	"resource.h"
 
