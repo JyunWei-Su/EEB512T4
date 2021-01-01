@@ -21,6 +21,7 @@
 #define PATH_IMG_BKG "./img/back900.png"
 #define PATH_IMG_ICON "./img/icon.tga"
 #define PATH_IMG_COIN "./img/coin.png"
+#define PATH_IMG_COINS "./img/coins.png"
 #define PATH_IMG_CHAR "./img/char.png"
 #define PATH_IMG_MENU_BUTTON "./img/menuButton.png"
 #define PATH_IMG_MODE_BUTTON "./img/menuButton.png"
@@ -35,6 +36,7 @@
 #define PATH_SFX_BACKGROUND "./sfx/bkg.wav"
 #define PATH_FILE_SCORE "user.score"
 #define PATH_FONT_HIMAJI "./font/KFhimajiFACE.otf"
+#define PATH_FONT_FANCYH "./font/FancyHeart.otf"
 
 #define COLOR_SCORE al_map_rgb(255, 255, 255)
 #define COLOR_CLEAR al_map_rgb(0,0,0)
@@ -47,6 +49,8 @@
 #define SIZE_IMG_BKG_HEIGHT 900
 #define SIZE_IMG_SCOREBOARD_ICON_WIDTH 64
 #define SIZE_IMG_SCOREBOARD_ICON_HEIGHT 64
+#define SIZE_IMG_COIN_WIDTH 64
+#define SIZE_IMG_COIN_HEIGHT 64
 #define SIZE_IMG_ROLE_WIDTH 150
 #define SIZE_IMG_ROLE_HEIGHT 200
 #define SIZE_IMG_FLOOR_WIDTH 300
@@ -62,12 +66,15 @@
 #define SIZE_IMG_HOME_BUTTON_WIDTH 128
 #define SIZE_IMG_HOME_BUTTON_HEIGHT 128
 
+#define SIZE_TEXT_RANK_LEADONG 48
 
-#define SCORE_DATA 10 //rank 資料筆數
+
+#define NUM_SCORE_DATA 10 //rank 資料筆數
 #define NUM_MENU_BUTTON 4
 #define NUM_MODE_BUTTON 3
 #define NUM_IMG_ROLE_SEQUENCE 10
 #define NUM_IMG_METEOR_SEQUENCE 12
+#define NUM_IMG_COIN_SEQUENCE 16
 #define NUM_SAMPLES 3 //聲音數量
 #define SCALE_MENU_BUTTON 1.2
 #define SCALE_MODE_BUTTON 1.2
@@ -83,7 +90,9 @@
 #define MAX_ROLE_X 1500
 #define MIN_ROLE_X 0
 #define GRAVITY 4.5
-#define TIME_PER_IMG 0.1
+#define TIME_PER_IMG_ROLE 0.1
+#define TIME_PER_IMG_COIN 0.1
+#define TIME_PER_IMG_METEOR 0.1
 /*Meteor_Define*/
 #define NUMBER_METEOR 30
 #define SPEED_Y_METEOR 15
@@ -112,25 +121,26 @@ typedef enum RoleState
 } RoleState;
 
 /**  struct  **/
-typedef struct RowStut
+typedef struct RankRowStut
 {
     int id;
     int score;
     char name[20];
     char time[20];
-} RowStut;
+} RankRowStut;
 
-typedef struct NameStut
+typedef struct RankNameStut
 {
     char name[20];
     int len;
-} NameStut;
+} RankNameStut;
 
-typedef struct ScoreDataStut
+typedef struct RankScoreDataStut
 {
-    RowStut *data; //form data[0] to data[SCORE_DATA-1]
-    RowStut temp;
-} ScoreDataStut;
+    bool fileIsRead;
+    RankRowStut *data; //form data[0] to data[SCORE_DATA-1]
+    RankRowStut temp;
+} RankScoreDataStut;
 
 typedef struct ScoreStut
 {
@@ -138,6 +148,15 @@ typedef struct ScoreStut
     int coins;
     int score;
 } ScoreStut;
+
+typedef struct CoinStut
+{
+    float start_x, start_y;
+    float end_x, end_y;
+    ALLEGRO_BITMAP *imgs_runing;
+    int imgCount, nowImg;
+    int persent;
+} CoinStut;
 
 typedef struct RoleStut
 {
@@ -225,10 +244,11 @@ typedef struct AllegroObjStut
     ALLEGRO_EVENT events;                     //拿來存事件 #2 (目前用於視窗X叉叉)
     ALLEGRO_TIMER *timer;
 
-    ScoreboardStut chars;
-    ScoreboardStut coins;
+    ScoreboardStut sb_chars;
+    ScoreboardStut sb_coins;
 
     RoleStut role;
+    CoinStut coin;
 
     FloorStut floor;
     MeteorStut meteor;
@@ -238,6 +258,8 @@ typedef struct AllegroObjStut
     int meteor_n;
 
     FontStut font_a;
+    FontStut font_b;
+
     SoundStut sound;
     ButtonStut menuButton[NUM_MENU_BUTTON]; //初始介面選單
     ButtonStut modeButton[NUM_MODE_BUTTON]; //遊戲難度選單
@@ -260,6 +282,8 @@ typedef struct MainDataStut
     int game_mode; //遊戲模式
     MouseStut mouse;
     ScoreStut score;
+    RankNameStut usrName;
+    RankScoreDataStut *scoreFileData;
 } MainDataStut;
 
 /* AllegroObjStut Function*/
@@ -267,13 +291,14 @@ AllegroObjStut *ClocAlgObj();
 void AllegroDriverInit();
 void AllegroObjectInit(AllegroObjStut *allegroObj);
 void image_init(AllegroObjStut *allegroObj);
-void font_init(AllegroObjStut *allegroObj);
+void font_init(FontStut *font, const char *filePath);
 void score_board_init(AllegroObjStut *allegroObj);
 void menu_button_init(AllegroObjStut *allegroObj);
 void home_button_init(AllegroObjStut *allegroObj);
 void mode_button_init(AllegroObjStut *allegroObj);
 void sound_init(AllegroObjStut *allegroObj);
 void role_init(AllegroObjStut *allegroObj);
+void coin_init(AllegroObjStut *allegroObj);
 void floor_init(AllegroObjStut *allegroObj);
 /* MainDataStut Function*/
 MainDataStut *ClocMainData();

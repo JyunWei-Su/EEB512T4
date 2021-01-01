@@ -4,7 +4,7 @@
 
 void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    //int result = 0;
+    int result = 0;
     if(!al_is_event_queue_empty(allegroObj->event_queue))
     {
         while(al_get_next_event(allegroObj->event_queue, &allegroObj->events))
@@ -13,9 +13,8 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
             switch(allegroObj->events.type)
             {
             case ALLEGRO_EVENT_DISPLAY_CLOSE:
-                //result = MY_ALGO_Y_N_Msg("Notice", "Shutdown This Game?\nYou can press Q or Esc to return to MENU.");
-                //if(result == 1) mainData->game_state = GAME_STATE_FINISH;
-                mainData->game_state = GAME_FINISH;
+                result = MY_ALGO_Y_N_Msg("Notice", "Shutdown This Game?\nYou can press...");
+                if(result == 1) mainData->game_state = GAME_FINISH;
                 break;
             case ALLEGRO_EVENT_MENU_CLICK:
                 //if (allegroObj->events.user.data1 == FILE_EXIT_ID)
@@ -75,6 +74,7 @@ void CheckStateMenuSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 break;
             case 2:
                 mainData->game_state = GAME_RANK;
+                if(!mainData->scoreFileData->fileIsRead) mainData->scoreFileData->fileIsRead = ScoreFileRead( PATH_FILE_SCORE, mainData->scoreFileData);
                 break;
             case 3:
                 mainData->game_state = GAME_ABOUT;
@@ -166,6 +166,7 @@ void CheckMouseClick(MainDataStut *mainData, AllegroObjStut *allegroObj)
             if(allegroObj->homeButton.isSelected)
             {
                 mainData->game_state = GAME_MENU;
+                mainData->scoreFileData->fileIsRead = 0;
                 allegroObj->homeButton.isSelected = 0; //切換狀態後要重設
             }
             break;

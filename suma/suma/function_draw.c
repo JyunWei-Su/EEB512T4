@@ -28,12 +28,12 @@ void DrawMenu(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
 void DrawScoreboard(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    al_draw_bitmap(allegroObj->coins.img, allegroObj->coins.start_x, allegroObj->coins.start_y, 0);
-    al_draw_bitmap(allegroObj->chars.img, allegroObj->chars.start_x, allegroObj->chars.start_y, 0);
-    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->coins.end_x, allegroObj->coins.start_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.coins);
-    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->chars.end_x, allegroObj->chars.start_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.chars);
-    DrawObjBoundary(allegroObj->coins.start_x, allegroObj->coins.start_y, allegroObj->coins.end_x, allegroObj->coins.end_y);
-    DrawObjBoundary(allegroObj->chars.start_x, allegroObj->chars.start_y, allegroObj->chars.end_x, allegroObj->chars.end_y);
+    al_draw_bitmap(allegroObj->sb_coins.img, allegroObj->sb_coins.start_x, allegroObj->sb_coins.start_y, 0);
+    al_draw_bitmap(allegroObj->sb_chars.img, allegroObj->sb_chars.start_x, allegroObj->sb_chars.start_y, 0);
+    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->sb_coins.end_x, allegroObj->sb_coins.start_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.coins);
+    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->sb_chars.end_x, allegroObj->sb_chars.start_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.chars);
+    DrawObjBoundary(allegroObj->sb_coins.start_x, allegroObj->sb_coins.start_y, allegroObj->sb_coins.end_x, allegroObj->sb_coins.end_y);
+    DrawObjBoundary(allegroObj->sb_chars.start_x, allegroObj->sb_chars.start_y, allegroObj->sb_chars.end_x, allegroObj->sb_chars.end_y);
 }
 
 void DrawModeButton(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -89,8 +89,22 @@ void DrawRule(MainDataStut *mainData, AllegroObjStut *allegroObj)
 void DrawRank(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     al_draw_bitmap(allegroObj->background.img, 0, 0, 0); // Draw bitmap
-    al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "rank");
+    al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, 0, ALLEGRO_ALIGN_CENTER, "rank");
+    DrawRankScore(mainData, allegroObj);
     DrawHomeButton(mainData, allegroObj);
+}
+
+void DrawRankScore(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    int i;
+    int x = DISPLAY_WIDTH/2;
+    int y = DISPLAY_HEIGHT/2;
+    //al_draw_textf(allegroObj->font_b.font64, COLOR_SCORE, x, y-SIZE_TEXT_RANK_LEADONG*8, ALLEGRO_ALIGN_CENTER, "Rank");
+    al_draw_textf(allegroObj->font_b.font36, COLOR_SCORE, x, y-SIZE_TEXT_RANK_LEADONG*5, ALLEGRO_ALIGN_CENTER, "--No act: Press Q or Esc to return to menu.");
+    for(i = 0; i < NUM_SCORE_DATA; i++){
+        al_draw_textf(allegroObj->font_b.font36, COLOR_SCORE, x/3, y-SIZE_TEXT_RANK_LEADONG*(4-i), ALLEGRO_ALIGN_LEFT, "%2d\t%5d\t%20s\t%s",
+                      mainData->scoreFileData->data[i].id, mainData->scoreFileData->data[i].score, mainData->scoreFileData->data[i].name, mainData->scoreFileData->data[i].time);
+    }
 }
 
 void DrawAbout(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -106,7 +120,7 @@ void DrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
     switch(allegroObj->role.state)
     {
     case ROLE_NULL:
-        if(allegroObj->role.imgCount % (int)(FPS*TIME_PER_IMG) == 0)
+        if(allegroObj->role.imgCount % (int)(FPS*TIME_PER_IMG_ROLE) == 0)
         {
             allegroObj->role.imgCount = 0;
             allegroObj->role.nowImg += 1;
@@ -132,7 +146,7 @@ void DrawMeteorAnimation(MainDataStut *mainData, AllegroObjStut *allegroObj)
     case GAME_PLAYING_FINAL_BOSS:
         for (i = 0; i < allegroObj->meteor_n; i++)
         {
-            if(allegroObj->meteors_right_drop[i].imgCount % (int)(FPS*TIME_PER_IMG) == 0)
+            if(allegroObj->meteors_right_drop[i].imgCount % (int)(FPS*TIME_PER_IMG_METEOR) == 0)
             {
                 allegroObj->meteors_right_drop[i].imgCount = 0;
                 allegroObj->meteors_right_drop[i].nowImg += 1;
@@ -179,11 +193,9 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
     int state = mainData->game_state;
     //int calculate = 0;
     al_clear_to_color( COLOR_CLEAR );
-
     switch(state)
     {
     case GAME_MENU:
-
         DrawMenu(mainData, allegroObj);
         break;
     case GAME_MODE_SELECT:
@@ -205,6 +217,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         }
         al_draw_bitmap(allegroObj->background.img, allegroObj->background.x, 0, 0); // Draw bitmap
         DrawRole(mainData, allegroObj);
+        DrawCoin(mainData, allegroObj);
         al_draw_bitmap(allegroObj->floor.img, allegroObj->floor.start_x, allegroObj->floor.start_y, 0); // Draw bitmap
         DrawObjBoundary(allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
         DrawScoreboard(mainData, allegroObj);
@@ -219,6 +232,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         }
         al_draw_bitmap(allegroObj->background.img, allegroObj->background.x, 0, 0); // Draw bitmap
         DrawRole(mainData, allegroObj);
+        DrawCoin(mainData, allegroObj);
         al_draw_bitmap(allegroObj->floor.img, allegroObj->floor.start_x, allegroObj->floor.start_y, 0); // Draw bitmap
         DrawObjBoundary(allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
         DrawScoreboard(mainData, allegroObj);

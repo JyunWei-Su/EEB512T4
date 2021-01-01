@@ -3,6 +3,7 @@
 
 void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
+    bool statecrash;
     int state = mainData->game_state;
     al_get_keyboard_state(&allegroObj->keyboard_state);
     switch(state)
@@ -10,7 +11,8 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
     case GAME_PLAYING_NORMAL:
         allegroObj->background.x -= OFFSET_ROLE_WALK;
         if(allegroObj->background.x <= -SIZE_IMG_BKG_WIDTH) allegroObj->background.x += SIZE_IMG_BKG_WIDTH;
-        allegroObj->floor.start_x -= 1.5;
+        allegroObj->coin.start_x -= OFFSET_ROLE_WALK;
+        allegroObj->floor.start_x -= OFFSET_ROLE_WALK+1;
         allegroObj->floor.end_x = allegroObj->floor.start_x + SIZE_IMG_FLOOR_WIDTH;
         allegroObj->floor.end_y = allegroObj->floor.start_y + SIZE_IMG_FLOOR_HEIGHT;
         /* Role*/
@@ -23,6 +25,16 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_X))
         {
             mainData->game_state = GAME_PLAYING_FINAL_BOSS;
+        }
+
+        meteor_drop(allegroObj);
+        statecrash = ObjCrashCheck(allegroObj->role.start_x, allegroObj->role.start_y, allegroObj->role.end_x, allegroObj->role.end_y ,
+                                allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
+        statecrash ? printf("\tCrash\n") : printf("\tNo crash.\n");
+        /*coin*/
+        if((allegroObj->coin.start_x)+SIZE_IMG_COIN_WIDTH <= 0)
+        {
+         allegroObj->coin.start_x = DISPLAY_WIDTH;
         }
         break;
     case GAME_MENU:
@@ -63,7 +75,6 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         }
         break;
     }
-
 }
 
 void Gravity(AllegroObjStut *allegroObj) //重力
@@ -81,11 +92,10 @@ void role_init(AllegroObjStut *allegroObj)
     allegroObj->role.state = ROLE_NULL;
 }
 
+
 void role_jump(AllegroObjStut *allegroObj)
 {
-    //int vely=0;
-    //const int Gravity=1;
-    //bool jump =true;
+
     if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W))
     {
         if(allegroObj->role.state != ROLE_MUST_DROP) allegroObj->role.start_y -= OFFSET_ROLE_JUMP;
@@ -100,6 +110,7 @@ void role_jump(AllegroObjStut *allegroObj)
         allegroObj->role.start_x += OFFSET_ROLE_JUMP;
     if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_A))
         allegroObj->role.start_x -=OFFSET_ROLE_JUMP;
+
     //邊界
     if(allegroObj->role.start_y <= MAX_ROLE_Y ) allegroObj->role.state = ROLE_MUST_DROP;
     //if(allegroObj->role.state == ROLE_MUST_DROP) Gravity(allegroObj);
@@ -115,6 +126,7 @@ void role_jump(AllegroObjStut *allegroObj)
         allegroObj->role.start_x = MAX_ROLE_X;
 
     Gravity(allegroObj);
+
     //角色邊界運算
     allegroObj->role.end_x = allegroObj->role.start_x + SIZE_IMG_ROLE_WIDTH;
     allegroObj->role.end_y = allegroObj->role.start_y + SIZE_IMG_ROLE_HEIGHT;
@@ -176,15 +188,7 @@ void meteor_drop(AllegroObjStut *allegroObj)
         meteor_end_xy_update(&allegroObj->meteors[i]);
         meteor_end_xy_update(&allegroObj->meteors_right_drop[i]);
         meteor_end_xy_update(&allegroObj->meteors_left_drop[i]);
-
-        //allegroObj->meteors[i].end_x = allegroObj->meteors[i].start_x + SIZE_IMG_METEOR_WIDTH;
-        //allegroObj->meteors[i].end_y = allegroObj->meteors[i].start_y + SIZE_IMG_METEOR_HEIGHT;
     }
-    //allegroObj->meteor.start_y +=20;
-
-    //炸彈邊界運算
-    //allegroObj->meteor.end_x = allegroObj->meteor.start_x + SIZE_IMG_METEOR_WIDTH;
-    //allegroObj->meteor.end_y = allegroObj->meteor.start_y + SIZE_IMG_METEOR_HEIGHT;
 }
 
 void meteor_end_xy_update(MeteorStut *meteor)
@@ -192,4 +196,48 @@ void meteor_end_xy_update(MeteorStut *meteor)
 {
     meteor->end_x = meteor->start_x + SIZE_IMG_METEOR_WIDTH;
     meteor->end_y = meteor->start_y + SIZE_IMG_METEOR_HEIGHT;
+}
+
+void start_end_change(float *start,float *end)
+{
+    float temp;
+    //確認start與end大小
+    if(*start > *end)
+    {
+        temp = *start;
+        *start = *end;
+        *end = temp;
+    }
+}
+
+bool ObjCrashCheck(float start_x1,float start_y1,float end_x1,float end_y1,float start_x2,float start_y2,float end_x2,float end_y2)
+{
+    float Length_x,Length_y;
+    start_end_change(&start_x1,&end_x1);
+    start_end_change(&start_y1,&end_y1);
+    start_end_change(&start_x2,&end_x2);
+    start_end_change(&start_y2,&end_y2);
+    Length_x = end_x1 - start_x1;
+    Length_y = end_y1 - start_y1;
+    //printf("start_x2=%f\n",start_x2);
+    //printf("end_x1=%f\n",end_x1);
+    //printf("start_x2 - end_x1=%f\n",start_x2 - end_x1);
+    if(start_x2 - end_x1 >= 2*Length_x && start_y2 - end_y1 >= 2*Length_y)
+        return ObjCrashCheck_sub(start_x1, start_y1, end_x1, end_y1,start_x2, start_y2, end_x2, end_y2);
+    else
+        return ObjCrashCheck_sub(start_x1, start_y1, end_x1, end_y1,start_x2, start_y2, end_x2, end_y2);
+}
+
+bool ObjCrashCheck_sub(float start_x1,float start_y1,float end_x1,float end_y1,float start_x2,float start_y2,float end_x2,float end_y2)
+{
+    if((start_x1 <= start_x2 && start_x2 <=end_x1) && (start_y1 <=start_y2 && start_y2 <= end_y1)) return 1;
+    else if ( (start_x1 <=start_x2 && start_x2<=end_x1) && (start_y1 <=end_y2 && end_y2 <= end_y1)) return 1;
+    else if( (start_x1 <=end_x2 && end_x2<=end_x1) && (start_y1 <=start_y2 && start_y2 <= end_y1))  return 1;
+    else if( (start_x1 <=end_x2 && end_x2<=end_x1) && (start_y1 <=end_y2 && end_y2 <= end_y1))    return 1;
+    //==================================
+    else if((start_x2 <= start_x1 && start_x1 <=end_x2) && (start_y2 <=start_y1 && start_y1 <= end_y2)) return 1;
+    else if ( (start_x2 <=start_x1 && start_x1<=end_x2) && (start_y2 <=end_y1 && end_y1 <= end_y2)) return 1;
+    else if( (start_x2 <=end_x1 && end_x1<=end_x2) && (start_y2 <=start_y1 && start_y1 <= end_y2))  return 1;
+    else if( (start_x2 <=end_x1 && end_x1<=end_x2) && (start_y2 <=end_y1 && end_y1 <= end_y2))    return 1;
+    else return 0;
 }
