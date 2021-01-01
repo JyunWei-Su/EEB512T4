@@ -8,6 +8,7 @@
 
 ## 字體來源
  * https://www.kfstudio.net/font/kfhimajiface/
+ * https://nonty.net/font/freefont/fancy-heart/
 
 ## 圖片
  * https://www.flaticon.com/free-icon/home_1057118?related_item_id=1057118&term=home

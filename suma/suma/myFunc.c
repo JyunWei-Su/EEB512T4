@@ -58,3 +58,18 @@ void MY_ALGO_ErrMsg(char const *title, char const *text)
 {
     al_show_native_message_box(NULL, title, "", text, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 }
+
+void MY_ALGO_QuaMsg(char const *title, char const *text)
+//提示對話框
+{
+    al_show_native_message_box(NULL, title, "", text, NULL, ALLEGRO_MESSAGEBOX_QUESTION);
+}
+
+int  MY_ALGO_Y_N_Msg(char const *title, char const *text)
+//提示對話框
+{
+    int result;
+    result = al_show_native_message_box(NULL, title, "", text, NULL, ALLEGRO_MESSAGEBOX_YES_NO);
+    return result;
+}
+

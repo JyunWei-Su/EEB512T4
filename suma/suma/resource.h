@@ -35,6 +35,7 @@
 #define PATH_SFX_BACKGROUND "./sfx/bkg.wav"
 #define PATH_FILE_SCORE "user.score"
 #define PATH_FONT_HIMAJI "./font/KFhimajiFACE.otf"
+#define PATH_FONT_FANCYH "./font/FancyHeart.otf"
 
 #define COLOR_SCORE al_map_rgb(255, 255, 255)
 #define COLOR_CLEAR al_map_rgb(0,0,0)
@@ -62,8 +63,10 @@
 #define SIZE_IMG_HOME_BUTTON_WIDTH 128
 #define SIZE_IMG_HOME_BUTTON_HEIGHT 128
 
+#define SIZE_TEXT_RANK_LEADONG 48
 
-#define SCORE_DATA 10 //rank 資料筆數
+
+#define NUM_SCORE_DATA 10 //rank 資料筆數
 #define NUM_MENU_BUTTON 4
 #define NUM_MODE_BUTTON 3
 #define NUM_IMG_ROLE_SEQUENCE 10
@@ -113,25 +116,26 @@ typedef enum RoleState
 } RoleState;
 
 /**  struct  **/
-typedef struct RowStut
+typedef struct RankRowStut
 {
     int id;
     int score;
     char name[20];
     char time[20];
-} RowStut;
+} RankRowStut;
 
-typedef struct NameStut
+typedef struct RankNameStut
 {
     char name[20];
     int len;
-} NameStut;
+} RankNameStut;
 
-typedef struct ScoreDataStut
+typedef struct RankScoreDataStut
 {
-    RowStut *data; //form data[0] to data[SCORE_DATA-1]
-    RowStut temp;
-} ScoreDataStut;
+    bool fileIsRead;
+    RankRowStut *data; //form data[0] to data[SCORE_DATA-1]
+    RankRowStut temp;
+} RankScoreDataStut;
 
 typedef struct ScoreStut
 {
@@ -239,6 +243,8 @@ typedef struct AllegroObjStut
     int meteor_n;
 
     FontStut font_a;
+    FontStut font_b;
+
     SoundStut sound;
     ButtonStut menuButton[NUM_MENU_BUTTON]; //初始介面選單
     ButtonStut modeButton[NUM_MODE_BUTTON]; //遊戲難度選單
@@ -261,6 +267,8 @@ typedef struct MainDataStut
     int game_mode; //遊戲模式
     MouseStut mouse;
     ScoreStut score;
+    RankNameStut usrName;
+    RankScoreDataStut *scoreFileData;
 } MainDataStut;
 
 /* AllegroObjStut Function*/
@@ -268,7 +276,7 @@ AllegroObjStut *ClocAlgObj();
 void AllegroDriverInit();
 void AllegroObjectInit(AllegroObjStut *allegroObj);
 void image_init(AllegroObjStut *allegroObj);
-void font_init(AllegroObjStut *allegroObj);
+void font_init(FontStut *font, const char *filePath);
 void score_board_init(AllegroObjStut *allegroObj);
 void menu_button_init(AllegroObjStut *allegroObj);
 void home_button_init(AllegroObjStut *allegroObj);
