@@ -30,6 +30,7 @@
 #define PATH_IMG_ROLE_SEQ_RUNING "./img/comp1.png"
 #define PATH_IMG_FLOOR "./img/floor.png"
 #define PATH_IMG_METEOR "./img/meteor.png"
+#define PATH_IMG_METEOR_SEQ_RUNING "./img/meteor200x200.png"
 #define PATH_FNT_DFT "./DFT_TL9.TTC"
 #define PATH_SFX_BACKGROUND "./sfx/bkg.wav"
 #define PATH_FILE_SCORE "user.score"
@@ -52,6 +53,8 @@
 #define SIZE_IMG_FLOOR_HEIGHT 100
 #define SIZE_IMG_METEOR_WIDTH 80
 #define SIZE_IMG_METEOR_HEIGHT 80
+#define SIZE_IMG_METEOR_BIG_WIDTH 200
+#define SIZE_IMG_METEOR_BIG_HEIGHT 200
 #define SIZE_IMG_MENU_BUTTON_WIDTH 480
 #define SIZE_IMG_MENU_BUTTON_HEIGHT 90
 #define SIZE_IMG_MODE_BUTTON_WIDTH 480
@@ -64,6 +67,7 @@
 #define NUM_MENU_BUTTON 4
 #define NUM_MODE_BUTTON 3
 #define NUM_IMG_ROLE_SEQUENCE 10
+#define NUM_IMG_METEOR_SEQUENCE 12
 #define NUM_SAMPLES 3 //聲音數量
 #define SCALE_MENU_BUTTON 1.2
 #define SCALE_MODE_BUTTON 1.2
@@ -73,7 +77,7 @@
 
 /*Role_Define*/
 #define OFFSET_ROLE_JUMP 10
-#define OFFSET_ROLE_WALK 2
+#define OFFSET_ROLE_WALK 1
 #define MAX_ROLE_Y 450
 #define MIN_ROLE_Y 600
 #define MAX_ROLE_X 1500
@@ -84,8 +88,8 @@
 #define NUMBER_METEOR 30
 #define SPEED_Y_METEOR 15
 #define SPEED_X_METEOR 0
-#define SPEED_Y_METEOR_RIGHT 15
-#define SPEED_X_METEOR_RIGHT 10
+#define SPEED_Y_METEOR_RIGHT 5
+#define SPEED_X_METEOR_RIGHT 3
 
 #define FILE_EXIT_ID 1 //待整併
 
@@ -160,7 +164,7 @@ typedef struct MeteorStut
     float end_x, end_y;
     ALLEGRO_BITMAP *img;
     ALLEGRO_BITMAP *imgs_runing;
-    //int imgCount, nowImg;
+    int imgCount, nowImg;
     int speed_x,speed_y;
     int state;
 } MeteorStut;
