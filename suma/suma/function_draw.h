@@ -12,4 +12,5 @@ void DrawRank(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawAbout(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawScoreboard(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void DrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj);
 #endif //_FUNCTION_DRAW_H_

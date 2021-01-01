@@ -28,6 +28,7 @@
 #define PATH_IMG_ROLE_1 "./img/role_1.png"
 #define PATH_IMG_ROLE_SEQ_RUNING "./img/comp1.png"
 #define PATH_IMG_FLOOR "./img/floor.png"
+#define PATH_IMG_METEOR "./img/meteor.png"
 #define PATH_FNT_DFT "./DFT_TL9.TTC"
 #define PATH_SFX_BACKGROUND "./sfx/bkg.wav"
 #define PATH_FILE_SCORE "user.score"
@@ -76,6 +77,8 @@
 #define MIN_ROLE_X 0
 #define GRAVITY 4.5
 #define TIME_PER_IMG 0.1
+/*Meteor_Define*/
+
 
 #define FILE_EXIT_ID 1 //待整併
 
@@ -87,33 +90,39 @@ typedef enum GameState {
     GAME_PLAYING_FINAL_BOSS, GAME_PLAYING_END,
 } GameState;
 
-typedef enum PlayMode {
+typedef enum PlayMode
+{
     MODE_EASY, MODE_MEDIUM, MODE_HARD,
 } PlayMode;
 
-typedef enum RoleState {
+typedef enum RoleState
+{
     ROLE_JUMP, ROLE_DROP, ROLE_MUST_DROP, ROLE_NULL,
 } RoleState;
 
 /**  struct  **/
-typedef struct RowStut{
+typedef struct RowStut
+{
     int id;
     int score;
     char name[20];
     char time[20];
-}RowStut;
+} RowStut;
 
-typedef struct NameStut{
+typedef struct NameStut
+{
     char name[20];
     int len;
-}NameStut;
+} NameStut;
 
-typedef struct ScoreDataStut{
+typedef struct ScoreDataStut
+{
     RowStut *data; //form data[0] to data[SCORE_DATA-1]
     RowStut temp;
 } ScoreDataStut;
 
-typedef struct ScoreStut{
+typedef struct ScoreStut
+{
     int chars;
     int coins;
     int score;
@@ -137,7 +146,20 @@ typedef struct FloorStut
     int state;
 } FloorStut;
 
-typedef struct ButtonStut{
+
+typedef struct MeteorStut
+{
+    float start_x, start_y;
+    float end_x, end_y;
+    ALLEGRO_BITMAP *img;
+    ALLEGRO_BITMAP *imgs_runing;
+    int imgCount, nowImg;
+    int state;
+} MeteorStut;
+
+
+typedef struct ButtonStut
+{
     float start_x, start_y;
     float end_x, end_y;
     char *text;
@@ -146,19 +168,22 @@ typedef struct ButtonStut{
     ALLEGRO_BITMAP *img2;
 } ButtonStut;
 
-typedef struct ScoreboardStut{
+typedef struct ScoreboardStut
+{
     float start_x, start_y;
     float end_x, end_y;
     ALLEGRO_BITMAP *img;
 } ScoreboardStut;
 
-typedef struct BackgroundStut{
+typedef struct BackgroundStut
+{
     float x, y;
     ALLEGRO_BITMAP *img;    //back ground Img
     int state;
 } BackgroundStut;
 
-typedef struct FontStut{
+typedef struct FontStut
+{
     ALLEGRO_FONT *font24;
     ALLEGRO_FONT *font36;
     ALLEGRO_FONT *font48;
@@ -167,7 +192,8 @@ typedef struct FontStut{
     ALLEGRO_FONT *font120;
 } FontStut;
 
-typedef struct SoundStut{
+typedef struct SoundStut
+{
     ALLEGRO_MIXER *mixer; // for sfx
     ALLEGRO_VOICE *voice;
 
@@ -176,7 +202,8 @@ typedef struct SoundStut{
 
 } SoundStut;
 
-typedef struct AllegroObjStut{
+typedef struct AllegroObjStut
+{
     ALLEGRO_DISPLAY *display;  //display
     ALLEGRO_BITMAP *iconImg;    //ICON Img
     BackgroundStut background;
@@ -190,7 +217,11 @@ typedef struct AllegroObjStut{
     ScoreboardStut coins;
 
     RoleStut role;
+
     FloorStut floor;
+    MeteorStut meteor;
+    MeteorStut *meteors;
+    int meteor_n;
 
     FontStut font_a;
     SoundStut sound;
@@ -201,12 +232,14 @@ typedef struct AllegroObjStut{
 } AllegroObjStut;
 
 
-typedef struct MouseStut{
+typedef struct MouseStut
+{
     int x, y;
     bool isClick;
 } MouseStut;
 
-typedef struct MainDataStut{
+typedef struct MainDataStut
+{
     struct tm *tm;
     int game_state; //遊戲進行狀態
     int breakPoint;
@@ -235,17 +268,17 @@ void MainDataInit(MainDataStut *mainData);
 void Gravity(AllegroObjStut *allegroObj); //運算
 #endif //_RESOURSE_H_
 
-    //ALLEGRO_BITMAP *candyBkgImg; //main layout img
-    //ALLEGRO_BITMAP **candyImgs; //candy Imgs: candyImg[n]
+//ALLEGRO_BITMAP *candyBkgImg; //main layout img
+//ALLEGRO_BITMAP **candyImgs; //candy Imgs: candyImg[n]
 
-    //ALLEGRO_MENU *menu; //待整併
-    //LLEGRO_MENU *menu_1; //待整併
-    //FILE *fileStream;
-    //int scoreFileIsRead;
-    //int row;
-    //int col;
-    //int round;
-    //int mouse_x, mouse_y;
-    //int mouse_click, mouse_click_x, mouse_click_y;
-    //NameStut usrName;
-    //ScoreDataStut *scoreData;
+//ALLEGRO_MENU *menu; //待整併
+//LLEGRO_MENU *menu_1; //待整併
+//FILE *fileStream;
+//int scoreFileIsRead;
+//int row;
+//int col;
+//int round;
+//int mouse_x, mouse_y;
+//int mouse_click, mouse_click_x, mouse_click_y;
+//NameStut usrName;
+//ScoreDataStut *scoreData;
