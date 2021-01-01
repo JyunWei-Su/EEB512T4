@@ -16,6 +16,7 @@
 #include <allegro5/allegro_native_dialog.h> //對話視窗
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_primitives.h> // 畫線
 
 #define PATH_IMG_BKG "./img/back900.png"
 #define PATH_IMG_ICON "./img/icon.tga"
@@ -49,6 +50,8 @@
 #define SIZE_IMG_ROLE_HEIGHT 200
 #define SIZE_IMG_FLOOR_WIDTH 300
 #define SIZE_IMG_FLOOR_HEIGHT 100
+#define SIZE_IMG_METEOR_WIDTH 80
+#define SIZE_IMG_METEOR_HEIGHT 80
 #define SIZE_IMG_MENU_BUTTON_WIDTH 480
 #define SIZE_IMG_MENU_BUTTON_HEIGHT 90
 #define SIZE_IMG_MODE_BUTTON_WIDTH 480
@@ -78,7 +81,11 @@
 #define GRAVITY 4.5
 #define TIME_PER_IMG 0.1
 /*Meteor_Define*/
-
+#define NUMBER_METEOR 30
+#define SPEED_Y_METEOR 15
+#define SPEED_X_METEOR 0
+#define SPEED_Y_METEOR_RIGHT 15
+#define SPEED_X_METEOR_RIGHT 10
 
 #define FILE_EXIT_ID 1 //待整併
 
@@ -153,7 +160,8 @@ typedef struct MeteorStut
     float end_x, end_y;
     ALLEGRO_BITMAP *img;
     ALLEGRO_BITMAP *imgs_runing;
-    int imgCount, nowImg;
+    //int imgCount, nowImg;
+    int speed_x,speed_y;
     int state;
 } MeteorStut;
 
@@ -221,6 +229,8 @@ typedef struct AllegroObjStut
     FloorStut floor;
     MeteorStut meteor;
     MeteorStut *meteors;
+    MeteorStut *meteors_right_drop;
+    MeteorStut *meteors_left_drop;
     int meteor_n;
 
     FontStut font_a;

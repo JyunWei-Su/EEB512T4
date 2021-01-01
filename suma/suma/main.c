@@ -12,12 +12,12 @@ int main(){
     allegroObj = ClocAlgObj();
 
     /* Initialize */
+    srand(time(0));
     AllegroDriverInit();
     AllegroObjectInit(allegroObj);
     MainDataInit(mainData);
 
-    /*執行主要function*/
-    srand(time(0));
+    /* Main processing */
     while (mainData->game_state != GAME_FINISH){
         CheckEvent(mainData, allegroObj);
     }
