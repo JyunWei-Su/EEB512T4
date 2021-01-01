@@ -91,7 +91,7 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
     dbp;
     switch(state)
     {
-    case GAME_PLAYING:
+    case GAME_PLAYING_NORMAL:
         switch(allegroObj->events.keyboard.keycode)
         {
         case ALLEGRO_KEY_W:
@@ -113,7 +113,8 @@ void CheckStateModeSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
     {
         if(allegroObj->modeButton[i].isSelected)
         {
-            mainData->game_state = GAME_PLAYING;
+            mainData->game_state = GAME_PLAYING_NORMAL;
+            mainData->score.chars = 1;
             switch(i)
             {
             case 0:
@@ -249,13 +250,6 @@ void CheckGameState(MainDataStut *mainData, AllegroObjStut *allegroObj)
     //printf("state:%d\n", state);
     switch(state)
     {
-    case GAME_DRAW:
-        DrawDisplayAndFlip(mainData, allegroObj);
-        break;
-    case GAME_TEST: //test
-        //printf("Final Score: %d\n", mainData->tolScore); // After there is no elem. to eleimate, print the final score (each eleimate get 10 points)
-        mainData->game_state = GAME_NONE;
-        break;
     case GAME_NONE:
         //DrawDisplayAndFlip(mainData, allegroObj);
         break;

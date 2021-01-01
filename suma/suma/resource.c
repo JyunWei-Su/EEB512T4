@@ -44,6 +44,7 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     home_button_init(allegroObj);
     score_board_init(allegroObj);
     role_init(allegroObj);
+    floor_init(allegroObj);
 
     /*load Font*/
     //allegroObj->font_60 = al_load_font("DFT_TL9.TTC", 60, 0);
@@ -104,9 +105,16 @@ void font_init(AllegroObjStut *allegroObj)
 
 void image_init(AllegroObjStut *allegroObj)
 {
-    allegroObj->background.Img = al_load_bitmap( PATH_IMG_BKG );
+    allegroObj->background.img = al_load_bitmap( PATH_IMG_BKG );
     allegroObj->background.x = 0;
     allegroObj->iconImg = al_load_bitmap( PATH_IMG_ICON );
+}
+
+void floor_init(AllegroObjStut *allegroObj)
+{
+    allegroObj->floor.img = al_load_bitmap( PATH_IMG_FLOOR );
+    allegroObj->floor.start_x = DISPLAY_WIDTH;
+    allegroObj->floor.start_y = DISPLAY_HEIGHT - SIZE_IMG_FLOOR_HEIGHT;
 }
 
 void home_button_init(AllegroObjStut *allegroObj)
@@ -199,3 +207,4 @@ void MainDataInit(MainDataStut *mainData)
     mainData->score.coins = 0;
     mainData->score.score = 0;
 }
+
