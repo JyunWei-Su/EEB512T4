@@ -13,12 +13,54 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         allegroObj->floor.start_x -= 1.5;
         allegroObj->floor.end_x = allegroObj->floor.start_x + SIZE_IMG_FLOOR_WIDTH;
         allegroObj->floor.end_y = allegroObj->floor.start_y + SIZE_IMG_FLOOR_HEIGHT;
-
         /* Role*/
         role_jump(allegroObj);
-        meteor_drop(allegroObj);
+
+        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_Z))
+        {
+            mainData->game_state = GAME_PLAYING_MID_BOSS;
+        }
+        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_X))
+        {
+            mainData->game_state = GAME_PLAYING_FINAL_BOSS;
+        }
         break;
     case GAME_MENU:
+        break;
+    case GAME_PLAYING_MID_BOSS:
+        allegroObj->background.x -= OFFSET_ROLE_WALK;
+        if(allegroObj->background.x <= -SIZE_IMG_BKG_WIDTH) allegroObj->background.x += SIZE_IMG_BKG_WIDTH;
+        allegroObj->floor.start_x -= 1.5;
+        allegroObj->floor.end_x = allegroObj->floor.start_x + SIZE_IMG_FLOOR_WIDTH;
+        allegroObj->floor.end_y = allegroObj->floor.start_y + SIZE_IMG_FLOOR_HEIGHT;
+        role_jump(allegroObj);
+        meteor_drop(allegroObj);
+                if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_Z))
+        {
+            mainData->game_state = GAME_PLAYING_MID_BOSS;
+        }
+        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_X))
+        {
+            mainData->game_state = GAME_PLAYING_FINAL_BOSS;
+        }
+
+        break;
+    case GAME_PLAYING_FINAL_BOSS:
+        allegroObj->background.x -= OFFSET_ROLE_WALK;
+        if(allegroObj->background.x <= -SIZE_IMG_BKG_WIDTH) allegroObj->background.x += SIZE_IMG_BKG_WIDTH;
+        allegroObj->floor.start_x -= 1.5;
+        allegroObj->floor.end_x = allegroObj->floor.start_x + SIZE_IMG_FLOOR_WIDTH;
+        allegroObj->floor.end_y = allegroObj->floor.start_y + SIZE_IMG_FLOOR_HEIGHT;
+        role_jump(allegroObj);
+        meteor_drop(allegroObj);
+                if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_Z))
+        {
+            mainData->game_state = GAME_PLAYING_MID_BOSS;
+        }
+        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_X))
+        {
+            mainData->game_state = GAME_PLAYING_FINAL_BOSS;
+        }
         break;
     }
 
@@ -81,8 +123,12 @@ void role_jump(AllegroObjStut *allegroObj)
 void meteor_init(AllegroObjStut *allegroObj)
 {
     int i;
-    allegroObj->meteor_n = rand()%NUMBER_METEOR+5; //隕石數量
+    allegroObj->meteor_n = rand()%NUMBER_METEOR+15; //隕石數量
     allegroObj->meteor.img = al_load_bitmap( PATH_IMG_METEOR);
+    allegroObj->meteor.imgs_runing = al_load_bitmap( PATH_IMG_METEOR_SEQ_RUNING );
+    // allegroObj->meteor.start_x = 500;
+    //allegroObj->meteor.start_y = 0;
+    //allegroObj->meteor.speed_y =1;
     allegroObj->meteors = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
     allegroObj->meteors_right_drop = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
     allegroObj->meteors_left_drop = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
@@ -96,10 +142,11 @@ void meteor_init(AllegroObjStut *allegroObj)
         allegroObj->meteors[i].speed_y = rand()%SPEED_Y_METEOR+5;
         //*meteors_right_drop
         allegroObj->meteors_right_drop[i].img = al_load_bitmap(PATH_IMG_METEOR );
+        allegroObj->meteors_right_drop[i].imgs_runing = al_load_bitmap(PATH_IMG_METEOR_SEQ_RUNING );
         allegroObj->meteors_right_drop[i].start_x = rand()%2000;
         allegroObj->meteors_right_drop[i].start_y = 0;
         allegroObj->meteors_right_drop[i].speed_x = rand()%SPEED_X_METEOR_RIGHT+1;
-        allegroObj->meteors_right_drop[i].speed_y = rand()%SPEED_Y_METEOR_RIGHT+3;
+        allegroObj->meteors_right_drop[i].speed_y = rand()%SPEED_Y_METEOR_RIGHT+2;
         //*meteors_right_drop
         allegroObj->meteors_left_drop[i].img = al_load_bitmap(PATH_IMG_METEOR );
         allegroObj->meteors_left_drop[i].start_x = rand()%2000;
@@ -117,6 +164,7 @@ void meteor_init(AllegroObjStut *allegroObj)
 void meteor_drop(AllegroObjStut *allegroObj)
 {
     int i;
+    //allegroObj->meteor.start_y += allegroObj->meteor.speed_y;
     for (i = 0; i < allegroObj->meteor_n; i++)
     {
         allegroObj->meteors[i].start_y += allegroObj->meteors[i].speed_y;
@@ -124,14 +172,13 @@ void meteor_drop(AllegroObjStut *allegroObj)
         allegroObj->meteors_right_drop[i].start_y +=allegroObj->meteors_right_drop[i].speed_y;
         allegroObj->meteors_left_drop[i].start_x +=allegroObj->meteors_right_drop[i].speed_x;
         allegroObj->meteors_left_drop[i].start_y +=allegroObj->meteors_right_drop[i].speed_y;
-
+        //計算隕石邊界
         meteor_end_xy_update(&allegroObj->meteors[i]);
         meteor_end_xy_update(&allegroObj->meteors_right_drop[i]);
         meteor_end_xy_update(&allegroObj->meteors_left_drop[i]);
 
         //allegroObj->meteors[i].end_x = allegroObj->meteors[i].start_x + SIZE_IMG_METEOR_WIDTH;
         //allegroObj->meteors[i].end_y = allegroObj->meteors[i].start_y + SIZE_IMG_METEOR_HEIGHT;
-
     }
     //allegroObj->meteor.start_y +=20;
 
@@ -140,7 +187,9 @@ void meteor_drop(AllegroObjStut *allegroObj)
     //allegroObj->meteor.end_y = allegroObj->meteor.start_y + SIZE_IMG_METEOR_HEIGHT;
 }
 
-void meteor_end_xy_update(MeteorStut *meteor){
+void meteor_end_xy_update(MeteorStut *meteor)
+//計算隕石邊界
+{
     meteor->end_x = meteor->start_x + SIZE_IMG_METEOR_WIDTH;
     meteor->end_y = meteor->start_y + SIZE_IMG_METEOR_HEIGHT;
 }

@@ -86,6 +86,7 @@ void CheckStateMenuSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
 }
 
 void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
+//後來改用TIMER偵測鍵盤，才不會卡頓
 {
     int state = mainData->game_state;
     switch(state)
