@@ -16,6 +16,7 @@
 #include <allegro5/allegro_native_dialog.h> //對話視窗
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_primitives.h> // 畫線
 
 #define PATH_IMG_BKG "./img/back900.png"
 #define PATH_IMG_ICON "./img/icon.tga"
@@ -49,6 +50,8 @@
 #define SIZE_IMG_ROLE_HEIGHT 200
 #define SIZE_IMG_FLOOR_WIDTH 300
 #define SIZE_IMG_FLOOR_HEIGHT 100
+#define SIZE_IMG_METEOR_WIDTH 80
+#define SIZE_IMG_METEOR_HEIGHT 80
 #define SIZE_IMG_MENU_BUTTON_WIDTH 480
 #define SIZE_IMG_MENU_BUTTON_HEIGHT 90
 #define SIZE_IMG_MODE_BUTTON_WIDTH 480

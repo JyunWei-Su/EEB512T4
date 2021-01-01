@@ -11,6 +11,8 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         allegroObj->background.x -= OFFSET_ROLE_WALK;
         if(allegroObj->background.x <= -SIZE_IMG_BKG_WIDTH) allegroObj->background.x += SIZE_IMG_BKG_WIDTH;
         allegroObj->floor.start_x -= 1.5;
+        allegroObj->floor.end_x = allegroObj->floor.start_x + SIZE_IMG_FLOOR_WIDTH;
+        allegroObj->floor.end_y = allegroObj->floor.start_y + SIZE_IMG_FLOOR_HEIGHT;
 
         /* Role*/
         role_jump(allegroObj);
@@ -19,6 +21,7 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
     case GAME_MENU:
         break;
     }
+
 }
 
 void Gravity(AllegroObjStut *allegroObj) //重力
@@ -69,7 +72,10 @@ void role_jump(AllegroObjStut *allegroObj)
     if(allegroObj->role.start_x > MAX_ROLE_X)
         allegroObj->role.start_x = MAX_ROLE_X;
 
-    Gravity(allegroObj); //?
+    Gravity(allegroObj);
+    //角色邊界運算
+    allegroObj->role.end_x = allegroObj->role.start_x + SIZE_IMG_ROLE_WIDTH;
+    allegroObj->role.end_y = allegroObj->role.start_y + SIZE_IMG_ROLE_HEIGHT;
 }
 
 void meteor_init(AllegroObjStut *allegroObj)
@@ -113,13 +119,21 @@ void meteor_drop(AllegroObjStut *allegroObj)
     int i;
     for (i = 0; i < allegroObj->meteor_n; i++)
     {
+<<<<<<< HEAD
         allegroObj->meteors[i].start_y += allegroObj->meteors[i].speed_y;
         allegroObj->meteors_right_drop[i].start_x -=allegroObj->meteors_right_drop[i].speed_x;
         allegroObj->meteors_right_drop[i].start_y +=allegroObj->meteors_right_drop[i].speed_y;
         allegroObj->meteors_left_drop[i].start_x +=allegroObj->meteors_right_drop[i].speed_x;
         allegroObj->meteors_left_drop[i].start_y +=allegroObj->meteors_right_drop[i].speed_y;
+=======
+        allegroObj->meteors[i].start_y += 3;
+        allegroObj->meteors[i].end_x = allegroObj->meteors[i].start_x + SIZE_IMG_METEOR_WIDTH;
+        allegroObj->meteors[i].end_y = allegroObj->meteors[i].start_y + SIZE_IMG_METEOR_HEIGHT;
+>>>>>>> e5812d8d954e7c4abf85e1f7238135294e06e2db
     }
     //allegroObj->meteor.start_y +=20;
 
-
+    //炸彈邊界運算
+    allegroObj->meteor.end_x = allegroObj->meteor.start_x + SIZE_IMG_METEOR_WIDTH;
+    allegroObj->meteor.end_y = allegroObj->meteor.start_y + SIZE_IMG_METEOR_HEIGHT;
 }
