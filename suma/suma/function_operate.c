@@ -1,78 +1,68 @@
 #include "defineHeader.h"
 #include "resource.h"
 
-void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
+void move_background(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    allegroObj->background.x -= OFFSET_ROLE_WALK;
+    if(allegroObj->background.x <= -SIZE_IMG_BKG_WIDTH) allegroObj->background.x += SIZE_IMG_BKG_WIDTH;
+}
+
+void move_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    allegroObj->coin.start_x -= OFFSET_ROLE_WALK;
+    if((allegroObj->coin.start_x)+SIZE_IMG_COIN_WIDTH <= 0)
+    {
+        allegroObj->coin.start_x = DISPLAY_WIDTH;
+    }
+    end_xy_update_coin(&allegroObj->coin);
+}
+
+void move_floor(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    allegroObj->floor.start_x -= OFFSET_ROLE_WALK+1;
+    end_xy_update_floor(&allegroObj->floor);
+}
+
+void CrachEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     bool statecrash;
+    statecrash = ObjCrashCheck(allegroObj->role.start_x, allegroObj->role.start_y, allegroObj->role.end_x, allegroObj->role.end_y,
+                               allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
+    statecrash ? printf("\tCrash\n") : printf("\tNo crash.\n");
+
+}
+
+void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
     int state = mainData->game_state;
     al_get_keyboard_state(&allegroObj->keyboard_state);
     switch(state)
     {
     case GAME_PLAYING_NORMAL:
-        allegroObj->background.x -= OFFSET_ROLE_WALK;
-        if(allegroObj->background.x <= -SIZE_IMG_BKG_WIDTH) allegroObj->background.x += SIZE_IMG_BKG_WIDTH;
-        allegroObj->coin.start_x -= OFFSET_ROLE_WALK;
-        allegroObj->floor.start_x -= OFFSET_ROLE_WALK+1;
-        allegroObj->floor.end_x = allegroObj->floor.start_x + SIZE_IMG_FLOOR_WIDTH;
-        allegroObj->floor.end_y = allegroObj->floor.start_y + SIZE_IMG_FLOOR_HEIGHT;
+        move_background(mainData, allegroObj);
+        move_coin(mainData, allegroObj);
+        move_floor(mainData, allegroObj);
         /* Role*/
         role_jump(allegroObj);
-
-        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_Z))
-        {
-            mainData->game_state = GAME_PLAYING_MID_BOSS;
-        }
-        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_X))
-        {
-            mainData->game_state = GAME_PLAYING_FINAL_BOSS;
-        }
-
-        meteor_drop(allegroObj);
-        statecrash = ObjCrashCheck(allegroObj->role.start_x, allegroObj->role.start_y, allegroObj->role.end_x, allegroObj->role.end_y ,
-                                allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
-        statecrash ? printf("\tCrash\n") : printf("\tNo crash.\n");
-        /*coin*/
-        if((allegroObj->coin.start_x)+SIZE_IMG_COIN_WIDTH <= 0)
-        {
-         allegroObj->coin.start_x = DISPLAY_WIDTH;
-        }
+        //meteor_drop(allegroObj);
         break;
-    case GAME_MENU:
-        break;
+
     case GAME_PLAYING_MID_BOSS:
-        allegroObj->background.x -= OFFSET_ROLE_WALK;
-        if(allegroObj->background.x <= -SIZE_IMG_BKG_WIDTH) allegroObj->background.x += SIZE_IMG_BKG_WIDTH;
-        allegroObj->floor.start_x -= 1.5;
-        allegroObj->floor.end_x = allegroObj->floor.start_x + SIZE_IMG_FLOOR_WIDTH;
-        allegroObj->floor.end_y = allegroObj->floor.start_y + SIZE_IMG_FLOOR_HEIGHT;
+        move_background(mainData, allegroObj);
+        move_floor(mainData, allegroObj);
+        move_coin(mainData, allegroObj);
+        /* Role*/
         role_jump(allegroObj);
         meteor_drop(allegroObj);
-                if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_Z))
-        {
-            mainData->game_state = GAME_PLAYING_MID_BOSS;
-        }
-        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_X))
-        {
-            mainData->game_state = GAME_PLAYING_FINAL_BOSS;
-        }
-
         break;
+
     case GAME_PLAYING_FINAL_BOSS:
-        allegroObj->background.x -= OFFSET_ROLE_WALK;
-        if(allegroObj->background.x <= -SIZE_IMG_BKG_WIDTH) allegroObj->background.x += SIZE_IMG_BKG_WIDTH;
-        allegroObj->floor.start_x -= 1.5;
-        allegroObj->floor.end_x = allegroObj->floor.start_x + SIZE_IMG_FLOOR_WIDTH;
-        allegroObj->floor.end_y = allegroObj->floor.start_y + SIZE_IMG_FLOOR_HEIGHT;
+        move_background(mainData, allegroObj);
+        move_floor(mainData, allegroObj);
+        move_coin(mainData, allegroObj);
+
         role_jump(allegroObj);
         meteor_drop(allegroObj);
-                if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_Z))
-        {
-            mainData->game_state = GAME_PLAYING_MID_BOSS;
-        }
-        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_X))
-        {
-            mainData->game_state = GAME_PLAYING_FINAL_BOSS;
-        }
         break;
     }
 }
@@ -82,16 +72,6 @@ void Gravity(AllegroObjStut *allegroObj) //重力
     //const float gravity =GRAVITY;
     allegroObj->role.start_y += GRAVITY;
 }
-
-void role_init(AllegroObjStut *allegroObj)
-{
-    allegroObj->role.img = al_load_bitmap( PATH_IMG_ROLE_1 );
-    allegroObj->role.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
-    allegroObj->role.start_x=200;
-    allegroObj->role.start_y=700;
-    allegroObj->role.state = ROLE_NULL;
-}
-
 
 void role_jump(AllegroObjStut *allegroObj)
 {
@@ -128,49 +108,7 @@ void role_jump(AllegroObjStut *allegroObj)
     Gravity(allegroObj);
 
     //角色邊界運算
-    allegroObj->role.end_x = allegroObj->role.start_x + SIZE_IMG_ROLE_WIDTH;
-    allegroObj->role.end_y = allegroObj->role.start_y + SIZE_IMG_ROLE_HEIGHT;
-}
-
-void meteor_init(AllegroObjStut *allegroObj)
-{
-    int i;
-    allegroObj->meteor_n = rand()%NUMBER_METEOR+15; //隕石數量
-    allegroObj->meteor.img = al_load_bitmap( PATH_IMG_METEOR);
-    allegroObj->meteor.imgs_runing = al_load_bitmap( PATH_IMG_METEOR_SEQ_RUNING );
-    // allegroObj->meteor.start_x = 500;
-    //allegroObj->meteor.start_y = 0;
-    //allegroObj->meteor.speed_y =1;
-    allegroObj->meteors = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
-    allegroObj->meteors_right_drop = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
-    allegroObj->meteors_left_drop = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
-
-    for (i = 0; i < allegroObj->meteor_n; i++)
-    {
-        //*meteors
-        allegroObj->meteors[i].img = al_load_bitmap(PATH_IMG_METEOR );
-        allegroObj->meteors[i].start_x = rand()%1600;
-        allegroObj->meteors[i].start_y = 0;
-        allegroObj->meteors[i].speed_y = rand()%SPEED_Y_METEOR+5;
-        //*meteors_right_drop
-        allegroObj->meteors_right_drop[i].img = al_load_bitmap(PATH_IMG_METEOR );
-        allegroObj->meteors_right_drop[i].imgs_runing = al_load_bitmap(PATH_IMG_METEOR_SEQ_RUNING );
-        allegroObj->meteors_right_drop[i].start_x = rand()%2000;
-        allegroObj->meteors_right_drop[i].start_y = 0;
-        allegroObj->meteors_right_drop[i].speed_x = rand()%SPEED_X_METEOR_RIGHT+1;
-        allegroObj->meteors_right_drop[i].speed_y = rand()%SPEED_Y_METEOR_RIGHT+2;
-        //*meteors_right_drop
-        allegroObj->meteors_left_drop[i].img = al_load_bitmap(PATH_IMG_METEOR );
-        allegroObj->meteors_left_drop[i].start_x = rand()%2000;
-        allegroObj->meteors_left_drop[i].start_y = 0;
-        allegroObj->meteors_left_drop[i].speed_x = rand()%SPEED_X_METEOR_RIGHT+1;
-        allegroObj->meteors_left_drop[i].speed_y = rand()%SPEED_Y_METEOR_RIGHT+3;
-
-    }
-    //allegroObj->meteor.start_x=800;
-    //allegroObj->meteor.start_y=0;
-    //allegroObj->role.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
-    //allegroObj->meteor.state = ROLE_NULL;
+    end_xy_update_role(&allegroObj->role);
 }
 
 void meteor_drop(AllegroObjStut *allegroObj)
@@ -180,22 +118,44 @@ void meteor_drop(AllegroObjStut *allegroObj)
     for (i = 0; i < allegroObj->meteor_n; i++)
     {
         allegroObj->meteors[i].start_y += allegroObj->meteors[i].speed_y;
-        allegroObj->meteors_right_drop[i].start_x -=allegroObj->meteors_right_drop[i].speed_x;
-        allegroObj->meteors_right_drop[i].start_y +=allegroObj->meteors_right_drop[i].speed_y;
-        allegroObj->meteors_left_drop[i].start_x +=allegroObj->meteors_right_drop[i].speed_x;
-        allegroObj->meteors_left_drop[i].start_y +=allegroObj->meteors_right_drop[i].speed_y;
+        allegroObj->meteors_right_drop[i].start_x -= allegroObj->meteors_right_drop[i].speed_x;
+        allegroObj->meteors_right_drop[i].start_y += allegroObj->meteors_right_drop[i].speed_y;
+        allegroObj->meteors_left_drop[i].start_x += allegroObj->meteors_right_drop[i].speed_x;
+        allegroObj->meteors_left_drop[i].start_y += allegroObj->meteors_right_drop[i].speed_y;
         //計算隕石邊界
-        meteor_end_xy_update(&allegroObj->meteors[i]);
-        meteor_end_xy_update(&allegroObj->meteors_right_drop[i]);
-        meteor_end_xy_update(&allegroObj->meteors_left_drop[i]);
+        end_xy_update_meteor(&allegroObj->meteors[i]);
+        end_xy_update_meteor(&allegroObj->meteors_right_drop[i]);
+        end_xy_update_meteor(&allegroObj->meteors_left_drop[i]);
     }
 }
 
-void meteor_end_xy_update(MeteorStut *meteor)
+
+void end_xy_update_meteor(MeteorStut *meteor)
 //計算隕石邊界
 {
     meteor->end_x = meteor->start_x + SIZE_IMG_METEOR_WIDTH;
     meteor->end_y = meteor->start_y + SIZE_IMG_METEOR_HEIGHT;
+}
+
+void end_xy_update_role(RoleStut *role)
+//計算角色邊界
+{
+    role->end_x = role->start_x + SIZE_IMG_ROLE_WIDTH;
+    role->end_y = role->start_y + SIZE_IMG_ROLE_HEIGHT;
+}
+
+void end_xy_update_coin(CoinStut *coin)
+//計算金幣邊界
+{
+    coin->end_x = coin->start_x + SIZE_IMG_COIN_WIDTH;
+    coin->end_y = coin->start_y + SIZE_IMG_COIN_HEIGHT;
+}
+
+void end_xy_update_floor(FloorStut *floor)
+//計算地板邊界
+{
+    floor->end_x = floor->start_x + SIZE_IMG_FLOOR_WIDTH;
+    floor->end_y = floor->start_y + SIZE_IMG_FLOOR_HEIGHT;
 }
 
 void start_end_change(float *start,float *end)

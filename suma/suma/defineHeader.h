@@ -15,6 +15,7 @@
 #define FPS 60
 #define DISPLAY_WIDTH   1600
 #define DISPLAY_HEIGHT  900
+#define VERSION "Ver:0.4a"
 #define nl printf("\n")
 #define dbp printf("...///...///\n")
 

@@ -31,7 +31,7 @@
 #define PATH_IMG_ROLE_SEQ_RUNING "./img/comp1.png"
 #define PATH_IMG_FLOOR "./img/floor.png"
 #define PATH_IMG_METEOR "./img/meteor.png"
-#define PATH_IMG_METEOR_SEQ_RUNING "./img/meteor200x200.png"
+#define PATH_IMG_METEOR_SEQ_RUNING "./img/meteors80.png"
 #define PATH_FNT_DFT "./DFT_TL9.TTC"
 #define PATH_SFX_BACKGROUND "./sfx/bkg.wav"
 #define PATH_FILE_SCORE "user.score"
@@ -39,6 +39,7 @@
 #define PATH_FONT_FANCYH "./font/FancyHeart.otf"
 
 #define COLOR_SCORE al_map_rgb(255, 255, 255)
+#define COLOR_PAUSE_TEXT al_map_rgb(0, 0, 0)
 #define COLOR_CLEAR al_map_rgb(0,0,0)
 #define COLOR_MENU_BUTTON_A al_map_rgb(199, 0, 250)
 #define COLOR_MENU_BUTTON_B al_map_rgb(20, 119, 130)
@@ -108,6 +109,7 @@ typedef enum GameState {
     GAME_MODE_SELECT, GAME_RULE, GAME_RANK, GAME_MENU, GAME_ABOUT,
     GAME_PLAYING_NORMAL, GAME_PLAYING_MID_BOSS,
     GAME_PLAYING_FINAL_BOSS, GAME_PLAYING_END,
+    GAME_PAUSE,
 } GameState;
 
 typedef enum PlayMode
@@ -277,7 +279,8 @@ typedef struct MouseStut
 typedef struct MainDataStut
 {
     struct tm *tm;
-    int game_state; //遊戲進行狀態
+    GameState game_state; //遊戲進行狀態
+    GameState game_state_pause; //上一階段(pause用)
     int breakPoint;
     int game_mode; //遊戲模式
     MouseStut mouse;
@@ -314,10 +317,5 @@ void Gravity(AllegroObjStut *allegroObj); //運算
 //LLEGRO_MENU *menu_1; //待整併
 //FILE *fileStream;
 //int scoreFileIsRead;
-//int row;
-//int col;
-//int round;
-//int mouse_x, mouse_y;
-//int mouse_click, mouse_click_x, mouse_click_y;
 //NameStut usrName;
 //ScoreDataStut *scoreData;

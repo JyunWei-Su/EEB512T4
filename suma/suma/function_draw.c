@@ -23,7 +23,7 @@ void DrawMenu(MainDataStut *mainData, AllegroObjStut *allegroObj)
         }
     }
     al_draw_textf(allegroObj->font_a.font120, COLOR_SCORE, DISPLAY_WIDTH/2, 0, ALLEGRO_ALIGN_CENTER, "S U M A");
-    al_draw_textf(allegroObj->font_a.font24, COLOR_SCORE, DISPLAY_WIDTH, DISPLAY_HEIGHT-al_get_font_line_height(allegroObj->font_a.font24), ALLEGRO_ALIGN_RIGHT, "Ver:000");
+    al_draw_textf(allegroObj->font_a.font24, COLOR_SCORE, DISPLAY_WIDTH, DISPLAY_HEIGHT-al_get_font_line_height(allegroObj->font_a.font24), ALLEGRO_ALIGN_RIGHT, VERSION);
 }
 
 void DrawScoreboard(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -101,7 +101,8 @@ void DrawRankScore(MainDataStut *mainData, AllegroObjStut *allegroObj)
     int y = DISPLAY_HEIGHT/2;
     //al_draw_textf(allegroObj->font_b.font64, COLOR_SCORE, x, y-SIZE_TEXT_RANK_LEADONG*8, ALLEGRO_ALIGN_CENTER, "Rank");
     al_draw_textf(allegroObj->font_b.font36, COLOR_SCORE, x, y-SIZE_TEXT_RANK_LEADONG*5, ALLEGRO_ALIGN_CENTER, "--No act: Press Q or Esc to return to menu.");
-    for(i = 0; i < NUM_SCORE_DATA; i++){
+    for(i = 0; i < NUM_SCORE_DATA; i++)
+    {
         al_draw_textf(allegroObj->font_b.font36, COLOR_SCORE, x/3, y-SIZE_TEXT_RANK_LEADONG*(4-i), ALLEGRO_ALIGN_LEFT, "%2d\t%5d\t%20s\t%s",
                       mainData->scoreFileData->data[i].id, mainData->scoreFileData->data[i].score, mainData->scoreFileData->data[i].name, mainData->scoreFileData->data[i].time);
     }
@@ -136,8 +137,9 @@ void DrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
     }
     DrawObjBoundary(allegroObj->role.start_x, allegroObj->role.start_y, allegroObj->role.end_x, allegroObj->role.end_y);
 }
+
 void DrawMeteorAnimation(MainDataStut *mainData, AllegroObjStut *allegroObj)
-//隕石動畫，沒有邊界?
+//隕石動畫
 {
     int i;
     int state = mainData->game_state;
@@ -152,16 +154,16 @@ void DrawMeteorAnimation(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 allegroObj->meteors_right_drop[i].nowImg += 1;
                 if(allegroObj->meteors_right_drop[i].nowImg % NUM_IMG_METEOR_SEQUENCE == 0) allegroObj->meteors_right_drop[i].nowImg = 0;
             }
-            al_draw_bitmap_region(allegroObj->meteors_right_drop[i].imgs_runing, SIZE_IMG_METEOR_BIG_WIDTH*allegroObj->meteors_right_drop[i].nowImg, 0, SIZE_IMG_METEOR_BIG_WIDTH, SIZE_IMG_METEOR_BIG_HEIGHT
+            al_draw_bitmap_region(allegroObj->meteors_right_drop[i].imgs_runing, SIZE_IMG_METEOR_WIDTH*allegroObj->meteors_right_drop[i].nowImg, 0, SIZE_IMG_METEOR_WIDTH, SIZE_IMG_METEOR_HEIGHT
                                   , allegroObj->meteors_right_drop[i].start_x, allegroObj->meteors_right_drop[i].start_y, 0);
             allegroObj->meteor.imgCount += 1;
-            //DrawObjBoundary_meteor(allegroObj->meteors_right_drop[i]);
-            DrawObjBoundary(allegroObj->meteors_right_drop[i].start_x, allegroObj->meteors_right_drop[i].start_y, allegroObj->meteors_right_drop[i].end_x, allegroObj->meteors_right_drop[i].end_y);
+            DrawObjBoundary_meteor(allegroObj->meteors_right_drop[i]);
         }
         break;
     }
 
 }
+
 void DrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
 //隕石
 {
@@ -174,27 +176,65 @@ void DrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
     case GAME_PLAYING_MID_BOSS:
         for (i = 0; i < allegroObj->meteor_n; i++)
         {
-            //««ª½±¼¸¨
+            //垂直隕石
             al_draw_bitmap(allegroObj->meteors[i].img, allegroObj->meteors[i].start_x, allegroObj->meteors[i].start_y, 0);
             DrawObjBoundary_meteor(allegroObj->meteors[i]);
-            //¥ª±×¤U±¼¸¨
+            //右下隕石
             al_draw_bitmap(allegroObj->meteors_right_drop[i].img, allegroObj->meteors_right_drop[i].start_x, allegroObj->meteors_right_drop[i].start_y, 0);
             DrawObjBoundary_meteor(allegroObj->meteors_right_drop[i]);
-            //¥k±×¤U±¼¸¨
+            //左下隕石
             al_draw_bitmap(allegroObj->meteors_left_drop[i].img, allegroObj->meteors_left_drop[i].start_x, allegroObj->meteors_left_drop[i].start_y, 0);
             DrawObjBoundary_meteor(allegroObj->meteors_left_drop[i]);
-
         }
         break;
     }
 }
+
+void DrawBackground(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    if(allegroObj->background.x < DISPLAY_WIDTH - SIZE_IMG_BKG_WIDTH)
+    {
+        al_draw_bitmap(allegroObj->background.img, allegroObj->background.x + SIZE_IMG_BKG_WIDTH, 0, 0);
+    }
+    al_draw_bitmap(allegroObj->background.img, allegroObj->background.x, 0, 0);
+}
+
+void DrawFloor(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    al_draw_bitmap(allegroObj->floor.img, allegroObj->floor.start_x, allegroObj->floor.start_y, 0);
+    DrawObjBoundary(allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
+}
+
+void DrawCoin(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    if(allegroObj->coin.imgCount % (int)(FPS*TIME_PER_IMG_COIN) == 0)
+    {
+        allegroObj->coin.imgCount = 0;
+        allegroObj->coin.nowImg += 1;
+        if(allegroObj->coin.nowImg % NUM_IMG_COIN_SEQUENCE == 0) allegroObj->coin.nowImg = 0;
+    }
+    al_draw_bitmap_region(allegroObj->coin.imgs_runing, SIZE_IMG_COIN_WIDTH*allegroObj->coin.nowImg, 0, SIZE_IMG_COIN_WIDTH, SIZE_IMG_COIN_HEIGHT
+                          , allegroObj->coin.start_x, allegroObj->coin.start_y, 0);
+    allegroObj->coin.imgCount += 1;
+    DrawObjBoundary_coin(allegroObj->coin);
+}
+
+void DrawPause(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    al_draw_filled_rectangle(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, al_map_rgba(120, 120, 120, 120));
+    al_draw_textf(allegroObj->font_a.font120, COLOR_PAUSE_TEXT, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/4, ALLEGRO_ALIGN_CENTER, "PAUSE");
+}
+
 void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int state = mainData->game_state;
     //int calculate = 0;
-    al_clear_to_color( COLOR_CLEAR );
+    if(state != GAME_PAUSE) al_clear_to_color( COLOR_CLEAR );
     switch(state)
     {
+    case GAME_PAUSE:
+        DrawPause(mainData, allegroObj); //疊加上去
+        break;
     case GAME_MENU:
         DrawMenu(mainData, allegroObj);
         break;
@@ -211,49 +251,34 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         DrawAbout(mainData, allegroObj);
         break;
     case GAME_PLAYING_NORMAL:
-        if(allegroObj->background.x < DISPLAY_WIDTH - SIZE_IMG_BKG_WIDTH)
-        {
-            al_draw_bitmap(allegroObj->background.img, allegroObj->background.x + SIZE_IMG_BKG_WIDTH, 0, 0); // Draw bitmap
-        }
-        al_draw_bitmap(allegroObj->background.img, allegroObj->background.x, 0, 0); // Draw bitmap
+        DrawBackground(mainData, allegroObj);
         DrawRole(mainData, allegroObj);
         DrawCoin(mainData, allegroObj);
-        al_draw_bitmap(allegroObj->floor.img, allegroObj->floor.start_x, allegroObj->floor.start_y, 0); // Draw bitmap
-        DrawObjBoundary(allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
+        DrawFloor(mainData, allegroObj);
         DrawScoreboard(mainData, allegroObj);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
-
-    case GAME_NONE:
         break;
     case GAME_PLAYING_MID_BOSS:
-        if(allegroObj->background.x < DISPLAY_WIDTH - SIZE_IMG_BKG_WIDTH)
-        {
-            al_draw_bitmap(allegroObj->background.img, allegroObj->background.x + SIZE_IMG_BKG_WIDTH, 0, 0); // Draw bitmap
-        }
-        al_draw_bitmap(allegroObj->background.img, allegroObj->background.x, 0, 0); // Draw bitmap
+        DrawBackground(mainData, allegroObj);
         DrawRole(mainData, allegroObj);
         DrawCoin(mainData, allegroObj);
-        al_draw_bitmap(allegroObj->floor.img, allegroObj->floor.start_x, allegroObj->floor.start_y, 0); // Draw bitmap
-        DrawObjBoundary(allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
+        DrawFloor(mainData, allegroObj);
         DrawScoreboard(mainData, allegroObj);
-        al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
         DrawMeteor(mainData, allegroObj);
+        al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
         break;
     case GAME_PLAYING_FINAL_BOSS:
-        if(allegroObj->background.x < DISPLAY_WIDTH - SIZE_IMG_BKG_WIDTH)
-        {
-            al_draw_bitmap(allegroObj->background.img, allegroObj->background.x + SIZE_IMG_BKG_WIDTH, 0, 0); // Draw bitmap
-        }
-        al_draw_bitmap(allegroObj->background.img, allegroObj->background.x, 0, 0); // Draw bitmap
+        DrawBackground(mainData, allegroObj);
         DrawRole(mainData, allegroObj);
-        al_draw_bitmap(allegroObj->floor.img, allegroObj->floor.start_x, allegroObj->floor.start_y, 0); // Draw bitmap
-        DrawObjBoundary(allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
+        DrawCoin(mainData, allegroObj);
+        DrawFloor(mainData, allegroObj);
         DrawScoreboard(mainData, allegroObj);
-        al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
         DrawMeteorAnimation(mainData, allegroObj);
+        al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
+        break;
+    case GAME_NONE:
         break;
     }
-    //al_draw_textf(allegroObj->font_a.font48, COLOR_SCORE, 0, 0, ALLEGRO_ALIGN_LEFT, "This is a text test.");
     al_flip_display();
 }
 
@@ -268,4 +293,10 @@ void DrawObjBoundary_meteor(MeteorStut meteor)
 //畫隕石邊界
 {
     DrawObjBoundary(meteor.start_x, meteor.start_y, meteor.end_x, meteor.end_y);
+}
+
+void DrawObjBoundary_coin(CoinStut coin)
+//畫金幣邊界
+{
+    DrawObjBoundary(coin.start_x, coin.start_y, coin.end_x, coin.end_y);
 }

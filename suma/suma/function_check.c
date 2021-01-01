@@ -1,10 +1,8 @@
 #include "defineHeader.h"
 #include "resource.h"
 
-
 void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    int result = 0;
     if(!al_is_event_queue_empty(allegroObj->event_queue))
     {
         while(al_get_next_event(allegroObj->event_queue, &allegroObj->events))
@@ -13,8 +11,7 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
             switch(allegroObj->events.type)
             {
             case ALLEGRO_EVENT_DISPLAY_CLOSE:
-                result = MY_ALGO_Y_N_Msg("Notice", "Shutdown This Game?\nYou can press...");
-                if(result == 1) mainData->game_state = GAME_FINISH;
+                CheckWantToFinish(mainData, allegroObj);
                 break;
             case ALLEGRO_EVENT_MENU_CLICK:
                 //if (allegroObj->events.user.data1 == FILE_EXIT_ID)
@@ -38,7 +35,7 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 CheckMouseClick(mainData, allegroObj);
                 break;
             case ALLEGRO_EVENT_KEY_CHAR:
-                //CheckKeyboardDown(mainData, allegroObj);
+                CheckKeyboardDown(mainData, allegroObj);
                 break;
             case ALLEGRO_EVENT_DISPLAY_SWITCH_IN:
                 al_flip_display();
@@ -54,6 +51,25 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 break;
             }
         }
+    }
+}
+
+void CheckWantToFinish(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    int result;
+    mainData->game_state_pause = mainData->game_state;
+    mainData->game_state = GAME_PAUSE;
+    al_pause_event_queue(allegroObj->event_queue, true);
+    al_stop_timer(allegroObj->timer);
+    DrawDisplayAndFlip(mainData, allegroObj);
+    result = MY_ALGO_Y_N_Msg("Notice", "Shutdown This Game?\nYou can press...");
+    if(result == 1) mainData->game_state = GAME_FINISH;
+    else
+    {
+        mainData->game_state = mainData->game_state_pause;
+        mainData->game_state_pause = GAME_NONE;
+        al_pause_event_queue(allegroObj->event_queue, false);
+        al_start_timer(allegroObj->timer);
     }
 }
 
@@ -86,7 +102,7 @@ void CheckStateMenuSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
 }
 
 void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
-//後來改用TIMER偵測鍵盤，才不會卡頓
+//人物跳動改用TIMER偵測鍵盤，才不會卡頓，其他照常
 {
     int state = mainData->game_state;
     switch(state)
@@ -94,10 +110,11 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
     case GAME_PLAYING_NORMAL:
         switch(allegroObj->events.keyboard.keycode)
         {
-        case ALLEGRO_KEY_W:
-
-            allegroObj->role.start_y -= 15;
-            Gravity(allegroObj);
+        case ALLEGRO_KEY_Z:
+            mainData->game_state = GAME_PLAYING_MID_BOSS;
+            break;
+        case ALLEGRO_KEY_X:
+            mainData->game_state = GAME_PLAYING_FINAL_BOSS;
             break;
         default:
             break;
