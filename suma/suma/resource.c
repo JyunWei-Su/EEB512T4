@@ -19,6 +19,7 @@ void AllegroDriverInit()
     al_init_font_addon();   // install font addons
     al_init_ttf_addon();    //TureType Font addon also support .ttc
     al_init_native_dialog_addon();
+    al_init_primitives_addon();
 }
 
 void AllegroObjectInit(AllegroObjStut *allegroObj)
@@ -37,17 +38,18 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
 
     /*Load bitmap(image) */
     image_init(allegroObj);
-    font_init(allegroObj);
+    font_init(&allegroObj->font_a, PATH_FONT_HIMAJI);
+    font_init(&allegroObj->font_b, PATH_FONT_FANCYH);
+    sound_init(allegroObj);
     menu_button_init(allegroObj);
     mode_button_init(allegroObj);
     home_button_init(allegroObj);
+    score_board_init(allegroObj);
+    role_init(allegroObj);
+    coin_init(allegroObj);
+    floor_init(allegroObj);
+    meteor_init(allegroObj);
 
-    /*load Font*/
-    //allegroObj->font_60 = al_load_font("DFT_TL9.TTC", 60, 0);
-    //allegroObj->font_24 = al_load_font("DFT_TL9.TTC", 24, 0);
-
-    /* load the sound file */
-    //voice_init(allegroObj);
 
     /* window title and menu*/
     al_set_window_title(allegroObj->display,"SUMA");
@@ -57,20 +59,67 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     //al_hide_mouse_cursor(allegroObj->display);
 }
 
-void font_init(AllegroObjStut *allegroObj)
+void sound_init(AllegroObjStut *allegroObj)
 {
-    allegroObj->font_a.font24 = al_load_font( PATH_FONT_HIMAJI , 24, 0);
-    allegroObj->font_a.font36 = al_load_font( PATH_FONT_HIMAJI , 36, 0);
-    allegroObj->font_a.font48 = al_load_font( PATH_FONT_HIMAJI , 48, 0);
-    allegroObj->font_a.font90 = al_load_font( PATH_FONT_HIMAJI , 90, 0);
-    allegroObj->font_a.font120 = al_load_font( PATH_FONT_HIMAJI , 120, 0);
+
+    al_reserve_samples( NUM_SAMPLES );
+    allegroObj->sound.sfx_background = al_load_sample( PATH_SFX_BACKGROUND );
+    allegroObj->sound.sfi_background = al_create_sample_instance(allegroObj->sound.sfx_background);
+    //創建聲音輸出buffer 創建聲音輸出連接口
+    //allegroObj->sound.mixer = al_get_default_mixer(); //硬體設備不同 容易出錯
+    //allegroObj->sound.voice = al_get_default_voice(); //硬體設備不同 容易出錯
+    //for test
+    allegroObj->sound.mixer = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32,ALLEGRO_CHANNEL_CONF_2);
+    allegroObj->sound.voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16,ALLEGRO_CHANNEL_CONF_2);
+    //printf("@@@ mixer : %x, voice : %x", allegroObj->sound.mixer, allegroObj->sound.voice);
+
+    al_attach_sample_instance_to_mixer(allegroObj->sound.sfi_background, allegroObj->sound.mixer);//將聲音物件link buffer
+    al_attach_mixer_to_voice(allegroObj->sound.mixer, allegroObj->sound.voice); //將buffer link 輸出連接口
+}
+
+void score_board_init(AllegroObjStut *allegroObj)
+{
+    allegroObj->sb_coins.img = al_load_bitmap( PATH_IMG_COIN);
+    allegroObj->sb_coins.start_x = SIZE_IMG_SCOREBOARD_ICON_WIDTH/3;
+    allegroObj->sb_coins.start_y = SIZE_IMG_SCOREBOARD_ICON_HEIGHT/4;
+    allegroObj->sb_coins.end_x = allegroObj->sb_coins.start_x + OFFSET_SCOREBOARD_TEXT;
+    allegroObj->sb_coins.end_y = allegroObj->sb_coins.start_y + SIZE_IMG_SCOREBOARD_ICON_HEIGHT;
+    allegroObj->sb_chars.img = al_load_bitmap( PATH_IMG_CHAR);
+    allegroObj->sb_chars.start_x = allegroObj->sb_coins.end_x + SIZE_IMG_SCOREBOARD_ICON_WIDTH; //修正
+    allegroObj->sb_chars.start_y = allegroObj->sb_coins.start_y;
+    allegroObj->sb_chars.end_x = allegroObj->sb_chars.start_x + OFFSET_SCOREBOARD_TEXT;
+    allegroObj->sb_chars.end_y = allegroObj->sb_chars.start_y + SIZE_IMG_SCOREBOARD_ICON_HEIGHT;
+}
+void coin_init(AllegroObjStut *allegroObj)
+{
+    allegroObj->coin.imgs_runing = al_load_bitmap( PATH_IMG_COINS );
+    allegroObj->coin.start_x=1500;
+    allegroObj->coin.start_y=500;
+    allegroObj->coin.persent = 3;
+}
+
+void font_init(FontStut *font, const char *filePath)
+{
+    font->font24 = al_load_font( filePath, 24, 0);
+    font->font36 = al_load_font( filePath, 36, 0);
+    font->font48 = al_load_font( filePath, 48, 0);
+    font->font64 = al_load_font( filePath, 64, 0);
+    font->font90 = al_load_font( filePath, 90, 0);
+    font->font120 = al_load_font( filePath, 120, 0);
 }
 
 void image_init(AllegroObjStut *allegroObj)
 {
-    allegroObj->background.Img = al_load_bitmap( PATH_IMG_BKG );
+    allegroObj->background.img = al_load_bitmap( PATH_IMG_BKG );
     allegroObj->background.x = 0;
     allegroObj->iconImg = al_load_bitmap( PATH_IMG_ICON );
+}
+
+void floor_init(AllegroObjStut *allegroObj)
+{
+    allegroObj->floor.img = al_load_bitmap( PATH_IMG_FLOOR );
+    allegroObj->floor.start_x = DISPLAY_WIDTH;
+    allegroObj->floor.start_y = DISPLAY_HEIGHT - SIZE_IMG_FLOOR_HEIGHT;
 }
 
 void home_button_init(AllegroObjStut *allegroObj)
@@ -84,10 +133,61 @@ void home_button_init(AllegroObjStut *allegroObj)
     allegroObj->homeButton.end_y = allegroObj->homeButton.start_y + SIZE_IMG_HOME_BUTTON_HEIGHT;
 }
 
+void role_init(AllegroObjStut *allegroObj)
+{
+    allegroObj->role.img = al_load_bitmap( PATH_IMG_ROLE_1 );
+    allegroObj->role.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
+    allegroObj->role.start_x=200;
+    allegroObj->role.start_y=700;
+    allegroObj->role.state = ROLE_NULL;
+}
+
+void meteor_init(AllegroObjStut *allegroObj)
+{
+    int i;
+    allegroObj->meteor_n = rand()%NUMBER_METEOR+15; //隕石數量
+    allegroObj->meteor.img = al_load_bitmap( PATH_IMG_METEOR);
+    allegroObj->meteor.imgs_runing = al_load_bitmap( PATH_IMG_METEOR_SEQ_RUNING );
+    // allegroObj->meteor.start_x = 500;
+    //allegroObj->meteor.start_y = 0;
+    //allegroObj->meteor.speed_y =1;
+    allegroObj->meteors = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
+    allegroObj->meteors_right_drop = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
+    allegroObj->meteors_left_drop = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
+
+    for (i = 0; i < allegroObj->meteor_n; i++)
+    {
+        //*meteors
+        allegroObj->meteors[i].img = al_load_bitmap(PATH_IMG_METEOR );
+        allegroObj->meteors[i].start_x = rand()%1600;
+        allegroObj->meteors[i].start_y = 0;
+        allegroObj->meteors[i].speed_y = rand()%SPEED_Y_METEOR+5;
+        //*meteors_right_drop
+        allegroObj->meteors_right_drop[i].img = al_load_bitmap(PATH_IMG_METEOR );
+        allegroObj->meteors_right_drop[i].imgs_runing = al_load_bitmap( PATH_IMG_METEOR_SEQ_RUNING );
+        allegroObj->meteors_right_drop[i].start_x = rand()%2000;
+        allegroObj->meteors_right_drop[i].start_y = 0;
+        allegroObj->meteors_right_drop[i].speed_x = rand()%SPEED_X_METEOR_RIGHT+1;
+        allegroObj->meteors_right_drop[i].speed_y = rand()%SPEED_Y_METEOR_RIGHT+2;
+        //*meteors_right_drop
+        allegroObj->meteors_left_drop[i].img = al_load_bitmap(PATH_IMG_METEOR );
+        allegroObj->meteors_left_drop[i].start_x = rand()%2000;
+        allegroObj->meteors_left_drop[i].start_y = 0;
+        allegroObj->meteors_left_drop[i].speed_x = rand()%SPEED_X_METEOR_RIGHT+1;
+        allegroObj->meteors_left_drop[i].speed_y = rand()%SPEED_Y_METEOR_RIGHT+3;
+
+    }
+    //allegroObj->meteor.start_x=800;
+    //allegroObj->meteor.start_y=0;
+    //allegroObj->role.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
+    //allegroObj->meteor.state = ROLE_NULL;
+}
+
 void menu_button_init(AllegroObjStut *allegroObj)
 {
     int i;
-    for(i = 0; i < NUM_MENU_BUTTON; i++){
+    for(i = 0; i < NUM_MENU_BUTTON; i++)
+    {
         allegroObj->menuButton[i].start_x = (float)(DISPLAY_WIDTH-SIZE_IMG_MENU_BUTTON_WIDTH)/2;
         allegroObj->menuButton[i].start_y = (float)(DISPLAY_HEIGHT/(NUM_MENU_BUTTON+2))*(i+OFFSET_MENU);
         allegroObj->menuButton[i].end_x = allegroObj->menuButton[i].start_x + SIZE_IMG_MENU_BUTTON_WIDTH;
@@ -97,22 +197,22 @@ void menu_button_init(AllegroObjStut *allegroObj)
         switch(i)
         {
         case 0:
-            allegroObj->menuButton[i].text = "Play";
+            allegroObj->menuButton[i].text = (char*)"Play";
             break;
         case 1:
-            allegroObj->menuButton[i].text = "Rule";
+            allegroObj->menuButton[i].text = (char*)"Rule";
             break;
         case 2:
-            allegroObj->menuButton[i].text = "Rank";
+            allegroObj->menuButton[i].text = (char*)"Rank";
             break;
         case 3:
-            allegroObj->menuButton[i].text = "About";
+            allegroObj->menuButton[i].text = (char*)"About";
             break;
         default:
-            allegroObj->menuButton[i].text = "Default";
+            allegroObj->menuButton[i].text = (char*)"Default";
             break;
         }
-        printf("%f, %f\n", allegroObj->menuButton[i].start_x, allegroObj->menuButton[i].start_y);
+        //printf("%f, %f\n", allegroObj->menuButton[i].start_x, allegroObj->menuButton[i].start_y);
     }
     //printf("%f, %f\n", allegroObj->menuButton[i].start_x, allegroObj->menuButton[i].start_y);
 }
@@ -120,7 +220,8 @@ void menu_button_init(AllegroObjStut *allegroObj)
 void mode_button_init(AllegroObjStut *allegroObj)
 {
     int i;
-    for(i = 0; i < NUM_MODE_BUTTON; i++){
+    for(i = 0; i < NUM_MODE_BUTTON; i++)
+    {
         allegroObj->modeButton[i].start_x = (float)(DISPLAY_WIDTH-SIZE_IMG_MODE_BUTTON_WIDTH)/2;
         allegroObj->modeButton[i].start_y = (float)(DISPLAY_HEIGHT/(NUM_MODE_BUTTON+2))*(i+OFFSET_MODE);
         allegroObj->modeButton[i].end_x = allegroObj->modeButton[i].start_x + SIZE_IMG_MODE_BUTTON_WIDTH;
@@ -130,19 +231,19 @@ void mode_button_init(AllegroObjStut *allegroObj)
         switch(i)
         {
         case 0:
-            allegroObj->modeButton[i].text = "Easy";
+            allegroObj->modeButton[i].text = (char*)"Easy";
             break;
         case 1:
-            allegroObj->modeButton[i].text = "Medium";
+            allegroObj->modeButton[i].text = (char*)"Medium";
             break;
         case 2:
-            allegroObj->modeButton[i].text = "Hard";
+            allegroObj->modeButton[i].text = (char*)"Hard";
             break;
         default:
-            allegroObj->modeButton[i].text = "Default";
+            allegroObj->modeButton[i].text = (char*)"Default";
             break;
         }
-        printf("%f, %f\n", allegroObj->modeButton[i].start_x, allegroObj->modeButton[i].start_y);
+        //printf("%f, %f\n", allegroObj->modeButton[i].start_x, allegroObj->modeButton[i].start_y);
     }
     //printf("%f, %f\n", allegroObj->modeButton[i].start_x, allegroObj->modeButton[i].start_y);
 }
@@ -157,15 +258,12 @@ void MainDataInit(MainDataStut *mainData)
 {
     mainData->game_state = GAME_MENU;
     mainData->breakPoint = 0;
+    mainData->score.chars = 0;
+    mainData->score.coins = 0;
+    mainData->score.score = 0;
+
+    mainData->scoreFileData = (RankScoreDataStut *)calloc(sizeof(RankScoreDataStut), 1);
+    mainData->scoreFileData->data = (RankRowStut *)calloc(sizeof(RankRowStut), NUM_SCORE_DATA);
+    mainData->scoreFileData->fileIsRead = 0;
 }
 
-LayoutParmStut *ClocLayoutParm()
-{
-    LayoutParmStut *addr = (LayoutParmStut *)calloc(1, sizeof(LayoutParmStut)); //分配空間
-    return addr;
-}
-
-void LayoutParmInit(LayoutParmStut *layoutParm)
-{
-    int x = 0;
-}
