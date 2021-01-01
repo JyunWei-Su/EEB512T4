@@ -27,6 +27,7 @@
 #define PATH_IMG_HOME_BUTTON_2 "./img/homeButton_2.png"
 #define PATH_IMG_ROLE_1 "./img/role_1.png"
 #define PATH_IMG_ROLE_SEQ_RUNING "./img/comp1.png"
+#define PATH_IMG_FLOOR "./img/floor.png"
 #define PATH_FNT_DFT "./DFT_TL9.TTC"
 #define PATH_SFX_BACKGROUND "./sfx/bkg.wav"
 #define PATH_FILE_SCORE "user.score"
@@ -45,6 +46,8 @@
 #define SIZE_IMG_SCOREBOARD_ICON_HEIGHT 64
 #define SIZE_IMG_ROLE_WIDTH 150
 #define SIZE_IMG_ROLE_HEIGHT 200
+#define SIZE_IMG_FLOOR_WIDTH 300
+#define SIZE_IMG_FLOOR_HEIGHT 100
 #define SIZE_IMG_MENU_BUTTON_WIDTH 480
 #define SIZE_IMG_MENU_BUTTON_HEIGHT 90
 #define SIZE_IMG_MODE_BUTTON_WIDTH 480
@@ -52,8 +55,6 @@
 #define SIZE_IMG_HOME_BUTTON_WIDTH 128
 #define SIZE_IMG_HOME_BUTTON_HEIGHT 128
 
-/*Game State*/
-#define RANG_CANDY_MOVE_CONDITION 0.3
 
 #define SCORE_DATA 10 //rank 資料筆數
 #define NUM_MENU_BUTTON 4
@@ -65,26 +66,25 @@
 #define OFFSET_MENU 1.5
 #define OFFSET_MODE 1.5
 #define OFFSET_SCOREBOARD_TEXT 320
+
 /*Role_Define*/
 #define OFFSET_ROLE_JUMP 10
-#define OFFSET_ROLE_WALK 3
-#define MAX_ROLE_Y 550
-#define MIN_ROLE_Y 700
+#define OFFSET_ROLE_WALK 2
+#define MAX_ROLE_Y 450
+#define MIN_ROLE_Y 600
 #define MAX_ROLE_X 1500
 #define MIN_ROLE_X 0
 #define GRAVITY 4.5
 #define TIME_PER_IMG 0.1
 
-
-
 #define FILE_EXIT_ID 1 //待整併
 
 /**  enum  **/
 typedef enum GameState {
-    GAME_NONE, GAME_TEST, GAME_FINISH,
-    GAME_OPERATE, GAME_DRAW,
+    GAME_NONE, GAME_FINISH,
     GAME_MODE_SELECT, GAME_RULE, GAME_RANK, GAME_MENU, GAME_ABOUT,
-    GAME_PLAYING,
+    GAME_PLAYING_NORMAL, GAME_PLAYING_MID_BOSS,
+    GAME_PLAYING_FINAL_BOSS, GAME_PLAYING_END,
 } GameState;
 
 typedef enum PlayMode {
@@ -129,6 +129,13 @@ typedef struct RoleStut
     int state;
 } RoleStut;
 
+typedef struct FloorStut
+{
+    float start_x, start_y;
+    float end_x, end_y;
+    ALLEGRO_BITMAP *img;
+    int state;
+} FloorStut;
 
 typedef struct ButtonStut{
     float start_x, start_y;
@@ -147,7 +154,7 @@ typedef struct ScoreboardStut{
 
 typedef struct BackgroundStut{
     float x, y;
-    ALLEGRO_BITMAP *Img;    //back ground Img
+    ALLEGRO_BITMAP *img;    //back ground Img
     int state;
 } BackgroundStut;
 
@@ -183,6 +190,7 @@ typedef struct AllegroObjStut{
     ScoreboardStut coins;
 
     RoleStut role;
+    FloorStut floor;
 
     FontStut font_a;
     SoundStut sound;
@@ -219,6 +227,7 @@ void home_button_init(AllegroObjStut *allegroObj);
 void mode_button_init(AllegroObjStut *allegroObj);
 void sound_init(AllegroObjStut *allegroObj);
 void role_init(AllegroObjStut *allegroObj);
+void floor_init(AllegroObjStut *allegroObj);
 /* MainDataStut Function*/
 MainDataStut *ClocMainData();
 void MainDataInit(MainDataStut *mainData);

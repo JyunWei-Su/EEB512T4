@@ -7,9 +7,11 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
     al_get_keyboard_state(&allegroObj->keyboard_state);
     switch(state)
     {
-    case GAME_PLAYING:
+    case GAME_PLAYING_NORMAL:
         allegroObj->background.x -= OFFSET_ROLE_WALK;
         if(allegroObj->background.x <= -SIZE_IMG_BKG_WIDTH) allegroObj->background.x += SIZE_IMG_BKG_WIDTH;
+        allegroObj->floor.start_x -= 1.5;
+
         /* Role*/
 
         if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W))

@@ -5,7 +5,7 @@ void DrawMenu(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int i;
     float x, y;
-    al_draw_bitmap(allegroObj->background.Img, 0, 0, 0); // Draw bitmap
+    al_draw_bitmap(allegroObj->background.img, 0, 0, 0); // Draw bitmap
     for(i = 0; i < NUM_MENU_BUTTON; i++)
     {
         x = (allegroObj->menuButton[i].start_x + allegroObj->menuButton[i].end_x)/2;
@@ -71,7 +71,7 @@ void DrawHomeButton(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
 void DrawModeSelect(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    al_draw_bitmap(allegroObj->background.Img, 0, 0, 0); // Draw bitmap
+    al_draw_bitmap(allegroObj->background.img, 0, 0, 0); // Draw bitmap
     al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, 0, ALLEGRO_ALIGN_CENTER, "mode select");
     DrawModeButton(mainData, allegroObj);
     DrawHomeButton(mainData, allegroObj);
@@ -79,21 +79,21 @@ void DrawModeSelect(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
 void DrawRule(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    al_draw_bitmap(allegroObj->background.Img, 0, 0, 0); // Draw bitmap
+    al_draw_bitmap(allegroObj->background.img, 0, 0, 0); // Draw bitmap
     al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "rule");
     DrawHomeButton(mainData, allegroObj);
 }
 
 void DrawRank(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    al_draw_bitmap(allegroObj->background.Img, 0, 0, 0); // Draw bitmap
+    al_draw_bitmap(allegroObj->background.img, 0, 0, 0); // Draw bitmap
     al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "rank");
     DrawHomeButton(mainData, allegroObj);
 }
 
 void DrawAbout(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    al_draw_bitmap(allegroObj->background.Img, 0, 0, 0); // Draw bitmap
+    al_draw_bitmap(allegroObj->background.img, 0, 0, 0); // Draw bitmap
     al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "about");
     DrawHomeButton(mainData, allegroObj);
 }
@@ -142,14 +142,15 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
     case GAME_ABOUT:
         DrawAbout(mainData, allegroObj);
         break;
-    case GAME_PLAYING:
+    case GAME_PLAYING_NORMAL:
 
         if(allegroObj->background.x < DISPLAY_WIDTH - SIZE_IMG_BKG_WIDTH)
         {
-            al_draw_bitmap(allegroObj->background.Img, allegroObj->background.x + SIZE_IMG_BKG_WIDTH, 0, 0); // Draw bitmap
+            al_draw_bitmap(allegroObj->background.img, allegroObj->background.x + SIZE_IMG_BKG_WIDTH, 0, 0); // Draw bitmap
         }
-        al_draw_bitmap(allegroObj->background.Img, allegroObj->background.x, 0, 0); // Draw bitmap
+        al_draw_bitmap(allegroObj->background.img, allegroObj->background.x, 0, 0); // Draw bitmap
         DrawRole(mainData, allegroObj);
+        al_draw_bitmap(allegroObj->floor.img, allegroObj->floor.start_x, allegroObj->floor.start_y, 0); // Draw bitmap
         DrawScoreboard(mainData, allegroObj);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
     case GAME_NONE:
