@@ -38,22 +38,18 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
 
     /*Load bitmap(image) */
     image_init(allegroObj);
-    font_init(allegroObj);
+    font_init(&allegroObj->font_a, PATH_FONT_HIMAJI);
+    font_init(&allegroObj->font_b, PATH_FONT_FANCYH);
     sound_init(allegroObj);
     menu_button_init(allegroObj);
     mode_button_init(allegroObj);
     home_button_init(allegroObj);
     score_board_init(allegroObj);
     role_init(allegroObj);
+    coin_init(allegroObj);
     floor_init(allegroObj);
     meteor_init(allegroObj);
 
-    /*load Font*/
-    //allegroObj->font_60 = al_load_font("DFT_TL9.TTC", 60, 0);
-    //allegroObj->font_24 = al_load_font("DFT_TL9.TTC", 24, 0);
-
-    /* load the sound file */
-    //voice_init(allegroObj);
 
     /* window title and menu*/
     al_set_window_title(allegroObj->display,"SUMA");
@@ -83,26 +79,33 @@ void sound_init(AllegroObjStut *allegroObj)
 
 void score_board_init(AllegroObjStut *allegroObj)
 {
-    allegroObj->coins.img = al_load_bitmap( PATH_IMG_COIN);
-    allegroObj->coins.start_x = SIZE_IMG_SCOREBOARD_ICON_WIDTH/3;
-    allegroObj->coins.start_y = SIZE_IMG_SCOREBOARD_ICON_HEIGHT/4;
-    allegroObj->coins.end_x = allegroObj->coins.start_x + OFFSET_SCOREBOARD_TEXT;
-    allegroObj->coins.end_y = allegroObj->coins.start_y + SIZE_IMG_SCOREBOARD_ICON_HEIGHT;
-    allegroObj->chars.img = al_load_bitmap( PATH_IMG_CHAR);
-    allegroObj->chars.start_x = allegroObj->coins.end_x + SIZE_IMG_SCOREBOARD_ICON_WIDTH; //修正
-    allegroObj->chars.start_y = allegroObj->coins.start_y;
-    allegroObj->chars.end_x = allegroObj->chars.start_x + OFFSET_SCOREBOARD_TEXT;
-    allegroObj->chars.end_y = allegroObj->chars.start_y + SIZE_IMG_SCOREBOARD_ICON_HEIGHT;
+    allegroObj->sb_coins.img = al_load_bitmap( PATH_IMG_COIN);
+    allegroObj->sb_coins.start_x = SIZE_IMG_SCOREBOARD_ICON_WIDTH/3;
+    allegroObj->sb_coins.start_y = SIZE_IMG_SCOREBOARD_ICON_HEIGHT/4;
+    allegroObj->sb_coins.end_x = allegroObj->sb_coins.start_x + OFFSET_SCOREBOARD_TEXT;
+    allegroObj->sb_coins.end_y = allegroObj->sb_coins.start_y + SIZE_IMG_SCOREBOARD_ICON_HEIGHT;
+    allegroObj->sb_chars.img = al_load_bitmap( PATH_IMG_CHAR);
+    allegroObj->sb_chars.start_x = allegroObj->sb_coins.end_x + SIZE_IMG_SCOREBOARD_ICON_WIDTH; //修正
+    allegroObj->sb_chars.start_y = allegroObj->sb_coins.start_y;
+    allegroObj->sb_chars.end_x = allegroObj->sb_chars.start_x + OFFSET_SCOREBOARD_TEXT;
+    allegroObj->sb_chars.end_y = allegroObj->sb_chars.start_y + SIZE_IMG_SCOREBOARD_ICON_HEIGHT;
+}
+void coin_init(AllegroObjStut *allegroObj)
+{
+    allegroObj->coin.imgs_runing = al_load_bitmap( PATH_IMG_COINS );
+    allegroObj->coin.start_x=1500;
+    allegroObj->coin.start_y=500;
+    allegroObj->coin.persent = 3;
 }
 
-void font_init(AllegroObjStut *allegroObj)
+void font_init(FontStut *font, const char *filePath)
 {
-    allegroObj->font_a.font24 = al_load_font( PATH_FONT_HIMAJI, 24, 0);
-    allegroObj->font_a.font36 = al_load_font( PATH_FONT_HIMAJI, 36, 0);
-    allegroObj->font_a.font48 = al_load_font( PATH_FONT_HIMAJI, 48, 0);
-    allegroObj->font_a.font64 = al_load_font( PATH_FONT_HIMAJI, 64, 0);
-    allegroObj->font_a.font90 = al_load_font( PATH_FONT_HIMAJI, 90, 0);
-    allegroObj->font_a.font120 = al_load_font( PATH_FONT_HIMAJI, 120, 0);
+    font->font24 = al_load_font( filePath, 24, 0);
+    font->font36 = al_load_font( filePath, 36, 0);
+    font->font48 = al_load_font( filePath, 48, 0);
+    font->font64 = al_load_font( filePath, 64, 0);
+    font->font90 = al_load_font( filePath, 90, 0);
+    font->font120 = al_load_font( filePath, 120, 0);
 }
 
 void image_init(AllegroObjStut *allegroObj)
@@ -208,5 +211,9 @@ void MainDataInit(MainDataStut *mainData)
     mainData->score.chars = 0;
     mainData->score.coins = 0;
     mainData->score.score = 0;
+
+    mainData->scoreFileData = (RankScoreDataStut *)calloc(sizeof(RankScoreDataStut), 1);
+    mainData->scoreFileData->data = (RankRowStut *)calloc(sizeof(RankRowStut), NUM_SCORE_DATA);
+    mainData->scoreFileData->fileIsRead = 0;
 }
 
