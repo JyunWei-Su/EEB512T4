@@ -88,7 +88,6 @@ void CheckStateMenuSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
 void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int state = mainData->game_state;
-    dbp;
     switch(state)
     {
     case GAME_PLAYING_NORMAL:

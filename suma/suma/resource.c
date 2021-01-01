@@ -45,6 +45,7 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     score_board_init(allegroObj);
     role_init(allegroObj);
     floor_init(allegroObj);
+    meteor_init(allegroObj);
 
     /*load Font*/
     //allegroObj->font_60 = al_load_font("DFT_TL9.TTC", 60, 0);

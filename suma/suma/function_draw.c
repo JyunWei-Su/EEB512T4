@@ -118,7 +118,15 @@ void DrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
     }
 
 }
-
+void DrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    int i;
+    al_draw_bitmap(allegroObj->meteor.img, allegroObj->meteor.start_x, allegroObj->meteor.start_y, 0); // Draw bitmap
+    for (i = 0; i < allegroObj->meteor_n; i++)
+    {
+        al_draw_bitmap(allegroObj->meteors[i].img, allegroObj->meteors[i].start_x, allegroObj->meteors[i].start_y, 0);
+    }
+}
 void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int state = mainData->game_state;
@@ -151,6 +159,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         al_draw_bitmap(allegroObj->background.img, allegroObj->background.x, 0, 0); // Draw bitmap
         DrawRole(mainData, allegroObj);
         al_draw_bitmap(allegroObj->floor.img, allegroObj->floor.start_x, allegroObj->floor.start_y, 0); // Draw bitmap
+        DrawMeteor(mainData, allegroObj);
         DrawScoreboard(mainData, allegroObj);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
     case GAME_NONE:

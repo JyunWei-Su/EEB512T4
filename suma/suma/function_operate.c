@@ -13,36 +13,8 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         allegroObj->floor.start_x -= 1.5;
 
         /* Role*/
-
-        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W))
-        {
-            if(allegroObj->role.state != ROLE_MUST_DROP) allegroObj->role.start_y -= OFFSET_ROLE_JUMP;
-            if(allegroObj->role.state == ROLE_NULL) allegroObj->role.state = ROLE_JUMP;
-        }
-        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_S))  //帶與重力修正
-        {
-            allegroObj->role.start_y += OFFSET_ROLE_JUMP;
-            if(allegroObj->role.state == ROLE_JUMP) allegroObj->role.state = ROLE_DROP;
-        }
-        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_D))
-            allegroObj->role.start_x += OFFSET_ROLE_JUMP;
-        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_A))
-            allegroObj->role.start_x -=OFFSET_ROLE_JUMP;
-        //邊界
-        if(allegroObj->role.start_y <= MAX_ROLE_Y ) allegroObj->role.state = ROLE_MUST_DROP;
-        //if(allegroObj->role.state == ROLE_MUST_DROP) Gravity(allegroObj);
-
-        if(allegroObj->role.start_y >= MIN_ROLE_Y)
-        {
-            allegroObj->role.start_y = MIN_ROLE_Y;
-            allegroObj->role.state = ROLE_NULL;
-        }
-        if(allegroObj->role.start_x < MIN_ROLE_X)
-            allegroObj->role.start_x = MIN_ROLE_X;
-        if(allegroObj->role.start_x > MAX_ROLE_X)
-            allegroObj->role.start_x = MAX_ROLE_X;
-
-        Gravity(allegroObj); //?
+        role_jump(allegroObj);
+        meteor_drop(allegroObj);
         break;
     case GAME_MENU:
         break;
@@ -71,17 +43,63 @@ void role_jump(AllegroObjStut *allegroObj)
     //bool jump =true;
     if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W))
     {
-        allegroObj->role.start_y -= OFFSET_ROLE_JUMP ;
+        if(allegroObj->role.state != ROLE_MUST_DROP) allegroObj->role.start_y -= OFFSET_ROLE_JUMP;
+        if(allegroObj->role.state == ROLE_NULL) allegroObj->role.state = ROLE_JUMP;
+    }
+    if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_S))  //帶與重力修正
+    {
+        allegroObj->role.start_y += OFFSET_ROLE_JUMP;
+        if(allegroObj->role.state == ROLE_JUMP) allegroObj->role.state = ROLE_DROP;
     }
     if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_D))
-        allegroObj->role.start_x += OFFSET_ROLE_WALK ;
+        allegroObj->role.start_x += OFFSET_ROLE_JUMP;
     if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_A))
-        allegroObj->role.start_x -=OFFSET_ROLE_WALK ;
+        allegroObj->role.start_x -=OFFSET_ROLE_JUMP;
+    //邊界
+    if(allegroObj->role.start_y <= MAX_ROLE_Y ) allegroObj->role.state = ROLE_MUST_DROP;
+    //if(allegroObj->role.state == ROLE_MUST_DROP) Gravity(allegroObj);
 
-    if(allegroObj->role.start_y> 800)
-        allegroObj->role.start_y = 800;
-    if(allegroObj->role.start_x < 0)
-        allegroObj->role.start_x = 0;
-    if(allegroObj->role.start_x > 1500)
-        allegroObj->role.start_x = 1500;
+    if(allegroObj->role.start_y >= MIN_ROLE_Y)
+    {
+        allegroObj->role.start_y = MIN_ROLE_Y;
+        allegroObj->role.state = ROLE_NULL;
+    }
+    if(allegroObj->role.start_x < MIN_ROLE_X)
+        allegroObj->role.start_x = MIN_ROLE_X;
+    if(allegroObj->role.start_x > MAX_ROLE_X)
+        allegroObj->role.start_x = MAX_ROLE_X;
+
+    Gravity(allegroObj); //?
+}
+
+void meteor_init(AllegroObjStut *allegroObj)
+{
+    int i;
+    allegroObj->meteor_n = rand()%10+5;
+    allegroObj->meteor.img = al_load_bitmap( PATH_IMG_METEOR);
+    allegroObj->meteors = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
+    for (i = 0; i < allegroObj->meteor_n; i++)
+    {
+        allegroObj->meteors[i].img = al_load_bitmap(PATH_IMG_METEOR );
+        allegroObj->meteors[i].start_x = rand()%1600;
+        allegroObj->meteors[i].start_y = 0;
+
+    }
+    allegroObj->meteor.start_x=800;
+    allegroObj->meteor.start_y=0;
+    //allegroObj->role.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
+    //allegroObj->meteor.state = ROLE_NULL;
+}
+
+void meteor_drop(AllegroObjStut *allegroObj)
+{
+    int i;
+    for (i = 0; i < allegroObj->meteor_n; i++)
+    {
+        allegroObj->meteors[i].start_y += 3;
+
+    }
+    allegroObj->meteor.start_y +=3;
+
+
 }
