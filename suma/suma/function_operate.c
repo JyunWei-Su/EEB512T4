@@ -3,6 +3,12 @@
 
 void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
+    bool statecrash;
+    float sx,sy,ex,ey;
+    sx = 1000;
+    ex = 1500;
+    sy = 0;
+    ey = 800;
     int state = mainData->game_state;
     al_get_keyboard_state(&allegroObj->keyboard_state);
     switch(state)
@@ -15,6 +21,9 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         /* Role*/
         role_jump(allegroObj);
         meteor_drop(allegroObj);
+        statecrash = CrashCheck(allegroObj->role.start_x,allegroObj->role.start_y, allegroObj->role.end_x, allegroObj->role.end_y ,sx,sy,ex,ey);
+        if(statecrash) printf("\tCrash\n");
+        else printf("\tNo crash.\n");
         break;
     case GAME_MENU:
         break;

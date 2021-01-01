@@ -5,88 +5,51 @@ void PrintTest_BYK(){
     printf("This is a print test by BYK.\n");
 }
 
-void playing(ALLEGRO_MOUSE_STATE *mouse, ALLEGRO_SAMPLE_INSTANCE *instance, int *state){
-    //play_state表示音樂是否在播放狀態, pause_state表示是否是暫停, 是:1 否:0
-    int play_state = 1, pause_state = 0;
-    float gain = 0.5; //增益(初值設0.5)
-    unsigned int position; //聲音撥放到的位置
-    ALLEGRO_BITMAP *loudspeaker = NULL, *background= NULL, *nosound = NULL;
-
-    //導入圖片
-    loudspeaker = al_load_bitmap("./img/music_icon/loudspeaker.jpg");
-    background = al_load_bitmap("./img/back900.png");
-    nosound = al_load_bitmap("./img/music_icon/nosound.jpg");
-
-    //設定聲音初始狀態
-    al_set_sample_instance_gain(instance, gain);//設定聲音播放的大小
-    al_set_sample_instance_playmode(instance, ALLEGRO_PLAYMODE_LOOP);//設定聲音播放的模式(單一, 循環, 雙向?)
-    al_set_sample_instance_playing(instance, true);//設定聲音播放的狀態(play or not)
-    while(*state == 1)
+void Change(float *start,float *end)
+{
+    float temp;
+    //確認start與end大小
+    if(*start > *end)
     {
-        al_get_mouse_state(mouse); //偵測滑鼠目前的狀態
-        if(mouse->buttons & 1) //偵測滑鼠左鍵
-        {
-            //偵測play或pause圖片的位置
-            if(mouse->x >= DISPLAY_WIDTH-150 && mouse->x <= DISPLAY_WIDTH-110 && mouse->y >= DISPLAY_HEIGHT-50 && mouse->y <=DISPLAY_HEIGHT-10)
-            {
-                if(play_state == 1)
-                {
-                    if(pause_state == 1)
-                    {
-                        //play按鈕變成pause按鈕並從上次播放到的時間點播放
-                        al_draw_bitmap_region(background, DISPLAY_WIDTH-150, DISPLAY_HEIGHT-50, 40, 40, DISPLAY_WIDTH-150, DISPLAY_HEIGHT-50, 0);
-                        al_draw_bitmap(loudspeaker, DISPLAY_WIDTH-150, DISPLAY_HEIGHT-50, 0);
-                        pause_state = 0;
-                        al_set_sample_instance_position(instance, position);//設定聲音播放的時間點
-                        al_set_sample_instance_playing(instance, true);
-                    }
-                    else
-                    {
-                        //pause按鈕變成play按鈕並儲存目前播放到的時間點
-                        al_draw_bitmap_region(background, DISPLAY_WIDTH-150, DISPLAY_HEIGHT-50, 40, 40, DISPLAY_WIDTH-150, DISPLAY_HEIGHT-50, 0);
-                        al_draw_bitmap(nosound,DISPLAY_WIDTH-150, DISPLAY_HEIGHT-50, 0);
-                        pause_state = 1;
-                        play_state = 1;
-                        position = al_get_sample_instance_position(instance);//得到聲音目前播放到的時間點
-                        al_set_sample_instance_playing(instance, false);
-                    }
-                }
-                    else
-                   {
-                    //play按鈕變成pause按鈕並從頭播放
-                    al_draw_bitmap_region(background, DISPLAY_WIDTH-150, DISPLAY_HEIGHT-50, 40, 40, DISPLAY_WIDTH-150, DISPLAY_HEIGHT-50, 0);
-                    al_draw_bitmap(loudspeaker,DISPLAY_WIDTH-150, DISPLAY_HEIGHT-50, 0);
-                    pause_state = 0;
-                    play_state = 1;
-                    al_set_sample_instance_playing(instance, true);
-                   }
-            }
-            else if(mouse->x >= DISPLAY_WIDTH-100 && mouse->x <= DISPLAY_WIDTH-60 && mouse->y >= DISPLAY_HEIGHT-50 && mouse->y <=DISPLAY_HEIGHT-10)
-            {
-                //將聲音增加原始聲音的0.1倍
-                gain = gain + 0.1;
-                al_set_sample_instance_gain(instance, gain);
-            }
-            else if(mouse->x >= DISPLAY_WIDTH-50 && mouse->x <=DISPLAY_WIDTH-10 && mouse->y >= DISPLAY_HEIGHT-50 && mouse->y <=DISPLAY_HEIGHT-10)
-            {
-                //將聲音減少原始聲音的0.1倍
-                if(gain >= 0) //聲音大小不會小於0
-                {
-                    gain = gain - 0.1;
-                }
-                al_set_sample_instance_gain(instance, gain);
-            }
-            //印出現在滑鼠所在的位置
-            printf("mouse_position(%d, %d)\n", mouse->x, mouse->y);
-        }
-        //顯示圖片
-        al_flip_display();
-        //程式暫停0.1秒
-        al_rest(0.1);
+        temp = *start;
+        *start = *end;
+        *end = temp;
     }
+}
 
-    //釋放不需要的動態記憶體空間
-    al_destroy_bitmap(loudspeaker);
-    al_destroy_bitmap(background);
-    al_destroy_bitmap(nosound);
+bool CrashCheck(float start_x1,float start_y1,float end_x1,float end_y1,float start_x2,float start_y2,float end_x2,float end_y2)
+{
+    float Length_x,Length_y;
+   Change(&start_x1,&end_x1);
+   Change(&start_y1,&end_y1);
+   Change(&start_x2,&end_x2);
+   Change(&start_y2,&end_y2);
+    Length_x = end_x1 - start_x1;
+    Length_y = end_y1 - start_y1;
+    //printf("start_x2=%f\n",start_x2);
+    //printf("end_x1=%f\n",end_x1);
+    //printf("start_x2 - end_x1=%f\n",start_x2 - end_x1);
+    if(start_x2 - end_x1 >= Length_x && start_y2 - end_y1 >= Length_y)
+    {
+        return 0;
+    }
+    else
+    {
+        return DefineCrash(start_x1, start_y1, end_x1, end_y1,start_x2, start_y2, end_x2, end_y2);
+    }
+}
+
+bool DefineCrash(float start_x1,float start_y1,float end_x1,float end_y1,float start_x2,float start_y2,float end_x2,float end_y2)
+{
+
+        if(((start_x2 <=end_x1 && start_x2>=start_x1) && (start_y2 >=start_y1 && start_y2 <= end_y1)) || (start_x2 <=end_x1 && start_x2>=start_x1) && (end_y2 >=start_y1 && end_y2 <= end_y1))
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+
+
 }
