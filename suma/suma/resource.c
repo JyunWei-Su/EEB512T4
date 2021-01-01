@@ -45,6 +45,7 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     home_button_init(allegroObj);
     score_board_init(allegroObj);
     role_init(allegroObj);
+    coin_init(allegroObj);
     floor_init(allegroObj);
     meteor_init(allegroObj);
 
