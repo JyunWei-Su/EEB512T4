@@ -30,7 +30,7 @@ void DrawScoreboard(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     al_draw_bitmap(allegroObj->coins.img, allegroObj->coins.start_x, allegroObj->coins.start_y, 0);
     al_draw_bitmap(allegroObj->chars.img, allegroObj->chars.start_x, allegroObj->chars.start_y, 0);
-    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->coins.end_x, allegroObj->coins.start_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.chars);
+    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->coins.end_x, allegroObj->coins.start_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.coins);
     al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->chars.end_x, allegroObj->chars.start_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.chars);
     DrawObjBoundary(allegroObj->coins.start_x, allegroObj->coins.start_y, allegroObj->coins.end_x, allegroObj->coins.end_y);
     DrawObjBoundary(allegroObj->chars.start_x, allegroObj->chars.start_y, allegroObj->chars.end_x, allegroObj->chars.end_y);
@@ -180,5 +180,5 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
 void DrawObjBoundary(float x1, float y1, float x2, float y2)
 {
     //printf("x1: %f, y1: %f\nx2: %f, y2: %f\n", x1, x2, y1, y2);
-    al_draw_rectangle(x1, y1, x2, y2, al_map_rgb(255, 0, 0), 3);
+    al_draw_rectangle(x1, y1, x2, y2, al_map_rgb(255, 0, 0), 0);
 }
