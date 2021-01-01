@@ -221,8 +221,8 @@ typedef struct AllegroObjStut
     ALLEGRO_EVENT events;                     //拿來存事件 #2 (目前用於視窗X叉叉)
     ALLEGRO_TIMER *timer;
 
-    ScoreboardStut chars;
-    ScoreboardStut coins;
+    ScoreboardStut sb_chars;
+    ScoreboardStut sb_coins;
 
     RoleStut role;
 

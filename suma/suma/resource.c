@@ -83,16 +83,16 @@ void sound_init(AllegroObjStut *allegroObj)
 
 void score_board_init(AllegroObjStut *allegroObj)
 {
-    allegroObj->coins.img = al_load_bitmap( PATH_IMG_COIN);
-    allegroObj->coins.start_x = SIZE_IMG_SCOREBOARD_ICON_WIDTH/3;
-    allegroObj->coins.start_y = SIZE_IMG_SCOREBOARD_ICON_HEIGHT/4;
-    allegroObj->coins.end_x = allegroObj->coins.start_x + OFFSET_SCOREBOARD_TEXT;
-    allegroObj->coins.end_y = allegroObj->coins.start_y + SIZE_IMG_SCOREBOARD_ICON_HEIGHT;
-    allegroObj->chars.img = al_load_bitmap( PATH_IMG_CHAR);
-    allegroObj->chars.start_x = allegroObj->coins.end_x + SIZE_IMG_SCOREBOARD_ICON_WIDTH; //修正
-    allegroObj->chars.start_y = allegroObj->coins.start_y;
-    allegroObj->chars.end_x = allegroObj->chars.start_x + OFFSET_SCOREBOARD_TEXT;
-    allegroObj->chars.end_y = allegroObj->chars.start_y + SIZE_IMG_SCOREBOARD_ICON_HEIGHT;
+    allegroObj->sb_coins.img = al_load_bitmap( PATH_IMG_COIN);
+    allegroObj->sb_coins.start_x = SIZE_IMG_SCOREBOARD_ICON_WIDTH/3;
+    allegroObj->sb_coins.start_y = SIZE_IMG_SCOREBOARD_ICON_HEIGHT/4;
+    allegroObj->sb_coins.end_x = allegroObj->sb_coins.start_x + OFFSET_SCOREBOARD_TEXT;
+    allegroObj->sb_coins.end_y = allegroObj->sb_coins.start_y + SIZE_IMG_SCOREBOARD_ICON_HEIGHT;
+    allegroObj->sb_chars.img = al_load_bitmap( PATH_IMG_CHAR);
+    allegroObj->sb_chars.start_x = allegroObj->sb_coins.end_x + SIZE_IMG_SCOREBOARD_ICON_WIDTH; //修正
+    allegroObj->sb_chars.start_y = allegroObj->sb_coins.start_y;
+    allegroObj->sb_chars.end_x = allegroObj->sb_chars.start_x + OFFSET_SCOREBOARD_TEXT;
+    allegroObj->sb_chars.end_y = allegroObj->sb_chars.start_y + SIZE_IMG_SCOREBOARD_ICON_HEIGHT;
 }
 
 void font_init(AllegroObjStut *allegroObj)
