@@ -11,7 +11,7 @@
 	<stdlib.h>
 	<math.h>
 
-1609421635 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\myfunc.c
+1609483021 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\myfunc.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -32,7 +32,7 @@
 1609427479 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\own\header_byk.h
 	"../resource.h"
 
-1609474049 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\own\header_hyh.h
+1609482054 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\own\header_hyh.h
 	"../resource.h"
 
 1553403848 c:\api\allegro\include\allegro5\allegro.h
@@ -335,7 +335,7 @@
 1609415326 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\own\header_jws.h
 	"../resource.h"
 
-1609481924 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\resource.h
+1609483157 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\resource.h
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
