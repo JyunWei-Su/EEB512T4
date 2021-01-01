@@ -9,6 +9,7 @@ void DrawHomeButton(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawModeSelect(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawRule(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawRank(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void DrawRankScore(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawAbout(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawScoreboard(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj);

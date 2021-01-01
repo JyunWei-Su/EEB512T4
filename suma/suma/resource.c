@@ -38,7 +38,8 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
 
     /*Load bitmap(image) */
     image_init(allegroObj);
-    font_init(allegroObj);
+    font_init(&allegroObj->font_a, PATH_FONT_HIMAJI);
+    font_init(&allegroObj->font_b, PATH_FONT_FANCYH);
     sound_init(allegroObj);
     menu_button_init(allegroObj);
     mode_button_init(allegroObj);
@@ -48,12 +49,6 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     floor_init(allegroObj);
     meteor_init(allegroObj);
 
-    /*load Font*/
-    //allegroObj->font_60 = al_load_font("DFT_TL9.TTC", 60, 0);
-    //allegroObj->font_24 = al_load_font("DFT_TL9.TTC", 24, 0);
-
-    /* load the sound file */
-    //voice_init(allegroObj);
 
     /* window title and menu*/
     al_set_window_title(allegroObj->display,"SUMA");
@@ -95,14 +90,14 @@ void score_board_init(AllegroObjStut *allegroObj)
     allegroObj->sb_chars.end_y = allegroObj->sb_chars.start_y + SIZE_IMG_SCOREBOARD_ICON_HEIGHT;
 }
 
-void font_init(AllegroObjStut *allegroObj)
+void font_init(FontStut *font, const char *filePath)
 {
-    allegroObj->font_a.font24 = al_load_font( PATH_FONT_HIMAJI, 24, 0);
-    allegroObj->font_a.font36 = al_load_font( PATH_FONT_HIMAJI, 36, 0);
-    allegroObj->font_a.font48 = al_load_font( PATH_FONT_HIMAJI, 48, 0);
-    allegroObj->font_a.font64 = al_load_font( PATH_FONT_HIMAJI, 64, 0);
-    allegroObj->font_a.font90 = al_load_font( PATH_FONT_HIMAJI, 90, 0);
-    allegroObj->font_a.font120 = al_load_font( PATH_FONT_HIMAJI, 120, 0);
+    font->font24 = al_load_font( filePath, 24, 0);
+    font->font36 = al_load_font( filePath, 36, 0);
+    font->font48 = al_load_font( filePath, 48, 0);
+    font->font64 = al_load_font( filePath, 64, 0);
+    font->font90 = al_load_font( filePath, 90, 0);
+    font->font120 = al_load_font( filePath, 120, 0);
 }
 
 void image_init(AllegroObjStut *allegroObj)
@@ -208,5 +203,9 @@ void MainDataInit(MainDataStut *mainData)
     mainData->score.chars = 0;
     mainData->score.coins = 0;
     mainData->score.score = 0;
+
+    mainData->scoreFileData = (RankScoreDataStut *)calloc(sizeof(RankScoreDataStut), 1);
+    mainData->scoreFileData->data = (RankRowStut *)calloc(sizeof(RankRowStut), NUM_SCORE_DATA);
+    mainData->scoreFileData->fileIsRead = 0;
 }
 

@@ -89,8 +89,22 @@ void DrawRule(MainDataStut *mainData, AllegroObjStut *allegroObj)
 void DrawRank(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     al_draw_bitmap(allegroObj->background.img, 0, 0, 0); // Draw bitmap
-    al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "rank");
+    al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, 0, ALLEGRO_ALIGN_CENTER, "rank");
+    DrawRankScore(mainData, allegroObj);
     DrawHomeButton(mainData, allegroObj);
+}
+
+void DrawRankScore(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    int i;
+    int x = DISPLAY_WIDTH/2;
+    int y = DISPLAY_HEIGHT/2;
+    //al_draw_textf(allegroObj->font_b.font64, COLOR_SCORE, x, y-SIZE_TEXT_RANK_LEADONG*8, ALLEGRO_ALIGN_CENTER, "Rank");
+    al_draw_textf(allegroObj->font_b.font36, COLOR_SCORE, x, y-SIZE_TEXT_RANK_LEADONG*5, ALLEGRO_ALIGN_CENTER, "--No act: Press Q or Esc to return to menu.");
+    for(i = 0; i < NUM_SCORE_DATA; i++){
+        al_draw_textf(allegroObj->font_b.font36, COLOR_SCORE, x/3, y-SIZE_TEXT_RANK_LEADONG*(4-i), ALLEGRO_ALIGN_LEFT, "%2d\t%5d\t%20s\t%s",
+                      mainData->scoreFileData->data[i].id, mainData->scoreFileData->data[i].score, mainData->scoreFileData->data[i].name, mainData->scoreFileData->data[i].time);
+    }
 }
 
 void DrawAbout(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -146,11 +160,9 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
     int state = mainData->game_state;
     //int calculate = 0;
     al_clear_to_color( COLOR_CLEAR );
-
     switch(state)
     {
     case GAME_MENU:
-
         DrawMenu(mainData, allegroObj);
         break;
     case GAME_MODE_SELECT:
