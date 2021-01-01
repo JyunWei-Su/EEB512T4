@@ -185,6 +185,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         }
         al_draw_bitmap(allegroObj->background.img, allegroObj->background.x, 0, 0); // Draw bitmap
         DrawRole(mainData, allegroObj);
+        DrawCoin(mainData, allegroObj);
         al_draw_bitmap(allegroObj->floor.img, allegroObj->floor.start_x, allegroObj->floor.start_y, 0); // Draw bitmap
         DrawObjBoundary(allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
         DrawMeteor(mainData, allegroObj);
