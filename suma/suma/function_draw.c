@@ -103,7 +103,8 @@ void DrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
     switch(allegroObj->role.state)
     {
     case ROLE_NULL:
-        if(allegroObj->role.imgCount % (int)(FPS*TIME_PER_IMG) == 0){
+        if(allegroObj->role.imgCount % (int)(FPS*TIME_PER_IMG) == 0)
+        {
             allegroObj->role.imgCount = 0;
             allegroObj->role.nowImg += 1;
             if(allegroObj->role.nowImg % NUM_IMG_ROLE_SEQUENCE == 0) allegroObj->role.nowImg = 0;
@@ -121,10 +122,15 @@ void DrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
 void DrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int i;
-    al_draw_bitmap(allegroObj->meteor.img, allegroObj->meteor.start_x, allegroObj->meteor.start_y, 0); // Draw bitmap
+    //al_draw_bitmap(allegroObj->meteor.img, allegroObj->meteor.start_x, allegroObj->meteor.start_y, 0); // Draw bitmap
     for (i = 0; i < allegroObj->meteor_n; i++)
     {
+        //««ª½±¼¸¨
         al_draw_bitmap(allegroObj->meteors[i].img, allegroObj->meteors[i].start_x, allegroObj->meteors[i].start_y, 0);
+        //¥ª±×¤U±¼¸¨
+        al_draw_bitmap(allegroObj->meteors_right_drop[i].img, allegroObj->meteors_right_drop[i].start_x, allegroObj->meteors_right_drop[i].start_y, 0);
+        //¥k±×¤U±¼¸¨
+        al_draw_bitmap(allegroObj->meteors_left_drop[i].img, allegroObj->meteors_left_drop[i].start_x, allegroObj->meteors_left_drop[i].start_y, 0);
     }
 }
 void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
