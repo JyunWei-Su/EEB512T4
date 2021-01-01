@@ -166,7 +166,7 @@ bool ObjCrashCheck(float start_x1,float start_y1,float end_x1,float end_y1,float
     //printf("start_x2=%f\n",start_x2);
     //printf("end_x1=%f\n",end_x1);
     //printf("start_x2 - end_x1=%f\n",start_x2 - end_x1);
-    if(start_x2 - end_x1 >= Length_x && start_y2 - end_y1 >= Length_y)
+    if(start_x2 - end_x1 >= 2*Length_x && start_y2 - end_y1 >= 2*Length_y)
         return ObjCrashCheck_sub(start_x1, start_y1, end_x1, end_y1,start_x2, start_y2, end_x2, end_y2);
     else
         return ObjCrashCheck_sub(start_x1, start_y1, end_x1, end_y1,start_x2, start_y2, end_x2, end_y2);
@@ -174,16 +174,14 @@ bool ObjCrashCheck(float start_x1,float start_y1,float end_x1,float end_y1,float
 
 bool ObjCrashCheck_sub(float start_x1,float start_y1,float end_x1,float end_y1,float start_x2,float start_y2,float end_x2,float end_y2)
 {
-    if((start_x1 <= start_x2 && start_x2 <=end_x1) && (start_y2 >=start_y1 && start_y2 <= end_y1)) return 0;
-    else if
-       ( (start_x2 <=end_x1 && start_x2>=start_x1) && (end_y2 >=start_y1 && end_y2 <= end_y1))
-       ( (start_x2 <=end_x1 && start_x2>=start_x1) && (start_y2 >=start_y1 && start_y2 <= end_y1)) ||
-       ( (start_x2 <=end_x1 && start_x2>=start_x1) && (end_y2 >=start_y1 && end_y2 <= end_y1))
-    /*
-    if(((start_x2 <=end_x1 && start_x2>=start_x1) && (start_y2 >=start_y1 && start_y2 <= end_y1)) ||
-       ((start_x2 <=end_x1 && start_x2>=start_x1) && (end_y2 >=start_y1 && end_y2 <= end_y1))
-       ((start_x2 <=end_x1 && start_x2>=start_x1) && (start_y2 >=start_y1 && start_y2 <= end_y1)) ||
-       ((start_x2 <=end_x1 && start_x2>=start_x1) && (end_y2 >=start_y1 && end_y2 <= end_y1))
-       return 1;*/
+    if((start_x1 <= start_x2 && start_x2 <=end_x1) && (start_y1 <=start_y2 && start_y2 <= end_y1)) return 1;
+    else if ( (start_x1 <=start_x2 && start_x2<=end_x1) && (start_y1 <=end_y2 && end_y2 <= end_y1)) return 1;
+    else if( (start_x1 <=end_x2 && end_x2<=end_x1) && (start_y1 <=start_y2 && start_y2 <= end_y1))  return 1;
+    else if( (start_x1 <=end_x2 && end_x2<=end_x1) && (start_y1 <=end_y2 && end_y2 <= end_y1))    return 1;
+    //==================================
+    else if((start_x2 <= start_x1 && start_x1 <=end_x2) && (start_y2 <=start_y1 && start_y1 <= end_y2)) return 1;
+    else if ( (start_x2 <=start_x1 && start_x1<=end_x2) && (start_y2 <=end_y1 && end_y1 <= end_y2)) return 1;
+    else if( (start_x2 <=end_x1 && end_x1<=end_x2) && (start_y2 <=start_y1 && start_y1 <= end_y2))  return 1;
+    else if( (start_x2 <=end_x1 && end_x1<=end_x2) && (start_y2 <=end_y1 && end_y1 <= end_y2))    return 1;
     else return 0;
 }
