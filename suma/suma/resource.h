@@ -78,7 +78,11 @@
 #define GRAVITY 4.5
 #define TIME_PER_IMG 0.1
 /*Meteor_Define*/
-
+#define NUMBER_METEOR 30
+#define SPEED_Y_METEOR 15
+#define SPEED_X_METEOR 0
+#define SPEED_Y_METEOR_RIGHT 15
+#define SPEED_X_METEOR_RIGHT 10
 
 #define FILE_EXIT_ID 1 //待整併
 
@@ -153,7 +157,8 @@ typedef struct MeteorStut
     float end_x, end_y;
     ALLEGRO_BITMAP *img;
     ALLEGRO_BITMAP *imgs_runing;
-    int imgCount, nowImg;
+    //int imgCount, nowImg;
+    int speed_x,speed_y;
     int state;
 } MeteorStut;
 
@@ -221,6 +226,8 @@ typedef struct AllegroObjStut
     FloorStut floor;
     MeteorStut meteor;
     MeteorStut *meteors;
+    MeteorStut *meteors_right_drop;
+    MeteorStut *meteors_left_drop;
     int meteor_n;
 
     FontStut font_a;
