@@ -19,6 +19,7 @@ void AllegroDriverInit()
     al_init_font_addon();   // install font addons
     al_init_ttf_addon();    //TureType Font addon also support .ttc
     al_init_native_dialog_addon();
+    al_init_primitives_addon();
 }
 
 void AllegroObjectInit(AllegroObjStut *allegroObj)
@@ -86,12 +87,12 @@ void score_board_init(AllegroObjStut *allegroObj)
     allegroObj->coins.start_x = SIZE_IMG_SCOREBOARD_ICON_WIDTH/3;
     allegroObj->coins.start_y = SIZE_IMG_SCOREBOARD_ICON_HEIGHT/4;
     allegroObj->coins.end_x = allegroObj->coins.start_x + OFFSET_SCOREBOARD_TEXT;
-    allegroObj->coins.end_y = allegroObj->coins.start_y;
+    allegroObj->coins.end_y = allegroObj->coins.start_y + SIZE_IMG_SCOREBOARD_ICON_HEIGHT;
     allegroObj->chars.img = al_load_bitmap( PATH_IMG_CHAR);
     allegroObj->chars.start_x = allegroObj->coins.end_x + SIZE_IMG_SCOREBOARD_ICON_WIDTH; //修正
     allegroObj->chars.start_y = allegroObj->coins.start_y;
     allegroObj->chars.end_x = allegroObj->chars.start_x + OFFSET_SCOREBOARD_TEXT;
-    allegroObj->chars.end_y = allegroObj->chars.start_y;
+    allegroObj->chars.end_y = allegroObj->chars.start_y + SIZE_IMG_SCOREBOARD_ICON_HEIGHT;
 }
 
 void font_init(AllegroObjStut *allegroObj)
