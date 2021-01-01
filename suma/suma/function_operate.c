@@ -11,6 +11,7 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
     case GAME_PLAYING_NORMAL:
         allegroObj->background.x -= OFFSET_ROLE_WALK;
         if(allegroObj->background.x <= -SIZE_IMG_BKG_WIDTH) allegroObj->background.x += SIZE_IMG_BKG_WIDTH;
+        allegroObj->coin.start_x -= OFFSET_ROLE_WALK;
         allegroObj->floor.start_x -= 1.5;
         allegroObj->floor.end_x = allegroObj->floor.start_x + SIZE_IMG_FLOOR_WIDTH;
         allegroObj->floor.end_y = allegroObj->floor.start_y + SIZE_IMG_FLOOR_HEIGHT;
@@ -21,8 +22,11 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         statecrash = ObjCrashCheck(allegroObj->role.start_x, allegroObj->role.start_y, allegroObj->role.end_x, allegroObj->role.end_y ,
                                 allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
         statecrash ? printf("\tCrash\n") : printf("\tNo crash.\n");
-        //if(statecrash) printf("\tCrash\n");
-        //else printf("\tNo crash.\n");
+        /*coin*/
+        if((allegroObj->coin.start_x)+SIZE_IMG_COIN_WIDTH <= 0)
+        {
+         allegroObj->coin.start_x = DISPLAY_WIDTH;
+        }
         break;
     case GAME_MENU:
         break;
@@ -43,6 +47,7 @@ void role_init(AllegroObjStut *allegroObj)
     allegroObj->role.start_y=700;
     allegroObj->role.state = ROLE_NULL;
 }
+
 
 void role_jump(AllegroObjStut *allegroObj)
 {

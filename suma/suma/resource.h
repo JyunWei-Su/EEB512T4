@@ -144,6 +144,15 @@ typedef struct ScoreStut
     int score;
 } ScoreStut;
 
+typedef struct CoinStut
+{
+    float start_x, start_y;
+    float end_x, end_y;
+    ALLEGRO_BITMAP *imgs_runing;
+    int imgCount, nowImg;
+    int persent;
+} CoinStut;
+
 typedef struct RoleStut
 {
     float start_x, start_y;
@@ -234,6 +243,7 @@ typedef struct AllegroObjStut
     ScoreboardStut sb_coins;
 
     RoleStut role;
+    CoinStut coin;
 
     FloorStut floor;
     MeteorStut meteor;
@@ -283,6 +293,7 @@ void home_button_init(AllegroObjStut *allegroObj);
 void mode_button_init(AllegroObjStut *allegroObj);
 void sound_init(AllegroObjStut *allegroObj);
 void role_init(AllegroObjStut *allegroObj);
+void coin_init(AllegroObjStut *allegroObj);
 void floor_init(AllegroObjStut *allegroObj);
 /* MainDataStut Function*/
 MainDataStut *ClocMainData();
