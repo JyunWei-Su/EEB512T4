@@ -105,7 +105,7 @@ void DrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
     switch(allegroObj->role.state)
     {
     case ROLE_NULL:
-        if(allegroObj->role.imgCount % (int)(FPS*TIME_PER_IMG) == 0)
+        if(allegroObj->role.imgCount % (int)(FPS*TIME_PER_IMG_ROLE) == 0)
         {
             allegroObj->role.imgCount = 0;
             allegroObj->role.nowImg += 1;

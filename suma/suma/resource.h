@@ -21,6 +21,7 @@
 #define PATH_IMG_BKG "./img/back900.png"
 #define PATH_IMG_ICON "./img/icon.tga"
 #define PATH_IMG_COIN "./img/coin.png"
+#define PATH_IMG_COINS "./img/coins.png"
 #define PATH_IMG_CHAR "./img/char.png"
 #define PATH_IMG_MENU_BUTTON "./img/menuButton.png"
 #define PATH_IMG_MODE_BUTTON "./img/menuButton.png"
@@ -46,6 +47,8 @@
 #define SIZE_IMG_BKG_HEIGHT 900
 #define SIZE_IMG_SCOREBOARD_ICON_WIDTH 64
 #define SIZE_IMG_SCOREBOARD_ICON_HEIGHT 64
+#define SIZE_IMG_COIN_WIDTH 64
+#define SIZE_IMG_COIN_HEIGHT 64
 #define SIZE_IMG_ROLE_WIDTH 150
 #define SIZE_IMG_ROLE_HEIGHT 200
 #define SIZE_IMG_FLOOR_WIDTH 300
@@ -64,6 +67,7 @@
 #define NUM_MENU_BUTTON 4
 #define NUM_MODE_BUTTON 3
 #define NUM_IMG_ROLE_SEQUENCE 10
+#define NUM_IMG_COIN_SEQUENCE 16
 #define NUM_SAMPLES 3 //聲音數量
 #define SCALE_MENU_BUTTON 1.2
 #define SCALE_MODE_BUTTON 1.2
@@ -79,7 +83,8 @@
 #define MAX_ROLE_X 1500
 #define MIN_ROLE_X 0
 #define GRAVITY 4.5
-#define TIME_PER_IMG 0.1
+#define TIME_PER_IMG_ROLE 0.1
+#define TIME_PER_IMG_COIN 0.1
 /*Meteor_Define*/
 #define NUMBER_METEOR 30
 #define SPEED_Y_METEOR 15
