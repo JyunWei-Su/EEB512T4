@@ -662,7 +662,7 @@
 	"../own/header_BYK.h"
 	"../defineHeader.h"
 
-1609472637 source:c:\users\user\documents\github\eeb512t4\suma\suma\own\func_hyh.c
+1609475789 source:c:\users\user\documents\github\eeb512t4\suma\suma\own\func_hyh.c
 	"../own/header_HYH.h"
 	"../defineHeader.h"
 
@@ -707,10 +707,10 @@
 
 1609419114 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\icon.rc
 
-1609473751 c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.h
+1609475789 c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.h
 	"resource.h"
 
-1609473751 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.c
+1609481193 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.c
 	"defineHeader.h"
 	"resource.h"
 
