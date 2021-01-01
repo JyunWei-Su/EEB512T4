@@ -4,16 +4,15 @@
 #include "../resource.h"
 void PrintTest_JWS();
 
-void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm);
-void CheckGameState(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm);
+void GetTime(struct tm *tm);
+int ScoreFileRead(const char *fileName, RankScoreDataStut *scoreData);
+void ScoreFileAppend(const char *fileName, MainDataStut *mainData);
 
-void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm);
-void CheckMouseMove(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm);
-void CheckMouseClick(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm);
-void CheckMouseMoveOnHomeButton(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm);
-void CheckMouseMoveOnModeButton(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm);
-void CheckMouseMoveOnMenuButton(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm);
+void CopyCharArray1d(char src[], char dst[], int size);
+void SortIntArray1d(int src[], int size, int sequence);
 
-void CheckStateModeSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm);
-void CheckStateMenuSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm);
+
+void MY_ALGO_ErrMsg(char const *title, char const *text);
+void MY_ALGO_QuaMsg(char const *title, char const *text);
+int  MY_ALGO_Y_N_Msg(char const *title, char const *text);
 #endif //_JWS_H_

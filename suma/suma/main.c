@@ -5,31 +5,21 @@
 #include "defineHeader.h"
 
 int main(){
-    /*-------------*/
-    //PrintTest_JWS();
-    //PrintTest_IRL();
-    //PrintTest_BYK();
-    /*-------------*/
-
     MainDataStut *mainData;
     AllegroObjStut *allegroObj;
-    LayoutParmStut *layoutParm;
 
     mainData = ClocMainData();
     allegroObj = ClocAlgObj();
-    layoutParm = ClocLayoutParm();
 
     /* Initialize */
+    srand(time(0));
     AllegroDriverInit();
     AllegroObjectInit(allegroObj);
     MainDataInit(mainData);
-    LayoutParmInit(layoutParm);
 
-    /*執行主要function*/
-    srand(time(0));
-    printf("aaaa\n");
+    /* Main processing */
     while (mainData->game_state != GAME_FINISH){
-        CheckEvent(mainData, allegroObj, layoutParm);
+        CheckEvent(mainData, allegroObj);
     }
 
     /* Cleanup, Free Dynamic Memory */

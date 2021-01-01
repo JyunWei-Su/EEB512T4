@@ -1,12 +1,11 @@
-#include "function_draw.h"
 #include "defineHeader.h"
 #include "resource.h"
 
-void DrawMenu(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
+void DrawMenu(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int i;
     float x, y;
-    al_draw_bitmap(allegroObj->background.Img, 0, 0, 0); // Draw bitmap
+    al_draw_bitmap(allegroObj->background.img, 0, 0, 0); // Draw bitmap
     for(i = 0; i < NUM_MENU_BUTTON; i++)
     {
         x = (allegroObj->menuButton[i].start_x + allegroObj->menuButton[i].end_x)/2;
@@ -24,10 +23,20 @@ void DrawMenu(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut
         }
     }
     al_draw_textf(allegroObj->font_a.font120, COLOR_SCORE, DISPLAY_WIDTH/2, 0, ALLEGRO_ALIGN_CENTER, "S U M A");
-    al_draw_textf(allegroObj->font_a.font24, COLOR_SCORE, DISPLAY_WIDTH, DISPLAY_HEIGHT-al_get_font_ascent(allegroObj->font_a.font24), ALLEGRO_ALIGN_RIGHT, "Ver:000");
+    al_draw_textf(allegroObj->font_a.font24, COLOR_SCORE, DISPLAY_WIDTH, DISPLAY_HEIGHT-al_get_font_line_height(allegroObj->font_a.font24), ALLEGRO_ALIGN_RIGHT, VERSION);
 }
 
-void DrawModeButton(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
+void DrawScoreboard(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    al_draw_bitmap(allegroObj->sb_coins.img, allegroObj->sb_coins.start_x, allegroObj->sb_coins.start_y, 0);
+    al_draw_bitmap(allegroObj->sb_chars.img, allegroObj->sb_chars.start_x, allegroObj->sb_chars.start_y, 0);
+    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->sb_coins.end_x, allegroObj->sb_coins.start_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.coins);
+    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->sb_chars.end_x, allegroObj->sb_chars.start_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.chars);
+    DrawObjBoundary(allegroObj->sb_coins.start_x, allegroObj->sb_coins.start_y, allegroObj->sb_coins.end_x, allegroObj->sb_coins.end_y);
+    DrawObjBoundary(allegroObj->sb_chars.start_x, allegroObj->sb_chars.start_y, allegroObj->sb_chars.end_x, allegroObj->sb_chars.end_y);
+}
+
+void DrawModeButton(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int i;
     float x, y;
@@ -50,78 +59,244 @@ void DrawModeButton(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutPa
     }
 }
 
-void DrawHomeButton(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
+void DrawHomeButton(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    if(allegroObj->homeButton.isSelected){
+    if(allegroObj->homeButton.isSelected)
+    {
         al_draw_bitmap(allegroObj->homeButton.img, allegroObj->homeButton.start_x, allegroObj->homeButton.start_y, 0);
     }
-    else{
+    else
+    {
         al_draw_bitmap(allegroObj->homeButton.img2, allegroObj->homeButton.start_x, allegroObj->homeButton.start_y, 0);
     }
 }
 
-void DrawModeSelect(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
+void DrawModeSelect(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    al_draw_bitmap(allegroObj->background.Img, 0, 0, 0); // Draw bitmap
+    al_draw_bitmap(allegroObj->background.img, 0, 0, 0); // Draw bitmap
     al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, 0, ALLEGRO_ALIGN_CENTER, "mode select");
-    DrawModeButton(mainData, allegroObj, layoutParm);
-    DrawHomeButton(mainData, allegroObj, layoutParm);
+    DrawModeButton(mainData, allegroObj);
+    DrawHomeButton(mainData, allegroObj);
 }
 
-void DrawRule(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
+void DrawRule(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    al_draw_bitmap(allegroObj->background.Img, 0, 0, 0); // Draw bitmap
+    al_draw_bitmap(allegroObj->background.img, 0, 0, 0); // Draw bitmap
     al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "rule");
-    DrawHomeButton(mainData, allegroObj, layoutParm);
+    DrawHomeButton(mainData, allegroObj);
 }
 
-void DrawRank(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
+void DrawRank(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    al_draw_bitmap(allegroObj->background.Img, 0, 0, 0); // Draw bitmap
-    al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "rank");
-    DrawHomeButton(mainData, allegroObj, layoutParm);
+    al_draw_bitmap(allegroObj->background.img, 0, 0, 0); // Draw bitmap
+    al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, 0, ALLEGRO_ALIGN_CENTER, "rank");
+    DrawRankScore(mainData, allegroObj);
+    DrawHomeButton(mainData, allegroObj);
 }
 
-void DrawAbout(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
+void DrawRankScore(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    al_draw_bitmap(allegroObj->background.Img, 0, 0, 0); // Draw bitmap
+    int i;
+    int x = DISPLAY_WIDTH/2;
+    int y = DISPLAY_HEIGHT/2;
+    //al_draw_textf(allegroObj->font_b.font64, COLOR_SCORE, x, y-SIZE_TEXT_RANK_LEADONG*8, ALLEGRO_ALIGN_CENTER, "Rank");
+    al_draw_textf(allegroObj->font_b.font36, COLOR_SCORE, x, y-SIZE_TEXT_RANK_LEADONG*5, ALLEGRO_ALIGN_CENTER, "--No act: Press Q or Esc to return to menu.");
+    for(i = 0; i < NUM_SCORE_DATA; i++)
+    {
+        al_draw_textf(allegroObj->font_b.font36, COLOR_SCORE, x/3, y-SIZE_TEXT_RANK_LEADONG*(4-i), ALLEGRO_ALIGN_LEFT, "%2d\t%5d\t%20s\t%s",
+                      mainData->scoreFileData->data[i].id, mainData->scoreFileData->data[i].score, mainData->scoreFileData->data[i].name, mainData->scoreFileData->data[i].time);
+    }
+}
+
+void DrawAbout(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    al_draw_bitmap(allegroObj->background.img, 0, 0, 0); // Draw bitmap
     al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "about");
-    DrawHomeButton(mainData, allegroObj, layoutParm);
+    DrawHomeButton(mainData, allegroObj);
 }
 
-void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)
+void DrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
+//Role動畫
+{
+    switch(allegroObj->role.state)
+    {
+    case ROLE_NULL:
+        if(allegroObj->role.imgCount % (int)(FPS*TIME_PER_IMG_ROLE) == 0)
+        {
+            allegroObj->role.imgCount = 0;
+            allegroObj->role.nowImg += 1;
+            if(allegroObj->role.nowImg % NUM_IMG_ROLE_SEQUENCE == 0) allegroObj->role.nowImg = 0;
+        }
+        al_draw_bitmap_region(allegroObj->role.imgs_runing, SIZE_IMG_ROLE_WIDTH*allegroObj->role.nowImg, 0, SIZE_IMG_ROLE_WIDTH, SIZE_IMG_ROLE_HEIGHT
+                              , allegroObj->role.start_x, allegroObj->role.start_y, 0);
+        allegroObj->role.imgCount += 1;
+        break;
+    default:
+        al_draw_bitmap(allegroObj->role.img, allegroObj->role.start_x, allegroObj->role.start_y, 0); // Draw bitmap
+        break;
+    }
+    DrawObjBoundary(allegroObj->role.start_x, allegroObj->role.start_y, allegroObj->role.end_x, allegroObj->role.end_y);
+}
+
+void DrawMeteorAnimation(MainDataStut *mainData, AllegroObjStut *allegroObj)
+//隕石動畫
+{
+    int i;
+    int state = mainData->game_state;
+    switch(state)
+    {
+    case GAME_PLAYING_FINAL_BOSS:
+        for (i = 0; i < allegroObj->meteor_n; i++)
+        {
+            if(allegroObj->meteors_right_drop[i].imgCount % (int)(FPS*TIME_PER_IMG_METEOR) == 0)
+            {
+                allegroObj->meteors_right_drop[i].imgCount = 0;
+                allegroObj->meteors_right_drop[i].nowImg += 1;
+                if(allegroObj->meteors_right_drop[i].nowImg % NUM_IMG_METEOR_SEQUENCE == 0) allegroObj->meteors_right_drop[i].nowImg = 0;
+            }
+            al_draw_bitmap_region(allegroObj->meteors_right_drop[i].imgs_runing, SIZE_IMG_METEOR_WIDTH*allegroObj->meteors_right_drop[i].nowImg, 0, SIZE_IMG_METEOR_WIDTH, SIZE_IMG_METEOR_HEIGHT
+                                  , allegroObj->meteors_right_drop[i].start_x, allegroObj->meteors_right_drop[i].start_y, 0);
+            allegroObj->meteor.imgCount += 1;
+            DrawObjBoundary_meteor(allegroObj->meteors_right_drop[i]);
+        }
+        break;
+    }
+
+}
+
+void DrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
+//隕石
+{
+    int i;
+    int state = mainData->game_state;
+    //al_draw_bitmap(allegroObj->meteor.img, allegroObj->meteor.start_x, allegroObj->meteor.start_y, 0);
+    //DrawObjBoundary(allegroObj->meteor.start_x, allegroObj->meteor.start_y, allegroObj->meteor.end_x, allegroObj->meteor.end_y);
+    switch(state)
+    {
+    case GAME_PLAYING_MID_BOSS:
+        for (i = 0; i < allegroObj->meteor_n; i++)
+        {
+            //垂直隕石
+            al_draw_bitmap(allegroObj->meteors[i].img, allegroObj->meteors[i].start_x, allegroObj->meteors[i].start_y, 0);
+            DrawObjBoundary_meteor(allegroObj->meteors[i]);
+            //右下隕石
+            al_draw_bitmap(allegroObj->meteors_right_drop[i].img, allegroObj->meteors_right_drop[i].start_x, allegroObj->meteors_right_drop[i].start_y, 0);
+            DrawObjBoundary_meteor(allegroObj->meteors_right_drop[i]);
+            //左下隕石
+            al_draw_bitmap(allegroObj->meteors_left_drop[i].img, allegroObj->meteors_left_drop[i].start_x, allegroObj->meteors_left_drop[i].start_y, 0);
+            DrawObjBoundary_meteor(allegroObj->meteors_left_drop[i]);
+        }
+        break;
+    }
+}
+
+void DrawBackground(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    if(allegroObj->background.x < DISPLAY_WIDTH - SIZE_IMG_BKG_WIDTH)
+    {
+        al_draw_bitmap(allegroObj->background.img, allegroObj->background.x + SIZE_IMG_BKG_WIDTH, 0, 0);
+    }
+    al_draw_bitmap(allegroObj->background.img, allegroObj->background.x, 0, 0);
+}
+
+void DrawFloor(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    al_draw_bitmap(allegroObj->floor.img, allegroObj->floor.start_x, allegroObj->floor.start_y, 0);
+    DrawObjBoundary(allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
+}
+
+void DrawCoin(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    if(allegroObj->coin.imgCount % (int)(FPS*TIME_PER_IMG_COIN) == 0)
+    {
+        allegroObj->coin.imgCount = 0;
+        allegroObj->coin.nowImg += 1;
+        if(allegroObj->coin.nowImg % NUM_IMG_COIN_SEQUENCE == 0) allegroObj->coin.nowImg = 0;
+    }
+    al_draw_bitmap_region(allegroObj->coin.imgs_runing, SIZE_IMG_COIN_WIDTH*allegroObj->coin.nowImg, 0, SIZE_IMG_COIN_WIDTH, SIZE_IMG_COIN_HEIGHT
+                          , allegroObj->coin.start_x, allegroObj->coin.start_y, 0);
+    allegroObj->coin.imgCount += 1;
+    DrawObjBoundary_coin(allegroObj->coin);
+}
+
+void DrawPause(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    al_draw_filled_rectangle(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, al_map_rgba(120, 120, 120, 120));
+    al_draw_textf(allegroObj->font_a.font120, COLOR_PAUSE_TEXT, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/4, ALLEGRO_ALIGN_CENTER, "PAUSE");
+}
+
+void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int state = mainData->game_state;
     //int calculate = 0;
-    al_clear_to_color( COLOR_CLEAR );
-
+    if(state != GAME_PAUSE) al_clear_to_color( COLOR_CLEAR );
     switch(state)
     {
+    case GAME_PAUSE:
+        DrawPause(mainData, allegroObj); //疊加上去
+        break;
     case GAME_MENU:
-        DrawMenu(mainData, allegroObj, layoutParm);
+        DrawMenu(mainData, allegroObj);
         break;
     case GAME_MODE_SELECT:
-        DrawModeSelect(mainData, allegroObj, layoutParm);
+        DrawModeSelect(mainData, allegroObj);
         break;
     case GAME_RULE:
-        DrawRule(mainData, allegroObj, layoutParm);
+        DrawRule(mainData, allegroObj);
         break;
     case GAME_RANK:
-        DrawRank(mainData, allegroObj, layoutParm);
+        DrawRank(mainData, allegroObj);
         break;
     case GAME_ABOUT:
-        DrawAbout(mainData, allegroObj, layoutParm);
+        DrawAbout(mainData, allegroObj);
         break;
-    case GAME_PLAYING:
-        if(allegroObj->background.x < DISPLAY_WIDTH - SIZE_IMG_BKG_WIDTH)
-        {
-            al_draw_bitmap(allegroObj->background.Img, allegroObj->background.x + SIZE_IMG_BKG_WIDTH, 0, 0); // Draw bitmap
-        }
-        al_draw_bitmap(allegroObj->background.Img, allegroObj->background.x, 0, 0); // Draw bitmap
+    case GAME_PLAYING_NORMAL:
+        DrawBackground(mainData, allegroObj);
+        DrawRole(mainData, allegroObj);
+        DrawCoin(mainData, allegroObj);
+        DrawFloor(mainData, allegroObj);
+        DrawScoreboard(mainData, allegroObj);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
+        break;
+    case GAME_PLAYING_MID_BOSS:
+        DrawBackground(mainData, allegroObj);
+        DrawRole(mainData, allegroObj);
+        DrawCoin(mainData, allegroObj);
+        DrawFloor(mainData, allegroObj);
+        DrawScoreboard(mainData, allegroObj);
+        DrawMeteor(mainData, allegroObj);
+        al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
+        break;
+    case GAME_PLAYING_FINAL_BOSS:
+        DrawBackground(mainData, allegroObj);
+        DrawRole(mainData, allegroObj);
+        DrawCoin(mainData, allegroObj);
+        DrawFloor(mainData, allegroObj);
+        DrawScoreboard(mainData, allegroObj);
+        DrawMeteorAnimation(mainData, allegroObj);
+        al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
+        break;
     case GAME_NONE:
         break;
     }
-    //al_draw_textf(allegroObj->font_a.font48, COLOR_SCORE, 0, 0, ALLEGRO_ALIGN_LEFT, "This is a text test.");
     al_flip_display();
+}
+
+void DrawObjBoundary(float x1, float y1, float x2, float y2)
+//畫長方形邊界
+{
+    //printf("x1: %f, y1: %f\nx2: %f, y2: %f\n", x1, x2, y1, y2);
+    al_draw_rectangle(x1, y1, x2, y2, al_map_rgb(255, 0, 0), 0);
+}
+
+void DrawObjBoundary_meteor(MeteorStut meteor)
+//畫隕石邊界
+{
+    DrawObjBoundary(meteor.start_x, meteor.start_y, meteor.end_x, meteor.end_y);
+}
+
+void DrawObjBoundary_coin(CoinStut coin)
+//畫金幣邊界
+{
+    DrawObjBoundary(coin.start_x, coin.start_y, coin.end_x, coin.end_y);
 }
