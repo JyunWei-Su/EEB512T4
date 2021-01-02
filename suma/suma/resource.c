@@ -70,6 +70,9 @@ void score_board_init(AllegroObjStut *allegroObj)
     allegroObj->chars.start_y = allegroObj->coins.start_y;
     allegroObj->chars.end_x = allegroObj->chars.start_x + OFFSET_SCOREBOARD_TEXT;
     allegroObj->chars.end_y = allegroObj->chars.start_y;
+    allegroObj->probar.img = al_load_bitmap( PATH_IMG_PROBAR);
+    allegroObj->probar.start_x = allegroObj->chars.end_x + SIZE_IMG_SCOREBOARD_ICON_WIDTH;
+    allegroObj->probar.start_y = allegroObj->coins.start_y;
 }
 
 void font_init(AllegroObjStut *allegroObj)
