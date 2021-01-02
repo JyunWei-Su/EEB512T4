@@ -48,6 +48,9 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     role_init(allegroObj);
     coin_init_old(allegroObj);
     coin_init(allegroObj);
+
+    new_meteor_init(allegroObj);
+
     floor_init(allegroObj);
     meteor_init(allegroObj);
 
@@ -90,6 +93,9 @@ void score_board_init(AllegroObjStut *allegroObj)
     allegroObj->sb_chars.start_y = allegroObj->sb_coins.start_y;
     allegroObj->sb_chars.end_x = allegroObj->sb_chars.start_x + OFFSET_SCOREBOARD_TEXT;
     allegroObj->sb_chars.end_y = allegroObj->sb_chars.start_y + SIZE_IMG_SCOREBOARD_ICON_HEIGHT;
+    allegroObj->probar.img = al_load_bitmap( PATH_IMG_PROBAR);
+    allegroObj->probar.start_x = allegroObj->sb_chars.end_x + SIZE_IMG_SCOREBOARD_ICON_WIDTH;
+    allegroObj->probar.start_y = allegroObj->sb_coins.start_y;
 }
 
 void coin_init_old(AllegroObjStut *allegroObj)
@@ -106,6 +112,13 @@ void coin_init(AllegroObjStut *allegroObj)
     if(allegroObj->coin.imgs_crashing == NULL) allegroObj->coin.imgs_crashing = al_load_bitmap( PATH_IMG_COINS_CRASH );
     allegroObj->coin.objs = NULL;
     //這裡無須配置資料, 只需讀圖片, 配置在遊戲中配置
+}
+
+void new_meteor_init(AllegroObjStut *allegroObj)
+{
+    if(allegroObj->newMeteor.imgs_runing == NULL) allegroObj->newMeteor.imgs_runing = al_load_bitmap( PATH_IMG_METEOR_SEQ_RUNING );
+    allegroObj->newMeteor.objs = NULL;
+    //if(allegroObj->newCoin.objs == NULL) allegroObj->newCoin.objs = (ObjectStut *)calloc(1, sizeof(ObjectStut));
 }
 
 void font_init(FontStut *font, const char *filePath)
