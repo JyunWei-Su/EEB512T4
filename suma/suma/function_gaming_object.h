@@ -3,7 +3,8 @@
 
 #include "resource.h"
 
-void CreateCoins(newCoinStut *coin);
+void CreateCoins(CoinStut *coin);
+void DestoryCoins(CoinStut *coin);
 
 void RandCoinXY(ObjectStut *coin);
 void CoinDebugPrint(ObjectStut *nowPtr, ObjectStut *prePtr, ObjectStut *newPtr);

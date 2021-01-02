@@ -21,7 +21,8 @@
 #define PATH_IMG_BKG "./img/back900.png"
 #define PATH_IMG_ICON "./img/icon.tga"
 #define PATH_IMG_COIN "./img/coin.png"
-#define PATH_IMG_COINS "./img/coins.png"
+#define PATH_IMG_COINS_ROTATE "./img/coins.png"
+#define PATH_IMG_COINS_CRASH "./img/coinCrashs.png"
 #define PATH_IMG_CHAR "./img/char.png"
 #define PATH_IMG_MENU_BUTTON "./img/menuButton.png"
 #define PATH_IMG_MODE_BUTTON "./img/menuButton.png"
@@ -122,6 +123,11 @@ typedef enum RoleState
     ROLE_JUMP, ROLE_DROP, ROLE_MUST_DROP, ROLE_NULL,
 } RoleState;
 
+typedef enum CoinState
+{
+    COIN_NULL, COIN_CRASH, COIN_MOVEOUT, COIN_DESTORY,
+} CoinState;
+
 /**  struct  **/
 typedef struct tm TmStut;
 
@@ -164,22 +170,22 @@ typedef struct ObjectStut
     ObjectStut *nextObj;
 } ObjectStut;
 
-typedef struct newCoinStut
+typedef struct CoinStut
 {
     ALLEGRO_BITMAP *imgs_rotating;
     ALLEGRO_BITMAP *imgs_crashing;
     ObjectStut *objs;
     int n;
-} newCoinStut;
+} CoinStut;
 
-typedef struct CoinStut
+typedef struct CoinStut_old
 {
     float start_x, start_y;
     float end_x, end_y;
     ALLEGRO_BITMAP *imgs_runing;
     int imgCount, nowImg;
     int persent;
-} CoinStut;
+} CoinStut_old;
 
 typedef struct RoleStut
 {
@@ -221,6 +227,11 @@ typedef struct ButtonStut
     ALLEGRO_BITMAP *img;
     ALLEGRO_BITMAP *img2;
 } ButtonStut;
+
+typedef struct FunctionBarStut
+{
+    ALLEGRO_MENU *main_menu;
+} FunctionBarStut;
 
 typedef struct ScoreboardStut
 {
@@ -271,8 +282,8 @@ typedef struct AllegroObjStut
     ScoreboardStut sb_coins;
 
     RoleStut role;
+    CoinStut_old coin_old;
     CoinStut coin;
-    newCoinStut newCoin;
 
     FloorStut floor;
     MeteorStut meteor;
@@ -283,6 +294,8 @@ typedef struct AllegroObjStut
 
     FontStut font_a;
     FontStut font_b;
+
+    FunctionBarStut fnucBar;
 
     SoundStut sound;
     ButtonStut menuButton[NUM_MENU_BUTTON]; //初始介面選單
@@ -323,22 +336,15 @@ void home_button_init(AllegroObjStut *allegroObj);
 void mode_button_init(AllegroObjStut *allegroObj);
 void sound_init(AllegroObjStut *allegroObj);
 void role_init(AllegroObjStut *allegroObj);
-void coin_init(AllegroObjStut *allegroObj);
+void coin_init_old(AllegroObjStut *allegroObj);
 void floor_init(AllegroObjStut *allegroObj);
 /* MainDataStut Function*/
 MainDataStut *ClocMainData();
 void MainDataInit(MainDataStut *mainData);
-void new_coin_init(AllegroObjStut *allegroObj);
-
+void coin_init(AllegroObjStut *allegroObj);
+void function_bar_init(AllegroObjStut *allegroObj);
 void Gravity(AllegroObjStut *allegroObj); //運算
 #endif //_RESOURSE_H_
 
-//ALLEGRO_BITMAP *candyBkgImg; //main layout img
-//ALLEGRO_BITMAP **candyImgs; //candy Imgs: candyImg[n]
-
 //ALLEGRO_MENU *menu; //待整併
 //LLEGRO_MENU *menu_1; //待整併
-//FILE *fileStream;
-//int scoreFileIsRead;
-//NameStut usrName;
-//ScoreDataStut *scoreData;

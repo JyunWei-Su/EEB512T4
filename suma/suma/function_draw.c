@@ -205,38 +205,44 @@ void DrawFloor(MainDataStut *mainData, AllegroObjStut *allegroObj)
     DrawObjBoundary(allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
 }
 
-void DrawCoin(MainDataStut *mainData, AllegroObjStut *allegroObj)
+void DrawCoin_old(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    if(allegroObj->coin.imgCount % (int)(FPS*TIME_PER_IMG_COIN) == 0)
+    if(allegroObj->coin_old.imgCount % (int)(FPS*TIME_PER_IMG_COIN) == 0)
     {
-        allegroObj->coin.imgCount = 0;
-        allegroObj->coin.nowImg += 1;
-        if(allegroObj->coin.nowImg % NUM_IMG_COIN_SEQUENCE == 0) allegroObj->coin.nowImg = 0;
+        allegroObj->coin_old.imgCount = 0;
+        allegroObj->coin_old.nowImg += 1;
+        if(allegroObj->coin_old.nowImg % NUM_IMG_COIN_SEQUENCE == 0) allegroObj->coin_old.nowImg = 0;
     }
-    al_draw_bitmap_region(allegroObj->coin.imgs_runing, SIZE_IMG_COIN_WIDTH*allegroObj->coin.nowImg, 0, SIZE_IMG_COIN_WIDTH, SIZE_IMG_COIN_HEIGHT
-                          , allegroObj->coin.start_x, allegroObj->coin.start_y, 0);
-    allegroObj->coin.imgCount += 1;
-    DrawObjBoundary_coin(allegroObj->coin);
+    al_draw_bitmap_region(allegroObj->coin_old.imgs_runing, SIZE_IMG_COIN_WIDTH*allegroObj->coin_old.nowImg, 0, SIZE_IMG_COIN_WIDTH, SIZE_IMG_COIN_HEIGHT
+                          , allegroObj->coin_old.start_x, allegroObj->coin_old.start_y, 0);
+    allegroObj->coin_old.imgCount += 1;
+    DrawObjBoundary_coin_old(allegroObj->coin_old);
 }
 
-void newDrawCoin(MainDataStut *mainData, AllegroObjStut *allegroObj)
+void DrawCoin(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowCoin = NULL;
-    nowCoin = allegroObj->newCoin.objs;
+    nowCoin = allegroObj->coin.objs;
 
     while(nowCoin != NULL)
     {
-        if(nowCoin->imgCount % (int)(FPS*TIME_PER_IMG_COIN) == 0)
+        switch(nowCoin->state)
         {
-            nowCoin->imgCount = 0;
-            nowCoin->imgNow += 1;
-            if(nowCoin->imgNow % NUM_IMG_COIN_SEQUENCE == 0) nowCoin->imgNow = 0;
+        case COIN_NULL:
+            if(nowCoin->imgCount % (int)(FPS*TIME_PER_IMG_COIN) == 0)
+            {
+                nowCoin->imgCount = 0;
+                nowCoin->imgNow += 1;
+                if(nowCoin->imgNow % NUM_IMG_COIN_SEQUENCE == 0) nowCoin->imgNow = 0;
+            }
+            al_draw_bitmap_region(allegroObj->coin.imgs_rotating, SIZE_IMG_COIN_WIDTH*nowCoin->imgNow, 0, SIZE_IMG_COIN_WIDTH, SIZE_IMG_COIN_HEIGHT
+                                  , nowCoin->start_x, nowCoin->start_y, 0);
+            DrawObjBoundary_object(nowCoin);
+            nowCoin->imgCount += 1;
+            nowCoin = nowCoin->nextObj;
+            break;
         }
-        al_draw_bitmap_region(allegroObj->newCoin.imgs_rotating, SIZE_IMG_COIN_WIDTH*nowCoin->imgNow, 0, SIZE_IMG_COIN_WIDTH, SIZE_IMG_COIN_HEIGHT
-                              , nowCoin->start_x, nowCoin->start_y, 0);
-        DrawObjBoundary_object(nowCoin);
-        nowCoin->imgCount += 1;
-        nowCoin = nowCoin->nextObj;
+
     }
 }
 
@@ -274,8 +280,8 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
     case GAME_PLAYING_NORMAL:
         DrawBackground(mainData, allegroObj);
         DrawRole(mainData, allegroObj);
+        DrawCoin_old(mainData, allegroObj);
         DrawCoin(mainData, allegroObj);
-        newDrawCoin(mainData, allegroObj);
         DrawFloor(mainData, allegroObj);
         DrawScoreboard(mainData, allegroObj);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
@@ -317,7 +323,7 @@ void DrawObjBoundary_meteor(MeteorStut meteor)
     DrawObjBoundary(meteor.start_x, meteor.start_y, meteor.end_x, meteor.end_y);
 }
 
-void DrawObjBoundary_coin(CoinStut coin)
+void DrawObjBoundary_coin_old(CoinStut_old coin)
 //畫金幣邊界
 {
     DrawObjBoundary(coin.start_x, coin.start_y, coin.end_x, coin.end_y);
