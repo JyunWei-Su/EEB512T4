@@ -19,6 +19,14 @@ void DrawObjBoundary_meteor(MeteorStut meteor);
 void DrawBackground(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawMeteorAnimation(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawFloor(MainDataStut *mainData, AllegroObjStut *allegroObj);
-void DrawObjBoundary_coin(CoinStut coin);
+void DrawObjBoundary_coin_old(CoinStut_old coin);
+void DrawObjBoundary_object(ObjectStut *obj);
+
+
+void DrawCoin_old(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void DrawCoin(MainDataStut *mainData, AllegroObjStut *allegroObj);
+
+void newDrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj);
+
 #endif //_FUNCTION_DRAW_H_
 

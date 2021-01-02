@@ -10,6 +10,7 @@
 #include "function_sound.h"
 #include "function_check.h"
 #include "function_operate.h"
+#include "function_gaming_object.h"
 
 /* Definition of display size */
 #define FPS 60

@@ -42,7 +42,7 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 break;
             case ALLEGRO_EVENT_TIMER:
                 printf("%d\n", mainData->game_state);
-                PlaySoundEffect(mainData, allegroObj);
+                //PlaySoundEffect(mainData, allegroObj);
                 ParameterOperate(mainData, allegroObj);
                 //CheckGameState(mainData, allegroObj);
                 DrawDisplayAndFlip(mainData, allegroObj);
@@ -110,12 +110,21 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
     case GAME_PLAYING_NORMAL:
         switch(allegroObj->events.keyboard.keycode)
         {
+        case ALLEGRO_KEY_V:
+            CreateMeteors(&allegroObj->newMeteor);
+            break;
+      /*  case ALLEGRO_KEY_B:
+            CreateMeteors(&allegroObj->newMeteor);
+            break;*/
         case ALLEGRO_KEY_Z:
             mainData->game_state = GAME_PLAYING_MID_BOSS;
+            //creat
             break;
         case ALLEGRO_KEY_X:
             mainData->game_state = GAME_PLAYING_FINAL_BOSS;
             break;
+        case ALLEGRO_KEY_C:
+            if(mainData->game_state == GAME_PLAYING_NORMAL) CreateCoins(&allegroObj->coin);
         default:
             break;
         }
@@ -132,6 +141,7 @@ void CheckStateModeSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
         {
             mainData->game_state = GAME_PLAYING_NORMAL;
             mainData->score.chars = 1;
+            //CreateCoins(&allegroObj->Coin);
             switch(i)
             {
             case 0:
