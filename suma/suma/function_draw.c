@@ -239,7 +239,27 @@ void newDrawCoin(MainDataStut *mainData, AllegroObjStut *allegroObj)
         nowCoin = nowCoin->nextObj;
     }
 }
+void newDrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    ObjectStut *nowMeteor = NULL;
+    nowMeteor = allegroObj->newMeteor.objs;
 
+    while(nowMeteor != NULL)
+    {
+        if(nowMeteor->imgCount % (int)(FPS*TIME_PER_IMG_METEOR) == 0)
+        {
+            nowMeteor->imgCount = 0;
+            nowMeteor->imgNow += 1;
+            if(nowMeteor->imgNow % NUM_IMG_METEOR_SEQUENCE == 0) nowMeteor->imgNow = 0;
+        }
+        al_draw_bitmap_region(allegroObj->newMeteor.imgs_runing, SIZE_IMG_METEOR_WIDTH*nowMeteor->imgNow, 0, SIZE_IMG_METEOR_WIDTH, SIZE_IMG_METEOR_HEIGHT
+                              , nowMeteor->start_x, nowMeteor->start_y, 0);
+        DrawObjBoundary_object(nowMeteor);
+
+        nowMeteor->imgCount += 1;
+        nowMeteor = nowMeteor->nextObj;
+    }
+}
 void DrawPause(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     al_draw_filled_rectangle(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, al_map_rgba(120, 120, 120, 120));
@@ -276,6 +296,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         DrawRole(mainData, allegroObj);
         DrawCoin(mainData, allegroObj);
         newDrawCoin(mainData, allegroObj);
+        newDrawMeteor(mainData, allegroObj);
         DrawFloor(mainData, allegroObj);
         DrawScoreboard(mainData, allegroObj);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);

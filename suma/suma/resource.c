@@ -48,6 +48,7 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     role_init(allegroObj);
     coin_init(allegroObj);
     new_coin_init(allegroObj);
+    new_meteor_init(allegroObj);
     floor_init(allegroObj);
     meteor_init(allegroObj);
 
@@ -104,6 +105,13 @@ void new_coin_init(AllegroObjStut *allegroObj)
 {
     if(allegroObj->newCoin.imgs_rotating == NULL) allegroObj->newCoin.imgs_rotating = al_load_bitmap( PATH_IMG_COINS );
     allegroObj->newCoin.objs = NULL;
+    //if(allegroObj->newCoin.objs == NULL) allegroObj->newCoin.objs = (ObjectStut *)calloc(1, sizeof(ObjectStut));
+}
+
+void new_meteor_init(AllegroObjStut *allegroObj)
+{
+    if(allegroObj->newMeteor.imgs_runing == NULL) allegroObj->newMeteor.imgs_runing = al_load_bitmap( PATH_IMG_METEOR_SEQ_RUNING );
+    allegroObj->newMeteor.objs = NULL;
     //if(allegroObj->newCoin.objs == NULL) allegroObj->newCoin.objs = (ObjectStut *)calloc(1, sizeof(ObjectStut));
 }
 

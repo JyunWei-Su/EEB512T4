@@ -84,7 +84,7 @@
 #define OFFSET_SCOREBOARD_TEXT 320
 
 /*Role_Define*/
-#define OFFSET_ROLE_JUMP 10
+#define OFFSET_ROLE_JUMP 7
 #define OFFSET_ROLE_WALK 1
 #define MAX_ROLE_Y 450
 #define MIN_ROLE_Y 600
@@ -159,6 +159,7 @@ typedef struct ObjectStut
 {
     float start_x, start_y;
     float end_x, end_y;
+    float speed_x, speed_y;
     int imgCount, imgNow;
     int state;
     ObjectStut *nextObj;
@@ -171,6 +172,13 @@ typedef struct newCoinStut
     ObjectStut *objs;
     int n;
 } newCoinStut;
+
+typedef struct newMeteorStut
+{
+    ALLEGRO_BITMAP *imgs_runing;
+    ObjectStut *objs;
+    int n;
+} newMeteorStut;
 
 typedef struct CoinStut
 {
@@ -273,6 +281,7 @@ typedef struct AllegroObjStut
     RoleStut role;
     CoinStut coin;
     newCoinStut newCoin;
+    newMeteorStut newMeteor;
 
     FloorStut floor;
     MeteorStut meteor;
@@ -329,7 +338,7 @@ void floor_init(AllegroObjStut *allegroObj);
 MainDataStut *ClocMainData();
 void MainDataInit(MainDataStut *mainData);
 void new_coin_init(AllegroObjStut *allegroObj);
-
+void new_meteor_init(AllegroObjStut *allegroObj);
 void Gravity(AllegroObjStut *allegroObj); //運算
 #endif //_RESOURSE_H_
 

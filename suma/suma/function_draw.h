@@ -23,5 +23,6 @@ void DrawObjBoundary_coin(CoinStut coin);
 void DrawObjBoundary_object(ObjectStut *obj);
 
 void newDrawCoin(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void newDrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj);
 #endif //_FUNCTION_DRAW_H_
 

@@ -30,7 +30,20 @@ void move_coin_new(MainDataStut *mainData, AllegroObjStut *allegroObj)
         nowCoin = nowCoin->nextObj;
     }
 }
+void move_meteor_new(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    ObjectStut *nowMeteor = NULL;
+    nowMeteor = allegroObj->newMeteor.objs;
 
+    while(nowMeteor != NULL)
+    {
+        nowMeteor->start_x -= nowMeteor->speed_x;
+        nowMeteor->start_y += nowMeteor->speed_y;
+        if((nowMeteor->start_x) + SIZE_IMG_METEOR_WIDTH <= 0) nowMeteor->start_x = DISPLAY_WIDTH;
+        end_xy_update_object(nowMeteor, SIZE_IMG_METEOR_WIDTH, SIZE_IMG_METEOR_HEIGHT);
+        nowMeteor = nowMeteor->nextObj;
+    }
+}
 
 void move_floor(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
@@ -57,6 +70,7 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         move_background(mainData, allegroObj);
         move_coin(mainData, allegroObj);
         move_coin_new(mainData, allegroObj);
+        move_meteor_new(mainData, allegroObj);
         move_floor(mainData, allegroObj);
         /* Role*/
         role_jump(allegroObj);
