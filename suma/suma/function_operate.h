@@ -25,9 +25,12 @@ void DoCrash(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void move_background(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void move_coin_old(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void move_floor(MainDataStut *mainData, AllegroObjStut *allegroObj);
+
 void move_coin(MainDataStut *mainData, AllegroObjStut *allegroObj);
 
 void CrachCheck(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void CrachCheck_role_coin(MainDataStut *mainData, AllegroObjStut *allegroObj);
+
+void move_meteor_new(MainDataStut *mainData, AllegroObjStut *allegroObj);
 
 #endif //_FUNCTION_OPERATE_H_
