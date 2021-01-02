@@ -31,8 +31,10 @@ void DrawScoreboard(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutPa
 {
     al_draw_bitmap(allegroObj->coins.img, allegroObj->coins.start_x, allegroObj->coins.start_y, 0);
     al_draw_bitmap(allegroObj->chars.img, allegroObj->chars.start_x, allegroObj->chars.start_y, 0);
+    al_draw_bitmap(allegroObj->probar.img, allegroObj->probar.start_x, allegroObj-> probar.start_y, 0);
     al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->coins.end_x, allegroObj->coins.end_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.chars);
     al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->chars.end_x, allegroObj->chars.end_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.chars);
+    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->probar.start_x+OFFSET_PROBAR_X, allegroObj->probar.start_y-OFFSET_PROBAR_Y, ALLEGRO_ALIGN_LEFT, "%-*.*s", 30, 30, "||||||||||||||||||||||||||||||");
 }
 
 void DrawModeButton(MainDataStut *mainData, AllegroObjStut *allegroObj, LayoutParmStut *layoutParm)

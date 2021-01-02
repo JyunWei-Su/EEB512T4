@@ -21,6 +21,7 @@
 #define PATH_IMG_ICON "./img/icon.tga"
 #define PATH_IMG_COIN "./img/coin.png"
 #define PATH_IMG_CHAR "./img/char.png"
+#define PATH_IMG_PROBAR "./img/progressbar.png"
 #define PATH_IMG_MENU_BUTTON "./img/menuButton.png"
 #define PATH_IMG_MODE_BUTTON "./img/menuButton.png"
 #define PATH_IMG_HOME_BUTTON_1 "./img/homeButton_1.png"
@@ -40,6 +41,8 @@
 #define SIZE_IMG_BKG_HEIGHT 900
 #define SIZE_IMG_SCOREBOARD_ICON_WIDTH 64
 #define SIZE_IMG_SCOREBOARD_ICON_HEIGHT 64
+#define SIZE_IMG_PROBAR_WIDTH 640
+#define SIZE_IMG_PROBAR_HEIGHT 64
 #define SIZE_IMG_MENU_BUTTON_WIDTH 480
 #define SIZE_IMG_MENU_BUTTON_HEIGHT 90
 #define SIZE_IMG_MODE_BUTTON_WIDTH 480
@@ -58,6 +61,8 @@
 #define OFFSET_MENU 1.5
 #define OFFSET_MODE 1.5
 #define OFFSET_SCOREBOARD_TEXT 320
+#define OFFSET_PROBAR_X 5
+#define OFFSET_PROBAR_Y 1
 
 #define FILE_EXIT_ID 1 //待整併
 
@@ -93,6 +98,7 @@ typedef struct ScoreStut{
     int chars;
     int coins;
     int score;
+    int probar;
 } ScoreStut;
 
 typedef struct ButtonStut{
@@ -139,6 +145,7 @@ typedef struct AllegroObjStut{
 
     ScoreboardStut chars;
     ScoreboardStut coins;
+    ScoreboardStut probar;
 
     FontStut font_a;
     ButtonStut menuButton[NUM_MENU_BUTTON]; //初始介面選單

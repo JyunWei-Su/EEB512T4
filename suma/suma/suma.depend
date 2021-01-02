@@ -445,7 +445,7 @@
 1609392882 c:\users\lu frank\documents\github\eeb512t4\suma\suma\own\header_byk.h
 	"../resource.h"
 
-1609395062 c:\users\lu frank\documents\github\eeb512t4\suma\suma\resource.h
+1609589408 c:\users\lu frank\documents\github\eeb512t4\suma\suma\resource.h
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
@@ -481,7 +481,7 @@
 1609392881 c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_draw.h
 	"resource.h"
 
-1609396075 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_draw.c
+1609588891 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_draw.c
 	"function_draw.h"
 	"defineHeader.h"
 	"resource.h"
@@ -536,7 +536,7 @@
 	"../own/header_JWS.h"
 	"../defineHeader.h"
 
-1609395320 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\resource.c
+1609588797 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\resource.c
 	"resource.h"
 	"defineHeader.h"
 
