@@ -132,6 +132,7 @@ void CheckStateModeSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
         {
             mainData->game_state = GAME_PLAYING_NORMAL;
             mainData->score.chars = 1;
+            CreateCoins(&allegroObj->newCoin);
             switch(i)
             {
             case 0:

@@ -123,6 +123,8 @@ typedef enum RoleState
 } RoleState;
 
 /**  struct  **/
+typedef struct tm TmStut;
+
 typedef struct RankRowStut
 {
     int id;
@@ -150,6 +152,25 @@ typedef struct ScoreStut
     int coins;
     int score;
 } ScoreStut;
+
+/** Gaming Objects**/
+
+typedef struct ObjectStut
+{
+    float start_x, start_y;
+    float end_x, end_y;
+    int imgCount, imgNow;
+    int state;
+    ObjectStut *nextObj;
+} ObjectStut;
+
+typedef struct newCoinStut
+{
+    ALLEGRO_BITMAP *imgs_rotating;
+    ALLEGRO_BITMAP *imgs_crashing;
+    ObjectStut *objs;
+    int n;
+} newCoinStut;
 
 typedef struct CoinStut
 {
@@ -251,6 +272,7 @@ typedef struct AllegroObjStut
 
     RoleStut role;
     CoinStut coin;
+    newCoinStut newCoin;
 
     FloorStut floor;
     MeteorStut meteor;
@@ -278,7 +300,7 @@ typedef struct MouseStut
 
 typedef struct MainDataStut
 {
-    struct tm *tm;
+    TmStut *tm;
     GameState game_state; //遊戲進行狀態
     GameState game_state_pause; //上一階段(pause用)
     int breakPoint;
@@ -306,6 +328,7 @@ void floor_init(AllegroObjStut *allegroObj);
 /* MainDataStut Function*/
 MainDataStut *ClocMainData();
 void MainDataInit(MainDataStut *mainData);
+void new_coin_init(AllegroObjStut *allegroObj);
 
 void Gravity(AllegroObjStut *allegroObj); //運算
 #endif //_RESOURSE_H_

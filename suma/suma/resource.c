@@ -47,6 +47,7 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     score_board_init(allegroObj);
     role_init(allegroObj);
     coin_init(allegroObj);
+    new_coin_init(allegroObj);
     floor_init(allegroObj);
     meteor_init(allegroObj);
 
@@ -90,12 +91,20 @@ void score_board_init(AllegroObjStut *allegroObj)
     allegroObj->sb_chars.end_x = allegroObj->sb_chars.start_x + OFFSET_SCOREBOARD_TEXT;
     allegroObj->sb_chars.end_y = allegroObj->sb_chars.start_y + SIZE_IMG_SCOREBOARD_ICON_HEIGHT;
 }
+
 void coin_init(AllegroObjStut *allegroObj)
 {
     allegroObj->coin.imgs_runing = al_load_bitmap( PATH_IMG_COINS );
     allegroObj->coin.start_x=1500;
     allegroObj->coin.start_y=500;
     allegroObj->coin.persent = 3;
+}
+
+void new_coin_init(AllegroObjStut *allegroObj)
+{
+    if(allegroObj->newCoin.imgs_rotating == NULL) allegroObj->newCoin.imgs_rotating = al_load_bitmap( PATH_IMG_COINS );
+    allegroObj->newCoin.objs = NULL;
+    //if(allegroObj->newCoin.objs == NULL) allegroObj->newCoin.objs = (ObjectStut *)calloc(1, sizeof(ObjectStut));
 }
 
 void font_init(FontStut *font, const char *filePath)
