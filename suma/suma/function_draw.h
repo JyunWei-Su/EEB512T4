@@ -20,5 +20,8 @@ void DrawBackground(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawMeteorAnimation(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawFloor(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawObjBoundary_coin(CoinStut coin);
+void DrawObjBoundary_object(ObjectStut *obj);
+
+void newDrawCoin(MainDataStut *mainData, AllegroObjStut *allegroObj);
 #endif //_FUNCTION_DRAW_H_
 

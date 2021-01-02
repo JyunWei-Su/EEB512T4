@@ -18,9 +18,12 @@ void end_xy_update_meteor(MeteorStut *meteor);
 void end_xy_update_role(RoleStut *role);
 void end_xy_update_coin(CoinStut *coin);
 void end_xy_update_floor(FloorStut *floor);
+void end_xy_update_object(ObjectStut *obj, int size_w, int size_h);
+
 
 void move_background(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void move_coin(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void move_floor(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void move_coin_new(MainDataStut *mainData, AllegroObjStut *allegroObj);
 
 #endif //_FUNCTION_OPERATE_H_

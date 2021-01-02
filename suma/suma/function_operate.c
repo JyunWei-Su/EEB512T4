@@ -17,6 +17,21 @@ void move_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
     end_xy_update_coin(&allegroObj->coin);
 }
 
+void move_coin_new(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    ObjectStut *nowCoin = NULL;
+    nowCoin = allegroObj->newCoin.objs;
+
+    while(nowCoin != NULL)
+    {
+        nowCoin->start_x -= 2;
+        if((nowCoin->start_x) + SIZE_IMG_COIN_WIDTH <= 0) nowCoin->start_x = DISPLAY_WIDTH;
+        end_xy_update_object(nowCoin, SIZE_IMG_COIN_WIDTH, SIZE_IMG_COIN_HEIGHT);
+        nowCoin = nowCoin->nextObj;
+    }
+}
+
+
 void move_floor(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     allegroObj->floor.start_x -= OFFSET_ROLE_WALK+1;
@@ -41,6 +56,7 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
     case GAME_PLAYING_NORMAL:
         move_background(mainData, allegroObj);
         move_coin(mainData, allegroObj);
+        move_coin_new(mainData, allegroObj);
         move_floor(mainData, allegroObj);
         /* Role*/
         role_jump(allegroObj);
@@ -156,6 +172,13 @@ void end_xy_update_floor(FloorStut *floor)
 {
     floor->end_x = floor->start_x + SIZE_IMG_FLOOR_WIDTH;
     floor->end_y = floor->start_y + SIZE_IMG_FLOOR_HEIGHT;
+}
+
+void end_xy_update_object(ObjectStut *obj, int size_w, int size_h)
+//計算物件邊界(新)
+{
+    obj->end_x = obj->start_x + size_w;
+    obj->end_y = obj->start_y + size_h;
 }
 
 void start_end_change(float *start,float *end)
