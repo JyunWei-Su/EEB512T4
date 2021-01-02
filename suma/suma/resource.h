@@ -21,8 +21,10 @@
 #define PATH_IMG_BKG "./img/back900.png"
 #define PATH_IMG_ICON "./img/icon.tga"
 #define PATH_IMG_COIN "./img/coin.png"
-#define PATH_IMG_COINS "./img/coins.png"
+#define PATH_IMG_COINS_ROTATE "./img/coins.png"
+#define PATH_IMG_COINS_CRASH "./img/coinCrashs.png"
 #define PATH_IMG_CHAR "./img/char.png"
+#define PATH_IMG_PROBAR "./img/progressbar.png"
 #define PATH_IMG_MENU_BUTTON "./img/menuButton.png"
 #define PATH_IMG_MODE_BUTTON "./img/menuButton.png"
 #define PATH_IMG_HOME_BUTTON_1 "./img/homeButton_1.png"
@@ -50,6 +52,8 @@
 #define SIZE_IMG_BKG_HEIGHT 900
 #define SIZE_IMG_SCOREBOARD_ICON_WIDTH 64
 #define SIZE_IMG_SCOREBOARD_ICON_HEIGHT 64
+#define SIZE_IMG_PROBAR_WIDTH 640
+#define SIZE_IMG_PROBAR_HEIGHT 64
 #define SIZE_IMG_COIN_WIDTH 64
 #define SIZE_IMG_COIN_HEIGHT 64
 #define SIZE_IMG_ROLE_WIDTH 150
@@ -82,9 +86,11 @@
 #define OFFSET_MENU 1.5
 #define OFFSET_MODE 1.5
 #define OFFSET_SCOREBOARD_TEXT 320
+#define OFFSET_PROBAR_X 5
+#define OFFSET_PROBAR_Y 1
 
 /*Role_Define*/
-#define OFFSET_ROLE_JUMP 10
+#define OFFSET_ROLE_JUMP 7
 #define OFFSET_ROLE_WALK 1
 #define MAX_ROLE_Y 450
 #define MIN_ROLE_Y 600
@@ -122,7 +128,14 @@ typedef enum RoleState
     ROLE_JUMP, ROLE_DROP, ROLE_MUST_DROP, ROLE_NULL,
 } RoleState;
 
+typedef enum CoinState
+{
+    COIN_NULL, COIN_CRASH, COIN_MOVEOUT, COIN_DESTORY,
+} CoinState;
+
 /**  struct  **/
+typedef struct tm TmStut;
+
 typedef struct RankRowStut
 {
     int id;
@@ -149,16 +162,45 @@ typedef struct ScoreStut
     int chars;
     int coins;
     int score;
+    int probar;
 } ScoreStut;
 
+/** Gaming Objects**/
+
+typedef struct ObjectStut
+{
+    float start_x, start_y;
+    float end_x, end_y;
+    float speed_x, speed_y;
+    int imgCount, imgNow;
+    int state;
+    ObjectStut *nextObj;
+} ObjectStut;
+
 typedef struct CoinStut
+{
+    ALLEGRO_BITMAP *imgs_rotating;
+    ALLEGRO_BITMAP *imgs_crashing;
+    ObjectStut *objs;
+    int n;
+} CoinStut;
+
+typedef struct newMeteorStut
+{
+    ALLEGRO_BITMAP *imgs_runing;
+    ObjectStut *objs;
+    int n;
+} newMeteorStut;
+
+typedef struct CoinStut_old
+
 {
     float start_x, start_y;
     float end_x, end_y;
     ALLEGRO_BITMAP *imgs_runing;
     int imgCount, nowImg;
     int persent;
-} CoinStut;
+} CoinStut_old;
 
 typedef struct RoleStut
 {
@@ -200,6 +242,11 @@ typedef struct ButtonStut
     ALLEGRO_BITMAP *img;
     ALLEGRO_BITMAP *img2;
 } ButtonStut;
+
+typedef struct FunctionBarStut
+{
+    ALLEGRO_MENU *main_menu;
+} FunctionBarStut;
 
 typedef struct ScoreboardStut
 {
@@ -246,11 +293,15 @@ typedef struct AllegroObjStut
     ALLEGRO_EVENT events;                     //拿來存事件 #2 (目前用於視窗X叉叉)
     ALLEGRO_TIMER *timer;
 
+    ScoreboardStut probar;
     ScoreboardStut sb_chars;
     ScoreboardStut sb_coins;
 
     RoleStut role;
+    CoinStut_old coin_old;
     CoinStut coin;
+
+    newMeteorStut newMeteor;
 
     FloorStut floor;
     MeteorStut meteor;
@@ -261,6 +312,8 @@ typedef struct AllegroObjStut
 
     FontStut font_a;
     FontStut font_b;
+
+    FunctionBarStut fnucBar;
 
     SoundStut sound;
     ButtonStut menuButton[NUM_MENU_BUTTON]; //初始介面選單
@@ -278,7 +331,7 @@ typedef struct MouseStut
 
 typedef struct MainDataStut
 {
-    struct tm *tm;
+    TmStut *tm;
     GameState game_state; //遊戲進行狀態
     GameState game_state_pause; //上一階段(pause用)
     int breakPoint;
@@ -301,21 +354,20 @@ void home_button_init(AllegroObjStut *allegroObj);
 void mode_button_init(AllegroObjStut *allegroObj);
 void sound_init(AllegroObjStut *allegroObj);
 void role_init(AllegroObjStut *allegroObj);
-void coin_init(AllegroObjStut *allegroObj);
+void coin_init_old(AllegroObjStut *allegroObj);
 void floor_init(AllegroObjStut *allegroObj);
 /* MainDataStut Function*/
 MainDataStut *ClocMainData();
 void MainDataInit(MainDataStut *mainData);
 
+void coin_init(AllegroObjStut *allegroObj);
+void function_bar_init(AllegroObjStut *allegroObj);
+
+
+void new_meteor_init(AllegroObjStut *allegroObj);
+
 void Gravity(AllegroObjStut *allegroObj); //運算
 #endif //_RESOURSE_H_
 
-//ALLEGRO_BITMAP *candyBkgImg; //main layout img
-//ALLEGRO_BITMAP **candyImgs; //candy Imgs: candyImg[n]
-
 //ALLEGRO_MENU *menu; //待整併
 //LLEGRO_MENU *menu_1; //待整併
-//FILE *fileStream;
-//int scoreFileIsRead;
-//NameStut usrName;
-//ScoreDataStut *scoreData;
