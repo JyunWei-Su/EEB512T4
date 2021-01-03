@@ -118,10 +118,13 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
               break;*/
         case ALLEGRO_KEY_Z:
             mainData->game_state = GAME_PLAYING_MID_BOSS;
+            //creat
             break;
         case ALLEGRO_KEY_X:
             mainData->game_state = GAME_PLAYING_FINAL_BOSS;
             break;
+        case ALLEGRO_KEY_C:
+            if(mainData->game_state == GAME_PLAYING_NORMAL) CreateCoins(&allegroObj->coin);
         default:
             break;
         }
@@ -138,7 +141,7 @@ void CheckStateModeSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
         {
             mainData->game_state = GAME_PLAYING_NORMAL;
             mainData->score.chars = 1;
-            CreateCoins(&allegroObj->newCoin);
+            //CreateCoins(&allegroObj->Coin);
             switch(i)
             {
             case 0:

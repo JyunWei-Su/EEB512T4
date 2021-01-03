@@ -7,20 +7,20 @@ void move_background(MainDataStut *mainData, AllegroObjStut *allegroObj)
     if(allegroObj->background.x <= -SIZE_IMG_BKG_WIDTH) allegroObj->background.x += SIZE_IMG_BKG_WIDTH;
 }
 
-void move_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
+void move_coin_old(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    allegroObj->coin.start_x -= OFFSET_ROLE_WALK;
-    if((allegroObj->coin.start_x)+SIZE_IMG_COIN_WIDTH <= 0)
+    allegroObj->coin_old.start_x -= OFFSET_ROLE_WALK;
+    if((allegroObj->coin_old.start_x)+SIZE_IMG_COIN_WIDTH <= 0)
     {
-        allegroObj->coin.start_x = DISPLAY_WIDTH;
+        allegroObj->coin_old.start_x = DISPLAY_WIDTH;
     }
-    end_xy_update_coin(&allegroObj->coin);
+    end_xy_update_coin_old(&allegroObj->coin_old);
 }
 
-void move_coin_new(MainDataStut *mainData, AllegroObjStut *allegroObj)
+void move_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowCoin = NULL;
-    nowCoin = allegroObj->newCoin.objs;
+    nowCoin = allegroObj->coin.objs;
 
     while(nowCoin != NULL)
     {
@@ -51,14 +51,39 @@ void move_floor(MainDataStut *mainData, AllegroObjStut *allegroObj)
     end_xy_update_floor(&allegroObj->floor);
 }
 
-void CrachEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
+void CrachCheck(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    bool statecrash;
-    statecrash = ObjCrashCheck(allegroObj->role.start_x, allegroObj->role.start_y, allegroObj->role.end_x, allegroObj->role.end_y,
+    /*bool crash;
+    crash = ObjCrashCheck(allegroObj->role.start_x, allegroObj->role.start_y, allegroObj->role.end_x, allegroObj->role.end_y,
                                allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
-    statecrash ? printf("\tCrash\n") : printf("\tNo crash.\n");
+    crash ? printf("\tCrash\n") : printf("\tNo crash.\n");*/
+    CrachCheck_role_coin(mainData, allegroObj);
+}
+
+void DoCrash(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    DestoryCoins(&allegroObj->coin);
+}
+
+void CrachCheck_role_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    bool crash;
+    ObjectStut *nowCoin = NULL;
+    RoleStut *nowRole = NULL;
+    nowCoin = allegroObj->coin.objs;
+    nowRole = &allegroObj->role;
+
+    while(nowCoin != NULL)
+    {
+        crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
+                               nowCoin->start_x, nowCoin->start_y, nowCoin->end_x, nowCoin->end_y);
+        if(crash) nowCoin->state = COIN_DESTORY;
+        //crash ? printf("\tCrash\n") : NULL ;
+        nowCoin = nowCoin->nextObj;
+    }
 
 }
+
 
 void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
@@ -68,19 +93,25 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
     {
     case GAME_PLAYING_NORMAL:
         move_background(mainData, allegroObj);
+        move_coin_old(mainData, allegroObj);
         move_coin(mainData, allegroObj);
-        move_coin_new(mainData, allegroObj);
+
         move_meteor_new(mainData, allegroObj);
         move_floor(mainData, allegroObj);
-        /* Role*/
+
+        /* Role */
         role_jump(allegroObj);
         //meteor_drop(allegroObj);
+
+        /* Check Crash */
+        CrachCheck(mainData, allegroObj);
+        DoCrash(mainData, allegroObj);
         break;
 
     case GAME_PLAYING_MID_BOSS:
         move_background(mainData, allegroObj);
         move_floor(mainData, allegroObj);
-        move_coin(mainData, allegroObj);
+        move_coin_old(mainData, allegroObj);
         /* Role*/
         role_jump(allegroObj);
         meteor_drop(allegroObj);
@@ -89,7 +120,7 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
     case GAME_PLAYING_FINAL_BOSS:
         move_background(mainData, allegroObj);
         move_floor(mainData, allegroObj);
-        move_coin(mainData, allegroObj);
+        move_coin_old(mainData, allegroObj);
 
         role_jump(allegroObj);
         meteor_drop(allegroObj);
@@ -174,11 +205,11 @@ void end_xy_update_role(RoleStut *role)
     role->end_y = role->start_y + SIZE_IMG_ROLE_HEIGHT;
 }
 
-void end_xy_update_coin(CoinStut *coin)
+void end_xy_update_coin_old(CoinStut_old *coin_old)
 //計算金幣邊界
 {
-    coin->end_x = coin->start_x + SIZE_IMG_COIN_WIDTH;
-    coin->end_y = coin->start_y + SIZE_IMG_COIN_HEIGHT;
+    coin_old->end_x = coin_old->start_x + SIZE_IMG_COIN_WIDTH;
+    coin_old->end_y = coin_old->start_y + SIZE_IMG_COIN_HEIGHT;
 }
 
 void end_xy_update_floor(FloorStut *floor)

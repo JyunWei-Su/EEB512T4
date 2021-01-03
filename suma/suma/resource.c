@@ -46,9 +46,11 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     home_button_init(allegroObj);
     score_board_init(allegroObj);
     role_init(allegroObj);
+    coin_init_old(allegroObj);
     coin_init(allegroObj);
-    new_coin_init(allegroObj);
+
     new_meteor_init(allegroObj);
+
     floor_init(allegroObj);
     meteor_init(allegroObj);
 
@@ -102,19 +104,20 @@ void score_board_init(AllegroObjStut *allegroObj)
     allegroObj->probar.start_y = allegroObj->sb_coins.start_y;
 }
 
-void coin_init(AllegroObjStut *allegroObj)
+void coin_init_old(AllegroObjStut *allegroObj)
 {
-    allegroObj->coin.imgs_runing = al_load_bitmap( PATH_IMG_COINS );
-    allegroObj->coin.start_x=1500;
-    allegroObj->coin.start_y=500;
-    allegroObj->coin.persent = 3;
+    allegroObj->coin_old.imgs_runing = al_load_bitmap( PATH_IMG_COINS_ROTATE );
+    allegroObj->coin_old.start_x=1500;
+    allegroObj->coin_old.start_y=500;
+    allegroObj->coin_old.persent = 3;
 }
 
-void new_coin_init(AllegroObjStut *allegroObj)
+void coin_init(AllegroObjStut *allegroObj)
 {
-    if(allegroObj->newCoin.imgs_rotating == NULL) allegroObj->newCoin.imgs_rotating = al_load_bitmap( PATH_IMG_COINS );
-    allegroObj->newCoin.objs = NULL;
-    //if(allegroObj->newCoin.objs == NULL) allegroObj->newCoin.objs = (ObjectStut *)calloc(1, sizeof(ObjectStut));
+    if(allegroObj->coin.imgs_rotating == NULL) allegroObj->coin.imgs_rotating = al_load_bitmap( PATH_IMG_COINS_ROTATE );
+    if(allegroObj->coin.imgs_crashing == NULL) allegroObj->coin.imgs_crashing = al_load_bitmap( PATH_IMG_COINS_CRASH );
+    allegroObj->coin.objs = NULL;
+    //這裡無須配置資料, 只需讀圖片, 配置在遊戲中配置
 }
 
 void new_meteor_init(AllegroObjStut *allegroObj)
@@ -272,6 +275,11 @@ void mode_button_init(AllegroObjStut *allegroObj)
         //printf("%f, %f\n", allegroObj->modeButton[i].start_x, allegroObj->modeButton[i].start_y);
     }
     //printf("%f, %f\n", allegroObj->modeButton[i].start_x, allegroObj->modeButton[i].start_y);
+}
+
+void function_bar_init(AllegroObjStut *allegroObj)
+{
+    int x = 9;
 }
 
 MainDataStut *ClocMainData()

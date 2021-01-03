@@ -3,8 +3,10 @@
 
 #include "resource.h"
 
-void CreateCoins(newCoinStut *coin);
+void CreateCoins(CoinStut *coin);
+void DestoryCoins(CoinStut *coin);
 void CreateMeteors(newMeteorStut *meteor);
+
 
 void RandCoinXY(ObjectStut *coin);
 void RandMeteorXY(ObjectStut *meteor);
