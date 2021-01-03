@@ -433,11 +433,11 @@
 	<stdlib.h>
 	<math.h>
 
-1609590830 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_check.c
+1609680526 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_check.c
 	"defineHeader.h"
 	"resource.h"
 
-1609590830 c:\users\lu frank\documents\github\eeb512t4\suma\suma\defineheader.h
+1609679336 c:\users\lu frank\documents\github\eeb512t4\suma\suma\defineheader.h
 	"own/header_BYK.h"
 	"own/header_HYH.h"
 	"own/header_IRL.h"
@@ -452,7 +452,7 @@
 1609392882 c:\users\lu frank\documents\github\eeb512t4\suma\suma\own\header_byk.h
 	"../resource.h"
 
-1609591595 c:\users\lu frank\documents\github\eeb512t4\suma\suma\resource.h
+1609679216 c:\users\lu frank\documents\github\eeb512t4\suma\suma\resource.h
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
@@ -535,7 +535,7 @@
 	"../own/header_JWS.h"
 	"../defineHeader.h"
 
-1609591802 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\resource.c
+1609676313 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\resource.c
 	"resource.h"
 	"defineHeader.h"
 
@@ -755,7 +755,7 @@
 	"defineHeader.h"
 	"resource.h"
 
-1609590830 c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_sound.h
+1609680090 c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_sound.h
 	"resource.h"
 
 1609590830 c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_check.h
@@ -775,7 +775,7 @@
 	"defineHeader.h"
 	"resource.h"
 
-1609590830 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_sound.c
+1609681068 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_sound.c
 	"defineHeader.h"
 	"resource.h"
 

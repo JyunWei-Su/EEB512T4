@@ -35,6 +35,7 @@
 #define PATH_IMG_METEOR_SEQ_RUNING "./img/meteors80.png"
 #define PATH_FNT_DFT "./DFT_TL9.TTC"
 #define PATH_SFX_BACKGROUND "./sfx/bkg.wav"
+#define PATH_SFX_BUTTON_MOVEIN "./sfx/button02a.wav"
 #define PATH_FILE_SCORE "user.score"
 #define PATH_FONT_HIMAJI "./font/KFhimajiFACE.otf"
 #define PATH_FONT_FANCYH "./font/FancyHeart.otf"
@@ -159,6 +160,13 @@ typedef struct ScoreStut
     int probar;
 } ScoreStut;
 
+typedef struct SoundEffectStut
+{
+    ALLEGRO_SAMPLE *sfx;
+    ALLEGRO_SAMPLE_INSTANCE *sfi;
+    bool readyToPlay;
+} SoundEffectStut;
+
 /** Gaming Objects**/
 
 typedef struct ObjectStut
@@ -264,9 +272,12 @@ typedef struct SoundStut
 {
     ALLEGRO_MIXER *mixer; // for sfx
     ALLEGRO_VOICE *voice;
+    ALLEGRO_SAMPLE_ID id;
 
     ALLEGRO_SAMPLE *sfx_background;  /* pointer to sound file */
     ALLEGRO_SAMPLE_INSTANCE *sfi_background; //https://www.allegro.cc/forums/thread/611901
+
+    SoundEffectStut buttonMoveIn;
 
 } SoundStut;
 

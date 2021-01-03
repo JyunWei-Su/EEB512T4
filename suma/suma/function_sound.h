@@ -4,6 +4,6 @@
 #include "resource.h"
 
 void PlaySoundEffect(MainDataStut *mainData, AllegroObjStut *allegroObj);
-
+void PlayButtonSfx(MainDataStut *mainData, AllegroObjStut *allegroObj);
 
 #endif //_FUNCTION_SOUND_H_

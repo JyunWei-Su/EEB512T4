@@ -63,10 +63,6 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
 
 void sound_init(AllegroObjStut *allegroObj)
 {
-
-    al_reserve_samples( NUM_SAMPLES );
-    allegroObj->sound.sfx_background = al_load_sample( PATH_SFX_BACKGROUND );
-    allegroObj->sound.sfi_background = al_create_sample_instance(allegroObj->sound.sfx_background);
     //創建聲音輸出buffer 創建聲音輸出連接口
     //allegroObj->sound.mixer = al_get_default_mixer(); //硬體設備不同 容易出錯
     //allegroObj->sound.voice = al_get_default_voice(); //硬體設備不同 容易出錯
@@ -75,8 +71,18 @@ void sound_init(AllegroObjStut *allegroObj)
     allegroObj->sound.voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16,ALLEGRO_CHANNEL_CONF_2);
     //printf("@@@ mixer : %x, voice : %x", allegroObj->sound.mixer, allegroObj->sound.voice);
 
+    // SAMPLES
+    al_reserve_samples( NUM_SAMPLES );
+    allegroObj->sound.sfx_background = al_load_sample( PATH_SFX_BACKGROUND );
+    allegroObj->sound.sfi_background = al_create_sample_instance(allegroObj->sound.sfx_background);
+    allegroObj->sound.buttonMoveIn.sfx = al_load_sample( PATH_SFX_BUTTON_MOVEIN );
+    allegroObj->sound.buttonMoveIn.sfi = al_create_sample_instance(allegroObj->sound.buttonMoveIn.sfx);
+
+
     al_attach_sample_instance_to_mixer(allegroObj->sound.sfi_background, allegroObj->sound.mixer);//將聲音物件link buffer
+    al_attach_sample_instance_to_mixer(allegroObj->sound.buttonMoveIn.sfi, allegroObj->sound.mixer);
     al_attach_mixer_to_voice(allegroObj->sound.mixer, allegroObj->sound.voice); //將buffer link 輸出連接口
+
 }
 
 void score_board_init(AllegroObjStut *allegroObj)
