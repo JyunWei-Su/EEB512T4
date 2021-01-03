@@ -20,9 +20,9 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 //}
                 break;
             case ALLEGRO_EVENT_MOUSE_AXES:
-                CheckMouseMove(mainData, allegroObj);
                 mainData->mouse.x = allegroObj->events.mouse.x;
                 mainData->mouse.y = allegroObj->events.mouse.y;
+                CheckMouseMove(mainData, allegroObj);
                 break;
             case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
                 if(!(allegroObj->events.mouse.button&1)) break; //不是按下左鍵就忽略
