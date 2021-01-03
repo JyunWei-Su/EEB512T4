@@ -41,10 +41,10 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 al_flip_display();
                 break;
             case ALLEGRO_EVENT_TIMER:
-                printf("%d\n", mainData->game_state);
-                //PlaySoundEffect(mainData, allegroObj);
+                //printf("%d\n", mainData->game_state);
+                PlaySoundEffect(mainData, allegroObj);
                 ParameterOperate(mainData, allegroObj);
-                //CheckGameState(mainData, allegroObj);
+                CheckGameState(mainData, allegroObj);
                 DrawDisplayAndFlip(mainData, allegroObj);
                 break;
             default:
@@ -113,9 +113,9 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
         case ALLEGRO_KEY_V:
             CreateMeteors(&allegroObj->newMeteor);
             break;
-      /*  case ALLEGRO_KEY_B:
-            CreateMeteors(&allegroObj->newMeteor);
-            break;*/
+        /*  case ALLEGRO_KEY_B:
+              CreateMeteors(&allegroObj->newMeteor);
+              break;*/
         case ALLEGRO_KEY_Z:
             mainData->game_state = GAME_PLAYING_MID_BOSS;
             //creat
@@ -241,9 +241,13 @@ void CheckMouseMoveOnHomeButton(MainDataStut *mainData, AllegroObjStut *allegroO
 {
     if(allegroObj->homeButton.start_x <= mainData->mouse.x && mainData->mouse.x <= allegroObj->homeButton.end_x
             && allegroObj->homeButton.start_y <= mainData->mouse.y && mainData->mouse.y <= allegroObj->homeButton.end_y)
+    {
+        if(allegroObj->homeButton.isSelected == 0) allegroObj->sound.buttonMoveIn.readyToPlay = 1; //傳遞播放音效的參數
         allegroObj->homeButton.isSelected = 1;
+    }
     else
         allegroObj->homeButton.isSelected = 0;
+    //allegroObj->sound.buttonMoveIn.readyToPlay = 0;
 }
 
 void CheckMouseMoveOnMenuButton(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -253,7 +257,10 @@ void CheckMouseMoveOnMenuButton(MainDataStut *mainData, AllegroObjStut *allegroO
     {
         if(allegroObj->menuButton[i].start_x <= mainData->mouse.x && mainData->mouse.x <= allegroObj->menuButton[i].end_x
                 && allegroObj->menuButton[i].start_y <= mainData->mouse.y && mainData->mouse.y <= allegroObj->menuButton[i].end_y)
+        {
+            if(allegroObj->menuButton[i].isSelected == 0) allegroObj->sound.buttonMoveIn.readyToPlay = 1; //傳遞播放音效的參數
             allegroObj->menuButton[i].isSelected = 1;
+        }
         else
             allegroObj->menuButton[i].isSelected = 0;
     }
@@ -266,7 +273,10 @@ void CheckMouseMoveOnModeButton(MainDataStut *mainData, AllegroObjStut *allegroO
     {
         if(allegroObj->modeButton[i].start_x <= mainData->mouse.x && mainData->mouse.x <= allegroObj->modeButton[i].end_x
                 && allegroObj->modeButton[i].start_y <= mainData->mouse.y && mainData->mouse.y <= allegroObj->modeButton[i].end_y)
+        {
+            if(allegroObj->modeButton[i].isSelected == 0) allegroObj->sound.buttonMoveIn.readyToPlay = 1; //傳遞播放音效的參數
             allegroObj->modeButton[i].isSelected = 1;
+        }
         else
             allegroObj->modeButton[i].isSelected = 0;
     }
