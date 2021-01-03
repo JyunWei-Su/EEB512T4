@@ -60,6 +60,15 @@ void CrachCheck(MainDataStut *mainData, AllegroObjStut *allegroObj)
     CrachCheck_role_coin(mainData, allegroObj);
 }
 
+void CrachCheckForFloor(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    /*bool crash;
+    crash = FloorCrashCheck(allegroObj->role.start_x, allegroObj->role.start_y, allegroObj->role.end_x, allegroObj->role.end_y,
+                               allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
+    crash ? printf("\tFloor\n") : printf("\tNo floor.\n");*/
+    CrachCheck_role_coin(mainData, allegroObj);
+}
+
 void DoCrash(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     DestoryCoins(&allegroObj->coin);
@@ -105,6 +114,7 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
         /* Check Crash */
         CrachCheck(mainData, allegroObj);
+        CrachCheckForFloor(mainData, allegroObj);
         DoCrash(mainData, allegroObj);
         break;
 
@@ -253,7 +263,7 @@ bool ObjCrashCheck(float start_x1,float start_y1,float end_x1,float end_y1,float
     if(start_x2 - end_x1 >= 2*Length_x && start_y2 - end_y1 >= 2*Length_y)
         return ObjCrashCheck_sub(start_x1, start_y1, end_x1, end_y1,start_x2, start_y2, end_x2, end_y2);
     else
-        return ObjCrashCheck_sub(start_x1, start_y1, end_x1, end_y1,start_x2, start_y2, end_x2, end_y2);
+        return 0;
 }
 
 bool ObjCrashCheck_sub(float start_x1,float start_y1,float end_x1,float end_y1,float start_x2,float start_y2,float end_x2,float end_y2)
@@ -267,5 +277,27 @@ bool ObjCrashCheck_sub(float start_x1,float start_y1,float end_x1,float end_y1,f
     else if ( (start_x2 <=start_x1 && start_x1<=end_x2) && (start_y2 <=end_y1 && end_y1 <= end_y2)) return 1;
     else if( (start_x2 <=end_x1 && end_x1<=end_x2) && (start_y2 <=start_y1 && start_y1 <= end_y2))  return 1;
     else if( (start_x2 <=end_x1 && end_x1<=end_x2) && (start_y2 <=end_y1 && end_y1 <= end_y2))    return 1;
+    else return 0;
+}
+
+bool FloorCrashCheck(float start_char_x,float start_char_y,float end_char_x,float end_char_y,float start_floor_x,float start_floor_y,float end_floor_x,float end_floor_y)
+{
+    start_end_change(&start_char_x,&end_char_x);
+    start_end_change(&start_char_y,&end_char_y);
+    start_end_change(&start_floor_x,&end_floor_x);
+    start_end_change(&start_floor_y,&end_floor_y);
+    //printf("start_x2=%f\n",start_x2);
+    //printf("end_x1=%f\n",end_x1);
+    //printf("start_x2 - end_x1=%f\n",start_x2 - end_x1);
+        return FloorCrashCheck_sub(start_char_x, start_char_y, end_char_x, end_char_y,start_floor_x, start_floor_y, end_floor_x, end_floor_y);
+}
+
+bool FloorCrashCheck_sub(float start_char_x,float start_char_y,float end_char_x,float end_char_y,float start_floor_x,float start_floor_y,float end_floor_x,float end_floor_y)
+{
+    float Ly = end_char_y - start_floor_y;
+    if((start_floor_x <=start_char_x && start_char_x<=end_floor_x) && (start_char_y + Ly <= start_floor_y))return 1;
+    else if ( (start_floor_x <=end_char_x && end_char_x <=end_floor_x) && (start_char_y + Ly <= start_floor_y )) return 1;
+    else if((start_char_x <= start_floor_x && start_floor_x <=end_char_x) && (start_char_y + Ly <= start_floor_y )) return 1;
+    else if ( (start_char_x <=end_floor_x && end_floor_x <=end_char_x) && (start_char_y + Ly<= start_floor_y)) return 1;
     else return 0;
 }
