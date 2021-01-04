@@ -7,7 +7,7 @@ void CreateCoins(CoinStut *coin);
 void DestoryCoins(CoinStut *coin);
 void CreateMeteors(newMeteorStut *meteor);
 
-
+int ScoreAdd_Coins(CoinStut *coin);
 void RandCoinXY(ObjectStut *coin);
 void RandMeteorXY(ObjectStut *meteor);
 void CoinDebugPrint(ObjectStut *nowPtr, ObjectStut *prePtr, ObjectStut *newPtr);

@@ -1,1 +1,1 @@
-MAINICON ICON "icon.ico" //.exe file's icon
+MAINICON ICON "./img/icon.ico" //.exe file's icon

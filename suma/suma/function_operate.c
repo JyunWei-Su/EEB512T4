@@ -66,11 +66,12 @@ void CrachCheckForFloor(MainDataStut *mainData, AllegroObjStut *allegroObj)
     crash = FloorCrashCheck(allegroObj->role.start_x, allegroObj->role.start_y, allegroObj->role.end_x, allegroObj->role.end_y,
                                allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
     crash ? printf("\tFloor\n") : printf("\tNo floor.\n");*/
-    CrachCheck_role_coin(mainData, allegroObj);
+    //CrachCheck_role_coin(mainData, allegroObj);
 }
 
 void DoCrash(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
+    mainData->score.coins += ScoreAdd_Coins(&allegroObj->coin)*50;
     DestoryCoins(&allegroObj->coin);
 }
 
@@ -81,7 +82,6 @@ void CrachCheck_role_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
     RoleStut *nowRole = NULL;
     nowCoin = allegroObj->coin.objs;
     nowRole = &allegroObj->role;
-
     while(nowCoin != NULL)
     {
         crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
@@ -107,6 +107,7 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
         move_meteor_new(mainData, allegroObj);
         move_floor(mainData, allegroObj);
+        if(mainData->game_percent < 10000) mainData->game_percent += 3;
 
         /* Role */
         role_jump(allegroObj);
@@ -114,7 +115,7 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
         /* Check Crash */
         CrachCheck(mainData, allegroObj);
-        CrachCheckForFloor(mainData, allegroObj);
+        //CrachCheckForFloor(mainData, allegroObj);
         DoCrash(mainData, allegroObj);
         break;
 
@@ -263,7 +264,7 @@ bool ObjCrashCheck(float start_x1,float start_y1,float end_x1,float end_y1,float
     if(start_x2 - end_x1 >= 2*Length_x && start_y2 - end_y1 >= 2*Length_y)
         return ObjCrashCheck_sub(start_x1, start_y1, end_x1, end_y1,start_x2, start_y2, end_x2, end_y2);
     else
-        return 0;
+        return ObjCrashCheck_sub(start_x1, start_y1, end_x1, end_y1,start_x2, start_y2, end_x2, end_y2);;
 }
 
 bool ObjCrashCheck_sub(float start_x1,float start_y1,float end_x1,float end_y1,float start_x2,float start_y2,float end_x2,float end_y2)

@@ -347,6 +347,7 @@ typedef struct MainDataStut
     GameState game_state_pause; //上一階段(pause用)
     int breakPoint;
     int game_mode; //遊戲模式
+    int game_percent; //0-10000
     MouseStut mouse;
     ScoreStut score;
     RankNameStut usrName;
