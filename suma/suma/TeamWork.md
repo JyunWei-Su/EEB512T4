@@ -53,7 +53,7 @@ JWS 蘇浚緯 b1085151@mail.nuk.edu.tw 0958398969
 
 ### 01/03
 - [ ] 碰撞設定、跟班、其他調教、ABOUT、RULE、多個角色、物件Linker、BOSS
-- [ ] STATE_PAUSE、GAME_END
+- [X] STATE_PAUSE、GAME_END
 - [ ] 難度設定、設計關卡
 - [ ] IRL - 未定
 - [ ] JWS - 未定
