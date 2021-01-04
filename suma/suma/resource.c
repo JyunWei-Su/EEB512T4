@@ -48,7 +48,6 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     role_init(allegroObj);
     coin_init_old(allegroObj);
     coin_init(allegroObj);
-    obstacle_init(allegroObj);
 
     new_meteor_init(allegroObj);
 
@@ -118,15 +117,6 @@ void coin_init(AllegroObjStut *allegroObj)
     if(allegroObj->coin.imgs_rotating == NULL) allegroObj->coin.imgs_rotating = al_load_bitmap( PATH_IMG_COINS_ROTATE );
     if(allegroObj->coin.imgs_crashing == NULL) allegroObj->coin.imgs_crashing = al_load_bitmap( PATH_IMG_COINS_CRASH );
     allegroObj->coin.objs = NULL;
-    //這裡無須配置資料, 只需讀圖片, 配置在遊戲中配置
-}
-
-void obstacle_init(AllegroObjStut *allegroObj)
-{
-    //圖片再改
-    if(allegroObj->obstacle.imgs_shining == NULL) allegroObj->obstacle.imgs_shining = al_load_bitmap( PATH_IMG_COINS_ROTATE );
-    if(allegroObj->obstacle.imgs_crashing == NULL) allegroObj->obstacle.imgs_crashing = al_load_bitmap( PATH_IMG_COINS_CRASH );
-    allegroObj->obstacle.objs = NULL;
     //這裡無須配置資料, 只需讀圖片, 配置在遊戲中配置
 }
 
