@@ -57,6 +57,8 @@
 #define SIZE_IMG_PROBAR_HEIGHT 64
 #define SIZE_IMG_COIN_WIDTH 64
 #define SIZE_IMG_COIN_HEIGHT 64
+#define SIZE_IMG_OBSTACLE_WIDTH 128
+#define SIZE_IMG_OBSTACLE_HEIGHT 128
 #define SIZE_IMG_ROLE_WIDTH 150
 #define SIZE_IMG_ROLE_HEIGHT 200
 #define SIZE_IMG_FLOOR_WIDTH 300
@@ -193,6 +195,14 @@ typedef struct CoinStut
     int n;
 } CoinStut;
 
+typedef struct ObstacleStut
+{
+    ALLEGRO_BITMAP *imgs_shining;
+    ALLEGRO_BITMAP *imgs_crashing;
+    ObjectStut *objs;
+    int n;
+} Obstacle;
+
 typedef struct newMeteorStut
 {
     ALLEGRO_BITMAP *imgs_runing;
@@ -311,6 +321,7 @@ typedef struct AllegroObjStut
     RoleStut role;
     CoinStut_old coin_old;
     CoinStut coin;
+    Obstacle obstacle;
 
     newMeteorStut newMeteor;
 
@@ -367,6 +378,7 @@ void mode_button_init(AllegroObjStut *allegroObj);
 void sound_init(AllegroObjStut *allegroObj);
 void role_init(AllegroObjStut *allegroObj);
 void coin_init_old(AllegroObjStut *allegroObj);
+void obstacle_init(AllegroObjStut *allegroObj);
 void floor_init(AllegroObjStut *allegroObj);
 /* MainDataStut Function*/
 MainDataStut *ClocMainData();

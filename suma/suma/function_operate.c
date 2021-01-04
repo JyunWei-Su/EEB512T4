@@ -62,10 +62,10 @@ void CrachCheck(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
 void CrachCheckForFloor(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    /*bool crash;
+    bool crash;
     crash = FloorCrashCheck(allegroObj->role.start_x, allegroObj->role.start_y, allegroObj->role.end_x, allegroObj->role.end_y,
                                allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
-    crash ? printf("\tFloor\n") : printf("\tNo floor.\n");*/
+    /*crash ? printf("\tFloor\n") : printf("\tNo floor.\n");*/
     //CrachCheck_role_coin(mainData, allegroObj);
 }
 
