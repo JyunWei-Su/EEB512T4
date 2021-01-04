@@ -21,6 +21,20 @@ void CreateCoins(CoinStut *coin)
     }
 }
 
+int ScoreAdd_Coins(CoinStut *coin)
+{
+    int count = 0; //nowCoin前方有幾筆coin
+    ObjectStut *nowCoin = NULL;
+    nowCoin = coin->objs;
+
+    while(nowCoin != NULL)
+    {
+        if (nowCoin->state == COIN_DESTORY) count += 1;
+        nowCoin = nowCoin->nextObj;
+    }
+    return count;
+}
+
 void DestoryCoins(CoinStut *coin)
 {
     int count = 0;//nowCoin前方有幾筆coin
