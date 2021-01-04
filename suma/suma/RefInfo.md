@@ -16,3 +16,31 @@
 
 ## printf詳細應用
  * https://www.itdaan.com/tw/e932594201ca64b7c99341b294af43e9
+
+# 遊戲架構
+ > main()  CheckEvent()
+ >> ALLEGRO_EVENT_DISPLAY_CLOSE
+ >>> CheckWantToFinish()
+
+ >> ALLEGRO_EVENT_MENU_CLICK
+ >> ALLEGRO_EVENT_MOUSE_AXES
+ >>> RecordMouse()
+ >>> CheckMouseMove()
+
+ >> ALLEGRO_EVENT_MOUSE_BUTTON_DOWN
+ >>> CheckMouseClick()
+
+ >> ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+ >>> CheckMouseClick()
+
+ >> ALLEGRO_EVENT_KEY_DOWN:
+ >>> CheckKeyboardDown()
+
+ >> ALLEGRO_EVENT_DISPLAY_SWITCH_IN:
+ >>> al_flip_display();
+
+ >> ALLEGRO_EVENT_TIMER
+ >>> PlaySoundEffect(mainData, allegroObj);
+ >>> ParameterOperate(mainData, allegroObj);
+ >>> DrawDisplayAndFlip(mainData, allegroObj);
+
