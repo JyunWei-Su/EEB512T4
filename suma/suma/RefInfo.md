@@ -21,24 +21,24 @@
  > main()  CheckEvent()
  >> ALLEGRO_EVENT_DISPLAY_CLOSE
  >>> CheckWantToFinish()
-
+ >>
  >> ALLEGRO_EVENT_MENU_CLICK
  >> ALLEGRO_EVENT_MOUSE_AXES
  >>> RecordMouse()
  >>> CheckMouseMove()
-
+ >>
  >> ALLEGRO_EVENT_MOUSE_BUTTON_DOWN
  >>> CheckMouseClick()
-
+ >>
  >> ALLEGRO_EVENT_MOUSE_BUTTON_UP:
  >>> CheckMouseClick()
-
+ >>
  >> ALLEGRO_EVENT_KEY_DOWN:
  >>> CheckKeyboardDown()
-
+ >>
  >> ALLEGRO_EVENT_DISPLAY_SWITCH_IN:
  >>> al_flip_display();
-
+ >>
  >> ALLEGRO_EVENT_TIMER
  >>> PlaySoundEffect(mainData, allegroObj);
  >>> ParameterOperate(mainData, allegroObj);
