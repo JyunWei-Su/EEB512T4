@@ -23,6 +23,9 @@
 #define PATH_IMG_COIN "./img/coin.png"
 #define PATH_IMG_COINS_ROTATE "./img/coins.png"
 #define PATH_IMG_COINS_CRASH "./img/coinCrashs.png"
+#define PATH_IMG_OBSCALE_SHINING "./img/obscale.png"
+/**下面要路徑調整**/
+#define PATH_IMG_OBSCALE_CRASH "./img/coinCrashs.png"
 #define PATH_IMG_CHAR "./img/char.png"
 #define PATH_IMG_PROBAR "./img/progressbar.png"
 #define PATH_IMG_MENU_BUTTON "./img/menuButton.png"
@@ -61,6 +64,8 @@
 #define SIZE_IMG_ROLE_HEIGHT 200
 #define SIZE_IMG_FLOOR_WIDTH 300
 #define SIZE_IMG_FLOOR_HEIGHT 100
+#define SIZE_IMG_OBSCALE_WIDTH 128
+#define SIZE_IMG_OBSCALE_HEIGHT 128
 #define SIZE_IMG_METEOR_WIDTH 80
 #define SIZE_IMG_METEOR_HEIGHT 80
 #define SIZE_IMG_METEOR_BIG_WIDTH 200
@@ -134,6 +139,11 @@ typedef enum CoinState
     COIN_NULL, COIN_CRASH, COIN_MOVEOUT, COIN_DESTORY,
 } CoinState;
 
+typedef enum ObscaleState
+{
+    OBSCALE_NULL, OBSCALE_CRASH_MAIN,OBSCALE_CRASH_FOLLOWER, OBSCALE_MOVEOUT, OBSCALE_DESTORY,
+} ObscaleState;
+
 /**  struct  **/
 typedef struct tm TmStut;
 
@@ -192,6 +202,14 @@ typedef struct CoinStut
     ObjectStut *objs;
     int n;
 } CoinStut;
+
+typedef struct ObscaleStut
+{
+    ALLEGRO_BITMAP *imgs_shining;
+    ALLEGRO_BITMAP *imgs_crashing;
+    ObjectStut *objs;
+    int n;
+} ObscaleStut;
 
 typedef struct newMeteorStut
 {
@@ -311,6 +329,7 @@ typedef struct AllegroObjStut
     RoleStut role;
     CoinStut_old coin_old;
     CoinStut coin;
+    ObscaleStut obscale;
 
     newMeteorStut newMeteor;
 
@@ -366,6 +385,7 @@ void home_button_init(AllegroObjStut *allegroObj);
 void mode_button_init(AllegroObjStut *allegroObj);
 void sound_init(AllegroObjStut *allegroObj);
 void role_init(AllegroObjStut *allegroObj);
+void obscale_init(AllegroObjStut *allegroObj);
 void coin_init_old(AllegroObjStut *allegroObj);
 void floor_init(AllegroObjStut *allegroObj);
 /* MainDataStut Function*/
