@@ -97,3 +97,4 @@ void CoinDebugPrint(ObjectStut *nowPtr, ObjectStut *prePtr, ObjectStut *newPtr)
     printf("--pre : %x\n", prePtr);
     printf("--new : %x\n", newPtr);
 }
+

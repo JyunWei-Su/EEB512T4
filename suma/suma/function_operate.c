@@ -104,7 +104,7 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         move_background(mainData, allegroObj);
         move_coin_old(mainData, allegroObj);
         move_coin(mainData, allegroObj);
-
+        move_obscale(mainData,allegroObj);
         move_meteor_new(mainData, allegroObj);
         move_floor(mainData, allegroObj);
         if(mainData->game_percent < 10000) mainData->game_percent += 3;
@@ -117,6 +117,8 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         CrachCheck(mainData, allegroObj);
         //CrachCheckForFloor(mainData, allegroObj);
         DoCrash(mainData, allegroObj);
+        CrashCheck_role_obscale(mainData, allegroObj);
+
         break;
 
     case GAME_PLAYING_MID_BOSS:
@@ -302,3 +304,4 @@ bool FloorCrashCheck_sub(float start_char_x,float start_char_y,float end_char_x,
     else if ( (start_char_x <=end_floor_x && end_floor_x <=end_char_x) && (start_char_y + Ly<= start_floor_y)) return 1;
     else return 0;
 }
+
