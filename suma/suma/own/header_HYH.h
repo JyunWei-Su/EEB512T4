@@ -9,6 +9,14 @@ typedef enum Crash_State {
 } Crash_State;
 
 //====================
+void CreateObscales(MainDataStut *mainData,ObscaleStut *obscale);
+void DestoryObscales(ObscaleStut *obscale);
+void ObscaleCheck_Boundary(ObscaleStut *obscale);
+void CrashCheck_role_obscale(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void RandObscaleXY(MainDataStut *mainData,ObjectStut *obscale );
+void move_obscale(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void end_xy_update_Obscale(ObscaleStut *obscale);
+void DrawObscale(MainDataStut *mainData, AllegroObjStut *allegroObj);
 
 
 #endif //_HYH_H_
