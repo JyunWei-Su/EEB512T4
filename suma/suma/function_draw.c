@@ -202,12 +202,29 @@ void DrawBackground(MainDataStut *mainData, AllegroObjStut *allegroObj)
     al_draw_bitmap(allegroObj->background.img, allegroObj->background.x, 0, 0);
 }
 
-void DrawFloor(MainDataStut *mainData, AllegroObjStut *allegroObj)
+void DrawFloor(MainDataStut *mainData, AllegroObjStut *allegroObj) //FTT
 {
-    al_draw_bitmap(allegroObj->floor.img, allegroObj->floor.start_x, allegroObj->floor.start_y, 0);
-    DrawObjBoundary(allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
+
+    ObjectStut *nowFloor = NULL;
+    nowFloor = allegroObj->floor.objs;
+
+    while(nowFloor != NULL)
+    {
+        switch(nowFloor->state)
+        {
+        case FLOOR_ACTIVE:
+            al_draw_bitmap_region(allegroObj->floor.img, 0, 0, nowFloor->end_x - nowFloor->start_x, SIZE_IMG_FLOOR_HEIGHT
+                                  , nowFloor->start_x, nowFloor->start_y, 0);
+            DrawObjBoundary_object(nowFloor);
+
+            break;
+        }
+        nowFloor = nowFloor->nextObj;
+    }
+
 }
 
+/*
 void DrawCoin_old(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     if(allegroObj->coin_old.imgCount % (int)(FPS*TIME_PER_IMG_COIN) == 0)
@@ -220,7 +237,7 @@ void DrawCoin_old(MainDataStut *mainData, AllegroObjStut *allegroObj)
                           , allegroObj->coin_old.start_x, allegroObj->coin_old.start_y, 0);
     allegroObj->coin_old.imgCount += 1;
     DrawObjBoundary_coin_old(allegroObj->coin_old);
-}
+}*/
 
 void DrawCoin(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
@@ -245,9 +262,9 @@ void DrawCoin(MainDataStut *mainData, AllegroObjStut *allegroObj)
             nowCoin = nowCoin->nextObj;
             break;
         }
-
     }
 }
+
 void newDrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowMeteor = NULL;
@@ -302,11 +319,12 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         break;
     case GAME_PLAYING_NORMAL:
         DrawBackground(mainData, allegroObj);
+        DrawFloor(mainData, allegroObj); //FTT
         DrawRole(mainData, allegroObj);
-        DrawCoin_old(mainData, allegroObj);
+
+        //DrawCoin_old(mainData, allegroObj);
         DrawCoin(mainData, allegroObj);
         newDrawMeteor(mainData, allegroObj);
-        DrawFloor(mainData, allegroObj);
         DrawObscale(mainData, allegroObj);
         DrawScoreboard(mainData, allegroObj);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
@@ -315,7 +333,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         DrawBackground(mainData, allegroObj);
         DrawRole(mainData, allegroObj);
         DrawCoin(mainData, allegroObj);
-        DrawFloor(mainData, allegroObj);
+        DrawFloor(mainData, allegroObj); //FTT
         DrawScoreboard(mainData, allegroObj);
         DrawMeteor(mainData, allegroObj);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
@@ -324,7 +342,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         DrawBackground(mainData, allegroObj);
         DrawRole(mainData, allegroObj);
         DrawCoin(mainData, allegroObj);
-        DrawFloor(mainData, allegroObj);
+        DrawFloor(mainData, allegroObj); //FTT
         DrawScoreboard(mainData, allegroObj);
         DrawMeteorAnimation(mainData, allegroObj);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
@@ -342,17 +360,19 @@ void DrawObjBoundary(float x1, float y1, float x2, float y2)
     al_draw_rectangle(x1, y1, x2, y2, al_map_rgb(255, 0, 0), 0);
 }
 
+
 void DrawObjBoundary_meteor(MeteorStut meteor)
 //畫隕石邊界
 {
     DrawObjBoundary(meteor.start_x, meteor.start_y, meteor.end_x, meteor.end_y);
 }
 
+/*
 void DrawObjBoundary_coin_old(CoinStut_old coin)
 //畫金幣邊界
 {
     DrawObjBoundary(coin.start_x, coin.start_y, coin.end_x, coin.end_y);
-}
+}*/
 
 void DrawObjBoundary_object(ObjectStut *obj)
 //畫物件邊界(新)
