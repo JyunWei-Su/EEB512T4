@@ -470,7 +470,7 @@
 	<stdlib.h>
 	<math.h>
 
-1609681310 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_check.c
+1609738236 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_check.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -489,7 +489,7 @@
 1609392882 c:\users\lu frank\documents\github\eeb512t4\suma\suma\own\header_byk.h
 	"../resource.h"
 
-1609681310 c:\users\lu frank\documents\github\eeb512t4\suma\suma\resource.h
+1610722467 c:\users\lu frank\documents\github\eeb512t4\suma\suma\resource.h
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
@@ -518,7 +518,7 @@
 1609681310 c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_draw.h
 	"resource.h"
 
-1609681310 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_draw.c
+1610723323 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_draw.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -798,23 +798,23 @@
 1609590830 c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_check.h
 	"resource.h"
 
-1609681310 c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_operate.h
+1609738236 c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_operate.h
 	"resource.h"
 
-1609681310 c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_gaming_object.h
+1609738236 c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_gaming_object.h
 	"resource.h"
 
-1609681310 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_gaming_object.c
+1609738236 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_gaming_object.c
 	"defineHeader.h"
 	"resource.h"
 
-1609681310 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_operate.c
+1609738236 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_operate.c
 	"defineHeader.h"
 	"resource.h"
 
-1609681068 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_sound.c
+1609738236 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_sound.c
 	"defineHeader.h"
 	"resource.h"
 
-1609590830 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\icon.rc
+1609738236 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\icon.rc
 
