@@ -11,14 +11,14 @@ void RandCoinXY(ObjectStut *coin);
 void CoinDebugPrint(ObjectStut *nowPtr, ObjectStut *prePtr, ObjectStut *newPtr);
 
 /* Roles */
-void CreateRoles(newRoleStut *role);
-void DestoryRoles(newRoleStut *role,AllegroObjStut *allegroObj);
+void CreateRoles(SubRoleStut *role);
+void DestoryRoles(SubRoleStut *role,AllegroObjStut *allegroObj);
 void RandRoleXY(ObjectStut *role,int n);
 void CrashRoleXY(ObjectStut *role,AllegroObjStut *allegroObj,int n);
 void FirstRoleXY(ObjectStut *role);
 
 /* Meteors */
-void CreateMeteors(newMeteorStut *meteor);
+void CreateMeteors(MeteorStut *meteor);
 void RandMeteorXY(ObjectStut *meteor);
 
 /* Floor */

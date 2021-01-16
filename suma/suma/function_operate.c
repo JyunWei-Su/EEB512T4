@@ -21,10 +21,10 @@ void move_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
     }
 }
 
-void move_role_new(MainDataStut *mainData, AllegroObjStut *allegroObj)
+void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowRole = NULL;
-    nowRole = allegroObj->newRole.objs;
+    nowRole = allegroObj->subRole.objs;
     while(nowRole != NULL)
     {
         if( nowRole->state == SUBROLE_MOVE)
@@ -97,10 +97,10 @@ void role_jump(AllegroObjStut *allegroObj)
     end_xy_update_role(&allegroObj->role);
 }
 
-void move_meteor_new(MainDataStut *mainData, AllegroObjStut *allegroObj)
+void move_meteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowMeteor = NULL;
-    nowMeteor = allegroObj->newMeteor.objs;
+    nowMeteor = allegroObj->meteor.objs;
     while(nowMeteor != NULL)
     {
         nowMeteor->start_x -= nowMeteor->speed_x;
@@ -157,7 +157,7 @@ void DoCrash(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     mainData->score.coins += ScoreAdd_Coins(&allegroObj->coin)*50;
     DestoryCoins(&allegroObj->coin);
-    DestoryRoles(&allegroObj->newRole,allegroObj);
+    DestoryRoles(&allegroObj->subRole,allegroObj);
 }
 
 void CrachCheck_role_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -183,7 +183,7 @@ void CrachCheck_subrole_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
     ObjectStut *nowCoin = NULL;
     ObjectStut *nowSubRole = NULL;
     nowCoin = allegroObj->coin.objs;
-    nowSubRole = allegroObj->newRole.objs;
+    nowSubRole = allegroObj->subRole.objs;
     while(nowCoin != NULL)
     {
         while(nowSubRole != NULL)
@@ -201,17 +201,17 @@ void CrachCheck_subrole_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
 void CrachCheck_role_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     bool crash;
-    ObjectStut *nowSupRole = NULL;
+    ObjectStut *nowSubRole = NULL;
     RoleStut *nowRole = NULL;
-    nowSupRole = allegroObj->newRole.objs;
+    nowSubRole = allegroObj->subRole.objs;
     nowRole = &allegroObj->role;
-    while(nowSupRole != NULL)
+    while(nowSubRole != NULL)
     {
         crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
-                              nowSupRole->start_x, nowSupRole->start_y, nowSupRole->end_x, nowSupRole->end_y);
-        if(crash) nowSupRole->state = SUPROLE_CRASH;
+                              nowSubRole->start_x, nowSubRole->start_y, nowSubRole->end_x, nowSubRole->end_y);
+        if(crash) nowSubRole->state = SUPROLE_CRASH;
         // crash ? printf("\tCrash\n") : NULL ;
-        nowSupRole = nowSupRole->nextObj;
+        nowSubRole = nowSubRole->nextObj;
     }
 }
 
@@ -227,9 +227,9 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         //move_coin_old(mainData, allegroObj);
 
         move_coin(mainData, allegroObj);
-
-        move_role_new(mainData, allegroObj);
-        move_meteor_new(mainData, allegroObj);
+    //¶¶§Ç²§±`
+        move_sub_role(mainData, allegroObj);
+        move_meteor(mainData, allegroObj);
         move_obscale(mainData,allegroObj);
         move_floor(mainData, allegroObj); //FTT
         SetFloor(&allegroObj->floor); //½T»{¬O§_»Ý­n·s¼W¦aªOorÄÀ©ñ¦aªO¿

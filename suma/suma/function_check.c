@@ -110,11 +110,8 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
         switch(allegroObj->events.keyboard.keycode)
         {
         case ALLEGRO_KEY_V:
-            CreateMeteors(&allegroObj->newMeteor);
+            CreateMeteors(&allegroObj->meteor);
             break;
-        /*  case ALLEGRO_KEY_B:
-              CreateMeteors(&allegroObj->newMeteor);
-              break;*/
         case ALLEGRO_KEY_Z:
             mainData->game_state = GAME_PLAYING_MID_BOSS;
             //creat
@@ -126,7 +123,7 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
             if(mainData->game_state == GAME_PLAYING_NORMAL) CreateCoins(&allegroObj->coin);
             break;
         case ALLEGRO_KEY_R:
-            if(mainData->game_state == GAME_PLAYING_NORMAL) CreateRoles(&allegroObj->newRole);
+            if(mainData->game_state == GAME_PLAYING_NORMAL) CreateRoles(&allegroObj->subRole);
             break;
         case ALLEGRO_KEY_K:
             if(mainData->game_state == GAME_PLAYING_NORMAL) CreateObscales(mainData,&allegroObj->obscale);

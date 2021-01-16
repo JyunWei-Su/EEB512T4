@@ -78,7 +78,7 @@ void CoinDebugPrint(ObjectStut *nowPtr, ObjectStut *prePtr, ObjectStut *newPtr)
 
 
 /* Roles */
-void CreateRoles(newRoleStut *role)
+void CreateRoles(SubRoleStut *role)
 {
     int count = 0, n = 5; //產生n個物件
     ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
@@ -105,7 +105,7 @@ void CreateRoles(newRoleStut *role)
     }
 }
 
-void DestoryRoles(newRoleStut *role,AllegroObjStut *allegroObj)
+void DestoryRoles(SubRoleStut *role, AllegroObjStut *allegroObj)
 {
 
     int count = 0,n=1;//nowCoin前方有幾筆coin
@@ -160,7 +160,7 @@ void FirstRoleXY(ObjectStut *role)
 
 
 /* Meteors */
-void CreateMeteors(newMeteorStut *meteor)
+void CreateMeteors(MeteorStut *meteor)
 {
     int count = 0, n = rand()%30+15; //產生n個物件
     ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;

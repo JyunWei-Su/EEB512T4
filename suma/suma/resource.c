@@ -39,19 +39,19 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     /*Load bitmap(image) */
     image_init(allegroObj);
     font_init(&allegroObj->font_a, PATH_FONT_HIMAJI);
-    font_init(&allegroObj->font_b, PATH_FONT_FANCYH);
+    font_init(&allegroObj->font_b, PATH_FONT_HANDYH);
     sound_init(allegroObj);
     menu_button_init(allegroObj);
     mode_button_init(allegroObj);
     home_button_init(allegroObj);
     score_board_init(allegroObj);
     role_init(allegroObj);
-    //coin_init_old(allegroObj);
+
     coin_init(allegroObj);
     obscale_init(allegroObj);
 
-    new_meteor_init(allegroObj);
-    new_role_init(allegroObj);
+    meteor_init(allegroObj);
+    sub_role_init(allegroObj);
     floor_init(allegroObj); //FTT
     meteor_init(allegroObj);
 
@@ -69,7 +69,6 @@ void sound_init(AllegroObjStut *allegroObj)
     //創建聲音輸出buffer 創建聲音輸出連接口
     //allegroObj->sound.mixer = al_get_default_mixer(); //硬體設備不同 容易出錯
     //allegroObj->sound.voice = al_get_default_voice(); //硬體設備不同 容易出錯
-    //for test
     allegroObj->sound.mixer = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32,ALLEGRO_CHANNEL_CONF_2);
     allegroObj->sound.voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16,ALLEGRO_CHANNEL_CONF_2);
     //printf("@@@ mixer : %x, voice : %x", allegroObj->sound.mixer, allegroObj->sound.voice);
@@ -106,16 +105,6 @@ void score_board_init(AllegroObjStut *allegroObj)
 }
 
 
-/*
-void coin_init_old(AllegroObjStut *allegroObj)
-{
-    allegroObj->coin_old.imgs_runing = al_load_bitmap( PATH_IMG_COINS_ROTATE );
-    allegroObj->coin_old.start_x=1500;
-    allegroObj->coin_old.start_y=500;
-    allegroObj->coin_old.persent = 3;
-}*/
-
-
 void coin_init(AllegroObjStut *allegroObj)
 {
     if(allegroObj->coin.imgs_rotating == NULL) allegroObj->coin.imgs_rotating = al_load_bitmap( PATH_IMG_COINS_ROTATE );
@@ -124,11 +113,10 @@ void coin_init(AllegroObjStut *allegroObj)
     //這裡無須配置資料, 只需讀圖片, 配置在遊戲中配置
 }
 
-void new_role_init(AllegroObjStut *allegroObj)
+void sub_role_init(AllegroObjStut *allegroObj)
 {
-    if(allegroObj->newRole.imgs_runing == NULL) allegroObj->newRole.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
-    allegroObj->newRole.objs = NULL;
-    //if(allegroObj->newCoin.objs == NULL) allegroObj->newCoin.objs = (ObjectStut *)calloc(1, sizeof(ObjectStut));
+    if(allegroObj->subRole.imgs_runing == NULL) allegroObj->subRole.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
+    allegroObj->subRole.objs = NULL;
 }
 
 
@@ -140,11 +128,11 @@ void obscale_init(AllegroObjStut *allegroObj)
     //這裡無須配置資料, 只需讀圖片, 配置在遊戲中配置
 }
 
-void new_meteor_init(AllegroObjStut *allegroObj)
+void meteor_init(AllegroObjStut *allegroObj)
 {
-    if(allegroObj->newMeteor.imgs_runing == NULL) allegroObj->newMeteor.imgs_runing = al_load_bitmap( PATH_IMG_METEOR_SEQ_RUNING );
-    allegroObj->newMeteor.objs = NULL;
-    //if(allegroObj->newCoin.objs == NULL) allegroObj->newCoin.objs = (ObjectStut *)calloc(1, sizeof(ObjectStut));
+    if(allegroObj->meteor.imgs_runing == NULL) allegroObj->meteor.imgs_runing = al_load_bitmap( PATH_IMG_METEOR_SEQ_RUNING );
+    allegroObj->meteor.objs = NULL;
+
 }
 
 void font_init(FontStut *font, const char *filePath)
@@ -190,7 +178,7 @@ void role_init(AllegroObjStut *allegroObj)
     allegroObj->role.start_y=700;
     allegroObj->role.state = ROLE_NULL;
 }
-
+/*
 void meteor_init(AllegroObjStut *allegroObj)
 {
     int i;
@@ -232,7 +220,7 @@ void meteor_init(AllegroObjStut *allegroObj)
     //allegroObj->meteor.start_y=0;
     //allegroObj->role.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
     //allegroObj->meteor.state = ROLE_NULL;
-}
+//}
 
 void menu_button_init(AllegroObjStut *allegroObj)
 {

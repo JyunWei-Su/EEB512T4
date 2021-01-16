@@ -10,7 +10,7 @@
 void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int state = mainData->game_state;
-    //int calculate = 0;
+
     if(state != GAME_PAUSE) al_clear_to_color( COLOR_CLEAR );
     switch(state)
     {
@@ -36,10 +36,10 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         DrawBackground(mainData, allegroObj);
         DrawFloor(mainData, allegroObj); //FTT
         DrawRole(mainData, allegroObj);
-        newDrawRole(mainData, allegroObj);
-        //DrawCoin_old(mainData, allegroObj);
+        DrawSubRole(mainData, allegroObj);
+
         DrawCoin(mainData, allegroObj);
-        newDrawMeteor(mainData, allegroObj);
+        DrawMeteor(mainData, allegroObj);
         DrawObscale(mainData, allegroObj);
         DrawScoreboard(mainData, allegroObj);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
@@ -231,10 +231,10 @@ void DrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
     DrawObjBoundary(allegroObj->role.start_x, allegroObj->role.start_y, allegroObj->role.end_x, allegroObj->role.end_y);
 }
 
-void newDrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
+void DrawSubRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowRole = NULL;
-    nowRole = allegroObj->newRole.objs;
+    nowRole = allegroObj->subRole.objs;
 
     while(nowRole != NULL)
     {
@@ -244,7 +244,7 @@ void newDrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
             nowRole->imgNow += 1;
             if(nowRole->imgNow % NUM_IMG_ROLE_SEQUENCE == 0) nowRole->imgNow = 0;
         }
-        al_draw_bitmap_region(allegroObj->newRole.imgs_runing, SIZE_IMG_ROLE_WIDTH*nowRole->imgNow, 0, SIZE_IMG_ROLE_WIDTH, SIZE_IMG_ROLE_HEIGHT
+        al_draw_bitmap_region(allegroObj->subRole.imgs_runing, SIZE_IMG_ROLE_WIDTH*nowRole->imgNow, 0, SIZE_IMG_ROLE_WIDTH, SIZE_IMG_ROLE_HEIGHT
                               , nowRole->start_x, nowRole->start_y, 0);
         DrawObjBoundary_object(nowRole);
 
@@ -258,7 +258,6 @@ void DrawFloor(MainDataStut *mainData, AllegroObjStut *allegroObj) //FTT
 
     ObjectStut *nowFloor = NULL;
     nowFloor = allegroObj->floor.objs;
-
     while(nowFloor != NULL)
     {
         switch(nowFloor->state)
@@ -267,7 +266,6 @@ void DrawFloor(MainDataStut *mainData, AllegroObjStut *allegroObj) //FTT
             al_draw_bitmap_region(allegroObj->floor.img, 0, 0, nowFloor->end_x - nowFloor->start_x, SIZE_IMG_FLOOR_HEIGHT
                                   , nowFloor->start_x, nowFloor->start_y, 0);
             DrawObjBoundary_object(nowFloor);
-
             break;
         }
         nowFloor = nowFloor->nextObj;
@@ -301,10 +299,10 @@ void DrawCoin(MainDataStut *mainData, AllegroObjStut *allegroObj)
     }
 }
 
-void newDrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
+void DrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowMeteor = NULL;
-    nowMeteor = allegroObj->newMeteor.objs;
+    nowMeteor = allegroObj->meteor.objs;
 
     while(nowMeteor != NULL)
     {
@@ -314,7 +312,7 @@ void newDrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
             nowMeteor->imgNow += 1;
             if(nowMeteor->imgNow % NUM_IMG_METEOR_SEQUENCE == 0) nowMeteor->imgNow = 0;
         }
-        al_draw_bitmap_region(allegroObj->newMeteor.imgs_runing, SIZE_IMG_METEOR_WIDTH*nowMeteor->imgNow, 0, SIZE_IMG_METEOR_WIDTH, SIZE_IMG_METEOR_HEIGHT
+        al_draw_bitmap_region(allegroObj->meteor.imgs_runing, SIZE_IMG_METEOR_WIDTH*nowMeteor->imgNow, 0, SIZE_IMG_METEOR_WIDTH, SIZE_IMG_METEOR_HEIGHT
                               , nowMeteor->start_x, nowMeteor->start_y, 0);
         DrawObjBoundary_object(nowMeteor);
 
@@ -331,12 +329,12 @@ void DrawObjBoundary(float x1, float y1, float x2, float y2)
     //printf("x1: %f, y1: %f\nx2: %f, y2: %f\n", x1, x2, y1, y2);
     al_draw_rectangle(x1, y1, x2, y2, al_map_rgb(255, 0, 0), 0);
 }
-
+/*
 void DrawObjBoundary_meteor(MeteorStut meteor)
 //畫隕石邊界
 {
     DrawObjBoundary(meteor.start_x, meteor.start_y, meteor.end_x, meteor.end_y);
-}
+}*/
 
 void DrawObjBoundary_object(ObjectStut *obj)
 //畫物件邊界(新)
