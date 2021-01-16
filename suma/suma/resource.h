@@ -36,6 +36,7 @@
 #define PATH_IMG_FLOOR "./img/floor.png"
 #define PATH_IMG_METEOR "./img/meteor.png"
 #define PATH_IMG_METEOR_SEQ_RUNING "./img/meteors80.png"
+#define PATH_IMG_ATTACKX "./img/attackX.png"
 
 
 #define PATH_FNT_DFT "./DFT_TL9.TTC"
@@ -74,6 +75,8 @@
 #define SIZE_IMG_METEOR_HEIGHT 80
 #define SIZE_IMG_METEOR_BIG_WIDTH 200
 #define SIZE_IMG_METEOR_BIG_HEIGHT 200
+#define SIZE_IMG_ATTACKX_WIDTH 300
+#define SIZE_IMG_ATTACKX_HEIGHT 70
 #define SIZE_IMG_MENU_BUTTON_WIDTH 480
 #define SIZE_IMG_MENU_BUTTON_HEIGHT 90
 #define SIZE_IMG_MODE_BUTTON_WIDTH 480
@@ -116,7 +119,7 @@
 #define TIME_PER_IMG_METEOR 0.1
 /*Meteor_Define*/
 #define NUMBER_METEOR 30
-#define SPEED_Y_METEOR 15
+#define SPEED_Y_METEOR 7w
 #define SPEED_X_METEOR 0
 #define SPEED_Y_METEOR_RIGHT 5
 #define SPEED_X_METEOR_RIGHT 3
@@ -252,6 +255,12 @@ typedef struct MeteorStut
     ObjectStut *objs;
     int n;
 } MeteorStut;
+typedef struct AttackXStut
+{
+    ALLEGRO_BITMAP *imgs_runing;
+    ObjectStut *objs;
+    int n;
+} AttackXStut;
 
 /*
 typedef struct CoinStut_old
@@ -361,6 +370,7 @@ typedef struct AllegroObjStut
     ObscaleStut obscale;
 
     MeteorStut meteor;
+    AttackXStut attackx;
 
 
     //FloorsStut floors; //newfloor
@@ -434,7 +444,7 @@ void MainDataInit(MainDataStut *mainData);
 void coin_init(AllegroObjStut *allegroObj);
 void function_bar_init(AllegroObjStut *allegroObj);
 void meteor_init(AllegroObjStut *allegroObj);
-
+void attackx_init(AllegroObjStut *allegroObj);
 void sub_role_init(AllegroObjStut *allegroObj);
 void meteor_init(AllegroObjStut *allegroObj);
 

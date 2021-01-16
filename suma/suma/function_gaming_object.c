@@ -162,7 +162,7 @@ void FirstRoleXY(ObjectStut *role)
 /* Meteors */
 void CreateMeteors(MeteorStut *meteor)
 {
-    int count = 0, n = rand()%30+15; //產生n個物件
+    int count = 0, n = rand()%10+10; //產生n個物件
     ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
     nowPtr = meteor->objs; //第一筆資料
     while(count < n) //舊資料可能要destroy
@@ -184,7 +184,7 @@ void RandMeteorXY(ObjectStut *meteor)
 {
     meteor->start_x = rand() % 2000;
     meteor->start_y = -rand() % 1000;
-    meteor->speed_x = (float)(rand()%300+200)/100;
+    meteor->speed_x = (float)(rand()%500-200)/100;
     meteor->speed_y = (float)(rand()%500+500)/100;
 }
 

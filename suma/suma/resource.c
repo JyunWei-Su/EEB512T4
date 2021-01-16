@@ -51,6 +51,7 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     obscale_init(allegroObj);
 
     meteor_init(allegroObj);
+     attackx_init(allegroObj);
     sub_role_init(allegroObj);
     floor_init(allegroObj); //FTT
     meteor_init(allegroObj);
@@ -134,7 +135,12 @@ void meteor_init(AllegroObjStut *allegroObj)
     allegroObj->meteor.objs = NULL;
 
 }
+void attackx_init(AllegroObjStut *allegroObj)
+{
+    if(allegroObj->attackx.imgs_runing == NULL) allegroObj->attackx.imgs_runing = al_load_bitmap( PATH_IMG_ATTACKX );
+    allegroObj->attackx.objs = NULL;
 
+}
 void font_init(FontStut *font, const char *filePath)
 {
     font->font24 = al_load_font( filePath, 24, 0);
