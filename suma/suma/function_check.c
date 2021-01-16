@@ -42,10 +42,8 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 break;
             case ALLEGRO_EVENT_TIMER:
                 //printf("%d\n", mainData->game_state);
-               // PlaySoundEffect(mainData, allegroObj);
+                PlaySoundEffect(mainData, allegroObj);
                 ParameterOperate(mainData, allegroObj);
-                //CheckGameState(mainData, allegroObj);
-
                 DrawDisplayAndFlip(mainData, allegroObj);
                 break;
             default:
@@ -135,7 +133,6 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
         default:
             break;
         }
-
     }
 }
 
@@ -287,19 +284,5 @@ void CheckMouseMoveOnModeButton(MainDataStut *mainData, AllegroObjStut *allegroO
         }
         else
             allegroObj->modeButton[i].isSelected = 0;
-    }
-}
-
-void CheckGameState(MainDataStut *mainData, AllegroObjStut *allegroObj)
-{
-    int state = mainData->game_state;
-    //printf("state:%d\n", state);
-    switch(state)
-    {
-    case GAME_NONE:
-        //DrawDisplayAndFlip(mainData, allegroObj);
-        break;
-    default:
-        break;
     }
 }

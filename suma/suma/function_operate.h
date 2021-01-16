@@ -17,7 +17,6 @@ bool ObjCrashCheck_sub(float start_x1, float start_y1, float end_x1, float end_y
 bool FloorCrashCheck(float start_char_x,float start_char_y,float end_char_x,float end_char_y,float start_floor_x,float start_floor_y,float end_floor_x,float end_floor_y);
 bool FloorCrashCheck_sub(float start_char_x,float start_char_y,float end_char_x,float end_char_y,float start_floor_x,float start_floor_y,float end_floor_x,float end_floor_y);
 
-void end_xy_update_meteor(MeteorStut *meteor);
 void end_xy_update_role(RoleStut *role);
 void end_xy_update_coin_old(CoinStut_old *coin_old);
 void end_xy_update_floor(FloorStut *floor);

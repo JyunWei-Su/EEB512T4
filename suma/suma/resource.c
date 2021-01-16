@@ -200,15 +200,16 @@ void meteor_init(AllegroObjStut *allegroObj)
     // allegroObj->meteor.start_x = 500;
     //allegroObj->meteor.start_y = 0;
     //allegroObj->meteor.speed_y =1;
-    allegroObj->meteors = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
-    allegroObj->meteors_right_drop = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
-    allegroObj->meteors_left_drop = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
+    //allegroObj->meteors = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
+    //allegroObj->meteors_right_drop = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
+    //allegroObj->meteors_left_drop = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
 
+    /*
     for (i = 0; i < allegroObj->meteor_n; i++)
     {
         //*meteors
-        allegroObj->meteors[i].img = al_load_bitmap(PATH_IMG_METEOR );
-        allegroObj->meteors[i].start_x = rand()%1600;
+        //allegroObj->meteors[i].img = al_load_bitmap(PATH_IMG_METEOR );
+        //allegroObj->meteors[i].start_x = rand()%1600;
         allegroObj->meteors[i].start_y = 0;
         allegroObj->meteors[i].speed_y = rand()%SPEED_Y_METEOR+5;
         //*meteors_right_drop
@@ -224,8 +225,9 @@ void meteor_init(AllegroObjStut *allegroObj)
         allegroObj->meteors_left_drop[i].start_y = 0;
         allegroObj->meteors_left_drop[i].speed_x = rand()%SPEED_X_METEOR_RIGHT+1;
         allegroObj->meteors_left_drop[i].speed_y = rand()%SPEED_Y_METEOR_RIGHT+3;
-
     }
+    */
+
     //allegroObj->meteor.start_x=800;
     //allegroObj->meteor.start_y=0;
     //allegroObj->role.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );

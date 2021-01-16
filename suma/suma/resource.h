@@ -269,24 +269,6 @@ typedef struct RoleStut
     int state;
 } RoleStut;
 
-/*
-typedef struct FloorStut
-{
-    float start_x, start_y;
-    float end_x, end_y;
-    int state;
-} FloorStut;
-
-typedef struct FloorsStut
-{
-    ALLEGRO_BITMAP *img;
-    int standbyList[4];
-    FloorStut floor_1;
-    FloorStut floor_2;
-    FloorStut floor_3;
-    FloorStut floor_4;
-} FloorsStut;*/
-
 typedef struct MeteorStu
 {
     float start_x, start_y;
@@ -297,7 +279,6 @@ typedef struct MeteorStu
     int speed_x,speed_y;
     int state;
 } MeteorStut;
-
 
 typedef struct ButtonStut
 {
@@ -367,20 +348,20 @@ typedef struct AllegroObjStut
     ScoreboardStut sb_coins;
 
     RoleStut role;
-
+    newRoleStut newRole;
     //CoinStut_old coin_old;
     CoinStut coin;
     ObscaleStut obscale;
 
     newMeteorStut newMeteor;
-    newRoleStut newRole;
+
 
     //FloorsStut floors; //newfloor
     FloorStut floor; //FTT
     MeteorStut meteor;
-    MeteorStut *meteors;
-    MeteorStut *meteors_right_drop;
-    MeteorStut *meteors_left_drop;
+    //MeteorStut *meteors;
+    //MeteorStut *meteors_right_drop;
+  //  MeteorStut *meteors_left_drop;
     int meteor_n;
 
     FontStut font_a;
@@ -394,7 +375,6 @@ typedef struct AllegroObjStut
     ButtonStut homeButton;
     ALLEGRO_KEYBOARD_STATE keyboard_state;
 } AllegroObjStut;
-
 
 typedef struct MouseStut
 {
