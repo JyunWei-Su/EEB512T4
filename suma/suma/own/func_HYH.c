@@ -90,7 +90,7 @@ void RandObscaleXY(MainDataStut *mainData,ObjectStut *obscale )
     case 2:
            obscale->start_x = DISPLAY_WIDTH +(rand()%3)*SIZE_IMG_OBSCALE_WIDTH;
            persent =rand()%3;
-           persent==0 ? obscale->start_y = (DISPLAY_HEIGHT-SIZE_IMG_FLOOR_HEIGHT)-SIZE_IMG_OBSCALE_HEIGHT :
+           persent == 0 ? obscale->start_y = (DISPLAY_HEIGHT-SIZE_IMG_FLOOR_HEIGHT)-SIZE_IMG_OBSCALE_HEIGHT :
                         obscale->start_y = 5.7*SIZE_IMG_SCOREBOARD_ICON_HEIGHT;
            break;
    }

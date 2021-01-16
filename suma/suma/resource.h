@@ -24,8 +24,7 @@
 #define PATH_IMG_COINS_ROTATE "./img/coins.png"
 #define PATH_IMG_COINS_CRASH "./img/coinCrashs.png"
 #define PATH_IMG_OBSCALE_SHINING "./img/obscale.png"
-/**下面要路徑調整**/
-#define PATH_IMG_OBSCALE_CRASH "./img/coinCrashs.png"
+#define PATH_IMG_OBSCALE_CRASH "./img/coinCrashs.png" //**下面要路徑調整
 #define PATH_IMG_CHAR "./img/char.png"
 #define PATH_IMG_PROBAR "./img/progressbar.png"
 #define PATH_IMG_MENU_BUTTON "./img/menuButton.png"
@@ -34,9 +33,11 @@
 #define PATH_IMG_HOME_BUTTON_2 "./img/homeButton_2.png"
 #define PATH_IMG_ROLE_1 "./img/role_1.png"
 #define PATH_IMG_ROLE_SEQ_RUNING "./img/comp1.png"
-#define PATH_IMG_FLOOR "./img/floor.png"
+#define PATH_IMG_FLOOR "./img/new_floor.png"
 #define PATH_IMG_METEOR "./img/meteor.png"
 #define PATH_IMG_METEOR_SEQ_RUNING "./img/meteors80.png"
+
+
 #define PATH_FNT_DFT "./DFT_TL9.TTC"
 #define PATH_SFX_BACKGROUND "./sfx/bkg.wav"
 #define PATH_SFX_BUTTON_MOVEIN "./sfx/button02a.wav"
@@ -62,8 +63,8 @@
 #define SIZE_IMG_COIN_HEIGHT 64
 #define SIZE_IMG_ROLE_WIDTH 150
 #define SIZE_IMG_ROLE_HEIGHT 200
-#define SIZE_IMG_FLOOR_WIDTH 300
-#define SIZE_IMG_FLOOR_HEIGHT 100
+#define SIZE_IMG_FLOOR_WIDTH 1600
+#define SIZE_IMG_FLOOR_HEIGHT 130
 #define SIZE_IMG_OBSCALE_WIDTH 128
 #define SIZE_IMG_OBSCALE_HEIGHT 128
 #define SIZE_IMG_METEOR_WIDTH 80
@@ -94,6 +95,9 @@
 #define OFFSET_SCOREBOARD_TEXT 320
 #define OFFSET_PROBAR_X 5
 #define OFFSET_PROBAR_Y 1
+#define OFFSET_PRONUMBER_X 600
+#define OFFSET_PRONUMBER_Y 60
+
 
 /*Role_Define*/
 #define OFFSET_ROLE_JUMP 7
@@ -116,7 +120,8 @@
 #define FILE_EXIT_ID 1 //待整併
 
 /**  enum  **/
-typedef enum GameState {
+typedef enum GameState
+{
     GAME_NONE, GAME_FINISH,
     GAME_MODE_SELECT, GAME_RULE, GAME_RANK, GAME_MENU, GAME_ABOUT,
     GAME_PLAYING_NORMAL, GAME_PLAYING_MID_BOSS,
@@ -138,6 +143,11 @@ typedef enum CoinState
 {
     COIN_NULL, COIN_CRASH, COIN_MOVEOUT, COIN_DESTORY,
 } CoinState;
+
+typedef enum FloorState
+{
+    FLOOR_ACTIVE, FLOOR_STANDBY,
+} FloorState;
 
 typedef enum ObscaleState
 {
@@ -203,6 +213,13 @@ typedef struct CoinStut
     int n;
 } CoinStut;
 
+typedef struct FloorStut
+{
+    ALLEGRO_BITMAP *img;
+    ObjectStut *objs;
+    int n;
+} FloorStut;
+
 typedef struct ObscaleStut
 {
     ALLEGRO_BITMAP *imgs_shining;
@@ -238,16 +255,25 @@ typedef struct RoleStut
     int state;
 } RoleStut;
 
+/*
 typedef struct FloorStut
 {
     float start_x, start_y;
     float end_x, end_y;
-    ALLEGRO_BITMAP *img;
     int state;
 } FloorStut;
 
+typedef struct FloorsStut
+{
+    ALLEGRO_BITMAP *img;
+    int standbyList[4];
+    FloorStut floor_1;
+    FloorStut floor_2;
+    FloorStut floor_3;
+    FloorStut floor_4;
+} FloorsStut;*/
 
-typedef struct MeteorStut
+typedef struct MeteorStu
 {
     float start_x, start_y;
     float end_x, end_y;
@@ -327,13 +353,15 @@ typedef struct AllegroObjStut
     ScoreboardStut sb_coins;
 
     RoleStut role;
-    CoinStut_old coin_old;
+
+    //CoinStut_old coin_old;
     CoinStut coin;
     ObscaleStut obscale;
 
     newMeteorStut newMeteor;
 
-    FloorStut floor;
+    //FloorsStut floors; //newfloor
+    FloorStut floor; //FTT
     MeteorStut meteor;
     MeteorStut *meteors;
     MeteorStut *meteors_right_drop;

@@ -44,7 +44,8 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 //printf("%d\n", mainData->game_state);
                 PlaySoundEffect(mainData, allegroObj);
                 ParameterOperate(mainData, allegroObj);
-                CheckGameState(mainData, allegroObj);
+                //CheckGameState(mainData, allegroObj);
+
                 DrawDisplayAndFlip(mainData, allegroObj);
                 break;
             default:
@@ -144,6 +145,7 @@ void CheckStateModeSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
         {
             mainData->game_state = GAME_PLAYING_NORMAL;
             mainData->score.chars = 1;
+            SetFloor(&allegroObj->floor);
             //CreateCoins(&allegroObj->Coin);
             switch(i)
             {

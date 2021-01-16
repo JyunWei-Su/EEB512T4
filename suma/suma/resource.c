@@ -46,13 +46,13 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     home_button_init(allegroObj);
     score_board_init(allegroObj);
     role_init(allegroObj);
-    coin_init_old(allegroObj);
+    //coin_init_old(allegroObj);
     coin_init(allegroObj);
     obscale_init(allegroObj);
 
     new_meteor_init(allegroObj);
 
-    floor_init(allegroObj);
+    floor_init(allegroObj); //FTT
     meteor_init(allegroObj);
 
 
@@ -105,13 +105,16 @@ void score_board_init(AllegroObjStut *allegroObj)
     allegroObj->probar.start_y = allegroObj->sb_coins.start_y;
 }
 
+
+/*
 void coin_init_old(AllegroObjStut *allegroObj)
 {
     allegroObj->coin_old.imgs_runing = al_load_bitmap( PATH_IMG_COINS_ROTATE );
     allegroObj->coin_old.start_x=1500;
     allegroObj->coin_old.start_y=500;
     allegroObj->coin_old.persent = 3;
-}
+}*/
+
 
 void coin_init(AllegroObjStut *allegroObj)
 {
@@ -153,11 +156,11 @@ void image_init(AllegroObjStut *allegroObj)
     allegroObj->iconImg = al_load_bitmap( PATH_IMG_ICON );
 }
 
+
+//FTT
 void floor_init(AllegroObjStut *allegroObj)
 {
-    allegroObj->floor.img = al_load_bitmap( PATH_IMG_FLOOR );
-    allegroObj->floor.start_x = DISPLAY_WIDTH;
-    allegroObj->floor.start_y = DISPLAY_HEIGHT - SIZE_IMG_FLOOR_HEIGHT;
+    if(allegroObj->floor.img == NULL) allegroObj->floor.img = al_load_bitmap( PATH_IMG_FLOOR );
 }
 
 void home_button_init(AllegroObjStut *allegroObj)
