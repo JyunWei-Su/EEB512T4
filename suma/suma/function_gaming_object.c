@@ -45,7 +45,6 @@ void DestoryCoins(CoinStut *coin)
     {
         if (nowCoin->state == COIN_DESTORY)
         {
-
             count == 0 ? coin->objs = nowCoin->nextObj : preCoin->nextObj = nowCoin->nextObj;
             free(nowCoin);
         }
@@ -67,11 +66,9 @@ void DestoryRoles(newRoleStut *role,AllegroObjStut *allegroObj)
     {
         if (nowRole->state == SUPROLE_CRASH)
         {
-
             CrashRoleXY(nowRole,allegroObj,n);
-            printf("n=%d\n",n);
-
-//nowRole->state = SUBROLE_MOVE;
+            //printf("n=%d\n",n);
+            //nowRole->state = SUBROLE_MOVE;
             // count == 0 ? role->objs = nowRole->nextObj : preRole->nextObj = nowRole->nextObj;
             // free(nowRole);
         }
@@ -145,8 +142,14 @@ void CrashRoleXY(ObjectStut *role,AllegroObjStut *allegroObj,int n)
 {
     role->start_x = allegroObj->role.start_x-150*n;
     role->start_y = allegroObj->role.start_y;
-    if(allegroObj->role.state == ROLE_JUMP){role->start_y = allegroObj->role.start_y+15*n;}
-    if(allegroObj->role.state == ROLE_MUST_DROP) {role->start_y = allegroObj->role.start_y-15*n;}
+    if(allegroObj->role.state == ROLE_JUMP)
+    {
+        role->start_y = allegroObj->role.start_y+15*n;
+    }
+    if(allegroObj->role.state == ROLE_MUST_DROP)
+    {
+        role->start_y = allegroObj->role.start_y-15*n;
+    }
 }
 void FirstRoleXY(ObjectStut *role)
 {
@@ -164,4 +167,59 @@ void CoinDebugPrint(ObjectStut *nowPtr, ObjectStut *prePtr, ObjectStut *newPtr)
     printf("--now : %x\n", nowPtr);
     printf("--pre : %x\n", prePtr);
     printf("--new : %x\n", newPtr);
+}
+
+void SetFloor(FloorStut *floor)
+{
+    if(floor->objs == NULL) CreateFloorOnce(floor);
+    else while(floor->objs->end_x < DISPLAY_WIDTH)CreateFloorOnce(floor);
+}
+
+
+void CreateFloorOnce(FloorStut *floor) //floor的新增邏輯與其他物件不同，是向前新增
+{
+    int pre_x = 0;
+    ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
+    nowPtr = floor->objs; //第一筆資料
+    if(nowPtr == NULL) //如果為空(沒有新物件)就創新的
+    {
+        newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //配一個新的
+        floor->objs = newPtr;
+    }
+    else//不為空(已有地板運作中)，在現有地板前面新增新地板(但實際會顯示在後面)
+    {
+        newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //配一個新的
+        newPtr->nextObj = nowPtr;
+        floor->objs = newPtr;
+    }
+    nowPtr = newPtr; //把new指派給now(此時now就是新物件:floor->objs)
+    printf("new:%x\n", nowPtr);
+    if(nowPtr->nextObj != NULL) pre_x = nowPtr->nextObj->end_x; //下一個物件就是前一個地板
+    RandFloorXY(nowPtr, pre_x); //設定參數
+    nowPtr->state = FLOOR_ACTIVE;
+}
+
+void DestoryFloorOnce(FloorStut *floor) //floor的新增邏輯與其他物件不同，是向前新增
+{
+    ObjectStut *nowPtr = NULL, *prePtr = NULL;
+    nowPtr = floor->objs; //第一筆資料
+    while(nowPtr != NULL)
+    {
+        if(nowPtr->nextObj == NULL && nowPtr->state == FLOOR_STANDBY)
+        {
+            printf("free:%x\n", nowPtr);
+            free(nowPtr);
+            nowPtr == floor->objs ? floor->objs = NULL : prePtr->nextObj = NULL;
+        }
+        prePtr = nowPtr;
+        nowPtr = nowPtr->nextObj;
+    }
+}
+
+void RandFloorXY(ObjectStut *floor, int pre_x)
+{
+    floor->start_x = pre_x + (float)((rand()%11+5)*10);
+    floor->end_x = floor->start_x + (float)((rand()%21+50)*10);
+    floor->start_y = DISPLAY_HEIGHT - SIZE_IMG_FLOOR_HEIGHT;
+    floor->end_y = DISPLAY_HEIGHT;
 }

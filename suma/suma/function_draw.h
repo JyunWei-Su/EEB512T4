@@ -18,10 +18,10 @@ void DrawObjBoundary(float x1, float y1, float x2, float y2);
 void DrawObjBoundary_meteor(MeteorStut meteor);
 void DrawBackground(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawMeteorAnimation(MainDataStut *mainData, AllegroObjStut *allegroObj);
-void DrawFloor(MainDataStut *mainData, AllegroObjStut *allegroObj);
+
+void DrawFloor(MainDataStut *mainData, AllegroObjStut *allegroObj); //FTT
 void DrawObjBoundary_coin_old(CoinStut_old coin);
 void DrawObjBoundary_object(ObjectStut *obj);
-
 
 void DrawCoin_old(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawCoin(MainDataStut *mainData, AllegroObjStut *allegroObj);

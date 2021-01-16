@@ -46,12 +46,13 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     home_button_init(allegroObj);
     score_board_init(allegroObj);
     role_init(allegroObj);
-    coin_init_old(allegroObj);
+    //coin_init_old(allegroObj);
     coin_init(allegroObj);
+    obscale_init(allegroObj);
 
     new_meteor_init(allegroObj);
     new_role_init(allegroObj);
-    floor_init(allegroObj);
+    floor_init(allegroObj); //FTT
     meteor_init(allegroObj);
 
 
@@ -104,13 +105,16 @@ void score_board_init(AllegroObjStut *allegroObj)
     allegroObj->probar.start_y = allegroObj->sb_coins.start_y;
 }
 
+
+/*
 void coin_init_old(AllegroObjStut *allegroObj)
 {
     allegroObj->coin_old.imgs_runing = al_load_bitmap( PATH_IMG_COINS_ROTATE );
     allegroObj->coin_old.start_x=1500;
     allegroObj->coin_old.start_y=500;
     allegroObj->coin_old.persent = 3;
-}
+}*/
+
 
 void coin_init(AllegroObjStut *allegroObj)
 {
@@ -119,12 +123,23 @@ void coin_init(AllegroObjStut *allegroObj)
     allegroObj->coin.objs = NULL;
     //這裡無須配置資料, 只需讀圖片, 配置在遊戲中配置
 }
+
 void new_role_init(AllegroObjStut *allegroObj)
 {
     if(allegroObj->newRole.imgs_runing == NULL) allegroObj->newRole.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
     allegroObj->newRole.objs = NULL;
     //if(allegroObj->newCoin.objs == NULL) allegroObj->newCoin.objs = (ObjectStut *)calloc(1, sizeof(ObjectStut));
 }
+
+
+void obscale_init(AllegroObjStut *allegroObj)
+{
+    if(allegroObj->obscale.imgs_shining == NULL) allegroObj->obscale.imgs_shining = al_load_bitmap( PATH_IMG_OBSCALE_SHINING );
+    if(allegroObj->obscale.imgs_crashing == NULL) allegroObj->obscale.imgs_crashing = al_load_bitmap( PATH_IMG_OBSCALE_CRASH );
+    allegroObj->obscale.objs = NULL;
+    //這裡無須配置資料, 只需讀圖片, 配置在遊戲中配置
+}
+
 void new_meteor_init(AllegroObjStut *allegroObj)
 {
     if(allegroObj->newMeteor.imgs_runing == NULL) allegroObj->newMeteor.imgs_runing = al_load_bitmap( PATH_IMG_METEOR_SEQ_RUNING );
@@ -149,11 +164,11 @@ void image_init(AllegroObjStut *allegroObj)
     allegroObj->iconImg = al_load_bitmap( PATH_IMG_ICON );
 }
 
+
+//FTT
 void floor_init(AllegroObjStut *allegroObj)
 {
-    allegroObj->floor.img = al_load_bitmap( PATH_IMG_FLOOR );
-    allegroObj->floor.start_x = DISPLAY_WIDTH;
-    allegroObj->floor.start_y = DISPLAY_HEIGHT - SIZE_IMG_FLOOR_HEIGHT;
+    if(allegroObj->floor.img == NULL) allegroObj->floor.img = al_load_bitmap( PATH_IMG_FLOOR );
 }
 
 void home_button_init(AllegroObjStut *allegroObj)

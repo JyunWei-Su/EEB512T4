@@ -21,5 +21,12 @@ void CrashRoleXY(ObjectStut *role,AllegroObjStut *allegroObj,int n);
 
 void CoinDebugPrint(ObjectStut *nowPtr, ObjectStut *prePtr, ObjectStut *newPtr);
 
+
+void SetFloor(FloorStut *floor);
+void CreateFloorOnce(FloorStut *floor);
+void RandFloorXY(ObjectStut *floor, int pre_x);
+void DestoryFloorOnce(FloorStut *floor);
+
+
 #endif //_GAMING_H_
 

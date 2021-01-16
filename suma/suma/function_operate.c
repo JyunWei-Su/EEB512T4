@@ -7,16 +7,6 @@ void move_background(MainDataStut *mainData, AllegroObjStut *allegroObj)
     if(allegroObj->background.x <= -SIZE_IMG_BKG_WIDTH) allegroObj->background.x += SIZE_IMG_BKG_WIDTH;
 }
 
-void move_coin_old(MainDataStut *mainData, AllegroObjStut *allegroObj)
-{
-    allegroObj->coin_old.start_x -= OFFSET_ROLE_WALK;
-    if((allegroObj->coin_old.start_x)+SIZE_IMG_COIN_WIDTH <= 0)
-    {
-        allegroObj->coin_old.start_x = DISPLAY_WIDTH;
-    }
-    end_xy_update_coin_old(&allegroObj->coin_old);
-}
-
 void move_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowCoin = NULL;
@@ -30,6 +20,7 @@ void move_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
         nowCoin = nowCoin->nextObj;
     }
 }
+
 void move_role_new(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowRole = NULL;
@@ -105,6 +96,7 @@ void role_jump(AllegroObjStut *allegroObj)
     //¨¤¦âÃä¬É¹Bºâ
     end_xy_update_role(&allegroObj->role);
 }
+
 void move_meteor_new(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowMeteor = NULL;
@@ -120,13 +112,30 @@ void move_meteor_new(MainDataStut *mainData, AllegroObjStut *allegroObj)
     }
 }
 
-void move_floor(MainDataStut *mainData, AllegroObjStut *allegroObj)
+
+void move_floor(MainDataStut *mainData, AllegroObjStut *allegroObj) //FTT
 {
-    allegroObj->floor.start_x -= OFFSET_ROLE_WALK+1;
-    end_xy_update_floor(&allegroObj->floor);
+    ObjectStut *nowFloor = NULL;
+    nowFloor = allegroObj->floor.objs;
+
+    while(nowFloor != NULL)
+    {
+        switch(nowFloor->state)
+        {
+        case FLOOR_ACTIVE:
+            nowFloor->start_x -= OFFSET_ROLE_WALK+1;
+            nowFloor->end_x -= OFFSET_ROLE_WALK+1;
+            if(nowFloor->end_x < 0) nowFloor->state = FLOOR_STANDBY;
+            break;
+        case FLOOR_STANDBY:
+            DestoryFloorOnce(&allegroObj->floor);
+            break;
+        }
+        nowFloor = nowFloor->nextObj;
+    }
 }
 
-void CrachCheck(MainDataStut *mainData, AllegroObjStut *allegroObj)
+void CrachCheck(MainDataStut *mainData, AllegroObjStut *allegroObj) //FTT
 {
     /*bool crash;
     crash = ObjCrashCheck(allegroObj->role.start_x, allegroObj->role.start_y, allegroObj->role.end_x, allegroObj->role.end_y,
@@ -137,7 +146,8 @@ void CrachCheck(MainDataStut *mainData, AllegroObjStut *allegroObj)
     CrachCheck_role_role(mainData, allegroObj);
 }
 
-void CrachCheckForFloor(MainDataStut *mainData, AllegroObjStut *allegroObj)
+void CrachCheckForFloor(MainDataStut *mainData, AllegroObjStut *allegroObj) //FTT
+
 {
     /*bool crash;
     crash = FloorCrashCheck(allegroObj->role.start_x, allegroObj->role.start_y, allegroObj->role.end_x, allegroObj->role.end_y,
@@ -214,28 +224,32 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
     {
     case GAME_PLAYING_NORMAL:
         move_background(mainData, allegroObj);
-        move_coin_old(mainData, allegroObj);
+        //move_coin_old(mainData, allegroObj);
         move_coin(mainData, allegroObj);
         move_role_new(mainData, allegroObj);
         move_meteor_new(mainData, allegroObj);
-        move_floor(mainData, allegroObj);
-        /* ¶i«×±ø */
+        move_obscale(mainData,allegroObj);
+        move_floor(mainData, allegroObj); //FTT
+        SetFloor(&allegroObj->floor); //½T»{¬O§_»Ý­n·s¼W¦aªOorÄÀ©ñ¦aªO¿
+/* ¶i«×±ø */
+
         if(mainData->game_percent < 10000) mainData->game_percent += 3;
 
         /* Role */
         role_jump(allegroObj);
         //meteor_drop(allegroObj);
-
         /* Check Crash */
         CrachCheck(mainData, allegroObj);
-        //CrachCheckForFloor(mainData, allegroObj);
+        //CrachCheckForFloor(mainData, allegroObj); //FTT
         DoCrash(mainData, allegroObj);
+        CrashCheck_role_obscale(mainData, allegroObj);
         break;
 
     case GAME_PLAYING_MID_BOSS:
         move_background(mainData, allegroObj);
-        move_floor(mainData, allegroObj);
-        move_coin_old(mainData, allegroObj);
+        move_floor(mainData, allegroObj); //FTT
+        //move_coin_old(mainData, allegroObj);
+
         /* Role*/
         role_jump(allegroObj);
         meteor_drop(allegroObj);
@@ -243,8 +257,8 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
     case GAME_PLAYING_FINAL_BOSS:
         move_background(mainData, allegroObj);
-        move_floor(mainData, allegroObj);
-        move_coin_old(mainData, allegroObj);
+        move_floor(mainData, allegroObj); //FTT
+        //move_coin_old(mainData, allegroObj);
 
         role_jump(allegroObj);
         meteor_drop(allegroObj);
@@ -299,12 +313,14 @@ void end_xy_update_coin_old(CoinStut_old *coin_old)
     coin_old->end_y = coin_old->start_y + SIZE_IMG_COIN_HEIGHT;
 }
 
-void end_xy_update_floor(FloorStut *floor)
+/*
+void end_xy_update_floor(FloorStut *floor) //FTT
 //­pºâ¦aªOÃä¬É
+>>>>>>> fdfe034499706891407f0816c48c59a1b6d54626
 {
     floor->end_x = floor->start_x + SIZE_IMG_FLOOR_WIDTH;
     floor->end_y = floor->start_y + SIZE_IMG_FLOOR_HEIGHT;
-}
+}*/
 
 void end_xy_update_object(ObjectStut *obj, int size_w, int size_h)
 //­pºâª«¥óÃä¬É(·s)
@@ -357,6 +373,7 @@ bool ObjCrashCheck_sub(float start_x1,float start_y1,float end_x1,float end_y1,f
     else return 0;
 }
 
+//FTT
 bool FloorCrashCheck(float start_char_x,float start_char_y,float end_char_x,float end_char_y,float start_floor_x,float start_floor_y,float end_floor_x,float end_floor_y)
 {
     start_end_change(&start_char_x,&end_char_x);
@@ -369,6 +386,7 @@ bool FloorCrashCheck(float start_char_x,float start_char_y,float end_char_x,floa
     return FloorCrashCheck_sub(start_char_x, start_char_y, end_char_x, end_char_y,start_floor_x, start_floor_y, end_floor_x, end_floor_y);
 }
 
+//FTT
 bool FloorCrashCheck_sub(float start_char_x,float start_char_y,float end_char_x,float end_char_y,float start_floor_x,float start_floor_y,float end_floor_x,float end_floor_y)
 {
     float Ly = end_char_y - start_floor_y;
@@ -378,3 +396,4 @@ bool FloorCrashCheck_sub(float start_char_x,float start_char_y,float end_char_x,
     else if ( (start_char_x <=end_floor_x && end_floor_x <=end_char_x) && (start_char_y + Ly<= start_floor_y)) return 1;
     else return 0;
 }
+

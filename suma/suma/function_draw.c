@@ -31,6 +31,7 @@ void DrawScoreboard(MainDataStut *mainData, AllegroObjStut *allegroObj)
     al_draw_bitmap(allegroObj->probar.img, allegroObj->probar.start_x, allegroObj-> probar.start_y, 0);
     float n = mainData->game_percent*30*1.0/10000;
     al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->probar.start_x+OFFSET_PROBAR_X, allegroObj->probar.start_y-OFFSET_PROBAR_Y, ALLEGRO_ALIGN_LEFT, "%-*.*s", 30, (int)(n), "||||||||||||||||||||||||||||||");
+    al_draw_textf(allegroObj->font_b.font24, COLOR_SCORE, allegroObj->probar.start_x+OFFSET_PRONUMBER_X, allegroObj->probar.start_y+OFFSET_PRONUMBER_Y, ALLEGRO_ALIGN_RIGHT, "0%%                50%%                100%%");
     al_draw_bitmap(allegroObj->sb_coins.img, allegroObj->sb_coins.start_x, allegroObj->sb_coins.start_y, 0);
     al_draw_bitmap(allegroObj->sb_chars.img, allegroObj->sb_chars.start_x, allegroObj->sb_chars.start_y, 0);
     al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->sb_coins.end_x, allegroObj->sb_coins.start_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.coins);
@@ -202,12 +203,30 @@ void DrawBackground(MainDataStut *mainData, AllegroObjStut *allegroObj)
     al_draw_bitmap(allegroObj->background.img, allegroObj->background.x, 0, 0);
 }
 
-void DrawFloor(MainDataStut *mainData, AllegroObjStut *allegroObj)
+
+void DrawFloor(MainDataStut *mainData, AllegroObjStut *allegroObj) //FTT
 {
-    al_draw_bitmap(allegroObj->floor.img, allegroObj->floor.start_x, allegroObj->floor.start_y, 0);
-    DrawObjBoundary(allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
+
+    ObjectStut *nowFloor = NULL;
+    nowFloor = allegroObj->floor.objs;
+
+    while(nowFloor != NULL)
+    {
+        switch(nowFloor->state)
+        {
+        case FLOOR_ACTIVE:
+            al_draw_bitmap_region(allegroObj->floor.img, 0, 0, nowFloor->end_x - nowFloor->start_x, SIZE_IMG_FLOOR_HEIGHT
+                                  , nowFloor->start_x, nowFloor->start_y, 0);
+            DrawObjBoundary_object(nowFloor);
+
+            break;
+        }
+        nowFloor = nowFloor->nextObj;
+    }
+
 }
 
+/*
 void DrawCoin_old(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     if(allegroObj->coin_old.imgCount % (int)(FPS*TIME_PER_IMG_COIN) == 0)
@@ -220,7 +239,7 @@ void DrawCoin_old(MainDataStut *mainData, AllegroObjStut *allegroObj)
                           , allegroObj->coin_old.start_x, allegroObj->coin_old.start_y, 0);
     allegroObj->coin_old.imgCount += 1;
     DrawObjBoundary_coin_old(allegroObj->coin_old);
-}
+}*/
 
 void DrawCoin(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
@@ -245,9 +264,9 @@ void DrawCoin(MainDataStut *mainData, AllegroObjStut *allegroObj)
             nowCoin = nowCoin->nextObj;
             break;
         }
-
     }
 }
+
 void newDrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowRole = NULL;
@@ -269,6 +288,7 @@ void newDrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
         nowRole = nowRole->nextObj;
     }
 }
+
 void newDrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowMeteor = NULL;
@@ -323,12 +343,13 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         break;
     case GAME_PLAYING_NORMAL:
         DrawBackground(mainData, allegroObj);
+        DrawFloor(mainData, allegroObj); //FTT
         DrawRole(mainData, allegroObj);
-        DrawCoin_old(mainData, allegroObj);
+        newDrawRole(mainData, allegroObj);
+        //DrawCoin_old(mainData, allegroObj);
         DrawCoin(mainData, allegroObj);
         newDrawMeteor(mainData, allegroObj);
-        newDrawRole(mainData, allegroObj);
-        DrawFloor(mainData, allegroObj);
+        DrawObscale(mainData, allegroObj);
         DrawScoreboard(mainData, allegroObj);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
         break;
@@ -336,7 +357,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         DrawBackground(mainData, allegroObj);
         DrawRole(mainData, allegroObj);
         DrawCoin(mainData, allegroObj);
-        DrawFloor(mainData, allegroObj);
+        DrawFloor(mainData, allegroObj); //FTT
         DrawScoreboard(mainData, allegroObj);
         DrawMeteor(mainData, allegroObj);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
@@ -345,7 +366,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         DrawBackground(mainData, allegroObj);
         DrawRole(mainData, allegroObj);
         DrawCoin(mainData, allegroObj);
-        DrawFloor(mainData, allegroObj);
+        DrawFloor(mainData, allegroObj); //FTT
         DrawScoreboard(mainData, allegroObj);
         DrawMeteorAnimation(mainData, allegroObj);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
@@ -369,11 +390,13 @@ void DrawObjBoundary_meteor(MeteorStut meteor)
     DrawObjBoundary(meteor.start_x, meteor.start_y, meteor.end_x, meteor.end_y);
 }
 
+/*
 void DrawObjBoundary_coin_old(CoinStut_old coin)
 //畫金幣邊界
 {
     DrawObjBoundary(coin.start_x, coin.start_y, coin.end_x, coin.end_y);
-}
+}*/
+
 
 void DrawObjBoundary_object(ObjectStut *obj)
 //畫物件邊界(新)
