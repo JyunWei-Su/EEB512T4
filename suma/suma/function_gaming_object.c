@@ -3,19 +3,19 @@
 
 void CreateCoins(CoinStut *coin)
 {
-    int count = 0, n = 9; //ç”¢ç”Ÿnå€‹ç‰©ä»¶
+    int count = 0, n = 9; //²£¥Ín­Óª«¥ó
     ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
-    nowPtr = coin->objs; //ç¬¬ä¸€ç­†è³‡æ–™
+    nowPtr = coin->objs; //²Ä¤@µ§¸ê®Æ
     while(count < n)
     {
-        if(nowPtr == NULL) //å¦‚æžœç‚ºç©º(æ²’æœ‰æ–°ç‰©ä»¶)å°±å‰µæ–°çš„
+        if(nowPtr == NULL) //¦pªG¬°ªÅ(¨S¦³·sª«¥ó)´N³Ð·sªº
         {
-            newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //é…ä¸€å€‹æ–°çš„
-            nowPtr = newPtr; //æŠŠnewæŒ‡æ´¾çµ¦now(æ­¤æ™‚nowå°±æ˜¯æ–°ç‰©ä»¶), å’Œpre.next(æ‡‰ç•¶è¦æ˜¯now)
+            newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //°t¤@­Ó·sªº
+            nowPtr = newPtr; //§ânew«ü¬£µ¹now(¦¹®Énow´N¬O·sª«¥ó), ©Mpre.next(À³·í­n¬Onow)
             count == 0 ? coin->objs = newPtr : prePtr->nextObj = newPtr;
         }
-        RandCoinXY(nowPtr); //è¨­å®šåƒæ•¸
-        prePtr = nowPtr; //è½‰å¾€ä¸‹ä¸€ç‰©ä»¶
+        RandCoinXY(nowPtr); //³]©w°Ñ¼Æ
+        prePtr = nowPtr; //Âà©¹¤U¤@ª«¥ó
         nowPtr = nowPtr->nextObj;
         count += 1;
     }
@@ -23,7 +23,7 @@ void CreateCoins(CoinStut *coin)
 
 int ScoreAdd_Coins(CoinStut *coin)
 {
-    int count = 0; //nowCoinå‰æ–¹æœ‰å¹¾ç­†coin
+    int count = 0; //nowCoin«e¤è¦³´Xµ§coin
     ObjectStut *nowCoin = NULL;
     nowCoin = coin->objs;
 
@@ -37,7 +37,7 @@ int ScoreAdd_Coins(CoinStut *coin)
 
 void DestoryCoins(CoinStut *coin)
 {
-    int count = 0;//nowCoinå‰æ–¹æœ‰å¹¾ç­†coin
+    int count = 0;//nowCoin«e¤è¦³´Xµ§coin
     ObjectStut *nowCoin = NULL, *preCoin = NULL;
     nowCoin = coin->objs;
 
@@ -57,22 +57,74 @@ void DestoryCoins(CoinStut *coin)
         nowCoin = nowCoin->nextObj;
     }
 }
+void DestoryRoles(newRoleStut *role,AllegroObjStut *allegroObj)
+{
+    int count = 0,n=1;//nowCoin«e¤è¦³´Xµ§coin
+    ObjectStut *nowRole = NULL, *preRole = NULL;
+    nowRole = role->objs;
 
+    while(nowRole != NULL)
+    {
+        if (nowRole->state == SUPROLE_CRASH)
+        {
+
+            CrashRoleXY(nowRole,allegroObj,n);
+            printf("n=%d\n",n);
+
+//nowRole->state = SUBROLE_MOVE;
+            // count == 0 ? role->objs = nowRole->nextObj : preRole->nextObj = nowRole->nextObj;
+            // free(nowRole);
+        }
+        else
+        {
+            preRole = nowRole;
+            count += 1;
+        }
+        nowRole = nowRole->nextObj;
+        n+=1;
+    }
+}
 void CreateMeteors(newMeteorStut *meteor)
 {
-    int count = 0, n = rand()%30+15; //ç”¢ç”Ÿnå€‹ç‰©ä»¶
+    int count = 0, n = rand()%30+15; //²£¥Ín­Óª«¥ó
     ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
-    nowPtr = meteor->objs; //ç¬¬ä¸€ç­†è³‡æ–™
-    while(count < n) //èˆŠè³‡æ–™å¯èƒ½è¦destroy
+    nowPtr = meteor->objs; //²Ä¤@µ§¸ê®Æ
+    while(count < n) //ÂÂ¸ê®Æ¥i¯à­ndestroy
     {
-        if(nowPtr == NULL) //å¦‚æžœç‚ºç©º(æ²’æœ‰æ–°ç‰©ä»¶)å°±å‰µæ–°çš„
+        if(nowPtr == NULL) //¦pªG¬°ªÅ(¨S¦³·sª«¥ó)´N³Ð·sªº
         {
-            newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //é…ä¸€å€‹æ–°çš„
-            nowPtr = newPtr; //æŠŠnewæŒ‡æ´¾çµ¦now(æ­¤æ™‚nowå°±æ˜¯æ–°ç‰©ä»¶), å’Œpre.next(æ‡‰ç•¶è¦æ˜¯now)
+            newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //°t¤@­Ó·sªº
+            nowPtr = newPtr; //§ânew«ü¬£µ¹now(¦¹®Énow´N¬O·sª«¥ó), ©Mpre.next(À³·í­n¬Onow)
             count == 0 ? meteor->objs = newPtr : prePtr->nextObj = newPtr;
         }
-        RandMeteorXY(nowPtr); //è¨­å®šåƒæ•¸
-        prePtr = nowPtr; //è½‰å¾€ä¸‹ä¸€ç‰©ä»¶
+        RandMeteorXY(nowPtr); //³]©w°Ñ¼Æ
+        prePtr = nowPtr; //Âà©¹¤U¤@ª«¥ó
+        nowPtr = nowPtr->nextObj;
+        count += 1;
+    }
+}
+void CreateRoles(newRoleStut *role)
+{
+    int count = 0, n = 5; //²£¥Ín­Óª«¥ó
+    ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
+    nowPtr = role->objs; //²Ä¤@µ§¸ê®Æ
+    while(count < n) //ÂÂ¸ê®Æ¥i¯à­ndestroy
+    {
+        if(nowPtr == NULL) //¦pªG¬°ªÅ(¨S¦³·sª«¥ó)´N³Ð·sªº
+        {
+            newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //°t¤@­Ó·sªº
+            nowPtr = newPtr; //§ânew«ü¬£µ¹now(¦¹®Énow´N¬O·sª«¥ó), ©Mpre.next(À³·í­n¬Onow)
+            count == 0 ? role->objs = newPtr : prePtr->nextObj = newPtr;
+        }
+        if(count == 0)
+        {
+            FirstRoleXY(nowPtr);
+        }
+        else
+        {
+            RandRoleXY(nowPtr,count+1);    //³]©w°Ñ¼Æ
+        }
+        prePtr = nowPtr; //Âà©¹¤U¤@ª«¥ó
         nowPtr = nowPtr->nextObj;
         count += 1;
     }
@@ -84,7 +136,23 @@ void RandMeteorXY(ObjectStut *meteor)
     meteor->speed_x = (float)(rand()%300+200)/100;
     meteor->speed_y = (float)(rand()%500+500)/100;
 }
-
+void RandRoleXY(ObjectStut *role,int n)
+{
+    role->start_x = 200*n;
+    role->start_y = 300;
+}
+void CrashRoleXY(ObjectStut *role,AllegroObjStut *allegroObj,int n)
+{
+    role->start_x = allegroObj->role.start_x-150*n;
+    role->start_y = allegroObj->role.start_y;
+    if(allegroObj->role.state == ROLE_JUMP){role->start_y = allegroObj->role.start_y+15*n;}
+    if(allegroObj->role.state == ROLE_MUST_DROP) {role->start_y = allegroObj->role.start_y-15*n;}
+}
+void FirstRoleXY(ObjectStut *role)
+{
+    role->start_x = 1300;
+    role->start_y = 600;
+}
 void RandCoinXY(ObjectStut *coin)
 {
     coin->start_x = (rand() % (DISPLAY_WIDTH/SIZE_IMG_COIN_WIDTH)) * SIZE_IMG_COIN_WIDTH + DISPLAY_WIDTH;

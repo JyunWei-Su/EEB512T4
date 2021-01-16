@@ -50,7 +50,7 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     coin_init(allegroObj);
 
     new_meteor_init(allegroObj);
-
+    new_role_init(allegroObj);
     floor_init(allegroObj);
     meteor_init(allegroObj);
 
@@ -119,7 +119,12 @@ void coin_init(AllegroObjStut *allegroObj)
     allegroObj->coin.objs = NULL;
     //這裡無須配置資料, 只需讀圖片, 配置在遊戲中配置
 }
-
+void new_role_init(AllegroObjStut *allegroObj)
+{
+    if(allegroObj->newRole.imgs_runing == NULL) allegroObj->newRole.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
+    allegroObj->newRole.objs = NULL;
+    //if(allegroObj->newCoin.objs == NULL) allegroObj->newCoin.objs = (ObjectStut *)calloc(1, sizeof(ObjectStut));
+}
 void new_meteor_init(AllegroObjStut *allegroObj)
 {
     if(allegroObj->newMeteor.imgs_runing == NULL) allegroObj->newMeteor.imgs_runing = al_load_bitmap( PATH_IMG_METEOR_SEQ_RUNING );
@@ -166,7 +171,7 @@ void role_init(AllegroObjStut *allegroObj)
 {
     allegroObj->role.img = al_load_bitmap( PATH_IMG_ROLE_1 );
     allegroObj->role.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
-    allegroObj->role.start_x=200;
+    allegroObj->role.start_x=800;
     allegroObj->role.start_y=700;
     allegroObj->role.state = ROLE_NULL;
 }

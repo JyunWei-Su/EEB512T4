@@ -25,12 +25,12 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 CheckMouseMove(mainData, allegroObj);
                 break;
             case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-                if(!(allegroObj->events.mouse.button&1)) break; //ä¸æ˜¯æŒ‰ä¸‹å·¦éµå°±å¿½ç•¥
+                if(!(allegroObj->events.mouse.button&1)) break; //¤£¬O«ö¤U¥ªÁä´N©¿²¤
                 mainData->mouse.isClick = 1;
                 CheckMouseClick(mainData, allegroObj);
                 break;
             case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-                if(!(allegroObj->events.mouse.button&1)) break; //ä¸æ˜¯æŒ‰ä¸‹å·¦éµå°±å¿½ç•¥
+                if(!(allegroObj->events.mouse.button&1)) break; //¤£¬O«ö¤U¥ªÁä´N©¿²¤
                 mainData->mouse.isClick = 0;
                 CheckMouseClick(mainData, allegroObj);
                 break;
@@ -42,7 +42,7 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 break;
             case ALLEGRO_EVENT_TIMER:
                 //printf("%d\n", mainData->game_state);
-                PlaySoundEffect(mainData, allegroObj);
+               // PlaySoundEffect(mainData, allegroObj);
                 ParameterOperate(mainData, allegroObj);
                 CheckGameState(mainData, allegroObj);
                 DrawDisplayAndFlip(mainData, allegroObj);
@@ -96,13 +96,13 @@ void CheckStateMenuSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 mainData->game_state = GAME_ABOUT;
                 break;
             }
-            allegroObj->menuButton[i].isSelected = 0; //åˆ‡æ›ç‹€æ…‹å¾Œè¦é‡è¨­
+            allegroObj->menuButton[i].isSelected = 0; //¤Á´«ª¬ºA«á­n­«³]
         }
     }
 }
 
 void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
-//äººç‰©è·³å‹•æ”¹ç”¨TIMERåµæ¸¬éµç›¤ï¼Œæ‰ä¸æœƒå¡é “ï¼Œå…¶ä»–ç…§å¸¸
+//¤Hª«¸õ°Ê§ï¥ÎTIMER°»´úÁä½L¡A¤~¤£·|¥d¹y¡A¨ä¥L·Ó±`
 {
     int state = mainData->game_state;
     switch(state)
@@ -125,6 +125,10 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
             break;
         case ALLEGRO_KEY_C:
             if(mainData->game_state == GAME_PLAYING_NORMAL) CreateCoins(&allegroObj->coin);
+            break;
+        case ALLEGRO_KEY_R:
+            if(mainData->game_state == GAME_PLAYING_NORMAL) CreateRoles(&allegroObj->newRole);
+            break;
         default:
             break;
         }
@@ -154,7 +158,7 @@ void CheckStateModeSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 mainData->game_mode = MODE_HARD;
                 break;
             }
-            allegroObj->modeButton[i].isSelected = 0; //åˆ‡æ›ç‹€æ…‹å¾Œè¦é‡è¨­
+            allegroObj->modeButton[i].isSelected = 0; //¤Á´«ª¬ºA«á­n­«³]
         }
     }
 }
@@ -163,7 +167,7 @@ void CheckMouseClick(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int state = mainData->game_state;
     //int i;
-    if(mainData->mouse.isClick == 1)  //æŒ‰ä¸‹
+    if(mainData->mouse.isClick == 1)  //«ö¤U
     {
 
     }
@@ -179,14 +183,14 @@ void CheckMouseClick(MainDataStut *mainData, AllegroObjStut *allegroObj)
             if(allegroObj->homeButton.isSelected)
             {
                 mainData->game_state = GAME_MENU;
-                allegroObj->homeButton.isSelected = 0; //åˆ‡æ›ç‹€æ…‹å¾Œè¦é‡è¨­
+                allegroObj->homeButton.isSelected = 0; //¤Á´«ª¬ºA«á­n­«³]
             }
             break;
         case GAME_RULE:
             if(allegroObj->homeButton.isSelected)
             {
                 mainData->game_state = GAME_MENU;
-                allegroObj->homeButton.isSelected = 0; //åˆ‡æ›ç‹€æ…‹å¾Œè¦é‡è¨­
+                allegroObj->homeButton.isSelected = 0; //¤Á´«ª¬ºA«á­n­«³]
             }
             break;
         case GAME_RANK:
@@ -194,14 +198,14 @@ void CheckMouseClick(MainDataStut *mainData, AllegroObjStut *allegroObj)
             {
                 mainData->game_state = GAME_MENU;
                 mainData->scoreFileData->fileIsRead = 0;
-                allegroObj->homeButton.isSelected = 0; //åˆ‡æ›ç‹€æ…‹å¾Œè¦é‡è¨­
+                allegroObj->homeButton.isSelected = 0; //¤Á´«ª¬ºA«á­n­«³]
             }
             break;
         case GAME_ABOUT:
             if(allegroObj->homeButton.isSelected)
             {
                 mainData->game_state = GAME_MENU;
-                allegroObj->homeButton.isSelected = 0; //åˆ‡æ›ç‹€æ…‹å¾Œè¦é‡è¨­
+                allegroObj->homeButton.isSelected = 0; //¤Á´«ª¬ºA«á­n­«³]
             }
             break;
         default:
@@ -242,7 +246,7 @@ void CheckMouseMoveOnHomeButton(MainDataStut *mainData, AllegroObjStut *allegroO
     if(allegroObj->homeButton.start_x <= mainData->mouse.x && mainData->mouse.x <= allegroObj->homeButton.end_x
             && allegroObj->homeButton.start_y <= mainData->mouse.y && mainData->mouse.y <= allegroObj->homeButton.end_y)
     {
-        if(allegroObj->homeButton.isSelected == 0) allegroObj->sound.buttonMoveIn.readyToPlay = 1; //å‚³éžæ’­æ”¾éŸ³æ•ˆçš„åƒæ•¸
+        if(allegroObj->homeButton.isSelected == 0) allegroObj->sound.buttonMoveIn.readyToPlay = 1; //¶Ç»¼¼½©ñ­µ®Äªº°Ñ¼Æ
         allegroObj->homeButton.isSelected = 1;
     }
     else
@@ -258,7 +262,7 @@ void CheckMouseMoveOnMenuButton(MainDataStut *mainData, AllegroObjStut *allegroO
         if(allegroObj->menuButton[i].start_x <= mainData->mouse.x && mainData->mouse.x <= allegroObj->menuButton[i].end_x
                 && allegroObj->menuButton[i].start_y <= mainData->mouse.y && mainData->mouse.y <= allegroObj->menuButton[i].end_y)
         {
-            if(allegroObj->menuButton[i].isSelected == 0) allegroObj->sound.buttonMoveIn.readyToPlay = 1; //å‚³éžæ’­æ”¾éŸ³æ•ˆçš„åƒæ•¸
+            if(allegroObj->menuButton[i].isSelected == 0) allegroObj->sound.buttonMoveIn.readyToPlay = 1; //¶Ç»¼¼½©ñ­µ®Äªº°Ñ¼Æ
             allegroObj->menuButton[i].isSelected = 1;
         }
         else
@@ -274,7 +278,7 @@ void CheckMouseMoveOnModeButton(MainDataStut *mainData, AllegroObjStut *allegroO
         if(allegroObj->modeButton[i].start_x <= mainData->mouse.x && mainData->mouse.x <= allegroObj->modeButton[i].end_x
                 && allegroObj->modeButton[i].start_y <= mainData->mouse.y && mainData->mouse.y <= allegroObj->modeButton[i].end_y)
         {
-            if(allegroObj->modeButton[i].isSelected == 0) allegroObj->sound.buttonMoveIn.readyToPlay = 1; //å‚³éžæ’­æ”¾éŸ³æ•ˆçš„åƒæ•¸
+            if(allegroObj->modeButton[i].isSelected == 0) allegroObj->sound.buttonMoveIn.readyToPlay = 1; //¶Ç»¼¼½©ñ­µ®Äªº°Ñ¼Æ
             allegroObj->modeButton[i].isSelected = 1;
         }
         else

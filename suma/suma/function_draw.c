@@ -119,7 +119,7 @@ void DrawAbout(MainDataStut *mainData, AllegroObjStut *allegroObj)
 }
 
 void DrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
-//Roleå‹•ç•«
+//Role°Êµe
 {
     switch(allegroObj->role.state)
     {
@@ -142,7 +142,7 @@ void DrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
 }
 
 void DrawMeteorAnimation(MainDataStut *mainData, AllegroObjStut *allegroObj)
-//éš•çŸ³å‹•ç•«
+//¹k¥Û°Êµe
 {
     int i;
     int state = mainData->game_state;
@@ -168,7 +168,7 @@ void DrawMeteorAnimation(MainDataStut *mainData, AllegroObjStut *allegroObj)
 }
 
 void DrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
-//éš•çŸ³
+//¹k¥Û
 {
     int i;
     int state = mainData->game_state;
@@ -179,13 +179,13 @@ void DrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
     case GAME_PLAYING_MID_BOSS:
         for (i = 0; i < allegroObj->meteor_n; i++)
         {
-            //åž‚ç›´éš•çŸ³
+            //««ª½¹k¥Û
             al_draw_bitmap(allegroObj->meteors[i].img, allegroObj->meteors[i].start_x, allegroObj->meteors[i].start_y, 0);
             DrawObjBoundary_meteor(allegroObj->meteors[i]);
-            //å³ä¸‹éš•çŸ³
+            //¥k¤U¹k¥Û
             al_draw_bitmap(allegroObj->meteors_right_drop[i].img, allegroObj->meteors_right_drop[i].start_x, allegroObj->meteors_right_drop[i].start_y, 0);
             DrawObjBoundary_meteor(allegroObj->meteors_right_drop[i]);
-            //å·¦ä¸‹éš•çŸ³
+            //¥ª¤U¹k¥Û
             al_draw_bitmap(allegroObj->meteors_left_drop[i].img, allegroObj->meteors_left_drop[i].start_x, allegroObj->meteors_left_drop[i].start_y, 0);
             DrawObjBoundary_meteor(allegroObj->meteors_left_drop[i]);
         }
@@ -248,6 +248,27 @@ void DrawCoin(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
     }
 }
+void newDrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    ObjectStut *nowRole = NULL;
+    nowRole = allegroObj->newRole.objs;
+
+    while(nowRole != NULL)
+    {
+        if(nowRole->imgCount % (int)(FPS*TIME_PER_IMG_ROLE) == 0)
+        {
+            nowRole->imgCount = 0;
+            nowRole->imgNow += 1;
+            if(nowRole->imgNow % NUM_IMG_ROLE_SEQUENCE == 0) nowRole->imgNow = 0;
+        }
+        al_draw_bitmap_region(allegroObj->newRole.imgs_runing, SIZE_IMG_ROLE_WIDTH*nowRole->imgNow, 0, SIZE_IMG_ROLE_WIDTH, SIZE_IMG_ROLE_HEIGHT
+                              , nowRole->start_x, nowRole->start_y, 0);
+        DrawObjBoundary_object(nowRole);
+
+        nowRole->imgCount += 1;
+        nowRole = nowRole->nextObj;
+    }
+}
 void newDrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowMeteor = NULL;
@@ -283,7 +304,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
     switch(state)
     {
     case GAME_PAUSE:
-        DrawPause(mainData, allegroObj); //ç–ŠåŠ ä¸ŠåŽ»
+        DrawPause(mainData, allegroObj); //Å|¥[¤W¥h
         break;
     case GAME_MENU:
         DrawMenu(mainData, allegroObj);
@@ -306,6 +327,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         DrawCoin_old(mainData, allegroObj);
         DrawCoin(mainData, allegroObj);
         newDrawMeteor(mainData, allegroObj);
+        newDrawRole(mainData, allegroObj);
         DrawFloor(mainData, allegroObj);
         DrawScoreboard(mainData, allegroObj);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
@@ -335,26 +357,26 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
 }
 
 void DrawObjBoundary(float x1, float y1, float x2, float y2)
-//ç•«é•·æ–¹å½¢é‚Šç•Œ
+//µeªø¤è§ÎÃä¬É
 {
     //printf("x1: %f, y1: %f\nx2: %f, y2: %f\n", x1, x2, y1, y2);
     al_draw_rectangle(x1, y1, x2, y2, al_map_rgb(255, 0, 0), 0);
 }
 
 void DrawObjBoundary_meteor(MeteorStut meteor)
-//ç•«éš•çŸ³é‚Šç•Œ
+//µe¹k¥ÛÃä¬É
 {
     DrawObjBoundary(meteor.start_x, meteor.start_y, meteor.end_x, meteor.end_y);
 }
 
 void DrawObjBoundary_coin_old(CoinStut_old coin)
-//ç•«é‡‘å¹£é‚Šç•Œ
+//µeª÷¹ôÃä¬É
 {
     DrawObjBoundary(coin.start_x, coin.start_y, coin.end_x, coin.end_y);
 }
 
 void DrawObjBoundary_object(ObjectStut *obj)
-//ç•«ç‰©ä»¶é‚Šç•Œ(æ–°)
+//µeª«¥óÃä¬É(·s)
 {
     DrawObjBoundary(obj->start_x, obj->start_y, obj->end_x, obj->end_y);
 }

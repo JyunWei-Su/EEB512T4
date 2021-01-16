@@ -30,6 +30,81 @@ void move_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
         nowCoin = nowCoin->nextObj;
     }
 }
+void move_role_new(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    ObjectStut *nowRole = NULL;
+    nowRole = allegroObj->newRole.objs;
+    while(nowRole != NULL)
+    {
+        if( nowRole->state == SUBROLE_MOVE){
+        /*if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W))
+        {
+            if(allegroObj->role.state != ROLE_MUST_DROP) nowRole->start_y-= OFFSET_ROLE_JUMP;
+            if(allegroObj->role.state == ROLE_NULL) allegroObj->role.state = ROLE_JUMP;
+
+        }
+        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_D))
+            nowRole->start_x += OFFSET_ROLE_JUMP-rand()%5;
+        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_A))
+            nowRole->start_x -=OFFSET_ROLE_JUMP-rand()%5;
+        if(nowRole->start_y <= MAX_ROLE_Y ) allegroObj->role.state = ROLE_MUST_DROP;
+        if(allegroObj->role.state == ROLE_MUST_DROP) Gravity(allegroObj);
+        if(nowRole->start_y >= MIN_ROLE_Y)
+        {
+            nowRole->start_y = MIN_ROLE_Y;
+            allegroObj->role.state = ROLE_NULL;
+        }
+        if(nowRole->start_x < MIN_ROLE_X)
+            nowRole->start_x = MIN_ROLE_X;
+        if(nowRole->start_x > MAX_ROLE_X)
+            nowRole->start_x= MAX_ROLE_X;
+        //nowRole->start_x -= 2;
+        //nowRole->start_y += 0;
+        nowRole->start_y += GRAVITY;*/}
+        if((nowRole->start_x) + SIZE_IMG_ROLE_WIDTH <= 0) nowRole->start_x = DISPLAY_WIDTH;
+        end_xy_update_object(nowRole, SIZE_IMG_ROLE_WIDTH, SIZE_IMG_ROLE_HEIGHT);
+        nowRole = nowRole->nextObj;
+
+    }
+
+}
+
+void role_jump(AllegroObjStut *allegroObj)
+{
+    if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W))
+    {
+        if(allegroObj->role.state != ROLE_MUST_DROP) allegroObj->role.start_y -= OFFSET_ROLE_JUMP;
+        if(allegroObj->role.state == ROLE_NULL) allegroObj->role.state = ROLE_JUMP;
+    }
+    if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_S))  //±a»P­«¤O­×¥¿
+    {
+        allegroObj->role.start_y += OFFSET_ROLE_JUMP;
+        if(allegroObj->role.state == ROLE_JUMP) allegroObj->role.state = ROLE_DROP;
+    }
+    if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_D))
+        allegroObj->role.start_x += OFFSET_ROLE_JUMP;
+    if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_A))
+        allegroObj->role.start_x -=OFFSET_ROLE_JUMP;
+
+    //Ãä¬É
+    if(allegroObj->role.start_y <= MAX_ROLE_Y ) allegroObj->role.state = ROLE_MUST_DROP;
+    //if(allegroObj->role.state == ROLE_MUST_DROP) Gravity(allegroObj);
+
+    if(allegroObj->role.start_y >= MIN_ROLE_Y)
+    {
+        allegroObj->role.start_y = MIN_ROLE_Y;
+        allegroObj->role.state = ROLE_NULL;
+    }
+    if(allegroObj->role.start_x < MIN_ROLE_X)
+        allegroObj->role.start_x = MIN_ROLE_X;
+    if(allegroObj->role.start_x > MAX_ROLE_X)
+        allegroObj->role.start_x = MAX_ROLE_X;
+
+    Gravity(allegroObj);
+
+    //¨¤¦âÃä¬É¹Bºâ
+    end_xy_update_role(&allegroObj->role);
+}
 void move_meteor_new(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowMeteor = NULL;
@@ -58,6 +133,8 @@ void CrachCheck(MainDataStut *mainData, AllegroObjStut *allegroObj)
                                allegroObj->floor.start_x, allegroObj->floor.start_y, allegroObj->floor.end_x, allegroObj->floor.end_y);
     crash ? printf("\tCrash\n") : printf("\tNo crash.\n");*/
     CrachCheck_role_coin(mainData, allegroObj);
+    CrachCheck_subrole_coin(mainData, allegroObj);
+    CrachCheck_role_role(mainData, allegroObj);
 }
 
 void CrachCheckForFloor(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -73,6 +150,7 @@ void DoCrash(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     mainData->score.coins += ScoreAdd_Coins(&allegroObj->coin)*50;
     DestoryCoins(&allegroObj->coin);
+    DestoryRoles(&allegroObj->newRole,allegroObj);
 }
 
 void CrachCheck_role_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -85,14 +163,48 @@ void CrachCheck_role_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
     while(nowCoin != NULL)
     {
         crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
-                               nowCoin->start_x, nowCoin->start_y, nowCoin->end_x, nowCoin->end_y);
+                              nowCoin->start_x, nowCoin->start_y, nowCoin->end_x, nowCoin->end_y);
         if(crash) nowCoin->state = COIN_DESTORY;
         //crash ? printf("\tCrash\n") : NULL ;
         nowCoin = nowCoin->nextObj;
     }
 
 }
+void CrachCheck_subrole_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    bool crash;
+    ObjectStut *nowCoin = NULL;
+    ObjectStut *nowRole = NULL;
+    nowCoin = allegroObj->coin.objs;
+    nowRole = allegroObj->newRole.objs;
+    while(nowCoin != NULL)
+    {
+        crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
+                              nowCoin->start_x, nowCoin->start_y, nowCoin->end_x, nowCoin->end_y);
+        if(crash) nowCoin->state = COIN_DESTORY;
+        //crash ? printf("\tCrash\n") : NULL ;
+        nowCoin = nowCoin->nextObj;
+    }
 
+}
+//1/15 16:35
+void CrachCheck_role_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    bool crash;
+    ObjectStut *nowSupRole = NULL;
+    RoleStut *nowRole = NULL;
+    nowSupRole = allegroObj->newRole.objs;
+    nowRole = &allegroObj->role;
+    while(nowSupRole != NULL)
+    {
+        crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
+                              nowSupRole->start_x, nowSupRole->start_y, nowSupRole->end_x, nowSupRole->end_y);
+        if(crash) nowSupRole->state = SUPROLE_CRASH;
+       // crash ? printf("\tCrash\n") : NULL ;
+        nowSupRole = nowSupRole->nextObj;
+    }
+
+}
 
 void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
@@ -104,9 +216,10 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         move_background(mainData, allegroObj);
         move_coin_old(mainData, allegroObj);
         move_coin(mainData, allegroObj);
-
+        move_role_new(mainData, allegroObj);
         move_meteor_new(mainData, allegroObj);
         move_floor(mainData, allegroObj);
+        /* ¶i«×±ø */
         if(mainData->game_percent < 10000) mainData->game_percent += 3;
 
         /* Role */
@@ -139,49 +252,12 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
     }
 }
 
-void Gravity(AllegroObjStut *allegroObj) //é‡åŠ›
+void Gravity(AllegroObjStut *allegroObj) //­«¤O
 {
     //const float gravity =GRAVITY;
     allegroObj->role.start_y += GRAVITY;
 }
 
-void role_jump(AllegroObjStut *allegroObj)
-{
-
-    if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W))
-    {
-        if(allegroObj->role.state != ROLE_MUST_DROP) allegroObj->role.start_y -= OFFSET_ROLE_JUMP;
-        if(allegroObj->role.state == ROLE_NULL) allegroObj->role.state = ROLE_JUMP;
-    }
-    if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_S))  //å¸¶èˆ‡é‡åŠ›ä¿®æ­£
-    {
-        allegroObj->role.start_y += OFFSET_ROLE_JUMP;
-        if(allegroObj->role.state == ROLE_JUMP) allegroObj->role.state = ROLE_DROP;
-    }
-    if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_D))
-        allegroObj->role.start_x += OFFSET_ROLE_JUMP;
-    if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_A))
-        allegroObj->role.start_x -=OFFSET_ROLE_JUMP;
-
-    //é‚Šç•Œ
-    if(allegroObj->role.start_y <= MAX_ROLE_Y ) allegroObj->role.state = ROLE_MUST_DROP;
-    //if(allegroObj->role.state == ROLE_MUST_DROP) Gravity(allegroObj);
-
-    if(allegroObj->role.start_y >= MIN_ROLE_Y)
-    {
-        allegroObj->role.start_y = MIN_ROLE_Y;
-        allegroObj->role.state = ROLE_NULL;
-    }
-    if(allegroObj->role.start_x < MIN_ROLE_X)
-        allegroObj->role.start_x = MIN_ROLE_X;
-    if(allegroObj->role.start_x > MAX_ROLE_X)
-        allegroObj->role.start_x = MAX_ROLE_X;
-
-    Gravity(allegroObj);
-
-    //è§’è‰²é‚Šç•Œé‹ç®—
-    end_xy_update_role(&allegroObj->role);
-}
 
 void meteor_drop(AllegroObjStut *allegroObj)
 {
@@ -194,7 +270,7 @@ void meteor_drop(AllegroObjStut *allegroObj)
         allegroObj->meteors_right_drop[i].start_y += allegroObj->meteors_right_drop[i].speed_y;
         allegroObj->meteors_left_drop[i].start_x += allegroObj->meteors_right_drop[i].speed_x;
         allegroObj->meteors_left_drop[i].start_y += allegroObj->meteors_right_drop[i].speed_y;
-        //è¨ˆç®—éš•çŸ³é‚Šç•Œ
+        //­pºâ¹k¥ÛÃä¬É
         end_xy_update_meteor(&allegroObj->meteors[i]);
         end_xy_update_meteor(&allegroObj->meteors_right_drop[i]);
         end_xy_update_meteor(&allegroObj->meteors_left_drop[i]);
@@ -203,35 +279,35 @@ void meteor_drop(AllegroObjStut *allegroObj)
 
 
 void end_xy_update_meteor(MeteorStut *meteor)
-//è¨ˆç®—éš•çŸ³é‚Šç•Œ
+//­pºâ¹k¥ÛÃä¬É
 {
     meteor->end_x = meteor->start_x + SIZE_IMG_METEOR_WIDTH;
     meteor->end_y = meteor->start_y + SIZE_IMG_METEOR_HEIGHT;
 }
 
 void end_xy_update_role(RoleStut *role)
-//è¨ˆç®—è§’è‰²é‚Šç•Œ
+//­pºâ¨¤¦âÃä¬É
 {
     role->end_x = role->start_x + SIZE_IMG_ROLE_WIDTH;
     role->end_y = role->start_y + SIZE_IMG_ROLE_HEIGHT;
 }
 
 void end_xy_update_coin_old(CoinStut_old *coin_old)
-//è¨ˆç®—é‡‘å¹£é‚Šç•Œ
+//­pºâª÷¹ôÃä¬É
 {
     coin_old->end_x = coin_old->start_x + SIZE_IMG_COIN_WIDTH;
     coin_old->end_y = coin_old->start_y + SIZE_IMG_COIN_HEIGHT;
 }
 
 void end_xy_update_floor(FloorStut *floor)
-//è¨ˆç®—åœ°æ¿é‚Šç•Œ
+//­pºâ¦aªOÃä¬É
 {
     floor->end_x = floor->start_x + SIZE_IMG_FLOOR_WIDTH;
     floor->end_y = floor->start_y + SIZE_IMG_FLOOR_HEIGHT;
 }
 
 void end_xy_update_object(ObjectStut *obj, int size_w, int size_h)
-//è¨ˆç®—ç‰©ä»¶é‚Šç•Œ(æ–°)
+//­pºâª«¥óÃä¬É(·s)
 {
     obj->end_x = obj->start_x + size_w;
     obj->end_y = obj->start_y + size_h;
@@ -240,7 +316,7 @@ void end_xy_update_object(ObjectStut *obj, int size_w, int size_h)
 void start_end_change(float *start,float *end)
 {
     float temp;
-    //ç¢ºèªstartèˆ‡endå¤§å°
+    //½T»{start»Pend¤j¤p
     if(*start > *end)
     {
         temp = *start;
@@ -290,7 +366,7 @@ bool FloorCrashCheck(float start_char_x,float start_char_y,float end_char_x,floa
     //printf("start_x2=%f\n",start_x2);
     //printf("end_x1=%f\n",end_x1);
     //printf("start_x2 - end_x1=%f\n",start_x2 - end_x1);
-        return FloorCrashCheck_sub(start_char_x, start_char_y, end_char_x, end_char_y,start_floor_x, start_floor_y, end_floor_x, end_floor_y);
+    return FloorCrashCheck_sub(start_char_x, start_char_y, end_char_x, end_char_y,start_floor_x, start_floor_y, end_floor_x, end_floor_y);
 }
 
 bool FloorCrashCheck_sub(float start_char_x,float start_char_y,float end_char_x,float end_char_y,float start_floor_x,float start_floor_y,float end_floor_x,float end_floor_y)

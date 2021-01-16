@@ -8,15 +8,15 @@
 #include <time.h>
 
 #include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h> //åœ–å½¢
+#include <allegro5/allegro_image.h> //¹Ï§Î
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_font.h>
-#include <allegro5/allegro_native_dialog.h> //å°è©±è¦–çª—
+#include <allegro5/allegro_native_dialog.h> //¹ï¸Üµøµ¡
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_audio.h>
-#include <allegro5/allegro_primitives.h> // ç•«ç·š
+#include <allegro5/allegro_primitives.h> // µe½u
 
 #define PATH_IMG_BKG "./img/back900.png"
 #define PATH_IMG_ICON "./img/icon.tga"
@@ -75,13 +75,13 @@
 #define SIZE_TEXT_RANK_LEADONG 48
 
 
-#define NUM_SCORE_DATA 10 //rank è³‡æ–™ç­†æ•¸
+#define NUM_SCORE_DATA 10 //rank ¸ê®Æµ§¼Æ
 #define NUM_MENU_BUTTON 4
 #define NUM_MODE_BUTTON 3
 #define NUM_IMG_ROLE_SEQUENCE 10
 #define NUM_IMG_METEOR_SEQUENCE 12
 #define NUM_IMG_COIN_SEQUENCE 16
-#define NUM_SAMPLES 3 //è²éŸ³æ•¸é‡
+#define NUM_SAMPLES 3 //Án­µ¼Æ¶q
 #define SCALE_MENU_BUTTON 1.2
 #define SCALE_MODE_BUTTON 1.2
 #define OFFSET_MENU 1.5
@@ -91,13 +91,13 @@
 #define OFFSET_PROBAR_Y 1
 
 /*Role_Define*/
-#define OFFSET_ROLE_JUMP 7
-#define OFFSET_ROLE_WALK 1
-#define MAX_ROLE_Y 450
+#define OFFSET_ROLE_JUMP 10
+#define OFFSET_ROLE_WALK 0.5
+#define MAX_ROLE_Y 300
 #define MIN_ROLE_Y 600
 #define MAX_ROLE_X 1500
 #define MIN_ROLE_X 0
-#define GRAVITY 4.5
+#define GRAVITY 6
 #define TIME_PER_IMG_ROLE 0.1
 #define TIME_PER_IMG_COIN 0.1
 #define TIME_PER_IMG_METEOR 0.1
@@ -108,10 +108,11 @@
 #define SPEED_Y_METEOR_RIGHT 5
 #define SPEED_X_METEOR_RIGHT 3
 
-#define FILE_EXIT_ID 1 //å¾…æ•´ä½µ
+#define FILE_EXIT_ID 1 //«İ¾ã¨Ö
 
 /**  enum  **/
-typedef enum GameState {
+typedef enum GameState
+{
     GAME_NONE, GAME_FINISH,
     GAME_MODE_SELECT, GAME_RULE, GAME_RANK, GAME_MENU, GAME_ABOUT,
     GAME_PLAYING_NORMAL, GAME_PLAYING_MID_BOSS,
@@ -126,8 +127,15 @@ typedef enum PlayMode
 
 typedef enum RoleState
 {
-    ROLE_JUMP, ROLE_DROP, ROLE_MUST_DROP, ROLE_NULL,
+    ROLE_JUMP, ROLE_DROP, ROLE_MUST_DROP, ROLE_NULL,SUPROLE_CRASH,
+    ROLE_DROP_FLOOR,
 } RoleState;
+
+typedef enum SubRoleState
+{
+SUBROLE_MOVE,
+} SubRoleState;
+
 
 typedef enum CoinState
 {
@@ -192,7 +200,12 @@ typedef struct CoinStut
     ObjectStut *objs;
     int n;
 } CoinStut;
-
+typedef struct newRoleStut
+{
+    ALLEGRO_BITMAP *imgs_runing;
+    ObjectStut *objs;
+    int n;
+} newRoleStut;
 typedef struct newMeteorStut
 {
     ALLEGRO_BITMAP *imgs_runing;
@@ -299,9 +312,9 @@ typedef struct AllegroObjStut
     ALLEGRO_BITMAP *iconImg;    //ICON Img
     BackgroundStut background;
 
-    ALLEGRO_EVENT_QUEUE *event_queue; //æ‹¿ä¾†å­˜äº‹ä»¶ #1 (ç›®å‰ç”¨æ–¼è¦–çª—Xå‰å‰)
+    ALLEGRO_EVENT_QUEUE *event_queue; //®³¨Ó¦s¨Æ¥ó #1 (¥Ø«e¥Î©óµøµ¡X¤e¤e)
 
-    ALLEGRO_EVENT events;                     //æ‹¿ä¾†å­˜äº‹ä»¶ #2 (ç›®å‰ç”¨æ–¼è¦–çª—Xå‰å‰)
+    ALLEGRO_EVENT events;                     //®³¨Ó¦s¨Æ¥ó #2 (¥Ø«e¥Î©óµøµ¡X¤e¤e)
     ALLEGRO_TIMER *timer;
 
     ScoreboardStut probar;
@@ -313,7 +326,7 @@ typedef struct AllegroObjStut
     CoinStut coin;
 
     newMeteorStut newMeteor;
-
+    newRoleStut newRole;
     FloorStut floor;
     MeteorStut meteor;
     MeteorStut *meteors;
@@ -327,8 +340,8 @@ typedef struct AllegroObjStut
     FunctionBarStut fnucBar;
 
     SoundStut sound;
-    ButtonStut menuButton[NUM_MENU_BUTTON]; //åˆå§‹ä»‹é¢é¸å–®
-    ButtonStut modeButton[NUM_MODE_BUTTON]; //éŠæˆ²é›£åº¦é¸å–®
+    ButtonStut menuButton[NUM_MENU_BUTTON]; //ªì©l¤¶­±¿ï³æ
+    ButtonStut modeButton[NUM_MODE_BUTTON]; //¹CÀ¸Ãø«×¿ï³æ
     ButtonStut homeButton;
     ALLEGRO_KEYBOARD_STATE keyboard_state;
 } AllegroObjStut;
@@ -343,10 +356,10 @@ typedef struct MouseStut
 typedef struct MainDataStut
 {
     TmStut *tm;
-    GameState game_state; //éŠæˆ²é€²è¡Œç‹€æ…‹
-    GameState game_state_pause; //ä¸Šä¸€éšæ®µ(pauseç”¨)
+    GameState game_state; //¹CÀ¸¶i¦æª¬ºA
+    GameState game_state_pause; //¤W¤@¶¥¬q(pause¥Î)
     int breakPoint;
-    int game_mode; //éŠæˆ²æ¨¡å¼
+    int game_mode; //¹CÀ¸¼Ò¦¡
     int game_percent; //0-10000
     MouseStut mouse;
     ScoreStut score;
@@ -375,11 +388,11 @@ void MainDataInit(MainDataStut *mainData);
 void coin_init(AllegroObjStut *allegroObj);
 void function_bar_init(AllegroObjStut *allegroObj);
 
-
+void new_role_init(AllegroObjStut *allegroObj);
 void new_meteor_init(AllegroObjStut *allegroObj);
 
-void Gravity(AllegroObjStut *allegroObj); //é‹ç®—
+void Gravity(AllegroObjStut *allegroObj); //¹Bºâ
 #endif //_RESOURSE_H_
 
-//ALLEGRO_MENU *menu; //å¾…æ•´ä½µ
-//LLEGRO_MENU *menu_1; //å¾…æ•´ä½µ
+//ALLEGRO_MENU *menu; //«İ¾ã¨Ö
+//LLEGRO_MENU *menu_1; //«İ¾ã¨Ö

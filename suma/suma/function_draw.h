@@ -27,6 +27,6 @@ void DrawCoin_old(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawCoin(MainDataStut *mainData, AllegroObjStut *allegroObj);
 
 void newDrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj);
-
+void newDrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj);
 #endif //_FUNCTION_DRAW_H_
 

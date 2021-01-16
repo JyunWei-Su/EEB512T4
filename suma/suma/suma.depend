@@ -75,7 +75,7 @@
 1609593773 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\own\header_hyh.h
 	"../resource.h"
 
-1553403848 c:\api\allegro\include\allegro5\allegro.h
+1605503844 c:\api\allegro\include\allegro5\allegro.h
 	"allegro5/base.h"
 	"allegro5/altime.h"
 	"allegro5/bitmap.h"
@@ -116,7 +116,7 @@
 	"allegro5/utf8.h"
 	"allegro5/alcompat.h"
 
-1553403849 c:\api\allegro\include\allegro5\base.h
+1605503844 c:\api\allegro\include\allegro5\base.h
 	<errno.h>
 	<limits.h>
 	<limits.h>
@@ -130,7 +130,7 @@
 	<dmalloc.h>
 	"allegro5/internal/alconfig.h"
 
-1553403849 c:\api\allegro\include\allegro5\internal\alconfig.h
+1605503845 c:\api\allegro\include\allegro5\internal\alconfig.h
 	"allegro5/platform/alplatf.h"
 	"allegro5/platform/alwatcom.h"
 	"allegro5/platform/almngw32.h"
@@ -145,9 +145,9 @@
 	"allegro5/platform/astdint.h"
 	"allegro5/platform/astdbool.h"
 
-1553403849 c:\api\allegro\include\allegro5\platform\alplatf.h
+1605503846 c:\api\allegro\include\allegro5\platform\alplatf.h
 
-1553403849 c:\api\allegro\include\allegro5\platform\alwatcom.h
+1605503846 c:\api\allegro\include\allegro5\platform\alwatcom.h
 	<io.h>
 	<i86.h>
 	<conio.h>
@@ -155,145 +155,145 @@
 	<direct.h>
 	<malloc.h>
 
-1553403849 c:\api\allegro\include\allegro5\platform\almngw32.h
+1605503845 c:\api\allegro\include\allegro5\platform\almngw32.h
 	<io.h>
 	<fcntl.h>
 	<direct.h>
 	<malloc.h>
 	"allegro5/platform/alplatf.h"
 
-1553403849 c:\api\allegro\include\allegro5\platform\albcc32.h
+1605503845 c:\api\allegro\include\allegro5\platform\albcc32.h
 	<io.h>
 	<fcntl.h>
 	<direct.h>
 	<malloc.h>
 
-1553403849 c:\api\allegro\include\allegro5\platform\almsvc.h
+1605503845 c:\api\allegro\include\allegro5\platform\almsvc.h
 	<io.h>
 	<fcntl.h>
 	<direct.h>
 	<malloc.h>
 	"allegro5/platform/alplatf.h"
 
-1553403849 c:\api\allegro\include\allegro5\platform\aliphonecfg.h
+1605503845 c:\api\allegro\include\allegro5\platform\aliphonecfg.h
 	<fcntl.h>
 	<unistd.h>
 
-1553403849 c:\api\allegro\include\allegro5\platform\alosxcfg.h
+1605503846 c:\api\allegro\include\allegro5\platform\alosxcfg.h
 	"allegro5/platform/alplatf.h"
 
-1553403849 c:\api\allegro\include\allegro5\platform\alandroidcfg.h
+1605503845 c:\api\allegro\include\allegro5\platform\alandroidcfg.h
 
-1553403849 c:\api\allegro\include\allegro5\platform\alraspberrypicfg.h
+1605503846 c:\api\allegro\include\allegro5\platform\alraspberrypicfg.h
 	<fcntl.h>
 	<unistd.h>
 	<sys/types.h>
 
-1553403849 c:\api\allegro\include\allegro5\platform\alucfg.h
+1605503846 c:\api\allegro\include\allegro5\platform\alucfg.h
 	<fcntl.h>
 	<unistd.h>
 	"alunix.h"
 	"allegro5/platform/alplatf.h"
 
-1553403849 c:\api\allegro\include\allegro5\platform\alunix.h
+1605503846 c:\api\allegro\include\allegro5\platform\alunix.h
 
-1553403849 c:\api\allegro\include\allegro5\platform\allegro_sdl_config.h
+1605503845 c:\api\allegro\include\allegro5\platform\allegro_sdl_config.h
 	<fcntl.h>
 	<unistd.h>
 
-1553403849 c:\api\allegro\include\allegro5\platform\astdint.h
+1605503846 c:\api\allegro\include\allegro5\platform\astdint.h
 	<inttypes.h>
 	<stdint.h>
 	<limits.h>
 
-1553403849 c:\api\allegro\include\allegro5\platform\astdbool.h
+1605503846 c:\api\allegro\include\allegro5\platform\astdbool.h
 	<stdbool.h>
 
-1553403849 c:\api\allegro\include\allegro5\altime.h
+1605503844 c:\api\allegro\include\allegro5\altime.h
 	"allegro5/base.h"
 
-1553403849 c:\api\allegro\include\allegro5\bitmap.h
+1605503844 c:\api\allegro\include\allegro5\bitmap.h
 	"allegro5/color.h"
 
-1553403849 c:\api\allegro\include\allegro5\color.h
+1605503844 c:\api\allegro\include\allegro5\color.h
 	"allegro5/base.h"
 
-1553403849 c:\api\allegro\include\allegro5\bitmap_draw.h
+1605503844 c:\api\allegro\include\allegro5\bitmap_draw.h
 	"allegro5/bitmap.h"
 
-1553403849 c:\api\allegro\include\allegro5\bitmap_io.h
+1605503844 c:\api\allegro\include\allegro5\bitmap_io.h
 	"allegro5/bitmap.h"
 	"allegro5/file.h"
 
-1553403849 c:\api\allegro\include\allegro5\file.h
+1605503845 c:\api\allegro\include\allegro5\file.h
 	"allegro5/base.h"
 	"allegro5/path.h"
 	"allegro5/utf8.h"
 
-1553403848 c:\api\allegro\include\allegro5\path.h
+1605503845 c:\api\allegro\include\allegro5\path.h
 	"allegro5/base.h"
 	"allegro5/utf8.h"
 
-1553403849 c:\api\allegro\include\allegro5\utf8.h
+1605503845 c:\api\allegro\include\allegro5\utf8.h
 	"allegro5/base.h"
 
-1553403849 c:\api\allegro\include\allegro5\bitmap_lock.h
+1605503844 c:\api\allegro\include\allegro5\bitmap_lock.h
 	"allegro5/bitmap.h"
 
-1553403849 c:\api\allegro\include\allegro5\blender.h
+1605503844 c:\api\allegro\include\allegro5\blender.h
 	"allegro5/base.h"
 	"allegro5/color.h"
 
-1553403849 c:\api\allegro\include\allegro5\clipboard.h
+1605503844 c:\api\allegro\include\allegro5\clipboard.h
 	"allegro5/base.h"
 	"allegro5/display.h"
 	"allegro5/utf8.h"
 
-1553403849 c:\api\allegro\include\allegro5\display.h
+1605503845 c:\api\allegro\include\allegro5\display.h
 	"allegro5/bitmap.h"
 	"allegro5/color.h"
 	"allegro5/events.h"
 
-1553403849 c:\api\allegro\include\allegro5\events.h
+1605503845 c:\api\allegro\include\allegro5\events.h
 	"allegro5/altime.h"
 
-1553403849 c:\api\allegro\include\allegro5\config.h
+1605503844 c:\api\allegro\include\allegro5\config.h
 	"allegro5/file.h"
 
-1553403849 c:\api\allegro\include\allegro5\cpu.h
+1605503845 c:\api\allegro\include\allegro5\cpu.h
 	"allegro5/base.h"
 
-1553403849 c:\api\allegro\include\allegro5\debug.h
+1605503845 c:\api\allegro\include\allegro5\debug.h
 	<assert.h>
 	"allegro5/base.h"
 
-1553403849 c:\api\allegro\include\allegro5\drawing.h
+1605503845 c:\api\allegro\include\allegro5\drawing.h
 	"allegro5/color.h"
 
-1553403849 c:\api\allegro\include\allegro5\error.h
+1605503845 c:\api\allegro\include\allegro5\error.h
 	"allegro5/base.h"
 
-1553403849 c:\api\allegro\include\allegro5\fixed.h
+1605503845 c:\api\allegro\include\allegro5\fixed.h
 	"allegro5/base.h"
 
-1553403848 c:\api\allegro\include\allegro5\fmaths.h
+1605503845 c:\api\allegro\include\allegro5\fmaths.h
 	"allegro5/base.h"
 	"allegro5/fixed.h"
 	"allegro5/inline/fmaths.inl"
 
-1553403849 c:\api\allegro\include\allegro5\inline\fmaths.inl
+1605503845 c:\api\allegro\include\allegro5\inline\fmaths.inl
 	"allegro5/error.h"
 
-1553403849 c:\api\allegro\include\allegro5\fshook.h
+1605503845 c:\api\allegro\include\allegro5\fshook.h
 	"allegro5/base.h"
 	"allegro5/file.h"
 	"allegro5/path.h"
 	<sys/types.h>
 
-1553403848 c:\api\allegro\include\allegro5\fullscreen_mode.h
+1605503845 c:\api\allegro\include\allegro5\fullscreen_mode.h
 	"allegro5/base.h"
 
-1553403848 c:\api\allegro\include\allegro5\haptic.h
+1605503845 c:\api\allegro\include\allegro5\haptic.h
 	"allegro5/base.h"
 	"allegro5/display.h"
 	"allegro5/events.h"
@@ -302,71 +302,71 @@
 	"allegro5/mouse.h"
 	"allegro5/touch_input.h"
 
-1553403848 c:\api\allegro\include\allegro5\joystick.h
+1605503845 c:\api\allegro\include\allegro5\joystick.h
 	"allegro5/base.h"
 	"allegro5/events.h"
 
-1553403848 c:\api\allegro\include\allegro5\keyboard.h
+1605503845 c:\api\allegro\include\allegro5\keyboard.h
 	"allegro5/base.h"
 	"allegro5/events.h"
 	"allegro5/keycodes.h"
 
-1553403849 c:\api\allegro\include\allegro5\keycodes.h
+1605503845 c:\api\allegro\include\allegro5\keycodes.h
 
-1553403848 c:\api\allegro\include\allegro5\mouse.h
+1605503845 c:\api\allegro\include\allegro5\mouse.h
 	"allegro5/base.h"
 	"allegro5/events.h"
 
-1553403848 c:\api\allegro\include\allegro5\touch_input.h
+1605503845 c:\api\allegro\include\allegro5\touch_input.h
 	"allegro5/base.h"
 	"allegro5/events.h"
 
-1553403849 c:\api\allegro\include\allegro5\memory.h
+1605503845 c:\api\allegro\include\allegro5\memory.h
 	"allegro5/base.h"
 
-1553403848 c:\api\allegro\include\allegro5\monitor.h
+1605503845 c:\api\allegro\include\allegro5\monitor.h
 	"allegro5/base.h"
 
-1553403848 c:\api\allegro\include\allegro5\mouse_cursor.h
+1605503845 c:\api\allegro\include\allegro5\mouse_cursor.h
 	"allegro5/base.h"
 
-1553403849 c:\api\allegro\include\allegro5\render_state.h
+1605503845 c:\api\allegro\include\allegro5\render_state.h
 	"allegro5/base.h"
 
-1553403848 c:\api\allegro\include\allegro5\shader.h
+1605503845 c:\api\allegro\include\allegro5\shader.h
 	"allegro5/base.h"
 	"allegro5/transformations.h"
 
-1553403848 c:\api\allegro\include\allegro5\transformations.h
+1605503845 c:\api\allegro\include\allegro5\transformations.h
 	"allegro5/display.h"
 
-1553403848 c:\api\allegro\include\allegro5\system.h
+1605503845 c:\api\allegro\include\allegro5\system.h
 	"allegro5/config.h"
 	"allegro5/path.h"
 
-1553403849 c:\api\allegro\include\allegro5\threads.h
+1605503845 c:\api\allegro\include\allegro5\threads.h
 	"allegro5/altime.h"
 
-1553403848 c:\api\allegro\include\allegro5\timer.h
+1605503845 c:\api\allegro\include\allegro5\timer.h
 	"allegro5/base.h"
 	"allegro5/events.h"
 
-1553403848 c:\api\allegro\include\allegro5\tls.h
+1605503845 c:\api\allegro\include\allegro5\tls.h
 	"allegro5/base.h"
 
-1553403848 c:\api\allegro\include\allegro5\alcompat.h
+1605503844 c:\api\allegro\include\allegro5\alcompat.h
 
-1553403849 c:\api\allegro\include\allegro5\allegro_image.h
+1605503844 c:\api\allegro\include\allegro5\allegro_image.h
 	"allegro5/base.h"
 
-1553403849 c:\api\allegro\include\allegro5\allegro_native_dialog.h
+1605503844 c:\api\allegro\include\allegro5\allegro_native_dialog.h
 	"allegro5/allegro.h"
 
-1553403849 c:\api\allegro\include\allegro5\allegro_acodec.h
+1605503844 c:\api\allegro\include\allegro5\allegro_acodec.h
 	"allegro5/allegro.h"
 	"allegro5/allegro_audio.h"
 
-1553403849 c:\api\allegro\include\allegro5\allegro_audio.h
+1605503844 c:\api\allegro\include\allegro5\allegro_audio.h
 	"allegro5/allegro.h"
 
 1609347201 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\own\header_irl.h
@@ -392,10 +392,10 @@
 	<allegro5/allegro_audio.h>
 	<allegro5/allegro_primitives.h>
 
-1553403849 c:\api\allegro\include\allegro5\allegro_font.h
+1605503844 c:\api\allegro\include\allegro5\allegro_font.h
 	"allegro5/allegro.h"
 
-1553403848 c:\api\allegro\include\allegro5\allegro_ttf.h
+1605503844 c:\api\allegro\include\allegro5\allegro_ttf.h
 	"allegro5/allegro.h"
 	"allegro5/allegro_font.h"
 
@@ -406,7 +406,7 @@
 1553403848 c:\api\allegro\include\allegro5\allegro5.h
 	"allegro.h"
 
-1553403849 c:\api\allegro\include\allegro5\allegro_primitives.h
+1605503844 c:\api\allegro\include\allegro5\allegro_primitives.h
 	<allegro5/allegro.h>
 
 1609421635 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\myfunc_alg.c
@@ -585,12 +585,12 @@
 1609516321 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_check.h
 	"resource.h"
 
-1609399554 source:c:\users\user\documents\github\eeb512t4\suma\suma\array2dfunctionusingpointer.c
+1609739929 source:c:\users\user\documents\github\eeb512t4\suma\suma\array2dfunctionusingpointer.c
 	<stdio.h>
 	<stdlib.h>
 	<math.h>
 
-1609688702 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_check.c
+1610697034 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_check.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -648,10 +648,10 @@
 	"defineHeader.h"
 	"resource.h"
 
-1609516573 c:\users\user\documents\github\eeb512t4\suma\suma\function_check.h
+1609739929 c:\users\user\documents\github\eeb512t4\suma\suma\function_check.h
 	"resource.h"
 
-1609681546 c:\users\user\documents\github\eeb512t4\suma\suma\resource.h
+1610727473 c:\users\user\documents\github\eeb512t4\suma\suma\resource.h
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
@@ -668,7 +668,7 @@
 	<allegro5/allegro_audio.h>
 	<allegro5/allegro_primitives.h>
 
-1609681546 c:\users\user\documents\github\eeb512t4\suma\suma\defineheader.h
+1609739929 c:\users\user\documents\github\eeb512t4\suma\suma\defineheader.h
 	"own/header_BYK.h"
 	"own/header_HYH.h"
 	"own/header_IRL.h"
@@ -680,36 +680,36 @@
 	"function_operate.h"
 	"function_gaming_object.h"
 
-1609469829 c:\users\user\documents\github\eeb512t4\suma\suma\own\header_byk.h
+1609739929 c:\users\user\documents\github\eeb512t4\suma\suma\own\header_byk.h
 	"../resource.h"
 
-1609681546 c:\users\user\documents\github\eeb512t4\suma\suma\own\header_hyh.h
+1609739929 c:\users\user\documents\github\eeb512t4\suma\suma\own\header_hyh.h
 	"../resource.h"
 
-1609399555 c:\users\user\documents\github\eeb512t4\suma\suma\own\header_irl.h
+1609739929 c:\users\user\documents\github\eeb512t4\suma\suma\own\header_irl.h
 	"../resource.h"
 
-1609501997 c:\users\user\documents\github\eeb512t4\suma\suma\own\header_jws.h
+1609739929 c:\users\user\documents\github\eeb512t4\suma\suma\own\header_jws.h
 	"../resource.h"
 
-1609681546 c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.h
+1609767308 c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.h
 	"resource.h"
 
-1609681546 c:\users\user\documents\github\eeb512t4\suma\suma\function_sound.h
+1609739929 c:\users\user\documents\github\eeb512t4\suma\suma\function_sound.h
 	"resource.h"
 
-1609681546 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.c
+1610699068 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.c
 	"defineHeader.h"
 	"resource.h"
 
-1609473751 source:c:\users\user\documents\github\eeb512t4\suma\suma\main.c
+1609739929 source:c:\users\user\documents\github\eeb512t4\suma\suma\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"defineHeader.h"
 
-1609681546 source:c:\users\user\documents\github\eeb512t4\suma\suma\myfunc.c
+1609739929 source:c:\users\user\documents\github\eeb512t4\suma\suma\myfunc.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -720,19 +720,19 @@
 	<stdio.h>
 	"defineHeader.h"
 
-1609516573 source:c:\users\user\documents\github\eeb512t4\suma\suma\own\func_byk.c
+1609739929 source:c:\users\user\documents\github\eeb512t4\suma\suma\own\func_byk.c
 	"../own/header_BYK.h"
 	"../defineHeader.h"
 
-1609516573 source:c:\users\user\documents\github\eeb512t4\suma\suma\own\func_hyh.c
+1609739929 source:c:\users\user\documents\github\eeb512t4\suma\suma\own\func_hyh.c
 	"../own/header_HYH.h"
 	"../defineHeader.h"
 
-1609399555 source:c:\users\user\documents\github\eeb512t4\suma\suma\own\func_irl.c
+1609739929 source:c:\users\user\documents\github\eeb512t4\suma\suma\own\func_irl.c
 	"../own/header_IRL.h"
 	"../defineHeader.h"
 
-1609516573 source:c:\users\user\documents\github\eeb512t4\suma\suma\own\func_jws.c
+1609739929 source:c:\users\user\documents\github\eeb512t4\suma\suma\own\func_jws.c
 	"../own/header_JWS.h"
 	"../defineHeader.h"
 
@@ -752,11 +752,11 @@
 	"../own/header_JWS.h"
 	"../defineHeader.h"
 
-1609681546 source:c:\users\user\documents\github\eeb512t4\suma\suma\resource.c
+1609778778 source:c:\users\user\documents\github\eeb512t4\suma\suma\resource.c
 	"resource.h"
 	"defineHeader.h"
 
-1609688702 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_sound.c
+1609739929 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_sound.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -769,14 +769,14 @@
 
 1609735502 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\icon.rc
 
-1609688352 c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.h
+1610729696 c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.h
 	"resource.h"
 
-1609688545 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.c
+1610732773 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.c
 	"defineHeader.h"
 	"resource.h"
 
-1609426975 source:c:\users\user\documents\github\eeb512t4\suma\suma\icon.rc
+1609739929 source:c:\users\user\documents\github\eeb512t4\suma\suma\icon.rc
 
 1609736862 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_gaming_object.h
 	"resource.h"
@@ -785,10 +785,10 @@
 	"defineHeader.h"
 	"resource.h"
 
-1609681546 c:\users\user\documents\github\eeb512t4\suma\suma\function_gaming_object.h
+1610725944 c:\users\user\documents\github\eeb512t4\suma\suma\function_gaming_object.h
 	"resource.h"
 
-1609681546 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_gaming_object.c
+1610732246 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_gaming_object.c
 	"defineHeader.h"
 	"resource.h"
 
