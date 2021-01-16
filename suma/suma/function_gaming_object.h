@@ -27,5 +27,9 @@ void CreateFloorOnce(FloorStut *floor);
 void DestoryFloorOnce(FloorStut *floor);
 void RandFloorXY(ObjectStut *floor, int pre_x);
 
+/* AttackX */
+void CreateAttackX(AttackXStut *attackx);
+void AttackxXY(ObjectStut *attackx);
+
 #endif //_GAMING_H_
 

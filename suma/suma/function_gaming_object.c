@@ -187,7 +187,33 @@ void RandMeteorXY(ObjectStut *meteor)
     meteor->speed_x = (float)(rand()%500-200)/100;
     meteor->speed_y = (float)(rand()%500+500)/100;
 }
-
+/*Attackx*/
+void CreateAttackX(AttackXStut *attackx)
+{
+    int count = 0, n = 5; //產生n個物件
+    ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
+    nowPtr = attackx->objs; //第一筆資料
+    while(count < n) //舊資料可能要destroy
+    {
+        if(nowPtr == NULL) //如果為空(沒有新物件)就創新的
+        {
+            newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //配一個新的
+            nowPtr = newPtr; //把new指派給now(此時now就是新物件), 和pre.next(應當要是now)
+            count == 0 ? attackx->objs = newPtr : prePtr->nextObj = newPtr;
+        }
+        AttackxXY(nowPtr); //設定參數
+        prePtr = nowPtr; //轉往下一物件
+        nowPtr = nowPtr->nextObj;
+        count += 1;
+    }
+}
+void AttackxXY(ObjectStut *attackx)
+{
+    attackx->start_x =  2000;
+    attackx->start_y = rand()%800;
+    attackx->speed_x = (float)(rand()%500+200)/100;
+    attackx->speed_y = (float)(rand()%500+500)/100;
+}
 /* Floor */
 
 

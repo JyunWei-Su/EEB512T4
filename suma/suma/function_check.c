@@ -128,6 +128,9 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
             break;
         case ALLEGRO_KEY_K:
             //if(mainData->game_state == GAME_PLAYING_NORMAL) CreateObscales(mainData,&allegroObj->obscale);
+        break;
+        case ALLEGRO_KEY_B:
+            if(mainData->game_state == GAME_PLAYING_NORMAL) CreateAttackX(&allegroObj->attackx);
         default:
             break;
         }

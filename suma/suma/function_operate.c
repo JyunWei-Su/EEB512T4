@@ -110,7 +110,19 @@ void move_meteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
         nowMeteor = nowMeteor->nextObj;
     }
 }
-
+void move_attackx(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    ObjectStut *nowAttackx = NULL;
+    nowAttackx = allegroObj->attackx.objs;
+    while(nowAttackx != NULL)
+    {
+        nowAttackx->start_x -= nowAttackx->speed_x;
+        //nowAttackx->start_y += nowAttackx->speed_y;
+        if((nowAttackx->start_x) + SIZE_IMG_ATTACKX_WIDTH <= 0) nowAttackx->start_x = DISPLAY_WIDTH;
+        end_xy_update_object(nowAttackx, SIZE_IMG_ATTACKX_WIDTH, SIZE_IMG_ATTACKX_HEIGHT);
+        nowAttackx = nowAttackx->nextObj;
+    }
+}
 void move_floor(MainDataStut *mainData, AllegroObjStut *allegroObj) //FTT
 {
     ObjectStut *nowFloor = NULL;
@@ -230,6 +242,7 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
     //¶¶§Ç²§±`
         move_sub_role(mainData, allegroObj);
         move_meteor(mainData, allegroObj);
+        move_attackx(mainData, allegroObj);
         move_obscale(mainData,allegroObj);
         move_floor(mainData, allegroObj); //FTT
         SetFloor(&allegroObj->floor); //½T»{¬O§_»Ý­n·s¼W¦aªOorÄÀ©ñ¦aªO¿

@@ -40,6 +40,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
         DrawCoin(mainData, allegroObj);
         DrawMeteor(mainData, allegroObj);
+        DrawAttackx(mainData, allegroObj);
         DrawObscale(mainData, allegroObj);
         DrawScoreboard(mainData, allegroObj);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
@@ -321,7 +322,27 @@ void DrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
         nowMeteor = nowMeteor->nextObj;
     }
 }
+void DrawAttackx(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    ObjectStut *nowAttackx = NULL;
+    nowAttackx = allegroObj->attackx.objs;
 
+    while(nowAttackx != NULL)
+    {
+        if(nowAttackx->imgCount % (int)(FPS*TIME_PER_IMG_METEOR) == 0)
+        {
+            nowAttackx->imgCount = 0;
+            nowAttackx->imgNow += 1;
+            if(nowAttackx->imgNow % NUM_IMG_ATTACKX == 0) nowAttackx->imgNow = 0;
+        }
+        al_draw_bitmap_region(allegroObj->attackx.imgs_runing, SIZE_IMG_ATTACKX_WIDTH*nowAttackx->imgNow, 0, SIZE_IMG_ATTACKX_WIDTH, SIZE_IMG_ATTACKX_HEIGHT
+                              , nowAttackx->start_x, nowAttackx->start_y, 0);
+        DrawObjBoundary_object(nowAttackx);
+
+        nowAttackx->imgCount += 1;
+        nowAttackx = nowAttackx->nextObj;
+    }
+}
 
 /* 物件邊界相關 */
 void DrawObjBoundary(float x1, float y1, float x2, float y2)

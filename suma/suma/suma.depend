@@ -715,7 +715,7 @@
 	<stdlib.h>
 	<math.h>
 
-1610782233 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_check.c
+1610789538 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_check.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -776,7 +776,7 @@
 1609739929 c:\users\user\documents\github\eeb512t4\suma\suma\function_check.h
 	"resource.h"
 
-1610788822 c:\users\user\documents\github\eeb512t4\suma\suma\resource.h
+1610790150 c:\users\user\documents\github\eeb512t4\suma\suma\resource.h
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
@@ -817,13 +817,13 @@
 1609739929 c:\users\user\documents\github\eeb512t4\suma\suma\own\header_jws.h
 	"../resource.h"
 
-1610780924 c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.h
+1610790196 c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.h
 	"resource.h"
 
 1609739929 c:\users\user\documents\github\eeb512t4\suma\suma\function_sound.h
 	"resource.h"
 
-1610788822 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.c
+1610790260 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -898,10 +898,10 @@
 
 1610737326 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\icon.rc
 
-1610780924 c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.h
+1610789785 c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.h
 	"resource.h"
 
-1610782233 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.c
+1610801363 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -910,10 +910,10 @@
 1610778410 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_gaming_object.h
 	"resource.h"
 
-1610780924 c:\users\user\documents\github\eeb512t4\suma\suma\function_gaming_object.h
+1610790508 c:\users\user\documents\github\eeb512t4\suma\suma\function_gaming_object.h
 	"resource.h"
 
-1610783561 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_gaming_object.c
+1610801751 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_gaming_object.c
 	"defineHeader.h"
 	"resource.h"
 
