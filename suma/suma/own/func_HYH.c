@@ -8,22 +8,22 @@ void PrintTest_HYH()
 
 void CreateObscales(MainDataStut *mainData,ObscaleStut *obscale)
 {
-    int count = 0, n = 2; //產生n個物件
-    ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
+    ObjectStut *nowPtr = NULL, *newPtr = NULL;
     nowPtr = obscale->objs; //第一筆資料
-    while(count < n)
+    if(nowPtr == NULL) //如果為空(沒有新物件)就創新的
     {
-        if(nowPtr == NULL) //如果為空(沒有新物件)就創新的
-        {
-            newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //配一個新的
-            nowPtr = newPtr; //把new指派給now(此時now就是新物件), 和pre.next(應當要是now)
-            count == 0 ? obscale->objs = newPtr : prePtr->nextObj = newPtr;
-        }
-        RandObscaleXY(mainData,nowPtr); //設定參數
-        prePtr = nowPtr; //轉往下一物件
+        newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //配一個新的
+        nowPtr = newPtr; //把new指派給now(此時now就是新物件), 和pre.next(應當要是now)
+        obscale->objs = newPtr;
+    }
+    else
+    {
+        while(nowPtr->nextObj != NULL) nowPtr = nowPtr->nextObj;
+        newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //配一個新的
+        nowPtr->nextObj = newPtr;
         nowPtr = nowPtr->nextObj;
-        count += 1;
-}
+    }
+    RandObscaleXY(mainData,nowPtr); //設定參數
 }
 
 void DestoryObscales(ObscaleStut *obscale)
@@ -35,7 +35,7 @@ void DestoryObscales(ObscaleStut *obscale)
     while(nowObscale != NULL)
     {
         if (nowObscale->state == OBSCALE_DESTORY || nowObscale->state == OBSCALE_CRASH_MAIN
-            || nowObscale->state == OBSCALE_CRASH_FOLLOWER)
+                || nowObscale->state == OBSCALE_CRASH_FOLLOWER)
         {
             count == 0 ? obscale->objs = nowObscale->nextObj : preObscale->nextObj = nowObscale->nextObj;
             free(nowObscale);
@@ -59,7 +59,7 @@ void CrashCheck_role_obscale(MainDataStut *mainData, AllegroObjStut *allegroObj)
     while(nowObscale != NULL)
     {
         crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
-                               nowObscale->start_x, nowObscale->start_y, nowObscale->end_x, nowObscale->end_y);
+                              nowObscale->start_x, nowObscale->start_y, nowObscale->end_x, nowObscale->end_y);
         if(crash) nowObscale->state = OBSCALE_CRASH_MAIN;
         if(nowObscale->state == OBSCALE_CRASH_MAIN) DestoryObscales(&(allegroObj->obscale));
         //crash ? printf("\tCrash\n") : printf("\tNoCrash\n") ;
@@ -69,31 +69,30 @@ void CrashCheck_role_obscale(MainDataStut *mainData, AllegroObjStut *allegroObj)
 }
 void ObscaleCheck_Boundary(ObscaleStut *obscale)
 {
-  float end_x = obscale->objs->end_x;
-  if(end_x <= 0) obscale->objs->state = OBSCALE_DESTORY;
+    float end_x = obscale->objs->end_x;
+    if(end_x <= 0) obscale->objs->state = OBSCALE_DESTORY;
 }
 
 void RandObscaleXY(MainDataStut *mainData,ObjectStut *obscale )
 {
-   int difficulty = mainData->game_mode ;
-   int persent=0;
-   switch(difficulty)
-   {
-    case 0:
-        obscale->start_x = DISPLAY_WIDTH +(rand()%5)*SIZE_IMG_OBSCALE_WIDTH;
+    int persent=0;
+    switch(mainData->game_mode)
+    {
+    case MODE_EASY:
+        obscale->start_x = DISPLAY_WIDTH ;
         obscale->start_y = (DISPLAY_HEIGHT-SIZE_IMG_FLOOR_HEIGHT)-SIZE_IMG_OBSCALE_HEIGHT;
         break;
-    case 1:
-        obscale->start_x = DISPLAY_WIDTH +(rand()%4)*SIZE_IMG_OBSCALE_WIDTH;
+    case MODE_MEDIUM:
+        obscale->start_x = DISPLAY_WIDTH ;
         obscale->start_y = (DISPLAY_HEIGHT-SIZE_IMG_FLOOR_HEIGHT)-SIZE_IMG_OBSCALE_HEIGHT;
         break;
-    case 2:
-           obscale->start_x = DISPLAY_WIDTH +(rand()%3)*SIZE_IMG_OBSCALE_WIDTH;
-           persent =rand()%3;
-           persent==0 ? obscale->start_y = (DISPLAY_HEIGHT-SIZE_IMG_FLOOR_HEIGHT)-SIZE_IMG_OBSCALE_HEIGHT :
-                        obscale->start_y = 5.7*SIZE_IMG_SCOREBOARD_ICON_HEIGHT;
-           break;
-   }
+    case MODE_HARD:
+        obscale->start_x = DISPLAY_WIDTH ;
+        persent =rand()%5;
+        persent == 0 ? obscale->start_y = obscale->start_y = 5.7*SIZE_IMG_SCOREBOARD_ICON_HEIGHT :
+                                          obscale->start_y = (DISPLAY_HEIGHT-SIZE_IMG_FLOOR_HEIGHT)-SIZE_IMG_OBSCALE_HEIGHT;
+        break;
+    }
 }
 
 void move_obscale(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -103,7 +102,7 @@ void move_obscale(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
     while(nowObscale != NULL)
     {
-        nowObscale->start_x -= 2;
+        nowObscale->start_x -= mainData->speed.object;
         end_xy_update_object(nowObscale, SIZE_IMG_OBSCALE_WIDTH, SIZE_IMG_OBSCALE_HEIGHT);
         ObscaleCheck_Boundary(&(allegroObj->obscale));
         if(nowObscale->state == OBSCALE_DESTORY) DestoryObscales(&(allegroObj->obscale));
@@ -143,4 +142,37 @@ void DrawObscale(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
     }
 }
-/** 觸碰扣分、隨機產生**/
+void SetObscale(MainDataStut *mainData,AllegroObjStut *allegroObj)
+{
+    if(mainData->timerCount%60 == 0 )
+    {
+        switch (mainData->game_mode)
+        {
+        case MODE_EASY:
+            if(rand()%3 ==0 && FloorObscale(allegroObj->floor))
+            {
+                CreateObscales(mainData,&(allegroObj->obscale));
+            }
+            break;
+        case MODE_MEDIUM:
+            if(rand()%2 ==0 && FloorObscale(allegroObj->floor))
+            {
+                CreateObscales(mainData,&(allegroObj->obscale));
+            }
+            break;
+        case MODE_HARD:
+            if(rand()%2==0 && FloorObscale(allegroObj->floor))
+            {
+                CreateObscales(mainData,&(allegroObj->obscale));
+            }
+            break;
+        }
+    }
+}
+bool FloorObscale(FloorStut floor)
+{
+    if(floor.objs->start_x < DISPLAY_WIDTH && DISPLAY_WIDTH < floor.objs->end_x && floor.objs->start_x < DISPLAY_WIDTH + SIZE_IMG_OBSCALE_WIDTH
+       && DISPLAY_WIDTH + SIZE_IMG_OBSCALE_WIDTH < floor.objs->end_x) return 1;
+    else return 0;
+}
+/** 觸碰扣分**/

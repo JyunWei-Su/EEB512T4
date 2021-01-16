@@ -1,21 +1,27 @@
 #include "defineHeader.h"
 #include "resource.h"
 
+/**
+  * ¦¹°Ï¬°¦U¦¡¹CÀ¸ª«¥ó(¨Ï¥Îlinked LIst)¡A³q±`¥]§t¡G
+  * Create, destory, randXY, elseFuncton
+**/
+
+/* Coins */
 void CreateCoins(CoinStut *coin)
 {
-    int count = 0, n = 9; //ç”¢ç”Ÿnå€‹ç‰©ä»¶
+    int count = 0, n = 9; //²£¥Ín­Óª«¥ó
     ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
-    nowPtr = coin->objs; //ç¬¬ä¸€ç­†è³‡æ–™
+    nowPtr = coin->objs; //²Ä¤@µ§¸ê®Æ
     while(count < n)
     {
-        if(nowPtr == NULL) //å¦‚æžœç‚ºç©º(æ²’æœ‰æ–°ç‰©ä»¶)å°±å‰µæ–°çš„
+        if(nowPtr == NULL) //¦pªG¬°ªÅ(¨S¦³·sª«¥ó)´N³Ð·sªº
         {
-            newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //é…ä¸€å€‹æ–°çš„
-            nowPtr = newPtr; //æŠŠnewæŒ‡æ´¾çµ¦now(æ­¤æ™‚nowå°±æ˜¯æ–°ç‰©ä»¶), å’Œpre.next(æ‡‰ç•¶è¦æ˜¯now)
+            newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //°t¤@­Ó·sªº
+            nowPtr = newPtr; //§ânew«ü¬£µ¹now(¦¹®Énow´N¬O·sª«¥ó), ©Mpre.next(À³·í­n¬Onow)
             count == 0 ? coin->objs = newPtr : prePtr->nextObj = newPtr;
         }
-        RandCoinXY(nowPtr); //è¨­å®šåƒæ•¸
-        prePtr = nowPtr; //è½‰å¾€ä¸‹ä¸€ç‰©ä»¶
+        RandCoinXY(nowPtr); //³]©w°Ñ¼Æ
+        prePtr = nowPtr; //Âà©¹¤U¤@ª«¥ó
         nowPtr = nowPtr->nextObj;
         count += 1;
     }
@@ -23,7 +29,7 @@ void CreateCoins(CoinStut *coin)
 
 int ScoreAdd_Coins(CoinStut *coin)
 {
-    int count = 0; //nowCoinå‰æ–¹æœ‰å¹¾ç­†coin
+    int count = 0; //nowCoin«e¤è¦³´Xµ§coin
     ObjectStut *nowCoin = NULL;
     nowCoin = coin->objs;
 
@@ -37,7 +43,7 @@ int ScoreAdd_Coins(CoinStut *coin)
 
 void DestoryCoins(CoinStut *coin)
 {
-    int count = 0;//nowCoinå‰æ–¹æœ‰å¹¾ç­†coin
+    int count = 0;//nowCoin«e¤è¦³´Xµ§coin
     ObjectStut *nowCoin = NULL, *preCoin = NULL;
     nowCoin = coin->objs;
 
@@ -45,7 +51,6 @@ void DestoryCoins(CoinStut *coin)
     {
         if (nowCoin->state == COIN_DESTORY)
         {
-
             count == 0 ? coin->objs = nowCoin->nextObj : preCoin->nextObj = nowCoin->nextObj;
             free(nowCoin);
         }
@@ -56,33 +61,6 @@ void DestoryCoins(CoinStut *coin)
         }
         nowCoin = nowCoin->nextObj;
     }
-}
-
-void CreateMeteors(newMeteorStut *meteor)
-{
-    int count = 0, n = rand()%30+15; //ç”¢ç”Ÿnå€‹ç‰©ä»¶
-    ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
-    nowPtr = meteor->objs; //ç¬¬ä¸€ç­†è³‡æ–™
-    while(count < n) //èˆŠè³‡æ–™å¯èƒ½è¦destroy
-    {
-        if(nowPtr == NULL) //å¦‚æžœç‚ºç©º(æ²’æœ‰æ–°ç‰©ä»¶)å°±å‰µæ–°çš„
-        {
-            newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //é…ä¸€å€‹æ–°çš„
-            nowPtr = newPtr; //æŠŠnewæŒ‡æ´¾çµ¦now(æ­¤æ™‚nowå°±æ˜¯æ–°ç‰©ä»¶), å’Œpre.next(æ‡‰ç•¶è¦æ˜¯now)
-            count == 0 ? meteor->objs = newPtr : prePtr->nextObj = newPtr;
-        }
-        RandMeteorXY(nowPtr); //è¨­å®šåƒæ•¸
-        prePtr = nowPtr; //è½‰å¾€ä¸‹ä¸€ç‰©ä»¶
-        nowPtr = nowPtr->nextObj;
-        count += 1;
-    }
-}
-void RandMeteorXY(ObjectStut *meteor)
-{
-    meteor->start_x = rand() % 2000;
-    meteor->start_y = -rand() % 1000;
-    meteor->speed_x = (float)(rand()%300+200)/100;
-    meteor->speed_y = (float)(rand()%500+500)/100;
 }
 
 void RandCoinXY(ObjectStut *coin)
@@ -98,3 +76,171 @@ void CoinDebugPrint(ObjectStut *nowPtr, ObjectStut *prePtr, ObjectStut *newPtr)
     printf("--new : %x\n", newPtr);
 }
 
+
+/* Roles */
+void CreateRoles(SubRoleStut *role)
+{
+    int count = 0, n = 5; //²£¥Ín­Óª«¥ó
+    ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
+    nowPtr = role->objs; //²Ä¤@µ§¸ê®Æ
+    while(count < n) //ÂÂ¸ê®Æ¥i¯à­ndestroy
+    {
+        if(nowPtr == NULL) //¦pªG¬°ªÅ(¨S¦³·sª«¥ó)´N³Ð·sªº
+        {
+            newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //°t¤@­Ó·sªº
+            nowPtr = newPtr; //§ânew«ü¬£µ¹now(¦¹®Énow´N¬O·sª«¥ó), ©Mpre.next(À³·í­n¬Onow)
+            count == 0 ? role->objs = newPtr : prePtr->nextObj = newPtr;
+        }
+        if(count == 0)
+        {
+            FirstRoleXY(nowPtr);
+        }
+        else
+        {
+            RandRoleXY(nowPtr,count+1);    //³]©w°Ñ¼Æ
+        }
+        prePtr = nowPtr; //Âà©¹¤U¤@ª«¥ó
+        nowPtr = nowPtr->nextObj;
+        count += 1;
+    }
+}
+
+void DestoryRoles(SubRoleStut *role, AllegroObjStut *allegroObj)
+{
+
+    int count = 0,n=1;//nowCoin«e¤è¦³´Xµ§coin
+    ObjectStut *nowRole = NULL, *preRole = NULL;
+    nowRole = role->objs;
+
+    while(nowRole != NULL)
+    {
+        if (nowRole->state == SUPROLE_CRASH)
+        {
+            CrashRoleXY(nowRole,allegroObj,n);
+            //printf("n=%d\n",n);
+            //nowRole->state = SUBROLE_MOVE;
+            // count == 0 ? role->objs = nowRole->nextObj : preRole->nextObj = nowRole->nextObj;
+            // free(nowRole);
+        }
+        else
+        {
+            preRole = nowRole;
+            count += 1;
+        }
+        nowRole = nowRole->nextObj;
+        n+=1;
+    }
+}
+
+void RandRoleXY(ObjectStut *role,int n)
+{
+    role->start_x = 200*n;
+    role->start_y = 300;
+}
+
+void CrashRoleXY(ObjectStut *role,AllegroObjStut *allegroObj,int n)
+{
+    role->start_x = allegroObj->role.start_x-150*n;
+    role->start_y = allegroObj->role.start_y;
+    if(allegroObj->role.state == ROLE_JUMP)
+    {
+        role->start_y = allegroObj->role.start_y+15*n;
+    }
+    if(allegroObj->role.state == ROLE_MUST_DROP)
+    {
+        role->start_y = allegroObj->role.start_y-15*n;
+    }
+}
+
+void FirstRoleXY(ObjectStut *role)
+{
+    role->start_x = 1300;
+    role->start_y = 600;
+}
+
+
+/* Meteors */
+void CreateMeteors(MeteorStut *meteor)
+{
+    int count = 0, n = rand()%30+15; //²£¥Ín­Óª«¥ó
+    ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
+    nowPtr = meteor->objs; //²Ä¤@µ§¸ê®Æ
+    while(count < n) //ÂÂ¸ê®Æ¥i¯à­ndestroy
+    {
+        if(nowPtr == NULL) //¦pªG¬°ªÅ(¨S¦³·sª«¥ó)´N³Ð·sªº
+        {
+            newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //°t¤@­Ó·sªº
+            nowPtr = newPtr; //§ânew«ü¬£µ¹now(¦¹®Énow´N¬O·sª«¥ó), ©Mpre.next(À³·í­n¬Onow)
+            count == 0 ? meteor->objs = newPtr : prePtr->nextObj = newPtr;
+        }
+        RandMeteorXY(nowPtr); //³]©w°Ñ¼Æ
+        prePtr = nowPtr; //Âà©¹¤U¤@ª«¥ó
+        nowPtr = nowPtr->nextObj;
+        count += 1;
+    }
+}
+
+void RandMeteorXY(ObjectStut *meteor)
+{
+    meteor->start_x = rand() % 2000;
+    meteor->start_y = -rand() % 1000;
+    meteor->speed_x = (float)(rand()%300+200)/100;
+    meteor->speed_y = (float)(rand()%500+500)/100;
+}
+
+/* Floor */
+
+
+void SetFloor(FloorStut *floor)
+{
+    if(floor->objs == NULL) CreateFloorOnce(floor);
+    else while(floor->objs->end_x < DISPLAY_WIDTH)CreateFloorOnce(floor);
+}
+
+void CreateFloorOnce(FloorStut *floor) //floorªº·s¼WÅÞ¿è»P¨ä¥Lª«¥ó¤£¦P¡A¬O¦V«e·s¼W
+{
+    int pre_x = 0;
+    ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
+    nowPtr = floor->objs; //²Ä¤@µ§¸ê®Æ
+    if(nowPtr == NULL) //¦pªG¬°ªÅ(¨S¦³·sª«¥ó)´N³Ð·sªº
+    {
+        newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //°t¤@­Ó·sªº
+        floor->objs = newPtr;
+    }
+    else//¤£¬°ªÅ(¤w¦³¦aªO¹B§@¤¤)¡A¦b²{¦³¦aªO«e­±·s¼W·s¦aªO(¦ý¹ê»Ú·|Åã¥Ü¦b«á­±)
+    {
+        newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //°t¤@­Ó·sªº
+        newPtr->nextObj = nowPtr;
+        floor->objs = newPtr;
+    }
+    nowPtr = newPtr; //§ânew«ü¬£µ¹now(¦¹®Énow´N¬O·sª«¥ó:floor->objs)
+    printf("new:%x\n", nowPtr);
+    if(nowPtr->nextObj != NULL) pre_x = nowPtr->nextObj->end_x; //¤U¤@­Óª«¥ó´N¬O«e¤@­Ó¦aªO
+    RandFloorXY(nowPtr, pre_x); //³]©w°Ñ¼Æ
+    nowPtr->state = FLOOR_ACTIVE;
+}
+
+void DestoryFloorOnce(FloorStut *floor) //floorªº·s¼WÅÞ¿è»P¨ä¥Lª«¥ó¤£¦P¡A¬O¦V«e·s¼W
+{
+    ObjectStut *nowPtr = NULL, *prePtr = NULL;
+    nowPtr = floor->objs; //²Ä¤@µ§¸ê®Æ
+    while(nowPtr != NULL)
+    {
+        if(nowPtr->nextObj == NULL && nowPtr->state == FLOOR_STANDBY)
+        {
+            printf("free:%x\n", nowPtr);
+            free(nowPtr);
+            nowPtr == floor->objs ? floor->objs = NULL : prePtr->nextObj = NULL;
+        }
+        prePtr = nowPtr;
+        nowPtr = nowPtr->nextObj;
+    }
+}
+
+void RandFloorXY(ObjectStut *floor, int pre_x)
+{
+    floor->start_x = pre_x + (float)((rand()%11+5)*10);
+    floor->end_x = floor->start_x + (float)((rand()%21+50)*10);
+    floor->start_y = DISPLAY_HEIGHT - SIZE_IMG_FLOOR_HEIGHT;
+    floor->end_y = DISPLAY_HEIGHT;
+}

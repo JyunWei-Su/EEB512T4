@@ -8,15 +8,15 @@
 #include <time.h>
 
 #include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h> //ÂúñÂΩ¢
+#include <allegro5/allegro_image.h> //πœßŒ
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_font.h>
-#include <allegro5/allegro_native_dialog.h> //Â∞çË©±Ë¶ñÁ™ó
+#include <allegro5/allegro_native_dialog.h> //πÔ∏‹µ¯µ°
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_audio.h>
-#include <allegro5/allegro_primitives.h> // Áï´Á∑ö
+#include <allegro5/allegro_primitives.h> // µeΩu
 
 #define PATH_IMG_BKG "./img/back900.png"
 #define PATH_IMG_ICON "./img/icon.tga"
@@ -24,25 +24,29 @@
 #define PATH_IMG_COINS_ROTATE "./img/coins.png"
 #define PATH_IMG_COINS_CRASH "./img/coinCrashs.png"
 #define PATH_IMG_OBSCALE_SHINING "./img/obscale.png"
-/**‰∏ãÈù¢Ë¶ÅË∑ØÂæëË™øÊï¥**/
-#define PATH_IMG_OBSCALE_CRASH "./img/coinCrashs.png"
+#define PATH_IMG_OBSCALE_CRASH "./img/coinCrashs.png" //**‰∏ãÈù¢Ë¶ÅË∑ØÂæëË™ø??
 #define PATH_IMG_CHAR "./img/char.png"
 #define PATH_IMG_PROBAR "./img/progressbar.png"
 #define PATH_IMG_MENU_BUTTON "./img/menuButton.png"
 #define PATH_IMG_MODE_BUTTON "./img/menuButton.png"
 #define PATH_IMG_HOME_BUTTON_1 "./img/homeButton_1.png"
 #define PATH_IMG_HOME_BUTTON_2 "./img/homeButton_2.png"
-#define PATH_IMG_ROLE_1 "./img/role_1.png"
-#define PATH_IMG_ROLE_SEQ_RUNING "./img/comp1.png"
+#define PATH_IMG_ROLE_1 "./img/role.png"
+#define PATH_IMG_ROLE_SEQ_RUNING "./img/roles.png"
 #define PATH_IMG_FLOOR "./img/floor.png"
 #define PATH_IMG_METEOR "./img/meteor.png"
 #define PATH_IMG_METEOR_SEQ_RUNING "./img/meteors80.png"
+
+
 #define PATH_FNT_DFT "./DFT_TL9.TTC"
 #define PATH_SFX_BACKGROUND "./sfx/bkg.wav"
 #define PATH_SFX_BUTTON_MOVEIN "./sfx/button02a.wav"
 #define PATH_FILE_SCORE "user.score"
 #define PATH_FONT_HIMAJI "./font/KFhimajiFACE.otf"
 #define PATH_FONT_FANCYH "./font/FancyHeart.otf"
+#define PATH_FONT_GRAFTI "./font/Graffiti.ttf"
+#define PATH_FONT_LEECAP "./font/LeeCaps.ttf"
+#define PATH_FONT_HANDYH "./font/Nouveau.ttf"
 
 #define COLOR_SCORE al_map_rgb(255, 255, 255)
 #define COLOR_PAUSE_TEXT al_map_rgb(0, 0, 0)
@@ -60,10 +64,10 @@
 #define SIZE_IMG_PROBAR_HEIGHT 64
 #define SIZE_IMG_COIN_WIDTH 64
 #define SIZE_IMG_COIN_HEIGHT 64
-#define SIZE_IMG_ROLE_WIDTH 150
-#define SIZE_IMG_ROLE_HEIGHT 200
-#define SIZE_IMG_FLOOR_WIDTH 300
-#define SIZE_IMG_FLOOR_HEIGHT 100
+#define SIZE_IMG_ROLE_WIDTH 84
+#define SIZE_IMG_ROLE_HEIGHT 210
+#define SIZE_IMG_FLOOR_WIDTH 1600
+#define SIZE_IMG_FLOOR_HEIGHT 130
 #define SIZE_IMG_OBSCALE_WIDTH 128
 #define SIZE_IMG_OBSCALE_HEIGHT 128
 #define SIZE_IMG_METEOR_WIDTH 80
@@ -80,15 +84,16 @@
 #define SIZE_TEXT_RANK_LEADONG 48
 
 
-#define NUM_SCORE_DATA 10 //rank Ë≥áÊñôÁ≠ÜÊï∏
+#define NUM_SCORE_DATA 10 //rank ∏ÍÆ∆µßº∆
 #define NUM_MENU_BUTTON 4
 #define NUM_MODE_BUTTON 3
 #define NUM_IMG_ROLE_SEQUENCE 10
 #define NUM_IMG_METEOR_SEQUENCE 12
 #define NUM_IMG_COIN_SEQUENCE 16
-#define NUM_SAMPLES 3 //ËÅ≤Èü≥Êï∏Èáè
+#define NUM_SAMPLES 3 //¡n≠µº∆∂q
 #define SCALE_MENU_BUTTON 1.2
 #define SCALE_MODE_BUTTON 1.2
+
 #define OFFSET_MENU 1.5
 #define OFFSET_MODE 1.5
 #define OFFSET_SCOREBOARD_TEXT 320
@@ -97,14 +102,15 @@
 #define OFFSET_PRONUMBER_X 600
 #define OFFSET_PRONUMBER_Y 60
 
+
 /*Role_Define*/
-#define OFFSET_ROLE_JUMP 7
-#define OFFSET_ROLE_WALK 1
-#define MAX_ROLE_Y 450
+#define OFFSET_ROLE_JUMP 10
+#define OFFSET_ROLE_WALK 0.5
+#define MAX_ROLE_Y 300
 #define MIN_ROLE_Y 600
 #define MAX_ROLE_X 1500
 #define MIN_ROLE_X 0
-#define GRAVITY 4.5
+#define GRAVITY 6
 #define TIME_PER_IMG_ROLE 0.1
 #define TIME_PER_IMG_COIN 0.1
 #define TIME_PER_IMG_METEOR 0.1
@@ -115,10 +121,11 @@
 #define SPEED_Y_METEOR_RIGHT 5
 #define SPEED_X_METEOR_RIGHT 3
 
-#define FILE_EXIT_ID 1 //ÂæÖÊï¥‰Ωµ
+#define FILE_EXIT_ID 1 //´›æ„®÷
 
 /**  enum  **/
-typedef enum GameState {
+typedef enum GameState
+{
     GAME_NONE, GAME_FINISH,
     GAME_MODE_SELECT, GAME_RULE, GAME_RANK, GAME_MENU, GAME_ABOUT,
     GAME_PLAYING_NORMAL, GAME_PLAYING_MID_BOSS,
@@ -133,13 +140,25 @@ typedef enum PlayMode
 
 typedef enum RoleState
 {
-    ROLE_JUMP, ROLE_DROP, ROLE_MUST_DROP, ROLE_NULL,
+    ROLE_JUMP, ROLE_DROP, ROLE_MUST_DROP, ROLE_NULL,SUPROLE_CRASH,
+    ROLE_DROP_FLOOR,
 } RoleState;
+
+typedef enum SubRoleState
+{
+SUBROLE_MOVE,
+} SubRoleState;
+
 
 typedef enum CoinState
 {
     COIN_NULL, COIN_CRASH, COIN_MOVEOUT, COIN_DESTORY,
 } CoinState;
+
+typedef enum FloorState
+{
+    FLOOR_ACTIVE, FLOOR_STANDBY,
+} FloorState;
 
 typedef enum ObscaleState
 {
@@ -205,6 +224,20 @@ typedef struct CoinStut
     int n;
 } CoinStut;
 
+typedef struct SubRoleStut
+{
+    ALLEGRO_BITMAP *imgs_runing;
+    ObjectStut *objs;
+    int n;
+} SubRoleStut;
+
+typedef struct FloorStut
+{
+    ALLEGRO_BITMAP *img;
+    ObjectStut *objs;
+    int n;
+} FloorStut;
+
 typedef struct ObscaleStut
 {
     ALLEGRO_BITMAP *imgs_shining;
@@ -213,13 +246,14 @@ typedef struct ObscaleStut
     int n;
 } ObscaleStut;
 
-typedef struct newMeteorStut
+typedef struct MeteorStut
 {
     ALLEGRO_BITMAP *imgs_runing;
     ObjectStut *objs;
     int n;
-} newMeteorStut;
+} MeteorStut;
 
+/*
 typedef struct CoinStut_old
 
 {
@@ -229,6 +263,7 @@ typedef struct CoinStut_old
     int imgCount, nowImg;
     int persent;
 } CoinStut_old;
+*/
 
 typedef struct RoleStut
 {
@@ -240,16 +275,8 @@ typedef struct RoleStut
     int state;
 } RoleStut;
 
-typedef struct FloorStut
-{
-    float start_x, start_y;
-    float end_x, end_y;
-    ALLEGRO_BITMAP *img;
-    int state;
-} FloorStut;
-
-
-typedef struct MeteorStut
+/*
+typedef struct MeteorStu
 {
     float start_x, start_y;
     float end_x, end_y;
@@ -258,8 +285,7 @@ typedef struct MeteorStut
     int imgCount, nowImg;
     int speed_x,speed_y;
     int state;
-} MeteorStut;
-
+} MeteorStut;*/
 
 typedef struct ButtonStut
 {
@@ -319,9 +345,9 @@ typedef struct AllegroObjStut
     ALLEGRO_BITMAP *iconImg;    //ICON Img
     BackgroundStut background;
 
-    ALLEGRO_EVENT_QUEUE *event_queue; //Êãø‰æÜÂ≠ò‰∫ã‰ª∂ #1 (ÁõÆÂâçÁî®ÊñºË¶ñÁ™óXÂèâÂèâ)
+    ALLEGRO_EVENT_QUEUE *event_queue; //Æ≥®”¶s®∆•Û #1 (•ÿ´e•Œ©Ûµ¯µ°X§e§e)
 
-    ALLEGRO_EVENT events;                     //Êãø‰æÜÂ≠ò‰∫ã‰ª∂ #2 (ÁõÆÂâçÁî®ÊñºË¶ñÁ™óXÂèâÂèâ)
+    ALLEGRO_EVENT events;                     //Æ≥®”¶s®∆•Û #2 (•ÿ´e•Œ©Ûµ¯µ°X§e§e)
     ALLEGRO_TIMER *timer;
 
     ScoreboardStut probar;
@@ -329,17 +355,20 @@ typedef struct AllegroObjStut
     ScoreboardStut sb_coins;
 
     RoleStut role;
-    CoinStut_old coin_old;
+    SubRoleStut subRole;
+    //CoinStut_old coin_old;
     CoinStut coin;
     ObscaleStut obscale;
 
-    newMeteorStut newMeteor;
-
-    FloorStut floor;
     MeteorStut meteor;
-    MeteorStut *meteors;
-    MeteorStut *meteors_right_drop;
-    MeteorStut *meteors_left_drop;
+
+
+    //FloorsStut floors; //newfloor
+    FloorStut floor; //FTT
+    //MeteorStut meteor;
+    //MeteorStut *meteors;
+    //MeteorStut *meteors_right_drop;
+  //  MeteorStut *meteors_left_drop;
     int meteor_n;
 
     FontStut font_a;
@@ -348,12 +377,11 @@ typedef struct AllegroObjStut
     FunctionBarStut fnucBar;
 
     SoundStut sound;
-    ButtonStut menuButton[NUM_MENU_BUTTON]; //ÂàùÂßã‰ªãÈù¢ÈÅ∏ÂñÆ
-    ButtonStut modeButton[NUM_MODE_BUTTON]; //ÈÅäÊà≤Èõ£Â∫¶ÈÅ∏ÂñÆ
+    ButtonStut menuButton[NUM_MENU_BUTTON]; //™Ï©l§∂≠±øÔ≥Ê
+    ButtonStut modeButton[NUM_MODE_BUTTON]; //πC¿∏√¯´◊øÔ≥Ê
     ButtonStut homeButton;
     ALLEGRO_KEYBOARD_STATE keyboard_state;
 } AllegroObjStut;
-
 
 typedef struct MouseStut
 {
@@ -361,16 +389,25 @@ typedef struct MouseStut
     bool isClick;
 } MouseStut;
 
+typedef struct SpeedStut
+{
+    float background;
+    float object;
+} SpeedStut;
+
 typedef struct MainDataStut
 {
+    long long int timerCount;
     TmStut *tm;
-    GameState game_state; //ÈÅäÊà≤ÈÄ≤Ë°åÁãÄÊÖã
-    GameState game_state_pause; //‰∏ä‰∏ÄÈöéÊÆµ(pauseÁî®)
+    GameState game_state; //πC¿∏∂i¶Ê™¨∫A
+    GameState game_state_pause; //§W§@∂•¨q(pause•Œ)
     int breakPoint;
-    int game_mode; //ÈÅäÊà≤Ê®°Âºè
+    int game_mode; //πC¿∏º“¶°
     int game_percent; //0-10000
+
     MouseStut mouse;
     ScoreStut score;
+    SpeedStut speed;
     RankNameStut usrName;
     RankScoreDataStut *scoreFileData;
 } MainDataStut;
@@ -396,12 +433,13 @@ void MainDataInit(MainDataStut *mainData);
 
 void coin_init(AllegroObjStut *allegroObj);
 void function_bar_init(AllegroObjStut *allegroObj);
+void meteor_init(AllegroObjStut *allegroObj);
 
+void sub_role_init(AllegroObjStut *allegroObj);
+void meteor_init(AllegroObjStut *allegroObj);
 
-void new_meteor_init(AllegroObjStut *allegroObj);
-
-void Gravity(AllegroObjStut *allegroObj); //ÈÅãÁÆó
+void Gravity(AllegroObjStut *allegroObj); //πB∫‚
 #endif //_RESOURSE_H_
 
-//ALLEGRO_MENU *menu; //ÂæÖÊï¥‰Ωµ
-//LLEGRO_MENU *menu_1; //ÂæÖÊï¥‰Ωµ
+//ALLEGRO_MENU *menu; //´›æ„®÷
+//LLEGRO_MENU *menu_1; //´›æ„®÷

@@ -17,7 +17,8 @@ void RandObscaleXY(MainDataStut *mainData,ObjectStut *obscale );
 void move_obscale(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void end_xy_update_Obscale(ObscaleStut *obscale);
 void DrawObscale(MainDataStut *mainData, AllegroObjStut *allegroObj);
-
+void SetObscale(MainDataStut *mainData,AllegroObjStut *allegroObj);
+bool FloorObscale(FloorStut floor);
 
 #endif //_HYH_H_
 
