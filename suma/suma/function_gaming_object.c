@@ -78,6 +78,11 @@ void CoinDebugPrint(ObjectStut *nowPtr, ObjectStut *prePtr, ObjectStut *newPtr)
 
 
 /* Roles */
+void AppendSubRoles(SubRoleStut *role)
+{
+
+}
+
 void CreateRoles(SubRoleStut *role)
 {
     int count = 0, n = 5; //²£¥Ín­Óª«¥ó
@@ -206,17 +211,19 @@ void CreateFloorOnce(FloorStut *floor) //floorªº·s¼WÅÞ¿è»P¨ä¥Lª«¥ó¤£¦P¡A¬O¦V«e·s
     {
         newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //°t¤@­Ó·sªº
         floor->objs = newPtr;
+        nowPtr = newPtr;
+        FirstFloorXY(nowPtr);
     }
     else//¤£¬°ªÅ(¤w¦³¦aªO¹B§@¤¤)¡A¦b²{¦³¦aªO«e­±·s¼W·s¦aªO(¦ý¹ê»Ú·|Åã¥Ü¦b«á­±)
     {
         newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //°t¤@­Ó·sªº
         newPtr->nextObj = nowPtr;
         floor->objs = newPtr;
+        nowPtr = newPtr; //§ânew«ü¬£µ¹now(¦¹®Énow´N¬O·sª«¥ó:floor->objs)
+        if(nowPtr->nextObj != NULL) pre_x = nowPtr->nextObj->end_x; //¤U¤@­Óª«¥ó´N¬O«e¤@­Ó¦aªO
+        RandFloorXY(nowPtr, pre_x); //³]©w°Ñ¼Æ
     }
-    nowPtr = newPtr; //§ânew«ü¬£µ¹now(¦¹®Énow´N¬O·sª«¥ó:floor->objs)
-    printf("new:%x\n", nowPtr);
-    if(nowPtr->nextObj != NULL) pre_x = nowPtr->nextObj->end_x; //¤U¤@­Óª«¥ó´N¬O«e¤@­Ó¦aªO
-    RandFloorXY(nowPtr, pre_x); //³]©w°Ñ¼Æ
+
     nowPtr->state = FLOOR_ACTIVE;
 }
 
@@ -228,7 +235,6 @@ void DestoryFloorOnce(FloorStut *floor) //floorªº·s¼WÅÞ¿è»P¨ä¥Lª«¥ó¤£¦P¡A¬O¦V«e·
     {
         if(nowPtr->nextObj == NULL && nowPtr->state == FLOOR_STANDBY)
         {
-            printf("free:%x\n", nowPtr);
             free(nowPtr);
             nowPtr == floor->objs ? floor->objs = NULL : prePtr->nextObj = NULL;
         }
@@ -237,10 +243,18 @@ void DestoryFloorOnce(FloorStut *floor) //floorªº·s¼WÅÞ¿è»P¨ä¥Lª«¥ó¤£¦P¡A¬O¦V«e·
     }
 }
 
+void FirstFloorXY(ObjectStut *floor)
+{
+    floor->start_x = 0;
+    floor->end_x = floor->start_x + (float)((rand()%51+160)*10);
+    floor->start_y = DISPLAY_HEIGHT - SIZE_IMG_FLOOR_HEIGHT;
+    floor->end_y = DISPLAY_HEIGHT;
+}
+
 void RandFloorXY(ObjectStut *floor, int pre_x)
 {
-    floor->start_x = pre_x + (float)((rand()%11+5)*10);
-    floor->end_x = floor->start_x + (float)((rand()%21+50)*10);
+    floor->start_x = pre_x + (float)((rand()%16+10)*10);
+    floor->end_x = floor->start_x + (float)((rand()%21+60)*10);
     floor->start_y = DISPLAY_HEIGHT - SIZE_IMG_FLOOR_HEIGHT;
     floor->end_y = DISPLAY_HEIGHT;
 }

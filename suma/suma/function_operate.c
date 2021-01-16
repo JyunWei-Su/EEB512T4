@@ -21,6 +21,7 @@ void move_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
     }
 }
 
+
 void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowRole = NULL;
@@ -60,6 +61,52 @@ void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
     }
 }
 
+void move_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    float role_start_y_ref;
+    int time_during; //從按下按鈕到現在過幾偵
+    int role_state;
+    role_start_y_ref = DISPLAY_HEIGHT-OFFSET_FLOOR-SIZE_IMG_ROLE_HEIGHT;
+    time_during = mainData->timerCount - allegroObj->role.keyDownRecord;
+    role_state = allegroObj->role.state;
+    switch(role_state)
+    {
+    case ROLE_NULL:
+        OnFloorCheck(mainData, allegroObj);//一定要先
+        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W))
+        {
+            allegroObj->role.keyDownRecord = mainData->timerCount;
+            allegroObj->role.state = ROLE_JUMP;
+        }
+        else allegroObj->role.start_y = role_start_y_ref;
+        //printf("td: %d\n", time_during);
+        break;
+    case ROLE_JUMP:
+        allegroObj->role.start_y = role_start_y_ref - 5.5*time_during;
+        if(time_during > 48) allegroObj->role.state = ROLE_MUST_DROP; //0.8秒
+        break;
+    case ROLE_MUST_DROP:
+        Gravity(&allegroObj->role.start_y);
+        if(allegroObj->role.start_y >= role_start_y_ref) OnFloorCheck(mainData, allegroObj);
+        break;
+    case ROLE_DROP_FLOOR:
+        Gravity(&allegroObj->role.start_y);
+        allegroObj->role.start_x -= mainData->speed.object;
+        break;
+    default:
+        if(!al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W))
+        {
+            if(allegroObj->role.state == ROLE_JUMP) allegroObj->role.state = ROLE_NULL;
+        }
+
+
+        break;
+    }
+
+    end_xy_update_role(&allegroObj->role);
+}
+
+/*
 void role_jump(AllegroObjStut *allegroObj)
 {
     if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W))
@@ -91,11 +138,11 @@ void role_jump(AllegroObjStut *allegroObj)
     if(allegroObj->role.start_x > MAX_ROLE_X)
         allegroObj->role.start_x = MAX_ROLE_X;
 
-    Gravity(allegroObj);
+    //Gravity(allegroObj);
 
     //角色邊界運算
     end_xy_update_role(&allegroObj->role);
-}
+}*/
 
 void move_meteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
@@ -158,6 +205,42 @@ void DoCrash(MainDataStut *mainData, AllegroObjStut *allegroObj)
     mainData->score.coins += ScoreAdd_Coins(&allegroObj->coin)*50;
     DestoryCoins(&allegroObj->coin);
     DestoryRoles(&allegroObj->subRole,allegroObj);
+}
+
+void OnFloorCheck(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    bool onFloor = 0;
+    ObjectStut *nowFloor = NULL;
+    RoleStut *role = NULL;
+    role = &allegroObj->role;
+    nowFloor = allegroObj->floor.objs;
+    while(nowFloor != NULL)
+    {
+
+        onFloor += FloorCrashCheck(role->start_x, role->start_y, role->end_x, role->end_y,
+                              nowFloor->start_x, nowFloor->start_y, nowFloor->end_x, nowFloor->end_y);
+        nowFloor = nowFloor->nextObj;
+    }
+    if(!onFloor) role->state = ROLE_DROP_FLOOR;
+    else role->state = ROLE_NULL;
+}
+
+void CrachCheck_role_standbyRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    bool crash;
+    ObjectStut *nowSubRole = NULL;
+    RoleStut *nowRole = NULL;
+    /*
+    nowSubRole = allegroObj->.objs;
+    nowRole = &allegroObj->role;
+    while(nowCoin != NULL)
+    {
+        crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
+                              nowCoin->start_x, nowCoin->start_y, nowCoin->end_x, nowCoin->end_y);
+        if(crash) nowCoin->state = COIN_DESTORY;
+        //crash ? printf("\tCrash\n") : NULL ;
+        nowCoin = nowCoin->nextObj;
+    }*/
 }
 
 void CrachCheck_role_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -227,7 +310,7 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         //move_coin_old(mainData, allegroObj);
         SetObscale(mainData,allegroObj);
         move_coin(mainData, allegroObj);
-    //順序異常
+        //順序異常
         move_sub_role(mainData, allegroObj);
         move_meteor(mainData, allegroObj);
         move_obscale(mainData,allegroObj);
@@ -237,7 +320,8 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
         if(mainData->game_percent < 10000) mainData->game_percent += 3;
         /* Role */
-        role_jump(allegroObj);
+        //role_jump(allegroObj);
+        move_role(mainData, allegroObj);
         //meteor_drop(allegroObj);
         /* Check Crash */
         CrachCheck(mainData, allegroObj);
@@ -253,7 +337,7 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         //move_coin_old(mainData, allegroObj);
 
         /* Role*/
-        role_jump(allegroObj);
+        //role_jump(allegroObj);
         //meteor_drop(allegroObj);
         break;
 
@@ -262,16 +346,17 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         move_floor(mainData, allegroObj); //FTT
         //move_coin_old(mainData, allegroObj);
 
-        role_jump(allegroObj);
+        //role_jump(allegroObj);
         //meteor_drop(allegroObj);
         break;
     }
 }
 
-void Gravity(AllegroObjStut *allegroObj) //重力
+
+void Gravity(float *y) //重力
 {
     //const float gravity =GRAVITY;
-    allegroObj->role.start_y += GRAVITY;
+    *y += GRAVITY;
 }
 
 

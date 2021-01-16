@@ -25,6 +25,7 @@ void RandMeteorXY(ObjectStut *meteor);
 void SetFloor(FloorStut *floor);
 void CreateFloorOnce(FloorStut *floor);
 void DestoryFloorOnce(FloorStut *floor);
+void FirstFloorXY(ObjectStut *floor);
 void RandFloorXY(ObjectStut *floor, int pre_x);
 
 #endif //_GAMING_H_

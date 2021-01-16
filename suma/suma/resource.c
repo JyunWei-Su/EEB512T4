@@ -181,7 +181,7 @@ void role_init(AllegroObjStut *allegroObj)
     allegroObj->role.img = al_load_bitmap( PATH_IMG_ROLE_1 );
     allegroObj->role.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
     allegroObj->role.start_x=800;
-    allegroObj->role.start_y=700;
+    allegroObj->role.start_y=DISPLAY_HEIGHT-OFFSET_FLOOR-SIZE_IMG_ROLE_HEIGHT;
     allegroObj->role.state = ROLE_NULL;
 }
 
@@ -317,7 +317,7 @@ void MainDataInit(MainDataStut *mainData)
     mainData->scoreFileData = (RankScoreDataStut *)calloc(sizeof(RankScoreDataStut), 1);
     mainData->scoreFileData->data = (RankRowStut *)calloc(sizeof(RankRowStut), NUM_SCORE_DATA);
     mainData->scoreFileData->fileIsRead = 0;
-    mainData->speed.background = 3;
+    mainData->speed.background = 1.5;
     mainData->speed.object = 2.5;
 }
 

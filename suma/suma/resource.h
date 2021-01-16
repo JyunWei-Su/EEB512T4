@@ -104,7 +104,7 @@
 #define OFFSET_PROBAR_Y 1
 #define OFFSET_PRONUMBER_X 600
 #define OFFSET_PRONUMBER_Y 60
-
+#define OFFSET_FLOOR 75
 
 /*Role_Define*/
 #define OFFSET_ROLE_JUMP 10
@@ -143,7 +143,7 @@ typedef enum PlayMode
 
 typedef enum RoleState
 {
-    ROLE_JUMP, ROLE_DROP, ROLE_MUST_DROP, ROLE_NULL,SUPROLE_CRASH,
+    ROLE_JUMP, ROLE_DROP, ROLE_MUST_DROP, ROLE_NULL, SUPROLE_CRASH,
     ROLE_DROP_FLOOR,
 } RoleState;
 
@@ -278,6 +278,7 @@ typedef struct RoleStut
 {
     float start_x, start_y;
     float end_x, end_y;
+    unsigned long long int keyDownRecord;
     ALLEGRO_BITMAP *img;
     ALLEGRO_BITMAP *imgs_runing;
     int imgCount, nowImg;
@@ -407,7 +408,7 @@ typedef struct SpeedStut
 
 typedef struct MainDataStut
 {
-    long long int timerCount;
+    unsigned long long int timerCount;
     TmStut *tm;
     GameState game_state; //遊戲進行狀態
     GameState game_state_pause; //上一階段(pause用)
