@@ -90,6 +90,7 @@
 #define NUM_SAMPLES 3 //聲音數量
 #define SCALE_MENU_BUTTON 1.2
 #define SCALE_MODE_BUTTON 1.2
+
 #define OFFSET_MENU 1.5
 #define OFFSET_MODE 1.5
 #define OFFSET_SCOREBOARD_TEXT 320
@@ -402,16 +403,25 @@ typedef struct MouseStut
     bool isClick;
 } MouseStut;
 
+typedef struct SpeedStut
+{
+    float background;
+    float object;
+} SpeedStut;
+
 typedef struct MainDataStut
 {
+    long long int timerCount;
     TmStut *tm;
     GameState game_state; //遊戲進行狀態
     GameState game_state_pause; //上一階段(pause用)
     int breakPoint;
     int game_mode; //遊戲模式
     int game_percent; //0-10000
+
     MouseStut mouse;
     ScoreStut score;
+    SpeedStut speed;
     RankNameStut usrName;
     RankScoreDataStut *scoreFileData;
 } MainDataStut;

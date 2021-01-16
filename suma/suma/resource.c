@@ -315,9 +315,12 @@ void MainDataInit(MainDataStut *mainData)
     mainData->score.chars = 0;
     mainData->score.coins = 0;
     mainData->score.score = 0;
+    mainData->timerCount = 0;
 
     mainData->scoreFileData = (RankScoreDataStut *)calloc(sizeof(RankScoreDataStut), 1);
     mainData->scoreFileData->data = (RankRowStut *)calloc(sizeof(RankRowStut), NUM_SCORE_DATA);
     mainData->scoreFileData->fileIsRead = 0;
+    mainData->speed.background = 3;
+    mainData->speed.object = 2.5;
 }
 

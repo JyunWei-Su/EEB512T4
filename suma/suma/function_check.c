@@ -41,6 +41,7 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 al_flip_display();
                 break;
             case ALLEGRO_EVENT_TIMER:
+                mainData->timerCount += 1;
                 //printf("%d\n", mainData->game_state);
                // PlaySoundEffect(mainData, allegroObj);
                 ParameterOperate(mainData, allegroObj);
@@ -131,7 +132,7 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
             if(mainData->game_state == GAME_PLAYING_NORMAL) CreateRoles(&allegroObj->newRole);
             break;
         case ALLEGRO_KEY_K:
-            if(mainData->game_state == GAME_PLAYING_NORMAL) CreateObscales(mainData,&allegroObj->obscale);
+            //if(mainData->game_state == GAME_PLAYING_NORMAL) CreateObscales(mainData,&allegroObj->obscale);
         default:
             break;
         }
