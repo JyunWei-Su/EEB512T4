@@ -46,6 +46,7 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     home_button_init(allegroObj);
     score_board_init(allegroObj);
     role_init(allegroObj);
+    standbyrole_init(allegroObj);
 
     coin_init(allegroObj);
     obscale_init(allegroObj);
@@ -80,6 +81,8 @@ void sound_init(AllegroObjStut *allegroObj)
     allegroObj->sound.sfi_background = al_create_sample_instance(allegroObj->sound.sfx_background);
     allegroObj->sound.buttonMoveIn.sfx = al_load_sample( PATH_SFX_BUTTON_MOVEIN );
     allegroObj->sound.buttonMoveIn.sfi = al_create_sample_instance(allegroObj->sound.buttonMoveIn.sfx);
+    allegroObj->sound.coinCrash.sfx = al_load_sample( PATH_SFX_COINCRASH );
+    allegroObj->sound.coinCrash.sfi = al_create_sample_instance( allegroObj->sound.coinCrash.sfx);
 
 
     al_attach_sample_instance_to_mixer(allegroObj->sound.sfi_background, allegroObj->sound.mixer);//將聲音物件link buffer
@@ -120,6 +123,12 @@ void sub_role_init(AllegroObjStut *allegroObj)
     allegroObj->subRole.objs = NULL;
 }
 
+void standbyrole_init(AllegroObjStut *allegroObj)
+{
+    if(allegroObj->obscale.imgs_shining == NULL) allegroObj->strole.imgs_running = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
+    allegroObj->strole.objs = NULL;
+    //這裡無須配置資料, 只需讀圖片, 配置在遊戲中配置
+}
 
 void obscale_init(AllegroObjStut *allegroObj)
 {

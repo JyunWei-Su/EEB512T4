@@ -42,6 +42,7 @@
 #define PATH_FNT_DFT "./DFT_TL9.TTC"
 #define PATH_SFX_BACKGROUND "./sfx/bkg.wav"
 #define PATH_SFX_BUTTON_MOVEIN "./sfx/button02a.wav"
+#define PATH_SFX_COINCRASH "./sfx/coin.wav"
 #define PATH_FILE_SCORE "user.score"
 #define PATH_FONT_HIMAJI "./font/KFhimajiFACE.otf"
 #define PATH_FONT_FANCYH "./font/FancyHeart.otf"
@@ -103,9 +104,9 @@
 #define OFFSET_SCOREBOARD_TEXT 320
 #define OFFSET_PROBAR_X 5
 #define OFFSET_PROBAR_Y 1
-#define OFFSET_PRONUMBER_X 600
-#define OFFSET_PRONUMBER_Y 60
-
+#define OFFSET_PRONUMBER_X 610
+#define OFFSET_PRONUMBER_Y 65
+#define OFFSET_FLOOR 75
 
 /*Role_Define*/
 #define OFFSET_ROLE_JUMP 10
@@ -168,6 +169,11 @@ typedef enum ObscaleState
 {
     OBSCALE_NULL, OBSCALE_CRASH_MAIN,OBSCALE_CRASH_FOLLOWER, OBSCALE_MOVEOUT, OBSCALE_DESTORY,
 } ObscaleState;
+
+typedef enum StandByRoleState
+{
+    STBROLE_NULL, STBROLE_CRASH, STBROLE_DESTORY,
+} StandByRoleState;
 
 /**  struct  **/
 typedef struct tm TmStut;
@@ -249,6 +255,13 @@ typedef struct ObscaleStut
     ObjectStut *objs;
     int n;
 } ObscaleStut;
+
+typedef struct StandByRoleStut
+{
+    ALLEGRO_BITMAP *imgs_running;
+    ObjectStut *objs;
+    int n;
+} StandByRoleStut;
 
 typedef struct MeteorStut
 {
@@ -346,6 +359,7 @@ typedef struct SoundStut
     ALLEGRO_SAMPLE_INSTANCE *sfi_background; //https://www.allegro.cc/forums/thread/611901
 
     SoundEffectStut buttonMoveIn;
+    SoundEffectStut coinCrash;
 
 } SoundStut;
 
@@ -366,6 +380,7 @@ typedef struct AllegroObjStut
 
     RoleStut role;
     SubRoleStut subRole;
+    StandByRoleStut strole;
     //CoinStut_old coin_old;
     CoinStut coin;
     ObscaleStut obscale;
@@ -435,6 +450,7 @@ void home_button_init(AllegroObjStut *allegroObj);
 void mode_button_init(AllegroObjStut *allegroObj);
 void sound_init(AllegroObjStut *allegroObj);
 void role_init(AllegroObjStut *allegroObj);
+void standbyrole_init(AllegroObjStut *allegroObj);
 void obscale_init(AllegroObjStut *allegroObj);
 void coin_init_old(AllegroObjStut *allegroObj);
 void floor_init(AllegroObjStut *allegroObj);

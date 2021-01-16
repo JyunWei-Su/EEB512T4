@@ -183,7 +183,11 @@ void CrachCheck_role_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
     {
         crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
                               nowCoin->start_x, nowCoin->start_y, nowCoin->end_x, nowCoin->end_y);
-        if(crash) nowCoin->state = COIN_DESTORY;
+        if(crash){
+            nowCoin->state = COIN_DESTORY;
+            allegroObj->sound.coinCrash.readyToPlay = 1; //¶Ç»¼¼½©ñ­µ®Äªº°Ñ¼Æ
+        }
+
         //crash ? printf("\tCrash\n") : NULL ;
         nowCoin = nowCoin->nextObj;
     }
@@ -238,12 +242,14 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         move_background(mainData, allegroObj);
         //move_coin_old(mainData, allegroObj);
         SetObscale(mainData,allegroObj);
+        SetStandbyRole(mainData,allegroObj);
         move_coin(mainData, allegroObj);
     //¶¶§Ç²§±`
         move_sub_role(mainData, allegroObj);
         move_meteor(mainData, allegroObj);
         move_attackx(mainData, allegroObj);
         move_obscale(mainData,allegroObj);
+        move_standbyrole(mainData,allegroObj);
         move_floor(mainData, allegroObj); //FTT
         SetFloor(&allegroObj->floor); //½T»{¬O§_»İ­n·s¼W¦aªOorÄÀ©ñ¦aªO¿
         /* ¶i«×±ø */
@@ -258,6 +264,7 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         DoCrash(mainData, allegroObj);
 
         CrashCheck_role_obscale(mainData, allegroObj);
+        CrashCheck_role_standbyrole(mainData,allegroObj);
         break;
 
     case GAME_PLAYING_MID_BOSS:
