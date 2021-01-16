@@ -46,6 +46,7 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     home_button_init(allegroObj);
     score_board_init(allegroObj);
     role_init(allegroObj);
+    standbyrole_init(allegroObj);
 
     coin_init(allegroObj);
     obscale_init(allegroObj);
@@ -122,6 +123,12 @@ void sub_role_init(AllegroObjStut *allegroObj)
     allegroObj->subRole.objs = NULL;
 }
 
+void standbyrole_init(AllegroObjStut *allegroObj)
+{
+    if(allegroObj->obscale.imgs_shining == NULL) allegroObj->strole.imgs_running = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
+    allegroObj->strole.objs = NULL;
+    //這裡無須配置資料, 只需讀圖片, 配置在遊戲中配置
+}
 
 void obscale_init(AllegroObjStut *allegroObj)
 {

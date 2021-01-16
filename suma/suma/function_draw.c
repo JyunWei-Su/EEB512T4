@@ -39,6 +39,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         DrawSubRole(mainData, allegroObj);
 
         DrawCoin(mainData, allegroObj);
+        DrawSTBRole(mainData,allegroObj);
         DrawMeteor(mainData, allegroObj);
         DrawObscale(mainData, allegroObj);
         DrawScoreboard(mainData, allegroObj);
