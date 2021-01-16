@@ -149,19 +149,19 @@ void SetObscale(MainDataStut *mainData,AllegroObjStut *allegroObj)
         switch (mainData->game_mode)
         {
         case MODE_EASY:
-            if(rand()%2 ==1 && FloorObscale(allegroObj->floor))
+            if(rand()%3 ==0 && FloorObscale(allegroObj->floor))
             {
                 CreateObscales(mainData,&(allegroObj->obscale));
             }
             break;
         case MODE_MEDIUM:
-            if(rand()%4 ==1 && FloorObscale(allegroObj->floor))
+            if(rand()%2 ==0 && FloorObscale(allegroObj->floor))
             {
                 CreateObscales(mainData,&(allegroObj->obscale));
             }
             break;
         case MODE_HARD:
-            if(rand()% 5==1 && FloorObscale(allegroObj->floor))
+            if(rand()%2==0 && FloorObscale(allegroObj->floor))
             {
                 CreateObscales(mainData,&(allegroObj->obscale));
             }
@@ -171,11 +171,8 @@ void SetObscale(MainDataStut *mainData,AllegroObjStut *allegroObj)
 }
 bool FloorObscale(FloorStut floor)
 {
-    //printf("%f\t",floor.objs->start_x);
-     //printf("%f\n",floor.objs->end_x);
- if(floor.objs->start_x < DISPLAY_WIDTH && DISPLAY_WIDTH < floor.objs->start_x+SIZE_IMG_FLOOR_WIDTH)
- {
-     if(floor.objs->start_x < DISPLAY_WIDTH + SIZE_IMG_OBSCALE_WIDTH && DISPLAY_WIDTH + SIZE_IMG_OBSCALE_WIDTH < floor.objs->start_x+SIZE_IMG_FLOOR_WIDTH)return 1;
- }
+    if(floor.objs->start_x < DISPLAY_WIDTH && DISPLAY_WIDTH < floor.objs->end_x && floor.objs->start_x < DISPLAY_WIDTH + SIZE_IMG_OBSCALE_WIDTH
+       && DISPLAY_WIDTH + SIZE_IMG_OBSCALE_WIDTH < floor.objs->end_x) return 1;
+    else return 0;
 }
 /** 觸碰扣分**/

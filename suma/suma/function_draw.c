@@ -95,6 +95,7 @@ void DrawMenu(MainDataStut *mainData, AllegroObjStut *allegroObj)
     al_draw_textf(allegroObj->font_a.font24, COLOR_SCORE, DISPLAY_WIDTH, DISPLAY_HEIGHT-al_get_font_line_height(allegroObj->font_a.font24), ALLEGRO_ALIGN_RIGHT, VERSION);
 }
 
+
 void DrawModeButton(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int i;

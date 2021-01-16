@@ -31,8 +31,8 @@
 #define PATH_IMG_MODE_BUTTON "./img/menuButton.png"
 #define PATH_IMG_HOME_BUTTON_1 "./img/homeButton_1.png"
 #define PATH_IMG_HOME_BUTTON_2 "./img/homeButton_2.png"
-#define PATH_IMG_ROLE_1 "./img/role_1.png"
-#define PATH_IMG_ROLE_SEQ_RUNING "./img/comp1.png"
+#define PATH_IMG_ROLE_1 "./img/role.png"
+#define PATH_IMG_ROLE_SEQ_RUNING "./img/roles.png"
 #define PATH_IMG_FLOOR "./img/floor.png"
 #define PATH_IMG_METEOR "./img/meteor.png"
 #define PATH_IMG_METEOR_SEQ_RUNING "./img/meteors80.png"
@@ -65,8 +65,8 @@
 #define SIZE_IMG_PROBAR_HEIGHT 64
 #define SIZE_IMG_COIN_WIDTH 64
 #define SIZE_IMG_COIN_HEIGHT 64
-#define SIZE_IMG_ROLE_WIDTH 150
-#define SIZE_IMG_ROLE_HEIGHT 200
+#define SIZE_IMG_ROLE_WIDTH 84
+#define SIZE_IMG_ROLE_HEIGHT 210
 #define SIZE_IMG_FLOOR_WIDTH 1600
 #define SIZE_IMG_FLOOR_HEIGHT 130
 #define SIZE_IMG_OBSCALE_WIDTH 128
