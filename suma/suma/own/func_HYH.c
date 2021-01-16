@@ -8,7 +8,7 @@ void PrintTest_HYH()
 
 void CreateObscales(MainDataStut *mainData,ObscaleStut *obscale)
 {
-    int count = 0, n = 2; //產生n個物件
+    int count = 0, n = 1; //產生n個物件
     ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
     nowPtr = obscale->objs; //第一筆資料
     while(count < n)
