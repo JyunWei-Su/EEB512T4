@@ -43,10 +43,8 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
             case ALLEGRO_EVENT_TIMER:
                 mainData->timerCount += 1;
                 //printf("%d\n", mainData->game_state);
-               // PlaySoundEffect(mainData, allegroObj);
+                PlaySoundEffect(mainData, allegroObj);
                 ParameterOperate(mainData, allegroObj);
-                //CheckGameState(mainData, allegroObj);
-
                 DrawDisplayAndFlip(mainData, allegroObj);
                 break;
             default:
@@ -113,11 +111,8 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
         switch(allegroObj->events.keyboard.keycode)
         {
         case ALLEGRO_KEY_V:
-            CreateMeteors(&allegroObj->newMeteor);
+            CreateMeteors(&allegroObj->meteor);
             break;
-        /*  case ALLEGRO_KEY_B:
-              CreateMeteors(&allegroObj->newMeteor);
-              break;*/
         case ALLEGRO_KEY_Z:
             mainData->game_state = GAME_PLAYING_MID_BOSS;
             //creat
@@ -129,14 +124,13 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
             if(mainData->game_state == GAME_PLAYING_NORMAL) CreateCoins(&allegroObj->coin);
             break;
         case ALLEGRO_KEY_R:
-            if(mainData->game_state == GAME_PLAYING_NORMAL) CreateRoles(&allegroObj->newRole);
+            if(mainData->game_state == GAME_PLAYING_NORMAL) CreateRoles(&allegroObj->subRole);
             break;
         case ALLEGRO_KEY_K:
             //if(mainData->game_state == GAME_PLAYING_NORMAL) CreateObscales(mainData,&allegroObj->obscale);
         default:
             break;
         }
-
     }
 }
 
@@ -288,19 +282,5 @@ void CheckMouseMoveOnModeButton(MainDataStut *mainData, AllegroObjStut *allegroO
         }
         else
             allegroObj->modeButton[i].isSelected = 0;
-    }
-}
-
-void CheckGameState(MainDataStut *mainData, AllegroObjStut *allegroObj)
-{
-    int state = mainData->game_state;
-    //printf("state:%d\n", state);
-    switch(state)
-    {
-    case GAME_NONE:
-        //DrawDisplayAndFlip(mainData, allegroObj);
-        break;
-    default:
-        break;
     }
 }

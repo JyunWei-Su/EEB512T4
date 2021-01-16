@@ -9,6 +9,8 @@
 ## 字體來源
  * https://www.kfstudio.net/font/kfhimajiface/
  * https://nonty.net/font/freefont/fancy-heart/
+ * https://www.texttopng.com/english/downloadfont.php?url=https://www.texttopng.com/english/graffiti-font
+ * https://www.no1font.com/leecaps-font-family-%e8%8b%b1%e6%96%87%e6%b5%ae%e9%9b%95%e5%ad%97%e5%9e%8b%e4%b8%8b%e8%bc%89.html
 
 ## 圖片
  * https://www.flaticon.com/free-icon/home_1057118?related_item_id=1057118&term=home

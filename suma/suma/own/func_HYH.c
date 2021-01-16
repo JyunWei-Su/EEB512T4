@@ -155,13 +155,13 @@ void SetObscale(MainDataStut *mainData,AllegroObjStut *allegroObj)
             }
             break;
         case MODE_MEDIUM:
-            if(rand()%4 ==1)
+            if(rand()%4 ==1 && FloorObscale(allegroObj->floor))
             {
                 CreateObscales(mainData,&(allegroObj->obscale));
             }
             break;
         case MODE_HARD:
-            if(rand()% 5==1)
+            if(rand()% 5==1 && FloorObscale(allegroObj->floor))
             {
                 CreateObscales(mainData,&(allegroObj->obscale));
             }
@@ -171,8 +171,8 @@ void SetObscale(MainDataStut *mainData,AllegroObjStut *allegroObj)
 }
 bool FloorObscale(FloorStut floor)
 {
-    printf("%f\t",floor.objs->start_x);
-     printf("%f\n",floor.objs->end_x);
+    //printf("%f\t",floor.objs->start_x);
+     //printf("%f\n",floor.objs->end_x);
  if(floor.objs->start_x < DISPLAY_WIDTH && DISPLAY_WIDTH < floor.objs->start_x+SIZE_IMG_FLOOR_WIDTH)
  {
      if(floor.objs->start_x < DISPLAY_WIDTH + SIZE_IMG_OBSCALE_WIDTH && DISPLAY_WIDTH + SIZE_IMG_OBSCALE_WIDTH < floor.objs->start_x+SIZE_IMG_FLOOR_WIDTH)return 1;

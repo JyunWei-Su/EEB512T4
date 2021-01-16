@@ -33,7 +33,7 @@
 #define PATH_IMG_HOME_BUTTON_2 "./img/homeButton_2.png"
 #define PATH_IMG_ROLE_1 "./img/role_1.png"
 #define PATH_IMG_ROLE_SEQ_RUNING "./img/comp1.png"
-#define PATH_IMG_FLOOR "./img/new_floor.png"
+#define PATH_IMG_FLOOR "./img/floor.png"
 #define PATH_IMG_METEOR "./img/meteor.png"
 #define PATH_IMG_METEOR_SEQ_RUNING "./img/meteors80.png"
 
@@ -44,6 +44,9 @@
 #define PATH_FILE_SCORE "user.score"
 #define PATH_FONT_HIMAJI "./font/KFhimajiFACE.otf"
 #define PATH_FONT_FANCYH "./font/FancyHeart.otf"
+#define PATH_FONT_GRAFTI "./font/Graffiti.ttf"
+#define PATH_FONT_LEECAP "./font/LeeCaps.ttf"
+#define PATH_FONT_HANDYH "./font/Nouveau.ttf"
 
 #define COLOR_SCORE al_map_rgb(255, 255, 255)
 #define COLOR_PAUSE_TEXT al_map_rgb(0, 0, 0)
@@ -221,12 +224,12 @@ typedef struct CoinStut
     int n;
 } CoinStut;
 
-typedef struct newRoleStut
+typedef struct SubRoleStut
 {
     ALLEGRO_BITMAP *imgs_runing;
     ObjectStut *objs;
     int n;
-} newRoleStut;
+} SubRoleStut;
 
 typedef struct FloorStut
 {
@@ -243,13 +246,14 @@ typedef struct ObscaleStut
     int n;
 } ObscaleStut;
 
-typedef struct newMeteorStut
+typedef struct MeteorStut
 {
     ALLEGRO_BITMAP *imgs_runing;
     ObjectStut *objs;
     int n;
-} newMeteorStut;
+} MeteorStut;
 
+/*
 typedef struct CoinStut_old
 
 {
@@ -259,6 +263,7 @@ typedef struct CoinStut_old
     int imgCount, nowImg;
     int persent;
 } CoinStut_old;
+*/
 
 typedef struct RoleStut
 {
@@ -271,23 +276,6 @@ typedef struct RoleStut
 } RoleStut;
 
 /*
-typedef struct FloorStut
-{
-    float start_x, start_y;
-    float end_x, end_y;
-    int state;
-} FloorStut;
-
-typedef struct FloorsStut
-{
-    ALLEGRO_BITMAP *img;
-    int standbyList[4];
-    FloorStut floor_1;
-    FloorStut floor_2;
-    FloorStut floor_3;
-    FloorStut floor_4;
-} FloorsStut;*/
-
 typedef struct MeteorStu
 {
     float start_x, start_y;
@@ -297,8 +285,7 @@ typedef struct MeteorStu
     int imgCount, nowImg;
     int speed_x,speed_y;
     int state;
-} MeteorStut;
-
+} MeteorStut;*/
 
 typedef struct ButtonStut
 {
@@ -368,20 +355,20 @@ typedef struct AllegroObjStut
     ScoreboardStut sb_coins;
 
     RoleStut role;
-
+    SubRoleStut subRole;
     //CoinStut_old coin_old;
     CoinStut coin;
     ObscaleStut obscale;
 
-    newMeteorStut newMeteor;
-    newRoleStut newRole;
+    MeteorStut meteor;
+
 
     //FloorsStut floors; //newfloor
     FloorStut floor; //FTT
-    MeteorStut meteor;
-    MeteorStut *meteors;
-    MeteorStut *meteors_right_drop;
-    MeteorStut *meteors_left_drop;
+    //MeteorStut meteor;
+    //MeteorStut *meteors;
+    //MeteorStut *meteors_right_drop;
+  //  MeteorStut *meteors_left_drop;
     int meteor_n;
 
     FontStut font_a;
@@ -395,7 +382,6 @@ typedef struct AllegroObjStut
     ButtonStut homeButton;
     ALLEGRO_KEYBOARD_STATE keyboard_state;
 } AllegroObjStut;
-
 
 typedef struct MouseStut
 {
@@ -447,9 +433,10 @@ void MainDataInit(MainDataStut *mainData);
 
 void coin_init(AllegroObjStut *allegroObj);
 void function_bar_init(AllegroObjStut *allegroObj);
+void meteor_init(AllegroObjStut *allegroObj);
 
-void new_role_init(AllegroObjStut *allegroObj);
-void new_meteor_init(AllegroObjStut *allegroObj);
+void sub_role_init(AllegroObjStut *allegroObj);
+void meteor_init(AllegroObjStut *allegroObj);
 
 void Gravity(AllegroObjStut *allegroObj); //¹Bºâ
 #endif //_RESOURSE_H_
