@@ -178,6 +178,7 @@ void role_init(AllegroObjStut *allegroObj)
     allegroObj->role.start_y=700;
     allegroObj->role.state = ROLE_NULL;
 }
+
 /*
 void meteor_init(AllegroObjStut *allegroObj)
 {
