@@ -42,6 +42,7 @@
 #define PATH_FNT_DFT "./DFT_TL9.TTC"
 #define PATH_SFX_BACKGROUND "./sfx/bkg.wav"
 #define PATH_SFX_BUTTON_MOVEIN "./sfx/button02a.wav"
+#define PATH_SFX_COINCRASH "./sfx/coin.wav"
 #define PATH_FILE_SCORE "user.score"
 #define PATH_FONT_HIMAJI "./font/KFhimajiFACE.otf"
 #define PATH_FONT_FANCYH "./font/FancyHeart.otf"
@@ -102,8 +103,8 @@
 #define OFFSET_SCOREBOARD_TEXT 320
 #define OFFSET_PROBAR_X 5
 #define OFFSET_PROBAR_Y 1
-#define OFFSET_PRONUMBER_X 600
-#define OFFSET_PRONUMBER_Y 60
+#define OFFSET_PRONUMBER_X 610
+#define OFFSET_PRONUMBER_Y 65
 
 
 /*Role_Define*/
@@ -345,6 +346,7 @@ typedef struct SoundStut
     ALLEGRO_SAMPLE_INSTANCE *sfi_background; //https://www.allegro.cc/forums/thread/611901
 
     SoundEffectStut buttonMoveIn;
+    SoundEffectStut coinCrash;
 
 } SoundStut;
 

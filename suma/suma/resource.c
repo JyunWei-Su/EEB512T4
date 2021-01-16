@@ -80,6 +80,8 @@ void sound_init(AllegroObjStut *allegroObj)
     allegroObj->sound.sfi_background = al_create_sample_instance(allegroObj->sound.sfx_background);
     allegroObj->sound.buttonMoveIn.sfx = al_load_sample( PATH_SFX_BUTTON_MOVEIN );
     allegroObj->sound.buttonMoveIn.sfi = al_create_sample_instance(allegroObj->sound.buttonMoveIn.sfx);
+    allegroObj->sound.coinCrash.sfx = al_load_sample( PATH_SFX_COINCRASH );
+    allegroObj->sound.coinCrash.sfi = al_create_sample_instance( allegroObj->sound.coinCrash.sfx);
 
 
     al_attach_sample_instance_to_mixer(allegroObj->sound.sfi_background, allegroObj->sound.mixer);//將聲音物件link buffer

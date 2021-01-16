@@ -171,7 +171,11 @@ void CrachCheck_role_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
     {
         crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
                               nowCoin->start_x, nowCoin->start_y, nowCoin->end_x, nowCoin->end_y);
-        if(crash) nowCoin->state = COIN_DESTORY;
+        if(crash){
+            nowCoin->state = COIN_DESTORY;
+            allegroObj->sound.coinCrash.readyToPlay = 1; //傳遞播放音效的參數
+        }
+
         //crash ? printf("\tCrash\n") : NULL ;
         nowCoin = nowCoin->nextObj;
     }
