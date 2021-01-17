@@ -147,6 +147,13 @@
 #define SPEED_X_METEOR 0
 #define SPEED_Y_METEOR_RIGHT 5
 #define SPEED_X_METEOR_RIGHT 3
+/* Game persend*/
+#define GAME_PERSEND_100 10000
+#define GAME_PERSEND_99  9900
+#define GAME_PERSEND_50  5040
+#define GAME_PERSEND_APPEND  3
+#define GAME_PERSEND_MID_TIME  2500
+#define GAME_PERSEND_FINAL_TIME  5800
 
 #define FILE_EXIT_ID 1 //«Ý¾ã¨Ö
 
@@ -155,8 +162,8 @@ typedef enum GameState
 {
     GAME_NONE, GAME_FINISH,
     GAME_MODE_SELECT, GAME_RULE, GAME_RANK, GAME_MENU, GAME_ABOUT,
-    GAME_PLAYING_NORMAL, GAME_PLAYING_MID_BOSS,
-    GAME_PLAYING_FINAL_BOSS, GAME_PLAYING_END,
+    GAME_PLAYING_NORMAL,
+    GAME_PLAYING_END,
     GAME_PAUSE,
 } GameState;
 
@@ -194,7 +201,7 @@ typedef enum ObscaleState
 typedef enum StbRoleState
 {
     STB_ROLE_NULL, STB_ROLE_CRASH, STB_ROLE_DESTORY,
-} StandByRoleState;
+} StandbyRoleState;
 
 /**  struct  **/
 typedef struct tm TmStut;
@@ -279,13 +286,13 @@ typedef struct ObscaleStut
     int n;
 } ObscaleStut;
 
-typedef struct StandByRoleStut
+typedef struct StandbyRoleStut
 {
     ALLEGRO_BITMAP *img;
     ALLEGRO_BITMAP *imgs_running;
     ObjectStut *objs;
     int n;
-} StandByRoleStut;
+} StandbyRoleStut;
 
 typedef struct MeteorStut
 {
@@ -415,7 +422,7 @@ typedef struct AllegroObjStut
     RoleStut role;
     BossStut boss;
     SubRoleStut subRole;
-    StandByRoleStut stbRole;
+    StandbyRoleStut stbRole;
     CoinStut coin;
     ObscaleStut obscale;
 
@@ -423,6 +430,7 @@ typedef struct AllegroObjStut
     AttackXStut attackx;
 
     FloorStut floor;
+    ObjectStut full_floor;
     int meteor_n;
 
     FontStut font_a;

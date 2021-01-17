@@ -1,7 +1,104 @@
 #include "defineHeader.h"
 #include "resource.h"
 
+/**
+ * ¹Bºâ¬ÛÃö¨ç¦¡
+ * ¥D­n©I¥s¡G
+**/
 
+/* ¥D­n°Ñ¼Æ¹Bºâ»Pª¬ºA§P§O */
+void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    int state = mainData->game_state;
+    al_get_keyboard_state(&allegroObj->keyboard_state);
+    switch(state)
+    {
+    case GAME_PLAYING_NORMAL:
+        /*³]©w·sª«¥ó*/
+        CheckForCoin(allegroObj);
+        SetChoose(mainData,allegroObj);
+        SetFloor(&allegroObj->floor); //½T»{¬O§_»Ý­n·s¼W¦aªOorÄÀ©ñ¦aªO¿
+        /*²¾°Êª«¥ó*/
+        move_playing_normal(mainData, allegroObj);
+        /* Check Crash */
+        CrachCheck(mainData, allegroObj);
+        DoCrashOrDestorys(mainData, allegroObj);
+        /* ¹CÀ¸¶i«×§ó·s*/
+        PlayingStateSwitchTo(mainData, allegroObj);
+        break;
+    case GAME_PLAYING_END:
+
+        break;
+    }
+}
+
+void PlayingStateSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    switch(mainData->game_state)
+    {
+    case GAME_PLAYING_NORMAL:
+        if(mainData->game_percent <= GAME_PERSEND_100) mainData->game_percent += GAME_PERSEND_APPEND;
+        else mainData->game_state = GAME_PLAYING_END;
+    break;
+    }
+}
+//move_attackx(mainData, allegroObj);
+
+/* move ¦X¶° */
+void move_playing_normal(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    move_background(mainData, allegroObj);
+    move_coin(mainData, allegroObj);
+    move_obscale(mainData,allegroObj);
+    move_floor(mainData, allegroObj);
+
+    move_role(mainData, allegroObj);
+    move_sub_role(mainData, allegroObj);
+    move_stb_role(mainData,allegroObj);
+}
+
+void move_playing_ready_mid(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    move_background(mainData, allegroObj);
+    move_coin(mainData, allegroObj);
+    move_obscale(mainData,allegroObj);
+    move_floor(mainData, allegroObj);
+    move_full_floor(mainData, allegroObj);
+
+    move_role(mainData, allegroObj);
+    move_sub_role(mainData, allegroObj);
+    move_stb_role(mainData,allegroObj);
+}
+
+void move_playing_mid(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    move_floor(mainData, allegroObj);
+    move_meteor(mainData, allegroObj);
+    //move_role(mainData, allegroObj);
+}
+
+void move_playing_ready_final(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    move_background(mainData, allegroObj);
+    move_coin(mainData, allegroObj);
+    move_obscale(mainData,allegroObj);
+    move_floor(mainData, allegroObj);
+    move_full_floor(mainData, allegroObj);
+
+    move_role(mainData, allegroObj);
+    move_sub_role(mainData, allegroObj);
+    move_stb_role(mainData,allegroObj);
+}
+
+void move_playing_final(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    //move_full_floor(mainData, allegroObj);
+    //move_role(mainData, allegroObj);
+    move_boss(allegroObj);
+}
+
+
+/* ª«¥ó move */
 void move_background(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     allegroObj->background.x -= mainData->speed.background;
@@ -42,13 +139,12 @@ void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
         switch(role_state) //¥Hrole ªº¬°°ò·Ç½Æ»s­×§ï
         {
         case ROLE_NULL:
-            OnFloorCheck_subRole(nowSubRole, &allegroObj->floor);//¤@©w­n¥ý
+            OnFloorCheck_subRole(mainData, allegroObj, nowSubRole, &allegroObj->floor);//¤@©w­n¥ý
             if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W) && time_during > OFFSET_SUB_ROLE_DELAY * nowSubRole->id)
                 nowSubRole->state = ROLE_JUMP;
             else nowSubRole->start_y = role_start_y_ref;
             break;
         case ROLE_JUMP:
-            //printf("---%d\n", count);
             if(!al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W))
             {
                 nowSubRole->state = ROLE_DROP;
@@ -61,11 +157,11 @@ void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
             break;
         case ROLE_DROP:
             Gravity(&nowSubRole->start_y);
-            if(nowSubRole->start_y >= role_start_y_ref) OnFloorCheck_subRole(nowSubRole, &allegroObj->floor);
+            if(nowSubRole->start_y >= role_start_y_ref) OnFloorCheck_subRole(mainData, allegroObj, nowSubRole, &allegroObj->floor);
             break;
         case ROLE_MUST_DROP:
             Gravity(&nowSubRole->start_y);
-            if(nowSubRole->start_y >= role_start_y_ref) OnFloorCheck_subRole(nowSubRole, &allegroObj->floor);
+            if(nowSubRole->start_y >= role_start_y_ref) OnFloorCheck_subRole(mainData, allegroObj, nowSubRole, &allegroObj->floor);
             break;
         case ROLE_DROP_FLOOR:
             Gravity(&nowSubRole->start_y);
@@ -78,6 +174,7 @@ void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
         nowSubRole = nowSubRole->nextObj;
     }
 }
+
 void move_boss(AllegroObjStut *allegroObj)
 {
     int distance=0,dx=0,dy=0;
@@ -99,11 +196,13 @@ void move_boss(AllegroObjStut *allegroObj)
         if(allegroObj->boss.start_y<=-400) allegroObj->boss.state = BOSS_NULL;
         break;
     case BOSS_BEYOND_Y:
-     allegroObj->boss.start_y -=5;
-     allegroObj->boss.start_x -=10;
-     if(allegroObj->boss.start_y<=0) allegroObj->boss.state = BOSS_NULL;
+        allegroObj->boss.start_y -=5;
+        allegroObj->boss.start_x -=10;
+        if(allegroObj->boss.start_y<=0) allegroObj->boss.state = BOSS_NULL;
         break;
     }
+    allegroObj->boss.end_x = allegroObj->boss.start_x + SIZE_IMG_BOSS_WIDTH;
+    allegroObj->boss.end_y = allegroObj->boss.start_y + SIZE_IMG_BOSS_HEIGHT;
     /*allegroObj->boss.start_x -=rand()%10+3;
     allegroObj->boss.start_y +=rand()%10+3;
     if(allegroObj->boss.start_y>=700)allegroObj->boss.start_y -=rand()%10+7;
@@ -152,16 +251,9 @@ void move_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
         allegroObj->role.start_x -= mainData->speed.object;
         break;
     default:
-        /*
-        if(!al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W))
-        {
-            if(allegroObj->role.state == ROLE_JUMP) allegroObj->role.state = ROLE_NULL;
-        }*/
         break;
     }
-
     end_xy_update_role(&allegroObj->role);
-
 }
 
 void move_meteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -192,7 +284,13 @@ void move_attackx(MainDataStut *mainData, AllegroObjStut *allegroObj)
     }
 }
 
-void move_floor(MainDataStut *mainData, AllegroObjStut *allegroObj) //FTT
+void move_full_floor(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    allegroObj->full_floor.start_x -= mainData->speed.object;
+    allegroObj->full_floor.end_x -= mainData->speed.object;
+}
+
+void move_floor(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowFloor = NULL;
     nowFloor = allegroObj->floor.objs;
@@ -214,15 +312,127 @@ void move_floor(MainDataStut *mainData, AllegroObjStut *allegroObj) //FTT
     }
 }
 
+void move_obscale(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    ObjectStut *nowObscale = NULL;
+    nowObscale = allegroObj->obscale.objs;
+
+    while(nowObscale != NULL)
+    {
+        nowObscale->start_x -= mainData->speed.object;
+        end_xy_update_object(nowObscale, SIZE_IMG_OBSCALE_WIDTH, SIZE_IMG_OBSCALE_HEIGHT);
+        ObscaleCheck_Boundary(&(allegroObj->obscale));
+        if(nowObscale->state == OBSCALE_DESTORY) DestoryObscales(&(allegroObj->obscale));
+        nowObscale = nowObscale->nextObj;
+    }
+}
+
+void move_stb_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    ObjectStut *nowSTB = NULL;
+    nowSTB = allegroObj->stbRole.objs;
+
+    while(nowSTB != NULL)
+    {
+        nowSTB->start_x -= mainData->speed.object;
+        end_xy_update_object(nowSTB, SIZE_IMG_ROLE_WIDTH, SIZE_IMG_ROLE_HEIGHT);
+        StandbyRoleCheck_Boundary(&allegroObj->stbRole);
+        //if(nowSTB->state == STB_ROLE_DESTORY) DestoryStandbyRole(&allegroObj->stbRole);
+        nowSTB = nowSTB->nextObj;
+    }
+}
+
+
+/* Crach */
+
 void CrachCheck(MainDataStut *mainData, AllegroObjStut *allegroObj) //FTT
 {
-    CrachCheck_role_coin(mainData, allegroObj);
+    switch(mainData->game_state)
+    {
+    case GAME_PLAYING_NORMAL:
+        CrachCheck_role_coin(mainData, allegroObj);
+        CrashCheck_role_obscale(mainData, allegroObj);
+        CrachCheck_role_nothing(mainData, allegroObj);
+        CrashCheck_role_StandbyRole(mainData, allegroObj);
 
-    CrashCheck_role_obscale(mainData, allegroObj);
-    CrashCheck_subrole_obscale(mainData, allegroObj);
-    CrashCheck_role_standbyRole(mainData, allegroObj);
-    CrachCheck_subrole_nothing(mainData, allegroObj);
-    CrachCheck_subrole_coin(mainData, allegroObj);
+        CrashCheck_subrole_obscale(mainData, allegroObj);
+        CrachCheck_subrole_nothing(mainData, allegroObj);
+        CrachCheck_subrole_coin(mainData, allegroObj);
+        break;
+    }
+
+}
+
+void CrashCheck_role_StandbyRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    bool crash;
+    ObjectStut *nowStdRole = NULL;
+    RoleStut *nowRole = NULL;
+    nowStdRole = allegroObj->stbRole.objs;
+    nowRole = &allegroObj->role;
+    while(nowStdRole != NULL)
+    {
+        crash = ObjCrashCheck(nowStdRole->start_x, nowStdRole->start_y, nowStdRole->end_x, nowStdRole->end_y,
+                              nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y);
+        if(crash)
+        {
+            nowStdRole->state = STB_ROLE_DESTORY;
+            AppendSubRole(mainData, &allegroObj->subRole, &allegroObj->role);
+            DestoryStandbyRole(&allegroObj->stbRole);//©ñ¸m¦ì¸m¦³»~
+        }
+        nowStdRole = nowStdRole->nextObj;
+    }
+}
+
+void CrashCheck_role_obscale(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    bool crash;
+    ObjectStut *nowObscale = NULL;
+    RoleStut *nowRole = NULL;
+    nowObscale = allegroObj->obscale.objs;
+    nowRole = &allegroObj->role;
+    while(nowObscale != NULL)
+    {
+        crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
+                              nowObscale->start_x, nowObscale->start_y, nowObscale->end_x, nowObscale->end_y);
+        if(crash)
+        {
+            nowObscale->state = OBSCALE_CRASH_MAIN;
+            allegroObj->sound.damageBook.readyToPlay = 1;
+            mainData->score.chars -= 1;
+        }
+        if(nowObscale->state == OBSCALE_CRASH_MAIN) DestoryObscales(&(allegroObj->obscale));
+        //crash ? printf("\tCrash\n") : printf("\tNoCrash\n") ;
+        nowObscale = nowObscale->nextObj;
+    }
+}
+
+void CrashCheck_subrole_obscale(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    bool crash;
+    ObjectStut *nowObscale = NULL;
+    ObjectStut *nowSubRole = NULL;
+    nowObscale = allegroObj->obscale.objs;
+
+    while(nowObscale != NULL)
+    {
+        nowSubRole = allegroObj->subRole.objs;
+        while(nowSubRole)
+        {
+            crash = ObjCrashCheck(nowSubRole->start_x, nowSubRole->start_y, nowSubRole->end_x, nowSubRole->end_y,
+                                  nowObscale->start_x, nowObscale->start_y, nowObscale->end_x, nowObscale->end_y);
+            if(crash)
+            {
+                nowObscale->state = OBSCALE_CRASH_MAIN;
+                nowSubRole->state = ROLE_DESTORY;
+                allegroObj->sound.damageBook.readyToPlay = 1;
+            }
+            if(nowObscale->state == OBSCALE_CRASH_MAIN) DestoryObscales(&(allegroObj->obscale));
+            //crash ? printf("\tCrash\n") : printf("\tNoCrash\n") ;
+            nowSubRole = nowSubRole->nextObj;
+        }
+        nowObscale = nowObscale->nextObj;
+    }
 }
 
 void DoCrashOrDestorys(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -247,44 +457,24 @@ void OnFloorCheck_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
                                    nowFloor->start_x, nowFloor->start_y, nowFloor->end_x, nowFloor->end_y);
         nowFloor = nowFloor->nextObj;
     }
-    if(!onFloor) role->state = ROLE_DROP_FLOOR;
-    else role->state = ROLE_NULL;
+        if(!onFloor) role->state = ROLE_DROP_FLOOR;
+        else role->state = ROLE_NULL;
+
 }
 
-void OnFloorCheck_subRole(ObjectStut *subRole, FloorStut *floor)
+void OnFloorCheck_subRole(MainDataStut *mainData, AllegroObjStut *allegroObj, ObjectStut *subRole, FloorStut *floor)
 {
     bool onFloor = 0;
     ObjectStut *nowFloor;
     nowFloor = floor->objs;
     while(nowFloor != NULL)
-        {
-            onFloor += FloorCrashCheck(subRole->start_x, subRole->start_y, subRole->end_x, subRole->end_y,
-                                       nowFloor->start_x, nowFloor->start_y, nowFloor->end_x, nowFloor->end_y);
-            nowFloor = nowFloor->nextObj;
-        }
+    {
+        onFloor += FloorCrashCheck(subRole->start_x, subRole->start_y, subRole->end_x, subRole->end_y,
+                                   nowFloor->start_x, nowFloor->start_y, nowFloor->end_x, nowFloor->end_y);
+        nowFloor = nowFloor->nextObj;
+    }
         if(!onFloor) subRole->state = ROLE_DROP_FLOOR;
         else subRole->state = ROLE_NULL;
-}
-
-void CrashCheck_role_standbyRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
-{
-    bool crash;
-    ObjectStut *nowStdRole = NULL;
-    RoleStut *nowRole = NULL;
-    nowStdRole = allegroObj->stbRole.objs;
-    nowRole = &allegroObj->role;
-    while(nowStdRole != NULL)
-    {
-        crash = ObjCrashCheck(nowStdRole->start_x, nowStdRole->start_y, nowStdRole->end_x, nowStdRole->end_y,
-                              nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y);
-        if(crash)
-        {
-            nowStdRole->state = STB_ROLE_DESTORY;
-            AppendSubRole(mainData, &allegroObj->subRole, &allegroObj->role);
-            DestoryStandByRole(&allegroObj->stbRole);//©ñ¸m¦ì¸m¦³»~
-        }
-        nowStdRole = nowStdRole->nextObj;
-    }
 }
 
 void CrachCheck_role_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -303,7 +493,6 @@ void CrachCheck_role_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
             nowCoin->state = COIN_DESTORY;
             allegroObj->sound.coinCrash.readyToPlay = 1; //¶Ç»¼¼½©ñ­µ®Äªº°Ñ¼Æ
         }
-
         //crash ? printf("\tCrash\n") : NULL ;
         nowCoin = nowCoin->nextObj;
     }
@@ -323,9 +512,10 @@ void CrachCheck_subrole_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
         {
             crash = ObjCrashCheck(nowSubRole->start_x, nowSubRole->start_y, nowSubRole->end_x, nowSubRole->end_y,
                                   nowCoin->start_x, nowCoin->start_y, nowCoin->end_x, nowCoin->end_y);
-            if(crash){
-                    nowCoin->state = COIN_DESTORY;
-                    allegroObj->sound.coinCrash.readyToPlay = 1; //¶Ç»¼¼½©ñ­µ®Äªº°Ñ¼Æ
+            if(crash)
+            {
+                nowCoin->state = COIN_DESTORY;
+                allegroObj->sound.coinCrash.readyToPlay = 1; //¶Ç»¼¼½©ñ­µ®Äªº°Ñ¼Æ
             }
             //crash ? printf("\tCrash\n") : NULL ;
             nowSubRole = nowSubRole->nextObj;
@@ -335,7 +525,8 @@ void CrachCheck_subrole_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
 }
 
 void CrachCheck_subrole_nothing(MainDataStut *mainData, AllegroObjStut *allegroObj)
-{//½T»{subrow¬O§_¦º¤`
+{
+    //½T»{subrow¬O§_¦º¤`
     ObjectStut *nowSubRole = NULL;
     nowSubRole = allegroObj->subRole.objs;
 
@@ -353,86 +544,20 @@ void CrachCheck_subrole_nothing(MainDataStut *mainData, AllegroObjStut *allegroO
     }
 }
 
-/*
-void CrachCheck_role_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
+void CrachCheck_role_nothing(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    bool crash;
-    ObjectStut *nowSubRole = NULL;
-    RoleStut *nowRole = NULL;
-    nowSubRole = allegroObj->subRole.objs;
-    nowRole = &allegroObj->role;
-    while(nowSubRole != NULL)
+    //½T»{role¬O§_¦º¤`
+    RoleStut *role = &allegroObj->role;
+    if(role->state == ROLE_DROP_FLOOR)
     {
-        crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
-                              nowSubRole->start_x, nowSubRole->start_y, nowSubRole->end_x, nowSubRole->end_y);
-        if(crash) nowSubRole->state = SUPROLE_CRASH;
-        // crash ? printf("\tCrash\n") : NULL ;
-        nowSubRole = nowSubRole->nextObj;
-    }
-}*/
-
-void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
-{
-    int state = mainData->game_state;
-    al_get_keyboard_state(&allegroObj->keyboard_state);
-    switch(state)
-    {
-    case GAME_PLAYING_NORMAL:
-
-        move_background(mainData, allegroObj);
-        SetChoose(mainData,allegroObj);
-        //SetObscale(mainData,allegroObj);
-        //SetStandbyRole(mainData,allegroObj);
-        move_coin(mainData, allegroObj);
-        //¶¶§Ç²§±`
-        move_sub_role(mainData, allegroObj);
-        move_meteor(mainData, allegroObj);
-        move_attackx(mainData, allegroObj);
-        move_obscale(mainData,allegroObj);
-        move_standbyrole(mainData,allegroObj);
-        move_floor(mainData, allegroObj); //FTT
-        SetFloor(&allegroObj->floor); //½T»{¬O§_»Ý­n·s¼W¦aªOorÄÀ©ñ¦aªO¿
-        /* ¶i«×±ø */
-
-        if(mainData->game_percent < 10000) mainData->game_percent += 3;
-        /* Role */
-
-        move_boss(allegroObj);
-
-        //role_jump(allegroObj);
-        move_role(mainData, allegroObj);
-
-        //meteor_drop(allegroObj);
-        /* Check Crash */
-        CrachCheck(mainData, allegroObj);
-        //CrachCheckForFloor(mainData, allegroObj); //FTT
-        DoCrashOrDestorys(mainData, allegroObj);
-
-        break;
-
-    case GAME_PLAYING_MID_BOSS:
-        move_background(mainData, allegroObj);
-        move_floor(mainData, allegroObj); //FTT
-        //move_coin_old(mainData, allegroObj);
-
-        /* Role*/
-        //role_jump(allegroObj);
-        //meteor_drop(allegroObj);
-        break;
-
-    case GAME_PLAYING_FINAL_BOSS:
-        move_background(mainData, allegroObj);
-        move_floor(mainData, allegroObj); //FTT
-        //move_coin_old(mainData, allegroObj);
-
-        //role_jump(allegroObj);
-        //meteor_drop(allegroObj);
-        break;
-    case GAME_PLAYING_END:
-
-        break;
+        if(role->end_x < 0 || role->start_y > DISPLAY_HEIGHT)
+        {
+            role->state = ROLE_DESTORY;
+        }
     }
 }
+
+/* ­«¤O°¾²¾¡BÃä¬É§PÂ_*/
 
 void Gravity(float *y) //­«¤O
 {
@@ -522,3 +647,21 @@ bool FloorCrashCheck_sub(float start_char_x,float start_char_y,float end_char_x,
     else return 0;
 }
 
+
+/*
+void CrachCheck_role_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    bool crash;
+    ObjectStut *nowSubRole = NULL;
+    RoleStut *nowRole = NULL;
+    nowSubRole = allegroObj->subRole.objs;
+    nowRole = &allegroObj->role;
+    while(nowSubRole != NULL)
+    {
+        crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
+                              nowSubRole->start_x, nowSubRole->start_y, nowSubRole->end_x, nowSubRole->end_y);
+        if(crash) nowSubRole->state = SUPROLE_CRASH;
+        // crash ? printf("\tCrash\n") : NULL ;
+        nowSubRole = nowSubRole->nextObj;
+    }
+}*/
