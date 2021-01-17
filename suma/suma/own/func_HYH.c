@@ -88,6 +88,7 @@ void CrashCheck_subrole_obscale(MainDataStut *mainData, AllegroObjStut *allegroO
             {
                 nowObscale->state = OBSCALE_CRASH_MAIN;
                 nowSubRole->state = ROLE_DESTORY;
+                allegroObj->sound.damageBook.readyToPlay = 1;
                 //allegroObj->sound.damageBook.readyToPlay = 1;
                 //聲音預留*2
             }
