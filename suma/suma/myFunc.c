@@ -88,7 +88,8 @@ int ScoreFileRead(const char *fileName, RankScoreDataStut *scoreData)
 void ScoreFileAppend(const char *fileName, MainDataStut *mainData)
 {
     struct tm *ttm;
-    GetTime(ttm);
+    time_t t = time(NULL);
+    ttm = localtime(&t);
     char line[1024];
     int i = 0, j = 0, n = 0;
     FILE *fileStream = NULL;
