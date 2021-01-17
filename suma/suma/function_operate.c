@@ -3,7 +3,7 @@
 
 /**
  * 運算相關函式
- * 主要呼叫：
+ * 主要呼叫：ParameterOperate
 **/
 
 /* 主要參數運算與狀態判別 */
@@ -37,33 +37,20 @@ void PlayingStateSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
     switch(mainData->game_state)
     {
     case GAME_PLAYING_NORMAL:
-        if(mainData->game_percent <= GAME_PERSEND_100)
-        {
-            if (mainData->game_percent == GAME_PERSEND_70)
-            {
-                CreateMeteors(&allegroObj->meteor);
 
-            }
-            if (mainData->game_percent == GAME_PERSEND_50)
-            {
-                CreateMeteors(&allegroObj->meteor);
+        if(mainData->game_percent <= GAME_PERSEND_100) mainData->game_percent += GAME_PERSEND_APPEND;
 
+        if(mainData->score.chars <= 0 || allegroObj->role.state == ROLE_DESTORY) mainData->game_state = GAME_PLAYING_END;
+        else if(mainData->game_percent > GAME_PERSEND_100) mainData->game_state = GAME_PLAYING_END;
 
-            }
-            if (mainData->game_percent == GAME_PERSEND_25)
-            {
-
-                CreateAttackX(&allegroObj->attackx);
-
-            }
-
-            mainData->game_percent += GAME_PERSEND_APPEND;
+        if(mainData->game_state == GAME_PLAYING_END){
+            mainData->score.score = (int)((mainData->score.chars+1) * (mainData->score.coins/50) * ((float)mainData->game_percent/100));
         }
-        else mainData->game_state = GAME_PLAYING_END;
-        break;
+    break;
+
     }
 }
-//move_attackx(mainData, allegroObj);
+
 
 /* move 合集 */
 void move_playing_normal(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -116,46 +103,6 @@ void move_playing_normal(MainDataStut *mainData, AllegroObjStut *allegroObj)
      move_role_xy(mainData, allegroObj);
      move_sub_role(mainData, allegroObj);
      move_stb_role(mainData,allegroObj);*/
-}
-
-void move_playing_ready_mid(MainDataStut *mainData, AllegroObjStut *allegroObj)
-{
-    move_background(mainData, allegroObj);
-    move_coin(mainData, allegroObj);
-    move_obscale(mainData,allegroObj);
-    move_floor(mainData, allegroObj);
-    move_full_floor(mainData, allegroObj);
-
-    move_role(mainData, allegroObj);
-    move_sub_role(mainData, allegroObj);
-    move_stb_role(mainData,allegroObj);
-}
-
-void move_playing_mid(MainDataStut *mainData, AllegroObjStut *allegroObj)
-{
-    move_floor(mainData, allegroObj);
-    move_meteor(mainData, allegroObj);
-    //move_role(mainData, allegroObj);
-}
-
-void move_playing_ready_final(MainDataStut *mainData, AllegroObjStut *allegroObj)
-{
-    move_background(mainData, allegroObj);
-    move_coin(mainData, allegroObj);
-    move_obscale(mainData,allegroObj);
-    move_floor(mainData, allegroObj);
-    move_full_floor(mainData, allegroObj);
-
-    move_role(mainData, allegroObj);
-    move_sub_role(mainData, allegroObj);
-    move_stb_role(mainData,allegroObj);
-}
-
-void move_playing_final(MainDataStut *mainData, AllegroObjStut *allegroObj)
-{
-    //move_full_floor(mainData, allegroObj);
-    //move_role(mainData, allegroObj);
-    move_boss(allegroObj);
 }
 
 
@@ -747,6 +694,7 @@ void CrachCheck_subrole_nothing(MainDataStut *mainData, AllegroObjStut *allegroO
             if(nowSubRole->end_x < 0 || nowSubRole->start_y > DISPLAY_HEIGHT)
             {
                 nowSubRole->state = ROLE_DESTORY;
+                allegroObj->sound.roleDead.readyToPlay = 1;
                 //printf("ddd\n");
             }
         }

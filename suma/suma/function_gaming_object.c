@@ -71,9 +71,10 @@ void RandCoinXY(ObjectStut *coin)
 
 void CoinDebugPrint(ObjectStut *nowPtr, ObjectStut *prePtr, ObjectStut *newPtr)
 {
+    /*
     printf("--now : %x\n", nowPtr);
     printf("--pre : %x\n", prePtr);
-    printf("--new : %x\n", newPtr);
+    printf("--new : %x\n", newPtr);*/
 }
 
 /* Roles */
@@ -125,6 +126,19 @@ void DestorySubRole(SubRoleStut *subRole, RoleStut *role)
         }
         nowSubRole = nowSubRole->nextObj;
     }
+}
+
+void FreeSubRole(SubRoleStut *sub_role)
+{
+    ObjectStut *nowPtr = NULL, *prePtr = NULL;
+    nowPtr = sub_role->objs; //²Ä¤@µ§¸ê®Æ
+    while(nowPtr != NULL)
+    {
+        prePtr = nowPtr;
+        nowPtr = nowPtr->nextObj;
+        free(prePtr);
+    }
+    sub_role->objs = NULL;
 }
 
 /*
@@ -317,6 +331,19 @@ void DestoryFloorOnce(FloorStut *floor) //floorªº·s¼WÅÞ¿è»P¨ä¥Lª«¥ó¤£¦P¡A¬O¦V«e·
         prePtr = nowPtr;
         nowPtr = nowPtr->nextObj;
     }
+}
+
+void FreeAllFloor(FloorStut *floor)
+{
+    ObjectStut *nowPtr = NULL, *prePtr = NULL;
+    nowPtr = floor->objs; //²Ä¤@µ§¸ê®Æ
+    while(nowPtr != NULL)
+    {
+        prePtr = nowPtr;
+        nowPtr = nowPtr->nextObj;
+        free(prePtr);
+    }
+    floor->objs = NULL;
 }
 
 void FirstFloorXY(ObjectStut *floor)

@@ -34,7 +34,7 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 mainData->mouse.isClick = 0;
                 CheckMouseClick(mainData, allegroObj);
                 break;
-            case ALLEGRO_EVENT_KEY_CHAR:
+            case ALLEGRO_EVENT_KEY_DOWN:
                 CheckKeyboardDown(mainData, allegroObj);
                 break;
             case ALLEGRO_EVENT_DISPLAY_SWITCH_IN:
@@ -118,6 +118,228 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
         default:
             break;
         }
+        break;
+    case GAME_PLAYING_END://單次遊戲結束
+        switch(allegroObj->events.keyboard.keycode)
+        {
+        case ALLEGRO_KEY_ENTER:
+            GetTime(mainData->tm);
+            ScoreFileAppend(PATH_FILE_SCORE, mainData);
+            mainData->game_state = GAME_MENU;
+            mainData->score.coins = 0;
+            mainData->score.probar = 0;
+            mainData->score.score = 0;
+            mainData->game_percent = 0;
+            memset(mainData->usrName.name, 0, 20);
+            mainData->usrName.len = 0;
+            FreeSubRole(&allegroObj->subRole);
+            FreeAllFloor(&allegroObj->floor);
+            role_reset(allegroObj);
+            break;
+        case ALLEGRO_KEY_BACKSPACE:
+            if(mainData->usrName.len == 0) break;
+            mainData->usrName.len -= 1;
+            mainData->usrName.name[mainData->usrName.len] = 0;
+            break;
+        case ALLEGRO_KEY_A:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'A';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_B:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'B';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_C:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'C';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_D:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'D';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_E:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'E';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_F:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'F';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_G:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'G';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_H:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'H';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_I:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'I';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_J:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'J';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_K:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'K';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_L:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'L';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_M:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'M';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_N:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'N';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_O:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'O';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_P:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'P';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_Q:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'Q';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_R:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'R';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_S:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'S';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_T:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'T';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_U:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'U';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_V:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'V';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_W:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'W';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_X:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'X';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_Y:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'Y';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_Z:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = 'Z';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_0:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = '0';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_1:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = '1';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_2:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = '2';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_3:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = '3';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_4:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = '4';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_5:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = '5';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_6:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = '6';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_7:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = '7';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_8:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = '8';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_9:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = '9';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_COMMA:
+            if(mainData->usrName.len >= 20) break;
+            //必免與格式重複
+            //mainData->usrName.name[mainData->usrName.len] = ',';
+            //mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_FULLSTOP:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = '.';
+            mainData->usrName.len += 1;
+            break;
+        case ALLEGRO_KEY_MINUS:
+            if(mainData->usrName.len >= 20) break;
+            mainData->usrName.name[mainData->usrName.len] = '-';
+            mainData->usrName.len += 1;
+            break;
+
+        }
+        break;
     }
 }
 
@@ -128,10 +350,7 @@ void CheckStateModeSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
     {
         if(allegroObj->modeButton[i].isSelected)
         {
-            mainData->game_state = GAME_PLAYING_NORMAL;
-            mainData->score.chars = 1;
-            SetFloor(&allegroObj->floor);
-            //CreateCoins(&allegroObj->Coin);
+
             switch(i)
             {
             case 0:
@@ -178,6 +397,11 @@ void CheckMouseClick(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 allegroObj->homeButton.isSelected = 0; //切換狀態後要重設
             }
             mainData->timerCount = 0;
+            mainData->game_state = GAME_PLAYING_NORMAL;
+            mainData->score.chars = 5;
+            role_reset(allegroObj);
+
+            SetFloor(&allegroObj->floor);
             break;
         case GAME_RULE:
             if(allegroObj->homeButton.isSelected)

@@ -40,6 +40,11 @@ void PlaySoundEffect(MainDataStut *mainData, AllegroObjStut *allegroObj)
             al_play_sample(allegroObj->sound.damageBook.sfx, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE, &allegroObj->sound.id);
             allegroObj->sound.damageBook.readyToPlay = 0;
         }
+        if(allegroObj->sound.roleDead.readyToPlay )
+        {
+            al_play_sample(allegroObj->sound.roleDead.sfx, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE, &allegroObj->sound.id);
+            allegroObj->sound.roleDead.readyToPlay = 0;
+        }
     default:
         break;
     }
