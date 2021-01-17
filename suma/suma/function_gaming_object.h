@@ -11,7 +11,7 @@ void RandCoinXY(ObjectStut *coin);
 void CoinDebugPrint(ObjectStut *nowPtr, ObjectStut *prePtr, ObjectStut *newPtr);
 
 /* Roles */
-void AppendSubRole(SubRoleStut *subRole, RoleStut *role);
+void AppendSubRole(MainDataStut *mainData, SubRoleStut *subRole, RoleStut *role);
 void SubRoleXY(ObjectStut *subRole, RoleStut *role);
 void DestorySubRloe(SubRoleStut *subRole, RoleStut *role);
 void CreateRoles(SubRoleStut *role);

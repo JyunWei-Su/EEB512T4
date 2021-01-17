@@ -1,11 +1,9 @@
 #ifndef _DEF_HEADER_H_
 #define _DEF_HEADER_H_
 
-#include "own/header_BYK.h"
 #include "own/header_HYH.h"
-#include "own/header_IRL.h"
-#include "own/header_JWS.h"
 #include "resource.h"
+#include "function_else.h"
 #include "function_draw.h"
 #include "function_sound.h"
 #include "function_check.h"

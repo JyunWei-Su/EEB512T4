@@ -46,7 +46,7 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     home_button_init(allegroObj);
     score_board_init(allegroObj);
     role_init(allegroObj);
-    standbyrole_init(allegroObj);
+    stb_role_init(allegroObj);
 boss_init(allegroObj);
     coin_init(allegroObj);
     obscale_init(allegroObj);
@@ -119,13 +119,15 @@ void coin_init(AllegroObjStut *allegroObj)
 
 void sub_role_init(AllegroObjStut *allegroObj)
 {
-    if(allegroObj->subRole.imgs_runing == NULL) allegroObj->subRole.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
+    if(allegroObj->subRole.img == NULL) allegroObj->subRole.img = al_load_bitmap( PATH_IMG_SUB_ROLE);
+    if(allegroObj->subRole.imgs_runing == NULL) allegroObj->subRole.imgs_runing = al_load_bitmap( PATH_IMG_SUB_ROLE_SEQ_RUNING );
     allegroObj->subRole.objs = NULL;
 }
 
-void standbyrole_init(AllegroObjStut *allegroObj)
+void stb_role_init(AllegroObjStut *allegroObj)
 {
-    if(allegroObj->obscale.imgs_shining == NULL) allegroObj->stbRole.imgs_running = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
+    if(allegroObj->stbRole.img == NULL) allegroObj->stbRole.img = al_load_bitmap( PATH_IMG_STB_ROLE );
+    if(allegroObj->stbRole.imgs_running == NULL) allegroObj->stbRole.imgs_running = al_load_bitmap( PATH_IMG_STB_ROLE_SEQ_RUNING );
     allegroObj->stbRole.objs = NULL;
     //這裡無須配置資料, 只需讀圖片, 配置在遊戲中配置
 }
@@ -190,7 +192,7 @@ void home_button_init(AllegroObjStut *allegroObj)
 
 void role_init(AllegroObjStut *allegroObj)
 {
-    allegroObj->role.img = al_load_bitmap( PATH_IMG_ROLE_1 );
+    allegroObj->role.img = al_load_bitmap( PATH_IMG_ROLE );
     allegroObj->role.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
     allegroObj->role.start_x=800;
     allegroObj->role.start_y=DISPLAY_HEIGHT-OFFSET_FLOOR-SIZE_IMG_ROLE_HEIGHT;
@@ -204,50 +206,6 @@ void boss_init(AllegroObjStut *allegroObj)
     allegroObj->boss.start_y=200;
     //allegroObj->boss.state = ROLE_NULL;
 }
-
-/*
-void meteor_init(AllegroObjStut *allegroObj)
-{
-    int i;
-    allegroObj->meteor_n = rand()%NUMBER_METEOR+15; //隕石數量
-    allegroObj->meteor.img = al_load_bitmap( PATH_IMG_METEOR);
-    allegroObj->meteor.imgs_runing = al_load_bitmap( PATH_IMG_METEOR_SEQ_RUNING );
-    // allegroObj->meteor.start_x = 500;
-    //allegroObj->meteor.start_y = 0;
-    //allegroObj->meteor.speed_y =1;
-    //allegroObj->meteors = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
-    //allegroObj->meteors_right_drop = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
-    //allegroObj->meteors_left_drop = (MeteorStut *)calloc(allegroObj->meteor_n, sizeof(MeteorStut));
-
-    /*
-    for (i = 0; i < allegroObj->meteor_n; i++)
-    {
-        //*meteors
-        //allegroObj->meteors[i].img = al_load_bitmap(PATH_IMG_METEOR );
-        //allegroObj->meteors[i].start_x = rand()%1600;
-        allegroObj->meteors[i].start_y = 0;
-        allegroObj->meteors[i].speed_y = rand()%SPEED_Y_METEOR+5;
-        //*meteors_right_drop
-        allegroObj->meteors_right_drop[i].img = al_load_bitmap(PATH_IMG_METEOR );
-        allegroObj->meteors_right_drop[i].imgs_runing = al_load_bitmap( PATH_IMG_METEOR_SEQ_RUNING );
-        allegroObj->meteors_right_drop[i].start_x = rand()%2000;
-        allegroObj->meteors_right_drop[i].start_y = 0;
-        allegroObj->meteors_right_drop[i].speed_x = rand()%SPEED_X_METEOR_RIGHT+1;
-        allegroObj->meteors_right_drop[i].speed_y = rand()%SPEED_Y_METEOR_RIGHT+2;
-        //*meteors_right_drop
-        allegroObj->meteors_left_drop[i].img = al_load_bitmap(PATH_IMG_METEOR );
-        allegroObj->meteors_left_drop[i].start_x = rand()%2000;
-        allegroObj->meteors_left_drop[i].start_y = 0;
-        allegroObj->meteors_left_drop[i].speed_x = rand()%SPEED_X_METEOR_RIGHT+1;
-        allegroObj->meteors_left_drop[i].speed_y = rand()%SPEED_Y_METEOR_RIGHT+3;
-    }
-    */
-
-    //allegroObj->meteor.start_x=800;
-    //allegroObj->meteor.start_y=0;
-    //allegroObj->role.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
-    //allegroObj->meteor.state = ROLE_NULL;
-//}
 
 void menu_button_init(AllegroObjStut *allegroObj)
 {

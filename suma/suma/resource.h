@@ -32,8 +32,13 @@
 #define PATH_IMG_MODE_BUTTON "./img/menuButton.png"
 #define PATH_IMG_HOME_BUTTON_1 "./img/homeButton_1.png"
 #define PATH_IMG_HOME_BUTTON_2 "./img/homeButton_2.png"
-#define PATH_IMG_ROLE_1 "./img/role.png"
+#define PATH_IMG_ROLE "./img/role.png"
 #define PATH_IMG_ROLE_SEQ_RUNING "./img/roles.png"
+#define PATH_IMG_SUB_ROLE "./img/sub_role.png"
+#define PATH_IMG_SUB_ROLE_SEQ_RUNING "./img/sub_roles.png"
+#define PATH_IMG_STB_ROLE "./img/stb_role.png"
+#define PATH_IMG_STB_ROLE_SEQ_RUNING "./img/stb_roles.png"
+
 #define PATH_IMG_FLOOR "./img/floor.png"
 #define PATH_IMG_METEOR "./img/meteor.png"
 #define PATH_IMG_METEOR_SEQ_RUNING "./img/meteors80.png"
@@ -162,17 +167,11 @@ typedef enum RoleState
     ROLE_JUMP, ROLE_DROP, ROLE_MUST_DROP, ROLE_NULL, ROLE_DESTORY,
     ROLE_DROP_FLOOR,
 } RoleState;
+
 typedef enum BossState
 {
     BOSS_NULL,BOSS_BEYOND_X,BOSS_BEYOND_Y,
 } BossState;
-
-/*
-typedef enum SubRoleState
-{
-    SUBROLE_MOVE,
-} SubRoleState;
-*/
 
 typedef enum CoinState
 {
@@ -256,6 +255,7 @@ typedef struct CoinStut
 
 typedef struct SubRoleStut
 {
+    ALLEGRO_BITMAP *img;
     ALLEGRO_BITMAP *imgs_runing;
     ObjectStut *objs;
     int n;
@@ -278,6 +278,7 @@ typedef struct ObscaleStut
 
 typedef struct StandByRoleStut
 {
+    ALLEGRO_BITMAP *img;
     ALLEGRO_BITMAP *imgs_running;
     ObjectStut *objs;
     int n;
@@ -411,20 +412,13 @@ typedef struct AllegroObjStut
     BossStut boss;
     SubRoleStut subRole;
     StandByRoleStut stbRole;
-    //CoinStut_old coin_old;
     CoinStut coin;
     ObscaleStut obscale;
 
     MeteorStut meteor;
     AttackXStut attackx;
 
-
-    //FloorsStut floors; //newfloor
-    FloorStut floor; //FTT
-    //MeteorStut meteor;
-    //MeteorStut *meteors;
-    //MeteorStut *meteors_right_drop;
-    //  MeteorStut *meteors_left_drop;
+    FloorStut floor;
     int meteor_n;
 
     FontStut font_a;
@@ -480,7 +474,7 @@ void home_button_init(AllegroObjStut *allegroObj);
 void mode_button_init(AllegroObjStut *allegroObj);
 void sound_init(AllegroObjStut *allegroObj);
 void role_init(AllegroObjStut *allegroObj);
-void standbyrole_init(AllegroObjStut *allegroObj);
+void stb_role_init(AllegroObjStut *allegroObj);
 void obscale_init(AllegroObjStut *allegroObj);
 void coin_init_old(AllegroObjStut *allegroObj);
 void floor_init(AllegroObjStut *allegroObj);

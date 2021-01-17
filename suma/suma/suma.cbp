@@ -86,6 +86,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="function_draw.h" />
+		<Unit filename="function_else.h" />
 		<Unit filename="function_gaming_object.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -110,11 +111,7 @@
 		<Unit filename="own/func_HYH.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="own/func_JWS.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="own/header_HYH.h" />
-		<Unit filename="own/header_JWS.h" />
 		<Unit filename="resource.c">
 			<Option compilerVar="CC" />
 		</Unit>

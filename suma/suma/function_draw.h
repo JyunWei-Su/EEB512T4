@@ -20,6 +20,7 @@ void DrawRule(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawScoreboard(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawBackground(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawPause(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void DrawGameEnd(MainDataStut *mainData, AllegroObjStut *allegroObj);
 
 /* 遊戲角色相關(角色、金幣、跟班、障礙、地板、隕石) */
 void DrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj);

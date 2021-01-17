@@ -60,13 +60,45 @@ void CrashCheck_role_obscale(MainDataStut *mainData, AllegroObjStut *allegroObj)
     {
         crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
                               nowObscale->start_x, nowObscale->start_y, nowObscale->end_x, nowObscale->end_y);
-        if(crash) nowObscale->state = OBSCALE_CRASH_MAIN;
+        if(crash){
+                nowObscale->state = OBSCALE_CRASH_MAIN;
+                mainData->score.chars -= 1;
+        }
         if(nowObscale->state == OBSCALE_CRASH_MAIN) DestoryObscales(&(allegroObj->obscale));
         //crash ? printf("\tCrash\n") : printf("\tNoCrash\n") ;
         nowObscale = nowObscale->nextObj;
     }
-
 }
+
+void CrashCheck_subrole_obscale(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    bool crash;
+    ObjectStut *nowObscale = NULL;
+    ObjectStut *nowSubRole = NULL;
+    nowObscale = allegroObj->obscale.objs;
+
+    while(nowObscale != NULL)
+    {
+        nowSubRole = allegroObj->subRole.objs;
+        while(nowSubRole)
+        {
+            crash = ObjCrashCheck(nowSubRole->start_x, nowSubRole->start_y, nowSubRole->end_x, nowSubRole->end_y,
+                                  nowObscale->start_x, nowObscale->start_y, nowObscale->end_x, nowObscale->end_y);
+            if(crash)
+            {
+                nowObscale->state = OBSCALE_CRASH_MAIN;
+                nowSubRole->state = ROLE_DESTORY;
+                //聲音預留*2
+            }
+            if(nowObscale->state == OBSCALE_CRASH_MAIN) DestoryObscales(&(allegroObj->obscale));
+            //crash ? printf("\tCrash\n") : printf("\tNoCrash\n") ;
+            nowSubRole = nowSubRole->nextObj;
+        }
+        nowObscale = nowObscale->nextObj;
+    }
+}
+
+
 void ObscaleCheck_Boundary(ObscaleStut *obscale)
 {
     float end_x = obscale->objs->end_x;
@@ -224,7 +256,7 @@ void DestoryStandByRole(StandByRoleStut *stbRole)
     }
 }
 
-/*
+/* //此功能取消
 void CrashCheck_role_standbyrole(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     bool crash;
