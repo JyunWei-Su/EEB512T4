@@ -34,7 +34,6 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         break;
     case GAME_PLAYING_NORMAL:
         //DrawAttackx(mainData, allegroObj);
-
         //al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "GAME_PLAYING_NORMAL", mainData->game_mode);
         DrawNormalObj(mainData, allegroObj);
         break;

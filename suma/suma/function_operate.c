@@ -69,14 +69,16 @@ void PlayingStateSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
         {
             mainData->game_state = GAME_PLAYING_END;
         }
+        /*
         if(mainData->game_percent == GAME_PERSEND_50)
         {
             mainData->game_percent += 1;
             mainData->game_state= GAME_READY_SWITCH_TO_MID;
             //free(allegroObj->floor.objs);
             ReSetFullFloor(&allegroObj->full_floor);
-        }
-        else if (mainData->game_percent == GAME_PERSEND_99)
+        }*/
+        printf("===========%d\n", mainData->game_percent);
+        if (mainData->game_percent == GAME_PERSEND_99)
         {
             mainData->game_percent += 1;
             mainData->game_state= GAME_READY_SWITCH_TO_FINAL;
