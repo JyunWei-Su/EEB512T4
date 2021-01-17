@@ -24,7 +24,7 @@
 #define PATH_IMG_COIN "./img/coin.png"
 #define PATH_IMG_COINS_ROTATE "./img/coins.png"
 #define PATH_IMG_COINS_CRASH "./img/coinCrashs.png"
-#define PATH_IMG_OBSCALE_SHINING "./img/obscale.png"
+#define PATH_IMG_OBSCALE_SHINING "./img/book150.png"
 #define PATH_IMG_OBSCALE_CRASH "./img/coinCrashs.png" //**下面要路徑調??
 #define PATH_IMG_CHAR "./img/char.png"
 #define PATH_IMG_PROBAR "./img/progressbar.png"
@@ -54,6 +54,7 @@
 #define PATH_SFX_BACKGROUND "./sfx/bkg.wav"
 #define PATH_SFX_BUTTON_MOVEIN "./sfx/button02a.wav"
 #define PATH_SFX_COINCRASH "./sfx/coin.wav"
+#define PATH_SFX_DAMAGE "./sfx/damage.wav"
 #define PATH_FILE_SCORE "user.score"
 #define PATH_FONT_HIMAJI "./font/KFhimajiFACE.otf"
 #define PATH_FONT_FANCYH "./font/FancyHeart.otf"
@@ -81,8 +82,8 @@
 #define SIZE_IMG_ROLE_HEIGHT 210
 #define SIZE_IMG_FLOOR_WIDTH 1600
 #define SIZE_IMG_FLOOR_HEIGHT 130
-#define SIZE_IMG_OBSCALE_WIDTH 128
-#define SIZE_IMG_OBSCALE_HEIGHT 128
+#define SIZE_IMG_OBSCALE_WIDTH 150
+#define SIZE_IMG_OBSCALE_HEIGHT 150
 #define SIZE_IMG_METEOR_WIDTH 80
 #define SIZE_IMG_METEOR_HEIGHT 80
 #define SIZE_IMG_METEOR_BIG_WIDTH 200
@@ -121,6 +122,8 @@
 #define OFFSET_PRONUMBER_X 610
 #define OFFSET_PRONUMBER_Y 65
 #define OFFSET_FLOOR 75
+#define OFFSET_PLAYMODE_X 1480
+#define OFFSET_PLAYMODE_y 30
 
 /*Role_Define*/
 #define OFFSET_ROLE_JUMP 10
@@ -390,6 +393,7 @@ typedef struct SoundStut
 
     SoundEffectStut buttonMoveIn;
     SoundEffectStut coinCrash;
+    SoundEffectStut damageBook;
 
 } SoundStut;
 

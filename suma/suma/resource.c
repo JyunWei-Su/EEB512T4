@@ -83,6 +83,8 @@ void sound_init(AllegroObjStut *allegroObj)
     allegroObj->sound.buttonMoveIn.sfi = al_create_sample_instance(allegroObj->sound.buttonMoveIn.sfx);
     allegroObj->sound.coinCrash.sfx = al_load_sample( PATH_SFX_COINCRASH );
     allegroObj->sound.coinCrash.sfi = al_create_sample_instance( allegroObj->sound.coinCrash.sfx);
+    allegroObj->sound.damageBook.sfx = al_load_sample( PATH_SFX_DAMAGE );
+    allegroObj->sound.damageBook.sfi = al_create_sample_instance( allegroObj->sound.damageBook.sfx);
 
 
     al_attach_sample_instance_to_mixer(allegroObj->sound.sfi_background, allegroObj->sound.mixer);//將聲音物件link buffer
@@ -295,7 +297,7 @@ void MainDataInit(MainDataStut *mainData)
     mainData->scoreFileData = (RankScoreDataStut *)calloc(sizeof(RankScoreDataStut), 1);
     mainData->scoreFileData->data = (RankRowStut *)calloc(sizeof(RankRowStut), NUM_SCORE_DATA);
     mainData->scoreFileData->fileIsRead = 0;
-    mainData->speed.background = 1.5;
-    mainData->speed.object = 2.5;
+    mainData->speed.background = 2.5;
+    mainData->speed.object = 3.5;
 }
 

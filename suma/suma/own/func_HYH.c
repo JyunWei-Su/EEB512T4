@@ -61,8 +61,8 @@ void CrashCheck_role_obscale(MainDataStut *mainData, AllegroObjStut *allegroObj)
         crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
                               nowObscale->start_x, nowObscale->start_y, nowObscale->end_x, nowObscale->end_y);
         if(crash){
-                nowObscale->state = OBSCALE_CRASH_MAIN;
-                mainData->score.chars -= 1;
+            nowObscale->state = OBSCALE_CRASH_MAIN;
+            allegroObj->sound.damageBook.readyToPlay = 1;
         }
         if(nowObscale->state == OBSCALE_CRASH_MAIN) DestoryObscales(&(allegroObj->obscale));
         //crash ? printf("\tCrash\n") : printf("\tNoCrash\n") ;
@@ -88,6 +88,7 @@ void CrashCheck_subrole_obscale(MainDataStut *mainData, AllegroObjStut *allegroO
             {
                 nowObscale->state = OBSCALE_CRASH_MAIN;
                 nowSubRole->state = ROLE_DESTORY;
+                //allegroObj->sound.damageBook.readyToPlay = 1;
                 //聲音預留*2
             }
             if(nowObscale->state == OBSCALE_CRASH_MAIN) DestoryObscales(&(allegroObj->obscale));

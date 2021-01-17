@@ -16,11 +16,12 @@ void DrawRankScore(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawAbout(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawRule(MainDataStut *mainData, AllegroObjStut *allegroObj);
 
-/* 遊戲畫面相關(背景、記分板、進度條、暫停畫面) */
+/* 遊戲畫面相關(背景、記分板、進度條、暫停畫面、遊戲難度) */
 void DrawScoreboard(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawBackground(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawPause(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawGameEnd(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void DrawPlayMode(MainDataStut *mainData, AllegroObjStut *allegroObj);
 
 /* 遊戲角色相關(角色、金幣、跟班、障礙、地板、隕石) */
 void DrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj);
