@@ -49,7 +49,7 @@ void move_meteor(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void CrachCheck_subrole_nothing(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void move_role(MainDataStut *mainData, AllegroObjStut *allegroObj);
 
-void move_role_with_boss(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void move_role_xy(MainDataStut *mainData, AllegroObjStut *allegroObj);
 
 
 void PlayingStateSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj);

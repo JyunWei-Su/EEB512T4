@@ -252,7 +252,7 @@ void AttackxXY(ObjectStut *attackx)
 {
     attackx->id =  rand()%5+1;
     attackx->start_x =  2000;
-    attackx->start_y = rand()%800;
+    attackx->start_y = rand()%300;
     attackx->speed_x = (float)(rand()%300+200)/100;
     attackx->speed_y = (float)(rand()%500+500)/100;
 }
@@ -448,10 +448,12 @@ void ObscaleXY(MainDataStut *mainData,ObjectStut *obscale )
         obscale->start_y = (DISPLAY_HEIGHT-OFFSET_FLOOR)-SIZE_IMG_OBSCALE_HEIGHT;
         break;
     case MODE_HARD:
-        obscale->start_x = DISPLAY_WIDTH ;
+        /*obscale->start_x = DISPLAY_WIDTH ;
         persent =rand()%5;
         persent == 0 ? obscale->start_y = obscale->start_y = 5.7*SIZE_IMG_SCOREBOARD_ICON_HEIGHT :
-                                          obscale->start_y = (DISPLAY_HEIGHT-SIZE_IMG_FLOOR_HEIGHT)-SIZE_IMG_OBSCALE_HEIGHT;
+                                          obscale->start_y = (DISPLAY_HEIGHT-SIZE_IMG_FLOOR_HEIGHT)-SIZE_IMG_OBSCALE_HEIGHT;*/
+                obscale->start_x = DISPLAY_WIDTH ;
+     obscale->start_y = (DISPLAY_HEIGHT-OFFSET_FLOOR)-SIZE_IMG_OBSCALE_HEIGHT;
         break;
     }
 }
