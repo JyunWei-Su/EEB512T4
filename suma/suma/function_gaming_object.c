@@ -102,7 +102,7 @@ void SubRoleXY(ObjectStut *subRole, RoleStut *role)
     subRole->start_y = role->start_y;
 }
 
-void DestorySubRloe(SubRoleStut *subRole, RoleStut *role)
+void DestorySubRole(SubRoleStut *subRole, RoleStut *role)
 {
     int count = 0;//nowSubRle前方有幾筆
     ObjectStut *nowSubRole = NULL, *preSubRole = NULL;

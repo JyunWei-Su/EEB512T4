@@ -58,5 +58,6 @@ int DoOnceProcessAndPrint(int **mainArray, int row, int col, int round, int scor
 void PrintArrayCountAndScore_1102(int row, int col, int **mainArray, int *rowRptCount, int *colRptCount, int **elmtArray, int **reFillArray, int round, int score);
 void PrintfIntArray2dAddAValue(int **src, int row, int col, char const *message, char const *delimiter, int addValue);
 
+void HideWindow();//¡Ù¬√console
 
 #endif  //_DEF_HEADER_H_

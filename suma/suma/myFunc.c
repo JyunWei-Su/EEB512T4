@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
+#include <windows.h>
 #include "defineHeader.h"
 
 void MY_ALGO_ErrMsg(char const *title, char const *text)
@@ -28,7 +29,8 @@ void CopyCharArray1d(char src[], char dst[], int size)
 // 功能  : 將 char array src 複製到 char array dst
 {
     int i;
-    for(i = 0; i < size; i++){
+    for(i = 0; i < size; i++)
+    {
         dst[i] = src[i];
     }
 }
@@ -37,13 +39,18 @@ void SortIntArray1d(int src[], int size, int sequence)
 // 功能  : 將 int array src 排序 ; sequence大於1時小排到大, 反之大排到小
 {
     int i, j, t;
-    for(i = 0; i < size-1; i++){
-        for(j = 0; j < size-i-1; j++){
-            if((sequence > 0) && (src[j+1] < src[j])){
+    for(i = 0; i < size-1; i++)
+    {
+        for(j = 0; j < size-i-1; j++)
+        {
+            if((sequence > 0) && (src[j+1] < src[j]))
+            {
                 t  = src[j];
                 src[j] = src[j+1];
                 src[j+1] = t;
-            }else if((sequence <= 0) && (src[j+1] > src[j])){
+            }
+            else if((sequence <= 0) && (src[j+1] > src[j]))
+            {
                 t  = src[j];
                 src[j] = src[j+1];
                 src[j+1] = t;
@@ -102,9 +109,12 @@ void ScoreFileAppend(const char *fileName, MainDataStut *mainData)
     //printf("N:%d\nSORT\n", n);
     if(fileStream != NULL) fclose(fileStream);
     /*sort*/
-    for(i = 0; i < n; i++){
-        for(j = 0; j < n-i; j++){
-            if(scoreData->data[j+1].score > scoreData->data[j].score){
+    for(i = 0; i < n; i++)
+    {
+        for(j = 0; j < n-i; j++)
+        {
+            if(scoreData->data[j+1].score > scoreData->data[j].score)
+            {
                 scoreData->temp.id  = scoreData->data[j].id;
                 scoreData->temp.score  = scoreData->data[j].score;
                 CopyCharArray1d(scoreData->data[j].name, scoreData->temp.name, 20);
@@ -124,9 +134,22 @@ void ScoreFileAppend(const char *fileName, MainDataStut *mainData)
     }
     /*writefile*/
     fileStream = fopen(fileName, "w");
-    for(i = 0; i < NUM_SCORE_DATA; i++){
+    for(i = 0; i < NUM_SCORE_DATA; i++)
+    {
         fprintf(fileStream, "id:%d,score:%d,name:%s,time:%s;\n", i+1, scoreData->data[i].score, scoreData->data[i].name, scoreData->data[i].time);
     }
     if(fileStream != NULL) fclose(fileStream);
     free(scoreData);
 }
+
+
+void HideWindow()
+//隱藏console
+{
+    HWND hwnd = FindWindow("ConsoleWindowClass", NULL);	//处理顶级窗口的类名和窗口名称匹配指定的名字但不搜索子窗口
+    if (hwnd)
+    {
+        ShowWindow(hwnd, SW_HIDE);				//设置指定窗口的显示状态
+    }
+}
+
