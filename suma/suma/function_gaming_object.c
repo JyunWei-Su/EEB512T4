@@ -76,8 +76,57 @@ void CoinDebugPrint(ObjectStut *nowPtr, ObjectStut *prePtr, ObjectStut *newPtr)
     printf("--new : %x\n", newPtr);
 }
 
-
 /* Roles */
+void AppendSubRole(SubRoleStut *subRole, RoleStut *role)
+{
+    ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
+    nowPtr = subRole->objs; //²Ä¤@µ§¸ê®Æ
+    while(nowPtr != NULL)//§ä¨ì¥Ø«eªº³Ì«á¤@­Ó
+    {
+        prePtr = nowPtr;
+        nowPtr = nowPtr->nextObj;
+    }
+    newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //°t¤@­Ó·sªº
+    nowPtr = newPtr; //§ânew«ü¬£µ¹now(¦¹®Énow´N¬O·sª«¥ó)
+    nowPtr->state = NULL;
+    prePtr == NULL ? nowPtr->id = 1 : nowPtr->id = prePtr->id+1;
+    nowPtr->id == 1 ? subRole->objs = nowPtr : prePtr->nextObj = nowPtr;
+    SubRoleXY(nowPtr, role);
+    printf("NEW:%d\n", nowPtr->id);
+}
+
+void SubRoleXY(ObjectStut *subRole, RoleStut *role)
+{
+    subRole->start_x = role->start_x - SIZE_IMG_ROLE_WIDTH * subRole->id;
+    subRole->start_y = role->start_y;
+}
+
+void DestorySubRloe(SubRoleStut *subRole, RoleStut *role)
+{
+    int count = 0;//nowSubRle«e¤è¦³´Xµ§
+    ObjectStut *nowSubRole = NULL, *preSubRole = NULL;
+    nowSubRole = subRole->objs;
+
+    while(nowSubRole != NULL)
+    {
+        if (nowSubRole->state == ROLE_DESTORY)
+        {
+            count == 0 ? subRole->objs = nowSubRole->nextObj : preSubRole->nextObj = nowSubRole->nextObj;
+            free(nowSubRole);
+            printf("free\n");
+        }
+        else
+        {
+            preSubRole = nowSubRole;
+            count += 1;
+            preSubRole->id = count;
+            //SubRoleXY(preSubRole, role);
+        }
+        nowSubRole = nowSubRole->nextObj;
+    }
+}
+
+/*
 void CreateRoles(SubRoleStut *role)
 {
     int count = 0, n = 5; //²£¥Ín­Óª«¥ó
@@ -103,30 +152,19 @@ void CreateRoles(SubRoleStut *role)
         nowPtr = nowPtr->nextObj;
         count += 1;
     }
-}
+}*/
 
+//­×¥¿
 void DestoryRoles(SubRoleStut *role, AllegroObjStut *allegroObj)
 {
 
-    int count = 0,n=1;//nowCoin«e¤è¦³´Xµ§coin
+    int count = 0, n=1;
     ObjectStut *nowRole = NULL, *preRole = NULL;
     nowRole = role->objs;
 
     while(nowRole != NULL)
     {
-        if (nowRole->state == SUPROLE_CRASH)
-        {
-            CrashRoleXY(nowRole,allegroObj,n);
-            //printf("n=%d\n",n);
-            //nowRole->state = SUBROLE_MOVE;
-            // count == 0 ? role->objs = nowRole->nextObj : preRole->nextObj = nowRole->nextObj;
-            // free(nowRole);
-        }
-        else
-        {
-            preRole = nowRole;
-            count += 1;
-        }
+
         nowRole = nowRole->nextObj;
         n+=1;
     }
@@ -138,6 +176,7 @@ void RandRoleXY(ObjectStut *role,int n)
     role->start_y = 300;
 }
 
+/*
 void CrashRoleXY(ObjectStut *role,AllegroObjStut *allegroObj,int n)
 {
     role->start_x = allegroObj->role.start_x-150*n;
@@ -150,14 +189,14 @@ void CrashRoleXY(ObjectStut *role,AllegroObjStut *allegroObj,int n)
     {
         role->start_y = allegroObj->role.start_y-15*n;
     }
-}
-
+}*/
+/*
 void FirstRoleXY(ObjectStut *role)
 {
     role->start_x = 1300;
     role->start_y = 600;
 }
-
+*/
 
 /* Meteors */
 void CreateMeteors(MeteorStut *meteor)
@@ -187,6 +226,7 @@ void RandMeteorXY(ObjectStut *meteor)
     meteor->speed_x = (float)(rand()%500-200)/100;
     meteor->speed_y = (float)(rand()%500+500)/100;
 }
+
 /*Attackx*/
 void CreateAttackX(AttackXStut *attackx)
 {
@@ -215,6 +255,8 @@ void AttackxXY(ObjectStut *attackx)
     attackx->speed_x = (float)(rand()%300+200)/100;
     attackx->speed_y = (float)(rand()%500+500)/100;
 }
+
+
 /* Floor */
 
 
@@ -233,17 +275,19 @@ void CreateFloorOnce(FloorStut *floor) //floorªº·s¼WÅÞ¿è»P¨ä¥Lª«¥ó¤£¦P¡A¬O¦V«e·s
     {
         newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //°t¤@­Ó·sªº
         floor->objs = newPtr;
+        nowPtr = newPtr;
+        FirstFloorXY(nowPtr);
     }
     else//¤£¬°ªÅ(¤w¦³¦aªO¹B§@¤¤)¡A¦b²{¦³¦aªO«e­±·s¼W·s¦aªO(¦ý¹ê»Ú·|Åã¥Ü¦b«á­±)
     {
         newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //°t¤@­Ó·sªº
         newPtr->nextObj = nowPtr;
         floor->objs = newPtr;
+        nowPtr = newPtr; //§ânew«ü¬£µ¹now(¦¹®Énow´N¬O·sª«¥ó:floor->objs)
+        if(nowPtr->nextObj != NULL) pre_x = nowPtr->nextObj->end_x; //¤U¤@­Óª«¥ó´N¬O«e¤@­Ó¦aªO
+        RandFloorXY(nowPtr, pre_x); //³]©w°Ñ¼Æ
     }
-    nowPtr = newPtr; //§ânew«ü¬£µ¹now(¦¹®Énow´N¬O·sª«¥ó:floor->objs)
-    printf("new:%x\n", nowPtr);
-    if(nowPtr->nextObj != NULL) pre_x = nowPtr->nextObj->end_x; //¤U¤@­Óª«¥ó´N¬O«e¤@­Ó¦aªO
-    RandFloorXY(nowPtr, pre_x); //³]©w°Ñ¼Æ
+
     nowPtr->state = FLOOR_ACTIVE;
 }
 
@@ -255,7 +299,6 @@ void DestoryFloorOnce(FloorStut *floor) //floorªº·s¼WÅÞ¿è»P¨ä¥Lª«¥ó¤£¦P¡A¬O¦V«e·
     {
         if(nowPtr->nextObj == NULL && nowPtr->state == FLOOR_STANDBY)
         {
-            printf("free:%x\n", nowPtr);
             free(nowPtr);
             nowPtr == floor->objs ? floor->objs = NULL : prePtr->nextObj = NULL;
         }
@@ -264,10 +307,18 @@ void DestoryFloorOnce(FloorStut *floor) //floorªº·s¼WÅÞ¿è»P¨ä¥Lª«¥ó¤£¦P¡A¬O¦V«e·
     }
 }
 
+void FirstFloorXY(ObjectStut *floor)
+{
+    floor->start_x = 0;
+    floor->end_x = floor->start_x + (float)((rand()%51+160)*10);
+    floor->start_y = DISPLAY_HEIGHT - SIZE_IMG_FLOOR_HEIGHT;
+    floor->end_y = DISPLAY_HEIGHT;
+}
+
 void RandFloorXY(ObjectStut *floor, int pre_x)
 {
-    floor->start_x = pre_x + (float)((rand()%11+5)*10);
-    floor->end_x = floor->start_x + (float)((rand()%21+50)*10);
+    floor->start_x = pre_x + (float)((rand()%16+10)*10);
+    floor->end_x = floor->start_x + (float)((rand()%21+60)*10);
     floor->start_y = DISPLAY_HEIGHT - SIZE_IMG_FLOOR_HEIGHT;
     floor->end_y = DISPLAY_HEIGHT;
 }

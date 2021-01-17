@@ -149,19 +149,19 @@ void SetObscale(MainDataStut *mainData,AllegroObjStut *allegroObj)
         switch (mainData->game_mode)
         {
         case MODE_EASY:
-            if(rand()%3 ==0 && FloorObscale(allegroObj->floor))
+            if(rand()%5 ==0 && FloorObscale(allegroObj->floor))
             {
                 CreateObscales(mainData,&(allegroObj->obscale));
             }
             break;
         case MODE_MEDIUM:
-            if(rand()%2 ==0 && FloorObscale(allegroObj->floor))
+            if(rand()%3 ==0 && FloorObscale(allegroObj->floor))
             {
                 CreateObscales(mainData,&(allegroObj->obscale));
             }
             break;
         case MODE_HARD:
-            if(rand()%2==0 && FloorObscale(allegroObj->floor))
+            if(rand()%3 ==0 && FloorObscale(allegroObj->floor))
             {
                 CreateObscales(mainData,&(allegroObj->obscale));
             }
@@ -202,17 +202,17 @@ void StandByRoleXY(ObjectStut *strole )
     strole->start_y = (DISPLAY_HEIGHT-OFFSET_FLOOR)-SIZE_IMG_ROLE_HEIGHT;
 }
 
-void DestoryStandByRole(StandByRoleStut *strole)
+void DestoryStandByRole(StandByRoleStut *stbRole)
 {
-    int count = 0;//nowCoin前方有幾筆coin
+    int count = 0;
     ObjectStut *nowSTB = NULL, *preSTB = NULL;
-    nowSTB = strole->objs;
+    nowSTB = stbRole->objs;
 
     while(nowSTB != NULL)
     {
-        if (nowSTB->state == STBROLE_DESTORY || nowSTB->state == STBROLE_CRASH)
+        if (nowSTB->state == STB_ROLE_DESTORY || nowSTB->state == STB_ROLE_CRASH)
         {
-            count == 0 ? strole->objs = nowSTB->nextObj : preSTB->nextObj = nowSTB->nextObj;
+            count == 0 ? stbRole->objs = nowSTB->nextObj : preSTB->nextObj = nowSTB->nextObj;
             free(nowSTB);
         }
         else
@@ -224,41 +224,42 @@ void DestoryStandByRole(StandByRoleStut *strole)
     }
 }
 
+/*
 void CrashCheck_role_standbyrole(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     bool crash;
-    ObjectStut *nowSTB = NULL;
+    ObjectStut *nowStbRole = NULL;
     RoleStut *nowRole = NULL;
-    nowSTB = allegroObj->strole.objs;
+    nowStbRole = allegroObj->stbRole.objs;
     nowRole = &allegroObj->role;
-    while(nowSTB != NULL)
+    while(nowStbRole != NULL)
     {
         crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
-                              nowSTB->start_x, nowSTB->start_y, nowSTB->end_x, nowSTB->end_y);
-        if(crash) nowSTB->state = STBROLE_CRASH;
-        if(nowSTB->state == STBROLE_CRASH) DestoryStandByRole(&(allegroObj->strole));
-        nowSTB = nowSTB->nextObj;
+                              nowStbRole->start_x, nowStbRole->start_y, nowStbRole->end_x, nowStbRole->end_y);
+        if(crash) nowStbRole->state = STB_ROLE_CRASH;
+        if(nowStbRole->state == STB_ROLE_CRASH) DestoryStandByRole(&(allegroObj->stbRole));
+        nowStbRole = nowStbRole->nextObj;
     }
 
-}
+}*/
 
 void StandbyRoleCheck_Boundary(StandByRoleStut *strole)
 {
     float end_x = strole->objs->end_x;
-    if(end_x <= 0) strole->objs->state = STBROLE_DESTORY;
+    if(end_x <= 0) strole->objs->state = STB_ROLE_DESTORY;
 }
 
 void move_standbyrole(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowSTB = NULL;
-    nowSTB = allegroObj->strole.objs;
+    nowSTB = allegroObj->stbRole.objs;
 
     while(nowSTB != NULL)
     {
         nowSTB->start_x -= mainData->speed.object;
         end_xy_update_object(nowSTB, SIZE_IMG_ROLE_WIDTH, SIZE_IMG_ROLE_HEIGHT);
-        StandbyRoleCheck_Boundary(&(allegroObj->strole));
-        if(nowSTB->state == STBROLE_DESTORY) DestoryStandByRole(&(allegroObj->strole));
+        StandbyRoleCheck_Boundary(&allegroObj->stbRole);
+        //if(nowSTB->state == STB_ROLE_DESTORY) DestoryStandByRole(&allegroObj->stbRole);
         nowSTB = nowSTB->nextObj;
     }
 }
@@ -275,7 +276,7 @@ void SetStandbyRole(MainDataStut *mainData,AllegroObjStut *allegroObj)
     {
         if(rand()%5 ==0 && FloorObscale(allegroObj->floor))
         {
-            CreateStandByRole(mainData,&(allegroObj->strole));
+            CreateStandByRole(mainData,&allegroObj->stbRole);
         }
     }
 }
@@ -284,7 +285,7 @@ void DrawSTBRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
 //Role動畫
 {
     ObjectStut *nowSTB = NULL;
-    nowSTB = allegroObj->strole.objs;
+    nowSTB = allegroObj->stbRole.objs;
 
     while(nowSTB != NULL)
     {
@@ -294,7 +295,7 @@ void DrawSTBRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
             nowSTB->imgNow += 1;
             if(nowSTB->imgNow % NUM_IMG_ROLE_SEQUENCE == 0) nowSTB->imgNow = 0;
         }
-        al_draw_bitmap_region(allegroObj->strole.imgs_running, SIZE_IMG_ROLE_WIDTH*nowSTB->imgNow, 0, SIZE_IMG_ROLE_WIDTH, SIZE_IMG_ROLE_HEIGHT
+        al_draw_bitmap_region(allegroObj->stbRole.imgs_running, SIZE_IMG_ROLE_WIDTH*nowSTB->imgNow, 0, SIZE_IMG_ROLE_WIDTH, SIZE_IMG_ROLE_HEIGHT
                               , nowSTB->start_x, nowSTB->start_y, 0);
         DrawObjBoundary_object(nowSTB);
 

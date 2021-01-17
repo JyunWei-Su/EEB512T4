@@ -128,9 +128,14 @@
 #define TIME_PER_IMG_ROLE 0.1
 #define TIME_PER_IMG_COIN 0.1
 #define TIME_PER_IMG_METEOR 0.1
+
+#define SPEED_ROLE_JUMP 5.5
+#define OFFSET_SUB_ROLE_DELAY 6
+#define TIME_ROLE_JUMP_MAINTAIN 80
+
 /*Meteor_Define*/
 #define NUMBER_METEOR 30
-#define SPEED_Y_METEOR 7w
+#define SPEED_Y_METEOR 7
 #define SPEED_X_METEOR 0
 #define SPEED_Y_METEOR_RIGHT 5
 #define SPEED_X_METEOR_RIGHT 3
@@ -154,7 +159,7 @@ typedef enum PlayMode
 
 typedef enum RoleState
 {
-    ROLE_JUMP, ROLE_DROP, ROLE_MUST_DROP, ROLE_NULL,SUPROLE_CRASH,
+    ROLE_JUMP, ROLE_DROP, ROLE_MUST_DROP, ROLE_NULL, ROLE_DESTORY,
     ROLE_DROP_FLOOR,
 } RoleState;
 typedef enum BossState
@@ -162,11 +167,12 @@ typedef enum BossState
     BOSS_NULL,BOSS_BEYOND_X,BOSS_BEYOND_Y,
 } BossState;
 
+/*
 typedef enum SubRoleState
 {
     SUBROLE_MOVE,
 } SubRoleState;
-
+*/
 
 typedef enum CoinState
 {
@@ -183,9 +189,9 @@ typedef enum ObscaleState
     OBSCALE_NULL, OBSCALE_CRASH_MAIN,OBSCALE_CRASH_FOLLOWER, OBSCALE_MOVEOUT, OBSCALE_DESTORY,
 } ObscaleState;
 
-typedef enum StandByRoleState
+typedef enum StbRoleState
 {
-    STBROLE_NULL, STBROLE_CRASH, STBROLE_DESTORY,
+    STB_ROLE_NULL, STB_ROLE_CRASH, STB_ROLE_DESTORY,
 } StandByRoleState;
 
 /**  struct  **/
@@ -236,7 +242,7 @@ typedef struct ObjectStut
     float speed_x, speed_y;
     int imgCount, imgNow;
     int state;
-    int id ;
+    int id;
     ObjectStut *nextObj;
 } ObjectStut;
 
@@ -306,6 +312,7 @@ typedef struct RoleStut
 {
     float start_x, start_y;
     float end_x, end_y;
+    unsigned long long int keyDownRecord;
     ALLEGRO_BITMAP *img;
     ALLEGRO_BITMAP *imgs_runing;
     int imgCount, nowImg;
@@ -403,7 +410,7 @@ typedef struct AllegroObjStut
     RoleStut role;
     BossStut boss;
     SubRoleStut subRole;
-    StandByRoleStut strole;
+    StandByRoleStut stbRole;
     //CoinStut_old coin_old;
     CoinStut coin;
     ObscaleStut obscale;
@@ -446,7 +453,7 @@ typedef struct SpeedStut
 
 typedef struct MainDataStut
 {
-    long long int timerCount;
+    unsigned long long int timerCount;
     TmStut *tm;
     GameState game_state; //遊戲進行狀態
     GameState game_state_pause; //上一階段(pause用)

@@ -11,6 +11,9 @@ void RandCoinXY(ObjectStut *coin);
 void CoinDebugPrint(ObjectStut *nowPtr, ObjectStut *prePtr, ObjectStut *newPtr);
 
 /* Roles */
+void AppendSubRole(SubRoleStut *subRole, RoleStut *role);
+void SubRoleXY(ObjectStut *subRole, RoleStut *role);
+void DestorySubRloe(SubRoleStut *subRole, RoleStut *role);
 void CreateRoles(SubRoleStut *role);
 void DestoryRoles(SubRoleStut *role,AllegroObjStut *allegroObj);
 void RandRoleXY(ObjectStut *role,int n);
@@ -25,6 +28,7 @@ void RandMeteorXY(ObjectStut *meteor);
 void SetFloor(FloorStut *floor);
 void CreateFloorOnce(FloorStut *floor);
 void DestoryFloorOnce(FloorStut *floor);
+void FirstFloorXY(ObjectStut *floor);
 void RandFloorXY(ObjectStut *floor, int pre_x);
 
 /* AttackX */

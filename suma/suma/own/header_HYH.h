@@ -23,7 +23,7 @@ bool FloorObscale(FloorStut floor);
 void CreateStandByRole(MainDataStut *mainData,StandByRoleStut *strole);
 void StandByRoleXY(ObjectStut *strole );
 void DestoryStandByRole(StandByRoleStut *strole);
-void CrashCheck_role_standbyrole(MainDataStut *mainData, AllegroObjStut *allegroObj);
+//void CrashCheck_role_standbyrole(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void StandbyRoleCheck_Boundary(StandByRoleStut *strole);
 void move_standbyrole(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void end_xy_update_StandByRole(StandByRoleStut *strole);

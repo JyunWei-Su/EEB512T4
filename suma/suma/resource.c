@@ -125,8 +125,8 @@ void sub_role_init(AllegroObjStut *allegroObj)
 
 void standbyrole_init(AllegroObjStut *allegroObj)
 {
-    if(allegroObj->obscale.imgs_shining == NULL) allegroObj->strole.imgs_running = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
-    allegroObj->strole.objs = NULL;
+    if(allegroObj->obscale.imgs_shining == NULL) allegroObj->stbRole.imgs_running = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
+    allegroObj->stbRole.objs = NULL;
     //這裡無須配置資料, 只需讀圖片, 配置在遊戲中配置
 }
 
@@ -172,8 +172,6 @@ void image_init(AllegroObjStut *allegroObj)
     allegroObj->iconImg = al_load_bitmap( PATH_IMG_ICON );
 }
 
-
-//FTT
 void floor_init(AllegroObjStut *allegroObj)
 {
     if(allegroObj->floor.img == NULL) allegroObj->floor.img = al_load_bitmap( PATH_IMG_FLOOR );
@@ -195,7 +193,7 @@ void role_init(AllegroObjStut *allegroObj)
     allegroObj->role.img = al_load_bitmap( PATH_IMG_ROLE_1 );
     allegroObj->role.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
     allegroObj->role.start_x=800;
-    allegroObj->role.start_y=700;
+    allegroObj->role.start_y=DISPLAY_HEIGHT-OFFSET_FLOOR-SIZE_IMG_ROLE_HEIGHT;
     allegroObj->role.state = ROLE_NULL;
 }
 void boss_init(AllegroObjStut *allegroObj)
@@ -339,7 +337,7 @@ void MainDataInit(MainDataStut *mainData)
     mainData->scoreFileData = (RankScoreDataStut *)calloc(sizeof(RankScoreDataStut), 1);
     mainData->scoreFileData->data = (RankRowStut *)calloc(sizeof(RankRowStut), NUM_SCORE_DATA);
     mainData->scoreFileData->fileIsRead = 0;
-    mainData->speed.background = 3;
+    mainData->speed.background = 1.5;
     mainData->speed.object = 2.5;
 }
 
