@@ -38,7 +38,7 @@ void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
         if(nowSubRole->state != ROLE_DROP_FLOOR & nowSubRole->state != ROLE_DESTORY)
             nowSubRole->start_x = allegroObj->role.start_x - SIZE_IMG_ROLE_WIDTH * nowSubRole->id;
         role_state = nowSubRole->state;
-        printf("\t%d: %d\n", nowSubRole->id, nowSubRole->state);
+        //printf("\t%d: %d\n", nowSubRole->id, nowSubRole->state);
         switch(role_state) //以role 的為基準複製修改
         {
         case ROLE_NULL:
