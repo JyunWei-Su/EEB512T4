@@ -27,6 +27,7 @@ void DrawSubRole(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawFloor(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawCoin(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void DrawAttackx(MainDataStut *mainData, AllegroObjStut *allegroObj);
 
 /* 物件邊界相關 */
 void DrawObjBoundary(float x1, float y1, float x2, float y2);

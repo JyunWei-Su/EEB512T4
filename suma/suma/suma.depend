@@ -579,7 +579,7 @@
 1609392882 c:\users\lu frank\documents\github\eeb512t4\suma\suma\own\header_byk.h
 	"../resource.h"
 
-1610788524 c:\users\lu frank\documents\github\eeb512t4\suma\suma\resource.h
+1610804068 c:\users\lu frank\documents\github\eeb512t4\suma\suma\resource.h
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
@@ -596,7 +596,7 @@
 	<allegro5/allegro_audio.h>
 	<allegro5/allegro_primitives.h>
 
-1610788493 c:\users\lu frank\documents\github\eeb512t4\suma\suma\own\header_hyh.h
+1610804015 c:\users\lu frank\documents\github\eeb512t4\suma\suma\own\header_hyh.h
 	"../resource.h"
 
 1610731504 ce.h"
@@ -610,7 +610,7 @@
 1610788493 c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_draw.h
 	"resource.h"
 
-1610788597 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_draw.c
+1610804015 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_draw.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -636,7 +636,7 @@
 	"../own/header_BYK.h"
 	"../defineHeader.h"
 
-1610788493 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\own\func_hyh.c
+1610804015 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\own\func_hyh.c
 	"../own/header_HYH.h"
 	"../defineHeader.h"
 
@@ -666,7 +666,7 @@
 	"../own/header_JWS.h"
 	"../defineHeader.h"
 
-1610788493 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\resource.c
+1610804015 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\resource.c
 	"resource.h"
 	"defineHeader.h"
 
@@ -715,7 +715,33 @@
 	<stdlib.h>
 	<math.h>
 
-1610781790 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_check.c
+1610847220 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_check.c
+	"defineHeader.h"
+	"resource.h"
+
+1610789054 7de4b8c3f2eb9559de549c04e8f5e700e8503
+	"defineHeader.h"
+	"resource.h"
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+	<inttypes.h>
+	<time.h>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_acodec.h>
+	<allegro5/allegro_ttf.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_native_dialog.h>
+	<allegro5/allegro.h>
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_primitives.h>
+	"resource.h"
+	"defineHeader.h"
+	"resource.h"
+	"defineHeader.h"
+	"resource.h"
 	"defineHeader.h"
 	"resource.h"
 
@@ -776,7 +802,7 @@
 1609516573 c:\users\user\documents\github\eeb512t4\suma\suma\function_check.h
 	"resource.h"
 
-1610792355 c:\users\user\documents\github\eeb512t4\suma\suma\resource.h
+1610847220 c:\users\user\documents\github\eeb512t4\suma\suma\resource.h
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
@@ -817,13 +843,13 @@
 1609501997 c:\users\user\documents\github\eeb512t4\suma\suma\own\header_jws.h
 	"../resource.h"
 
-1610781790 c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.h
+1610847220 c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.h
 	"resource.h"
 
 1609681546 c:\users\user\documents\github\eeb512t4\suma\suma\function_sound.h
 	"resource.h"
 
-1610797451 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.c
+1610847220 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -849,7 +875,11 @@
 	"../own/header_BYK.h"
 	"../defineHeader.h"
 
-1610798057 source:c:\users\user\documents\github\eeb512t4\suma\suma\own\func_hyh.c
+1610798661 source:c:\users\user\documents\github\eeb512t4\suma\suma\own\func_hyh.c
+	"../own/header_HYH.h"
+	"../defineHeader.h"
+
+1610804320 c6bfe50dced718b599fb44d05a8a302f01713
 	"../own/header_HYH.h"
 	"../defineHeader.h"
 
@@ -881,11 +911,11 @@
 	"../own/header_JWS.h"
 	"../defineHeader.h"
 
-1610797169 source:c:\users\user\documents\github\eeb512t4\suma\suma\resource.c
+1610847220 source:c:\users\user\documents\github\eeb512t4\suma\suma\resource.c
 	"resource.h"
 	"defineHeader.h"
 
-1610765225 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_sound.c
+1610847220 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_sound.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -898,10 +928,10 @@
 
 1610737326 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\icon.rc
 
-1610781790 c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.h
+1610847220 c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.h
 	"resource.h"
 
-1610795772 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.c
+1610847220 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -910,10 +940,10 @@
 1610778410 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_gaming_object.h
 	"resource.h"
 
-1610781790 c:\users\user\documents\github\eeb512t4\suma\suma\function_gaming_object.h
+1610847220 c:\users\user\documents\github\eeb512t4\suma\suma\function_gaming_object.h
 	"resource.h"
 
-1610789054 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_gaming_object.c
+1610847220 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_gaming_object.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -933,15 +963,15 @@
 1610788493 c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_gaming_object.h
 	"resource.h"
 
-1610788493 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_gaming_object.c
+1610789001 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_gaming_object.c
 	"defineHeader.h"
 	"resource.h"
 
-1610788493 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_operate.c
+1610804015 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_operate.c
 	"defineHeader.h"
 	"resource.h"
 
-1610788493 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_sound.c
+1610790651 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_sound.c
 	"defineHeader.h"
 	"resource.h"
 

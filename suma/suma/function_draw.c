@@ -41,6 +41,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         DrawCoin(mainData, allegroObj);
         DrawSTBRole(mainData,allegroObj);
         DrawMeteor(mainData, allegroObj);
+        DrawAttackx(mainData, allegroObj);
         DrawObscale(mainData, allegroObj);
         DrawScoreboard(mainData, allegroObj);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
@@ -183,7 +184,7 @@ void DrawScoreboard(MainDataStut *mainData, AllegroObjStut *allegroObj)
     al_draw_bitmap(allegroObj->probar.img, allegroObj->probar.start_x, allegroObj-> probar.start_y, 0);
     float n = mainData->game_percent*30*1.0/10000;
     al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->probar.start_x+OFFSET_PROBAR_X, allegroObj->probar.start_y-OFFSET_PROBAR_Y, ALLEGRO_ALIGN_LEFT, "%-*.*s", 30, (int)(n), "||||||||||||||||||||||||||||||");
-    al_draw_textf(allegroObj->font_b.font24, COLOR_SCORE, allegroObj->probar.start_x+OFFSET_PRONUMBER_X, allegroObj->probar.start_y+OFFSET_PRONUMBER_Y, ALLEGRO_ALIGN_RIGHT, "0%%                50%%                100%%");
+    al_draw_textf(allegroObj->font_b.font24, COLOR_SCORE, allegroObj->probar.start_x+OFFSET_PRONUMBER_X, allegroObj->probar.start_y+OFFSET_PRONUMBER_Y, ALLEGRO_ALIGN_RIGHT, "0%%                   50%%                   100%%");
     al_draw_bitmap(allegroObj->sb_coins.img, allegroObj->sb_coins.start_x, allegroObj->sb_coins.start_y, 0);
     al_draw_bitmap(allegroObj->sb_chars.img, allegroObj->sb_chars.start_x, allegroObj->sb_chars.start_y, 0);
     al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->sb_coins.end_x, allegroObj->sb_coins.start_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.coins);
@@ -322,7 +323,27 @@ void DrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
         nowMeteor = nowMeteor->nextObj;
     }
 }
+void DrawAttackx(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    ObjectStut *nowAttackx = NULL;
+    nowAttackx = allegroObj->attackx.objs;
 
+    while(nowAttackx != NULL)
+    {
+        if(nowAttackx->imgCount % (int)(FPS*TIME_PER_IMG_METEOR) == 0)
+        {
+            nowAttackx->imgCount = 0;
+            nowAttackx->imgNow += 1;
+            if(nowAttackx->imgNow % NUM_IMG_ATTACKX == 0) nowAttackx->imgNow = 0;
+        }
+        al_draw_bitmap_region(allegroObj->attackx.imgs_runing, SIZE_IMG_ATTACKX_WIDTH*nowAttackx->imgNow, 0, SIZE_IMG_ATTACKX_WIDTH, SIZE_IMG_ATTACKX_HEIGHT
+                              , nowAttackx->start_x, nowAttackx->start_y, 0);
+        DrawObjBoundary_object(nowAttackx);
+
+        nowAttackx->imgCount += 1;
+        nowAttackx = nowAttackx->nextObj;
+    }
+}
 
 /* 物件邊界相關 */
 void DrawObjBoundary(float x1, float y1, float x2, float y2)

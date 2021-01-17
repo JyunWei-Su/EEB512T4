@@ -110,7 +110,19 @@ void move_meteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
         nowMeteor = nowMeteor->nextObj;
     }
 }
-
+void move_attackx(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    ObjectStut *nowAttackx = NULL;
+    nowAttackx = allegroObj->attackx.objs;
+    while(nowAttackx != NULL)
+    {
+        nowAttackx->start_x -= nowAttackx->speed_x;
+        //nowAttackx->start_y += nowAttackx->speed_y;
+        if((nowAttackx->start_x) + SIZE_IMG_ATTACKX_WIDTH <= 0) nowAttackx->start_x = DISPLAY_WIDTH;
+        end_xy_update_object(nowAttackx, SIZE_IMG_ATTACKX_WIDTH, SIZE_IMG_ATTACKX_HEIGHT);
+        nowAttackx = nowAttackx->nextObj;
+    }
+}
 void move_floor(MainDataStut *mainData, AllegroObjStut *allegroObj) //FTT
 {
     ObjectStut *nowFloor = NULL;
@@ -171,7 +183,11 @@ void CrachCheck_role_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
     {
         crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
                               nowCoin->start_x, nowCoin->start_y, nowCoin->end_x, nowCoin->end_y);
-        if(crash) nowCoin->state = COIN_DESTORY;
+        if(crash){
+            nowCoin->state = COIN_DESTORY;
+            allegroObj->sound.coinCrash.readyToPlay = 1; //傳遞播放音效的參數
+        }
+
         //crash ? printf("\tCrash\n") : NULL ;
         nowCoin = nowCoin->nextObj;
     }
@@ -231,6 +247,7 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
     //順序異常
         move_sub_role(mainData, allegroObj);
         move_meteor(mainData, allegroObj);
+        move_attackx(mainData, allegroObj);
         move_obscale(mainData,allegroObj);
         move_standbyrole(mainData,allegroObj);
         move_floor(mainData, allegroObj); //FTT
