@@ -54,8 +54,10 @@ void PlayingStateSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
             mainData->game_percent += GAME_PERSEND_APPEND;
         }
 
+
 //CreateAttackX(&allegroObj->attackx);
 //if(mainData->game_percent <= GAME_PERSEND_100) mainData->game_percent += GAME_PERSEND_APPEND;
+
 
         if(mainData->score.chars <= 0 || allegroObj->role.state == ROLE_DESTORY) mainData->game_state = GAME_PLAYING_END;
         else if(mainData->game_percent > GAME_PERSEND_100) mainData->game_state = GAME_PLAYING_END;
@@ -65,7 +67,8 @@ void PlayingStateSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
             mainData->score.score = (int)((mainData->score.chars+1) * (mainData->score.coins/50) * ((float)mainData->game_percent/100));
         }
         break;
-
+    default:
+        break;
     }
 }
 
@@ -106,6 +109,7 @@ void move_playing_normal(MainDataStut *mainData, AllegroObjStut *allegroObj)
         move_floor(mainData, allegroObj);
         //move_meteor(mainData, allegroObj);
         move_boss(allegroObj);
+        move_boss2(allegroObj);
         //move_role(mainData, allegroObj);
         move_role_xy(mainData, allegroObj);
         move_sub_role(mainData, allegroObj);
@@ -146,7 +150,6 @@ void move_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
 void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    int count = 0;
     float role_start_y_ref;
     int time_during; //從按下按鈕到現在過幾偵
     int role_state;
@@ -157,7 +160,7 @@ void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
     while(nowSubRole != NULL)
     {
-        if(nowSubRole->state != ROLE_DROP_FLOOR & nowSubRole->state != ROLE_DESTORY)
+        if(nowSubRole->state != ROLE_DROP_FLOOR && nowSubRole->state != ROLE_DESTORY)
             nowSubRole->start_x = allegroObj->role.start_x - SIZE_IMG_ROLE_WIDTH * nowSubRole->id;
         role_state = nowSubRole->state;
         //printf("\t%d: %d\n", nowSubRole->id, nowSubRole->state);
@@ -168,7 +171,7 @@ void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
             if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W) && time_during > OFFSET_SUB_ROLE_DELAY * nowSubRole->id)
                 nowSubRole->state = ROLE_JUMP;
             else nowSubRole->start_y = role_start_y_ref;
-            //printf("ROLE_NULL: %f\n",nowSubRole->start_y);
+
             break;
         case ROLE_JUMP:
             if(!al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W))
@@ -180,7 +183,7 @@ void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 nowSubRole->start_y = role_start_y_ref - SPEED_ROLE_JUMP*(time_during - (OFFSET_SUB_ROLE_DELAY*nowSubRole->id));
             if(time_during > TIME_ROLE_JUMP_MAINTAIN + OFFSET_SUB_ROLE_DELAY*nowSubRole->id)
                 nowSubRole->state = ROLE_MUST_DROP;
-            //printf("ROLE_JUMP: %f\n",nowSubRole->start_y);
+
             break;
         case ROLE_DROP:
             Gravity(&nowSubRole->start_y);
@@ -195,7 +198,7 @@ void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
         case ROLE_DROP_FLOOR:
             Gravity(&nowSubRole->start_y);
             nowSubRole->start_x -= mainData->speed.object;
-            //printf("ROLE_DROP_FLOOR: %f\n",nowSubRole->start_y);
+
             break;
         default:
             break;
@@ -207,10 +210,11 @@ void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
 void move_boss(AllegroObjStut *allegroObj)
 {
-    int distance=0,dx=0,dy=0;
+    //int distance=0;
+    int dx=0,dy=0;
     dx = abs(allegroObj->role.start_x - allegroObj->boss.start_x ) ;
     dy = abs(allegroObj->role.start_y - allegroObj->boss.start_y ) ;
-    distance = sqrt(dx*dx+dy*dy);
+    //distance = sqrt(dx*dx+dy*dy);
     switch(allegroObj->boss.state)
     {
     case BOSS_NULL:
@@ -221,12 +225,12 @@ void move_boss(AllegroObjStut *allegroObj)
         break;
     case BOSS_BEYOND_X:
         allegroObj->boss.start_x +=15;
-        allegroObj->boss.start_y -=1;
+        allegroObj->boss.start_y -=2;
         if(allegroObj->boss.start_x>=1400) allegroObj->boss.state = BOSS_NULL;
         if(allegroObj->boss.start_y<=0) allegroObj->boss.state = BOSS_NULL;
         break;
     case BOSS_BEYOND_Y:
-        allegroObj->boss.start_y -=3;
+        allegroObj->boss.start_y -=10;
         allegroObj->boss.start_x -=5;
         if(allegroObj->boss.start_y<=0) allegroObj->boss.state = BOSS_NULL;
         if(allegroObj->boss.start_x<=0)  allegroObj->boss.state = BOSS_NULL;
@@ -241,23 +245,25 @@ void move_boss(AllegroObjStut *allegroObj)
 }
 void move_boss2(AllegroObjStut *allegroObj)
 {
-    switch(allegroObj->boss.state)
+    switch(allegroObj->boss2.state)
     {
     case BOSS_NULL:
-        allegroObj->boss.start_x -=7;
+        allegroObj->boss2.start_x -=10;
         //allegroObj->boss.start_y +=rand()%5+3;
         //if(allegroObj->boss.start_y>=600) allegroObj->boss.state = BOSS_BEYOND_Y;
-        if(allegroObj->boss.start_x<=0) allegroObj->boss.state = BOSS_BEYOND_X;
+        if(allegroObj->boss2.start_x<=20) allegroObj->boss2.state = BOSS_BEYOND_X;
         break;
     case BOSS_BEYOND_X:
-        allegroObj->boss.start_x +=7;
+        allegroObj->boss2.start_x +=2;
         //allegroObj->boss.start_y -=1;
-        if(allegroObj->boss.start_x>=1400) allegroObj->boss.state = BOSS_NULL;
+
+        if(allegroObj->boss2.start_x>=1400) allegroObj->boss2.state = BOSS_NULL;
         // if(allegroObj->boss.start_y<=0) allegroObj->boss.state = BOSS_NULL;
         break;
     case BOSS_BEYOND_Y:
-        allegroObj->boss.start_y -=5;
-        allegroObj->boss.start_x -=10;
+        allegroObj->boss2.start_y -=5;
+        allegroObj->boss2.start_x -=10;
+
         // if(allegroObj->boss.start_y<=0) allegroObj->boss.state = BOSS_NULL;
         break;
     }
@@ -533,6 +539,8 @@ void CrachCheck(MainDataStut *mainData, AllegroObjStut *allegroObj) //FTT
         CrachCheck_subrole_nothing(mainData, allegroObj);
         CrachCheck_subrole_coin(mainData, allegroObj);
         break;
+    default:
+        break;
     }
     switch(mainData->game_mode)
     {
@@ -541,6 +549,8 @@ void CrachCheck(MainDataStut *mainData, AllegroObjStut *allegroObj) //FTT
         break;
     case MODE_MEDIUM:
         CrashCheck_mid(mainData, allegroObj);
+        break;
+    default:
         break;
     }
 }

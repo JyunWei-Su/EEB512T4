@@ -5,8 +5,7 @@
 #include "defineHeader.h"
 
 int main(){
-   // HideWindow();
-
+    HideWindow();
     MainDataStut *mainData;
     AllegroObjStut *allegroObj;
 
@@ -25,6 +24,7 @@ int main(){
     }
 
     /* Cleanup, Free Dynamic Memory */
+    DestoryAllegroObj(allegroObj);
     free(mainData);
     free(allegroObj);
     return 0;

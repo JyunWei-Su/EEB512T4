@@ -38,6 +38,7 @@
 #define PATH_IMG_SUB_ROLE_SEQ_RUNING "./img/sub_roles.png"
 #define PATH_IMG_STB_ROLE "./img/stb_role.png"
 #define PATH_IMG_STB_ROLE_SEQ_RUNING "./img/stb_roles.png"
+#define PATH_IMG_STB_GUIDE "./img/guide.png"
 
 #define PATH_IMG_FLOOR "./img/floor.png"
 #define PATH_IMG_METEOR "./img/meteor.png"
@@ -95,6 +96,8 @@
 #define SIZE_IMG_ATTACKX_HEIGHT 65
 #define SIZE_IMG_BOSS_WIDTH 200
 #define SIZE_IMG_BOSS_HEIGHT 300
+#define SIZE_IMG_BOSS2_WIDTH 265
+#define SIZE_IMG_BOSS2_HEIGHT 200
 #define SIZE_IMG_MENU_BUTTON_WIDTH 480
 #define SIZE_IMG_MENU_BUTTON_HEIGHT 90
 #define SIZE_IMG_MODE_BUTTON_WIDTH 480
@@ -130,7 +133,7 @@
 
 /*Role_Define*/
 #define OFFSET_ROLE_JUMP 10
-#define OFFSET_ROLE_JUMP_X 2.5
+#define OFFSET_ROLE_JUMP_X 3
 #define OFFSET_ROLE_WALK 10
 #define MAX_ROLE_Y 300
 #define MIN_ROLE_Y 600
@@ -403,6 +406,7 @@ typedef struct AllegroObjStut
 {
     ALLEGRO_DISPLAY *display;  //display
     ALLEGRO_BITMAP *iconImg;    //ICON Img
+    ALLEGRO_BITMAP *ruleImg;
     BackgroundStut background;
 
     ALLEGRO_EVENT_QUEUE *event_queue; //拿來存事件 #1 (目前用於視窗X叉叉)
@@ -504,6 +508,7 @@ void sub_role_init(AllegroObjStut *allegroObj);
 void meteor_init(AllegroObjStut *allegroObj);
 void boss_init(AllegroObjStut *allegroObj);
 void Gravity(AllegroObjStut *allegroObj); //運算
+void DestoryAllegroObj(AllegroObjStut *allegroObj);
 #endif //_RESOURSE_H_
 
 //ALLEGRO_MENU *menu; //待整併

@@ -89,13 +89,12 @@ void ScoreFileAppend(const char *fileName, MainDataStut *mainData)
 {
     struct tm *ttm;
     GetTime(ttm);
-    printf("1\n");
     char line[1024];
     int i = 0, j = 0, n = 0;
     FILE *fileStream = NULL;
     fileStream = fopen(fileName, "r+");
     RankScoreDataStut *scoreData = (RankScoreDataStut *)calloc(sizeof(RankScoreDataStut), 1);
-    printf("2\n");scoreData->data = (RankRowStut *)calloc(sizeof(RankRowStut), NUM_SCORE_DATA+2);
+    scoreData->data = (RankRowStut *)calloc(sizeof(RankRowStut), NUM_SCORE_DATA+2);
     while(fgets(line, 1024, fileStream) != NULL)
     {
         sscanf(line, "id:%d,score:%d,name:%[^,],time:%[^;];", &scoreData->data[i].id, &scoreData->data[i].score, scoreData->data[i].name, scoreData->data[i].time);
@@ -106,16 +105,13 @@ void ScoreFileAppend(const char *fileName, MainDataStut *mainData)
     scoreData->data[n].id = n+1;
     scoreData->data[n].score = mainData->score.score;
     CopyCharArray1d(mainData->usrName.name, scoreData->data[n].name, 20);
-    printf("3\n"); memset(scoreData->data[n].time, 0, 20);
-    printf("3.0\n");
+    memset(scoreData->data[n].time, 0, 20);
     //sprintf(scoreData->data[n].time, "%d/%02d/%02d_%02d:%02d:%02d%c", //format char array
     //        mainData->tm->tm_year + 1900, mainData->tm->tm_mon + 1, mainData->tm->tm_mday, mainData->tm->tm_hour, mainData->tm->tm_min, mainData->tm->tm_sec, '\0');
     sprintf(scoreData->data[n].time, "%d/%02d/%02d_%02d:%02d:%02d%c", //format char array
             ttm->tm_year + 1900, ttm->tm_mon + 1, ttm->tm_mday, ttm->tm_hour, ttm->tm_min, ttm->tm_sec, '\0');
     //printf("N:%d\nSORT\n", n);
-    printf("3.1\n");
     if(fileStream != NULL) fclose(fileStream);
-    printf("3.2\n");
     /*sort*/
     for(i = 0; i < n; i++)
     {
@@ -140,14 +136,12 @@ void ScoreFileAppend(const char *fileName, MainDataStut *mainData)
             }
         }
     }
-    printf("4\n");
     /*writefile*/
     fileStream = fopen(fileName, "w");
     for(i = 0; i < NUM_SCORE_DATA; i++)
     {
         fprintf(fileStream, "id:%d,score:%d,name:%s,time:%s;\n", i+1, scoreData->data[i].score, scoreData->data[i].name, scoreData->data[i].time);
     }
-    printf("5\n");
     if(fileStream != NULL) fclose(fileStream);
     free(scoreData);
 }

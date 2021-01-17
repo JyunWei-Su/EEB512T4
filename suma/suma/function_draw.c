@@ -41,7 +41,11 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
             DrawAttackx(mainData, allegroObj);
         }
 
-        if(mainData->game_mode ==MODE_HARD)DrawBoss(mainData, allegroObj);
+        if(mainData->game_mode ==MODE_HARD)
+        {
+            DrawBoss(mainData, allegroObj);
+            DrawBoss2(mainData, allegroObj);
+        }
 
         break;
     case GAME_PLAYING_END:
@@ -169,8 +173,8 @@ void DrawAbout(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
 void DrawRule(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    al_draw_bitmap(allegroObj->background.img, 0, 0, 0); // Draw bitmap
-    al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "rule");
+    al_draw_bitmap(allegroObj->ruleImg, 0, 0, 0); // Draw bitmap
+    //al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "rule");
     DrawHomeButton(mainData, allegroObj);
 }
 
@@ -275,6 +279,20 @@ void DrawBoss(MainDataStut *mainData, AllegroObjStut *allegroObj)
                           , allegroObj->boss.start_x, allegroObj->boss.start_y, 0);
     allegroObj->boss.imgCount += 1;
     DrawObjBoundary(allegroObj->boss.start_x, allegroObj->boss.start_y, allegroObj->boss.end_x, allegroObj->boss.end_y);
+}
+void DrawBoss2(MainDataStut *mainData, AllegroObjStut *allegroObj)
+//Role動畫
+{
+    if(allegroObj->boss2.imgCount % (int)(FPS*TIME_PER_IMG_ROLE) == 0)
+    {
+        allegroObj->boss2.imgCount = 0;
+        allegroObj->boss2.nowImg += 1;
+        if(allegroObj->boss2.nowImg % NUM_IMG_BOSS_SEQUENCE == 0) allegroObj->boss2.nowImg = 0;
+    }
+    al_draw_bitmap_region(allegroObj->boss2.imgs_runing, SIZE_IMG_BOSS2_WIDTH*allegroObj->boss2.nowImg, 0, SIZE_IMG_BOSS2_WIDTH, SIZE_IMG_BOSS2_HEIGHT
+                          , allegroObj->boss2.start_x, allegroObj->boss2.start_y, 0);
+    allegroObj->boss2.imgCount += 1;
+    DrawObjBoundary(allegroObj->boss2.start_x, allegroObj->boss2.start_y, allegroObj->boss2.end_x, allegroObj->boss2.end_y);
 }
 
 void DrawSubRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -456,7 +474,7 @@ void DrawObjBoundary(float x1, float y1, float x2, float y2)
 //畫長方形邊界
 {
     //printf("x1: %f, y1: %f\nx2: %f, y2: %f\n", x1, x2, y1, y2);
-    al_draw_rectangle(x1, y1, x2, y2, al_map_rgb(255, 0, 0), 0);
+    //al_draw_rectangle(x1, y1, x2, y2, al_map_rgb(255, 0, 0), 0);
 }
 /*
 void DrawObjBoundary_meteor(MeteorStut meteor)

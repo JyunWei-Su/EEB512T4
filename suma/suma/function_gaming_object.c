@@ -90,7 +90,7 @@ void AppendSubRole(MainDataStut *mainData, SubRoleStut *subRole, RoleStut *role)
     }
     newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //配一個新的
     nowPtr = newPtr; //把new指派給now(此時now就是新物件)
-    nowPtr->state = NULL;
+    nowPtr->state = ROLE_NULL;
     prePtr == NULL ? nowPtr->id = 1 : nowPtr->id = prePtr->id+1;
     nowPtr->id == 1 ? subRole->objs = nowPtr : prePtr->nextObj = nowPtr;
     SubRoleXY(nowPtr, role);
@@ -116,7 +116,7 @@ void DestorySubRole(SubRoleStut *subRole, RoleStut *role)
         {
             count == 0 ? subRole->objs = nowSubRole->nextObj : preSubRole->nextObj = nowSubRole->nextObj;
             free(nowSubRole);
-            printf("free\n");
+            //printf("free\n");
         }
         else
         {
@@ -174,8 +174,8 @@ void CreateRoles(SubRoleStut *role)
 void DestoryRoles(SubRoleStut *role, AllegroObjStut *allegroObj)
 {
 
-    int count = 0, n=1;
-    ObjectStut *nowRole = NULL, *preRole = NULL;
+    int n=1;
+    ObjectStut *nowRole = NULL;
     nowRole = role->objs;
 
     while(nowRole != NULL)
@@ -298,7 +298,7 @@ void SetFloor(FloorStut *floor)
 void CreateFloorOnce(FloorStut *floor) //floor的新增邏輯與其他物件不同，是向前新增
 {
     int pre_x = 0;
-    ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
+    ObjectStut *nowPtr = NULL, *newPtr = NULL;
     nowPtr = floor->objs; //第一筆資料
     if(nowPtr == NULL) //如果為空(沒有新物件)就創新的
     {
@@ -466,7 +466,6 @@ void DestoryObscales(ObscaleStut *obscale)
 
 void ObscaleXY(MainDataStut *mainData,ObjectStut *obscale )
 {
-    int persent=0;
     switch(mainData->game_mode)
     {
     case MODE_EASY:
