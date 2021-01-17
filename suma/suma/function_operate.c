@@ -15,6 +15,7 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
     {
     case GAME_PLAYING_NORMAL:
         /*│]йw╖sклеє*/
+        CheckForCoin(allegroObj);
         SetChoose(mainData,allegroObj);
         SetFloor(&allegroObj->floor); //╜T╗{мOз_╗▌нn╖s╝WжaкOor─└йёжaкOЭ┐
         /*▓╛░╩клеє*/
