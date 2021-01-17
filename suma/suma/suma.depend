@@ -802,11 +802,12 @@
 1609739929 c:\users\user\documents\github\eeb512t4\suma\suma\function_check.h
 	"resource.h"
 
-1610804320 c:\users\user\documents\github\eeb512t4\suma\suma\resource.h
+1610850268 c:\users\user\documents\github\eeb512t4\suma\suma\resource.h
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
 	<inttypes.h>
+	<math.h>
 	<time.h>
 	<allegro5/allegro.h>
 	<allegro5/allegro_image.h>
@@ -843,13 +844,13 @@
 1609739929 c:\users\user\documents\github\eeb512t4\suma\suma\own\header_jws.h
 	"../resource.h"
 
-1610790196 c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.h
+1610816707 c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.h
 	"resource.h"
 
 1609739929 c:\users\user\documents\github\eeb512t4\suma\suma\function_sound.h
 	"resource.h"
 
-1610804320 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.c
+1610850815 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -907,7 +908,7 @@
 	"../own/header_JWS.h"
 	"../defineHeader.h"
 
-1610804320 source:c:\users\user\documents\github\eeb512t4\suma\suma\resource.c
+1610850268 source:c:\users\user\documents\github\eeb512t4\suma\suma\resource.c
 	"resource.h"
 	"defineHeader.h"
 
@@ -924,10 +925,10 @@
 
 1610737326 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\icon.rc
 
-1610789785 c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.h
+1610818020 c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.h
 	"resource.h"
 
-1610804320 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.c
+1610819513 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -939,7 +940,7 @@
 1610790508 c:\users\user\documents\github\eeb512t4\suma\suma\function_gaming_object.h
 	"resource.h"
 
-1610801751 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_gaming_object.c
+1610850860 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_gaming_object.c
 	"defineHeader.h"
 	"resource.h"
 

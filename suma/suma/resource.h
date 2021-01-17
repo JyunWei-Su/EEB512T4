@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdint.h> //for utf
 #include <inttypes.h> /* strtoimax */
+#include <math.h>
 #include <time.h>
 
 #include <allegro5/allegro.h>
@@ -36,7 +37,12 @@
 #define PATH_IMG_FLOOR "./img/floor.png"
 #define PATH_IMG_METEOR "./img/meteor.png"
 #define PATH_IMG_METEOR_SEQ_RUNING "./img/meteors80.png"
-#define PATH_IMG_ATTACKX "./img/attackX.png"
+#define PATH_IMG_ATTACKX_1 "./img/attackx1.png"
+#define PATH_IMG_ATTACKX_2 "./img/attackx2.png"
+#define PATH_IMG_ATTACKX_3 "./img/attackx3.png"
+#define PATH_IMG_ATTACKX_4 "./img/attackx4.png"
+#define PATH_IMG_ATTACKX_5 "./img/attackx5.png"
+#define PATH_IMG_BOSS_SEQ_RUNING "./img/dragon.png"
 
 
 #define PATH_FNT_DFT "./DFT_TL9.TTC"
@@ -77,7 +83,9 @@
 #define SIZE_IMG_METEOR_BIG_WIDTH 200
 #define SIZE_IMG_METEOR_BIG_HEIGHT 200
 #define SIZE_IMG_ATTACKX_WIDTH 300
-#define SIZE_IMG_ATTACKX_HEIGHT 70
+#define SIZE_IMG_ATTACKX_HEIGHT 65
+#define SIZE_IMG_BOSS_WIDTH 254
+#define SIZE_IMG_BOSS_HEIGHT 207
 #define SIZE_IMG_MENU_BUTTON_WIDTH 480
 #define SIZE_IMG_MENU_BUTTON_HEIGHT 90
 #define SIZE_IMG_MODE_BUTTON_WIDTH 480
@@ -95,6 +103,7 @@
 #define NUM_IMG_METEOR_SEQUENCE 12
 #define NUM_IMG_COIN_SEQUENCE 16
 #define NUM_IMG_ATTACKX 1
+#define NUM_IMG_BOSS_SEQUENCE 6
 #define NUM_SAMPLES 3 //聲音數量
 #define SCALE_MENU_BUTTON 1.2
 #define SCALE_MODE_BUTTON 1.2
@@ -148,10 +157,14 @@ typedef enum RoleState
     ROLE_JUMP, ROLE_DROP, ROLE_MUST_DROP, ROLE_NULL,SUPROLE_CRASH,
     ROLE_DROP_FLOOR,
 } RoleState;
+typedef enum BossState
+{
+    BOSS_NULL,BOSS_BEYOND_X,BOSS_BEYOND_Y,
+} BossState;
 
 typedef enum SubRoleState
 {
-SUBROLE_MOVE,
+    SUBROLE_MOVE,
 } SubRoleState;
 
 
@@ -223,6 +236,7 @@ typedef struct ObjectStut
     float speed_x, speed_y;
     int imgCount, imgNow;
     int state;
+    int id ;
     ObjectStut *nextObj;
 } ObjectStut;
 
@@ -271,9 +285,9 @@ typedef struct MeteorStut
 } MeteorStut;
 typedef struct AttackXStut
 {
-    ALLEGRO_BITMAP *imgs_runing;
+    ALLEGRO_BITMAP *imgs_runing[5];
     ObjectStut *objs;
-    int n;
+    int n,id;
 } AttackXStut;
 
 /*
@@ -297,7 +311,15 @@ typedef struct RoleStut
     int imgCount, nowImg;
     int state;
 } RoleStut;
-
+typedef struct BossStut
+{
+    float start_x, start_y;
+    float end_x, end_y;
+    ALLEGRO_BITMAP *img;
+    ALLEGRO_BITMAP *imgs_runing;
+    int imgCount, nowImg;
+    int state;
+} BossStut;
 /*
 typedef struct MeteorStu
 {
@@ -379,6 +401,7 @@ typedef struct AllegroObjStut
     ScoreboardStut sb_coins;
 
     RoleStut role;
+    BossStut boss;
     SubRoleStut subRole;
     StandByRoleStut strole;
     //CoinStut_old coin_old;
@@ -394,7 +417,7 @@ typedef struct AllegroObjStut
     //MeteorStut meteor;
     //MeteorStut *meteors;
     //MeteorStut *meteors_right_drop;
-  //  MeteorStut *meteors_left_drop;
+    //  MeteorStut *meteors_left_drop;
     int meteor_n;
 
     FontStut font_a;
@@ -464,7 +487,7 @@ void meteor_init(AllegroObjStut *allegroObj);
 void attackx_init(AllegroObjStut *allegroObj);
 void sub_role_init(AllegroObjStut *allegroObj);
 void meteor_init(AllegroObjStut *allegroObj);
-
+void boss_init(AllegroObjStut *allegroObj);
 void Gravity(AllegroObjStut *allegroObj); //運算
 #endif //_RESOURSE_H_
 

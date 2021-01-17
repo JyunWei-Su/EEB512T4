@@ -29,6 +29,7 @@ void move_floor(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void move_attackx(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void move_coin(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void move_boss(AllegroObjStut *allegroObj);
 
 void CrachCheck(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void CrachCheckForFloor(MainDataStut *mainData, AllegroObjStut *allegroObj);

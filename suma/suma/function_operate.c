@@ -59,6 +59,37 @@ void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
         nowRole = nowRole->nextObj;
     }
 }
+void move_boss(AllegroObjStut *allegroObj)
+{
+    int distance=0,dx=0,dy=0;
+    dx = abs(allegroObj->role.start_x - allegroObj->boss.start_x ) ;
+    dy = abs(allegroObj->role.start_y - allegroObj->boss.start_y ) ;
+    distance = sqrt(dx*dx+dy*dy);
+    switch(allegroObj->boss.state)
+    {
+    case BOSS_NULL:
+        allegroObj->boss.start_x -=rand()%10+3;
+        allegroObj->boss.start_y +=rand()%5+3;
+        if(allegroObj->boss.start_y>=600) allegroObj->boss.state = BOSS_BEYOND_Y;
+        if(allegroObj->boss.start_x<=0) allegroObj->boss.state = BOSS_BEYOND_X;
+        break;
+    case BOSS_BEYOND_X:
+        allegroObj->boss.start_x +=rand()%10+7;
+        allegroObj->boss.start_y -=1;
+        if(allegroObj->boss.start_x>=1800) allegroObj->boss.state = BOSS_NULL;
+        if(allegroObj->boss.start_y<=-400) allegroObj->boss.state = BOSS_NULL;
+        break;
+    case BOSS_BEYOND_Y:
+     allegroObj->boss.start_y -=5;
+     allegroObj->boss.start_x -=10;
+     if(allegroObj->boss.start_y<=0) allegroObj->boss.state = BOSS_NULL;
+        break;
+    }
+    /*allegroObj->boss.start_x -=rand()%10+3;
+    allegroObj->boss.start_y +=rand()%10+3;
+    if(allegroObj->boss.start_y>=700)allegroObj->boss.start_y -=rand()%10+7;
+    if(allegroObj->boss.start_x<=100)allegroObj->boss.start_x +=rand()%10+7;*/
+}
 
 void role_jump(AllegroObjStut *allegroObj)
 {
@@ -183,7 +214,8 @@ void CrachCheck_role_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
     {
         crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
                               nowCoin->start_x, nowCoin->start_y, nowCoin->end_x, nowCoin->end_y);
-        if(crash){
+        if(crash)
+        {
             nowCoin->state = COIN_DESTORY;
             allegroObj->sound.coinCrash.readyToPlay = 1; //傳遞播放音效的參數
         }
@@ -244,7 +276,7 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         SetObscale(mainData,allegroObj);
         SetStandbyRole(mainData,allegroObj);
         move_coin(mainData, allegroObj);
-    //順序異常
+        //順序異常
         move_sub_role(mainData, allegroObj);
         move_meteor(mainData, allegroObj);
         move_attackx(mainData, allegroObj);
@@ -257,6 +289,7 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         if(mainData->game_percent < 10000) mainData->game_percent += 3;
         /* Role */
         role_jump(allegroObj);
+        move_boss(allegroObj);
         //meteor_drop(allegroObj);
         /* Check Crash */
         CrachCheck(mainData, allegroObj);

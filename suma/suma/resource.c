@@ -47,7 +47,7 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     score_board_init(allegroObj);
     role_init(allegroObj);
     standbyrole_init(allegroObj);
-
+boss_init(allegroObj);
     coin_init(allegroObj);
     obscale_init(allegroObj);
 
@@ -146,8 +146,13 @@ void meteor_init(AllegroObjStut *allegroObj)
 }
 void attackx_init(AllegroObjStut *allegroObj)
 {
-    if(allegroObj->attackx.imgs_runing == NULL) allegroObj->attackx.imgs_runing = al_load_bitmap( PATH_IMG_ATTACKX );
+    if(allegroObj->attackx.imgs_runing[0] == NULL) allegroObj->attackx.imgs_runing[0] = al_load_bitmap( PATH_IMG_ATTACKX_1 );
+    if(allegroObj->attackx.imgs_runing[1] == NULL) allegroObj->attackx.imgs_runing[1] = al_load_bitmap( PATH_IMG_ATTACKX_2 );
+    if(allegroObj->attackx.imgs_runing[2] == NULL) allegroObj->attackx.imgs_runing[2] = al_load_bitmap( PATH_IMG_ATTACKX_3 );
+    if(allegroObj->attackx.imgs_runing[3] == NULL) allegroObj->attackx.imgs_runing[3] = al_load_bitmap( PATH_IMG_ATTACKX_4 );
+    if(allegroObj->attackx.imgs_runing[4] == NULL) allegroObj->attackx.imgs_runing[4] = al_load_bitmap( PATH_IMG_ATTACKX_5 );
     allegroObj->attackx.objs = NULL;
+    allegroObj->attackx.id =rand()%5+1;
 
 }
 void font_init(FontStut *font, const char *filePath)
@@ -192,6 +197,14 @@ void role_init(AllegroObjStut *allegroObj)
     allegroObj->role.start_x=800;
     allegroObj->role.start_y=700;
     allegroObj->role.state = ROLE_NULL;
+}
+void boss_init(AllegroObjStut *allegroObj)
+{
+    //allegroObj->boss.img = al_load_bitmap( PATH_IMG_ROLE_1 );
+    allegroObj->boss.imgs_runing = al_load_bitmap( PATH_IMG_BOSS_SEQ_RUNING );
+    allegroObj->boss.start_x=1300;
+    allegroObj->boss.start_y=200;
+    //allegroObj->boss.state = ROLE_NULL;
 }
 
 /*

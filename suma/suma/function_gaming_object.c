@@ -209,9 +209,10 @@ void CreateAttackX(AttackXStut *attackx)
 }
 void AttackxXY(ObjectStut *attackx)
 {
+    attackx->id =  rand()%5+1;
     attackx->start_x =  2000;
     attackx->start_y = rand()%800;
-    attackx->speed_x = (float)(rand()%500+200)/100;
+    attackx->speed_x = (float)(rand()%300+200)/100;
     attackx->speed_y = (float)(rand()%500+500)/100;
 }
 /* Floor */
