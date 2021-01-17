@@ -421,6 +421,8 @@ typedef struct AllegroObjStut
 
     RoleStut role;
     BossStut boss;
+    BossStut boss2;
+    BossStut boss3;
     SubRoleStut subRole;
     StandByRoleStut stbRole;
     CoinStut coin;

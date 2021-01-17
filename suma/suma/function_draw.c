@@ -10,7 +10,6 @@
 void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int state = mainData->game_state;
-
     if(state != GAME_PAUSE) al_clear_to_color( COLOR_CLEAR );
     switch(state)
     {

@@ -28,7 +28,6 @@ void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
     int time_during; //±q«ö¤U«ö¶s¨ì²{¦b¹L´X°»
     int role_state;
     ObjectStut *nowSubRole = NULL;
-
     role_start_y_ref = DISPLAY_HEIGHT-OFFSET_FLOOR-SIZE_IMG_ROLE_HEIGHT;
     time_during = mainData->timerCount - allegroObj->role.keyDownRecord;
     nowSubRole = allegroObj->subRole.objs;
@@ -46,6 +45,7 @@ void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
             if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W) && time_during > OFFSET_SUB_ROLE_DELAY * nowSubRole->id)
                 nowSubRole->state = ROLE_JUMP;
             else nowSubRole->start_y = role_start_y_ref;
+            printf("ROLE_NULL: %f\n",nowSubRole->start_y);
             break;
         case ROLE_JUMP:
             //printf("---%d\n", count);
@@ -58,18 +58,22 @@ void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 nowSubRole->start_y = role_start_y_ref - SPEED_ROLE_JUMP*(time_during - (OFFSET_SUB_ROLE_DELAY*nowSubRole->id));
             if(time_during > TIME_ROLE_JUMP_MAINTAIN + OFFSET_SUB_ROLE_DELAY*nowSubRole->id)
                 nowSubRole->state = ROLE_MUST_DROP;
+            printf("ROLE_JUMP: %f\n",nowSubRole->start_y);
             break;
         case ROLE_DROP:
             Gravity(&nowSubRole->start_y);
             if(nowSubRole->start_y >= role_start_y_ref) OnFloorCheck_subRole(nowSubRole, &allegroObj->floor);
+            printf("ROLE_DROP: %f\n",nowSubRole->start_y);
             break;
         case ROLE_MUST_DROP:
             Gravity(&nowSubRole->start_y);
             if(nowSubRole->start_y >= role_start_y_ref) OnFloorCheck_subRole(nowSubRole, &allegroObj->floor);
+            printf("ROLE_MUST_DROP: %f\n",nowSubRole->start_y);
             break;
         case ROLE_DROP_FLOOR:
             Gravity(&nowSubRole->start_y);
             nowSubRole->start_x -= mainData->speed.object;
+            printf("ROLE_DROP_FLOOR: %f\n",nowSubRole->start_y);
             break;
         default:
             break;
@@ -95,8 +99,8 @@ void move_boss(AllegroObjStut *allegroObj)
     case BOSS_BEYOND_X:
         allegroObj->boss.start_x +=rand()%10+7;
         allegroObj->boss.start_y -=1;
-        if(allegroObj->boss.start_x>=1800) allegroObj->boss.state = BOSS_NULL;
-        if(allegroObj->boss.start_y<=-400) allegroObj->boss.state = BOSS_NULL;
+        if(allegroObj->boss.start_x>=1400) allegroObj->boss.state = BOSS_NULL;
+        if(allegroObj->boss.start_y<=0) allegroObj->boss.state = BOSS_NULL;
         break;
     case BOSS_BEYOND_Y:
         allegroObj->boss.start_y -=5;
@@ -109,7 +113,53 @@ void move_boss(AllegroObjStut *allegroObj)
     if(allegroObj->boss.start_y>=700)allegroObj->boss.start_y -=rand()%10+7;
     if(allegroObj->boss.start_x<=100)allegroObj->boss.start_x +=rand()%10+7;*/
 }
-
+void move_boss2(AllegroObjStut *allegroObj)
+{
+    switch(allegroObj->boss.state)
+    {
+    case BOSS_NULL:
+        allegroObj->boss.start_x -=rand()%10;
+        //allegroObj->boss.start_y +=rand()%5+3;
+        if(allegroObj->boss.start_y>=600) allegroObj->boss.state = BOSS_BEYOND_Y;
+        if(allegroObj->boss.start_x<=0) allegroObj->boss.state = BOSS_BEYOND_X;
+        break;
+    case BOSS_BEYOND_X:
+        allegroObj->boss.start_x +=rand()%10;
+        //allegroObj->boss.start_y -=1;
+        if(allegroObj->boss.start_x>=1400) allegroObj->boss.state = BOSS_NULL;
+        if(allegroObj->boss.start_y<=0) allegroObj->boss.state = BOSS_NULL;
+        break;
+    case BOSS_BEYOND_Y:
+        allegroObj->boss.start_y -=5;
+        allegroObj->boss.start_x -=10;
+        if(allegroObj->boss.start_y<=0) allegroObj->boss.state = BOSS_NULL;
+        break;
+    }
+}
+void move_boss3(AllegroObjStut *allegroObj)
+{
+    switch(allegroObj->boss.state)
+    {
+    case BOSS_NULL:
+        allegroObj->boss.start_x -=5;
+        allegroObj->boss.start_y +=10;
+        if(allegroObj->boss.start_y>=600) allegroObj->boss.state = BOSS_BEYOND_Y;
+        if(allegroObj->boss.start_x<=0) allegroObj->boss.state = BOSS_BEYOND_X;
+        break;
+    case BOSS_BEYOND_X:
+        allegroObj->boss.start_x +=10;
+        allegroObj->boss.start_y -=5;
+        if(allegroObj->boss.start_x>=1400) allegroObj->boss.state = BOSS_NULL;
+        if(allegroObj->boss.start_y<=0) allegroObj->boss.state = BOSS_NULL;
+        break;
+    case BOSS_BEYOND_Y:
+        allegroObj->boss.start_y -=5;
+        allegroObj->boss.start_x -=10;
+        if(allegroObj->boss.start_y<=0) allegroObj->boss.state = BOSS_NULL;
+        if(allegroObj->boss.start_x<=0) allegroObj->boss.state = BOSS_NULL;
+        break;
+    }
+}
 void move_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     float role_start_y_ref;
@@ -129,12 +179,85 @@ void move_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
         }
         else allegroObj->role.start_y = role_start_y_ref;
         //printf("td: %d\n", time_during);
+
         break;
     case ROLE_JUMP:
         if(!al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W))
         {
             allegroObj->role.state = ROLE_DROP;
             break;
+        }
+        allegroObj->role.start_y = role_start_y_ref - SPEED_ROLE_JUMP*time_during;
+        if(time_during > TIME_ROLE_JUMP_MAINTAIN) allegroObj->role.state = ROLE_MUST_DROP; //0.8¬í
+
+        break;
+    case ROLE_DROP:
+        Gravity(&allegroObj->role.start_y);
+        if(allegroObj->role.start_y >= role_start_y_ref) OnFloorCheck_role(mainData, allegroObj);
+
+        break;
+    case ROLE_MUST_DROP:
+        Gravity(&allegroObj->role.start_y);
+        if(allegroObj->role.start_y >= role_start_y_ref) OnFloorCheck_role(mainData, allegroObj);
+
+        break;
+    case ROLE_DROP_FLOOR:
+        Gravity(&allegroObj->role.start_y);
+        allegroObj->role.start_x -= mainData->speed.object;
+
+        break;
+    default:
+        /*
+        if(!al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W))
+        {
+            if(allegroObj->role.state == ROLE_JUMP) allegroObj->role.state = ROLE_NULL;
+        }*/
+        break;
+    }
+    end_xy_update_role(&allegroObj->role);
+}
+void move_role_with_boss(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    float role_start_y_ref;
+    int time_during; //±q«ö¤U«ö¶s¨ì²{¦b¹L´X°»
+    int role_state;
+    role_start_y_ref = DISPLAY_HEIGHT-OFFSET_FLOOR-SIZE_IMG_ROLE_HEIGHT;
+    time_during = mainData->timerCount - allegroObj->role.keyDownRecord;
+    role_state = allegroObj->role.state;
+    switch(role_state)
+    {
+    case ROLE_NULL:
+        OnFloorCheck_role(mainData, allegroObj);//¤@©w­n¥ý
+        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W))
+        {
+            allegroObj->role.keyDownRecord = mainData->timerCount;
+            allegroObj->role.state = ROLE_JUMP;
+        }
+        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_A))
+        {
+            allegroObj->role.start_x -= 10;
+        }
+        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_D))
+        {
+            allegroObj->role.start_x += 10;
+        }
+        else allegroObj->role.start_y = role_start_y_ref;
+        //printf("td: %d\n", time_during);
+
+        break;
+    case ROLE_JUMP:
+        if(!al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_W))
+        {
+            allegroObj->role.state = ROLE_DROP;
+            break;
+        }
+        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_D))
+        {
+            allegroObj->role.start_x += 2.5;
+        }
+                        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_A))
+        {
+            allegroObj->role.start_x -= 2.5;
         }
         allegroObj->role.start_y = role_start_y_ref - SPEED_ROLE_JUMP*time_during;
         if(time_during > TIME_ROLE_JUMP_MAINTAIN) allegroObj->role.state = ROLE_MUST_DROP; //0.8¬í
@@ -146,6 +269,14 @@ void move_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
     case ROLE_MUST_DROP:
         Gravity(&allegroObj->role.start_y);
         if(allegroObj->role.start_y >= role_start_y_ref) OnFloorCheck_role(mainData, allegroObj);
+        if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_D))
+        {
+            allegroObj->role.start_x += 2.5;
+        }
+                if(al_key_down(&allegroObj->keyboard_state, ALLEGRO_KEY_A))
+        {
+            allegroObj->role.start_x -= 2.5;
+        }
         break;
     case ROLE_DROP_FLOOR:
         Gravity(&allegroObj->role.start_y);
@@ -159,11 +290,8 @@ void move_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
         }*/
         break;
     }
-
     end_xy_update_role(&allegroObj->role);
-
 }
-
 void move_meteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowMeteor = NULL;
@@ -186,7 +314,7 @@ void move_attackx(MainDataStut *mainData, AllegroObjStut *allegroObj)
     {
         nowAttackx->start_x -= nowAttackx->speed_x;
         //nowAttackx->start_y += nowAttackx->speed_y;
-        if((nowAttackx->start_x) + SIZE_IMG_ATTACKX_WIDTH <= 0) nowAttackx->start_x = DISPLAY_WIDTH;
+        //if((nowAttackx->start_x) + SIZE_IMG_ATTACKX_WIDTH <= 0) nowAttackx->start_x = DISPLAY_WIDTH;
         end_xy_update_object(nowAttackx, SIZE_IMG_ATTACKX_WIDTH, SIZE_IMG_ATTACKX_HEIGHT);
         nowAttackx = nowAttackx->nextObj;
     }
@@ -217,7 +345,6 @@ void move_floor(MainDataStut *mainData, AllegroObjStut *allegroObj) //FTT
 void CrachCheck(MainDataStut *mainData, AllegroObjStut *allegroObj) //FTT
 {
     CrachCheck_role_coin(mainData, allegroObj);
-
     CrashCheck_role_obscale(mainData, allegroObj);
     CrashCheck_subrole_obscale(mainData, allegroObj);
     CrashCheck_role_standbyRole(mainData, allegroObj);
@@ -323,9 +450,10 @@ void CrachCheck_subrole_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
         {
             crash = ObjCrashCheck(nowSubRole->start_x, nowSubRole->start_y, nowSubRole->end_x, nowSubRole->end_y,
                                   nowCoin->start_x, nowCoin->start_y, nowCoin->end_x, nowCoin->end_y);
-            if(crash){
-                    nowCoin->state = COIN_DESTORY;
-                    allegroObj->sound.coinCrash.readyToPlay = 1; //¶Ç»¼¼½©ñ­µ®Äªº°Ñ¼Æ
+            if(crash)
+            {
+                nowCoin->state = COIN_DESTORY;
+                allegroObj->sound.coinCrash.readyToPlay = 1; //¶Ç»¼¼½©ñ­µ®Äªº°Ñ¼Æ
             }
             //crash ? printf("\tCrash\n") : NULL ;
             nowSubRole = nowSubRole->nextObj;
@@ -379,7 +507,6 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
     switch(state)
     {
     case GAME_PLAYING_NORMAL:
-
         move_background(mainData, allegroObj);
         SetChoose(mainData,allegroObj);
         //SetObscale(mainData,allegroObj);
@@ -394,25 +521,28 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         move_floor(mainData, allegroObj); //FTT
         SetFloor(&allegroObj->floor); //½T»{¬O§_»Ý­n·s¼W¦aªOorÄÀ©ñ¦aªO¿
         /* ¶i«×±ø */
-        if(mainData->game_percent <= GAME_PERSEND_100 )
-        {
-            if (mainData->game_percent == GAME_PERSEND_99)
-            {
-                mainData->game_state= GAME_PLAYING_FINAL_BOSS;
-                mainData->game_percent += 1;
-            }
-            else if (mainData->game_percent == GAME_PERSEND_50)
-            {
-                mainData->game_percent += 1;
-                mainData->game_state= GAME_PLAYING_MID_BOSS;
-            }
-                        mainData->game_percent += GAME_PERSEND_APPEND;
-            printf("time=%d,game_percent=%d\n",mainData->timerCount,mainData->game_percent);
-        }
+        /* if(mainData->game_percent <= GAME_PERSEND_100 )
+         {
+             if (mainData->game_percent == GAME_PERSEND_99)
+             {
+                 mainData->game_state= GAME_PLAYING_FINAL_BOSS;
+                 mainData->game_percent += 1;
+             }
+             else if (mainData->game_percent == GAME_PERSEND_50)
+             {
+                 mainData->game_percent += 1;
+                 mainData->game_state= GAME_PLAYING_MID_BOSS;
+             }
+                         mainData->game_percent += GAME_PERSEND_APPEND;
+            // printf("time=%d,game_percent=%d\n",mainData->timerCount,mainData->game_percent);
+         }*/
         /* Role */
-        move_boss(allegroObj);
+        //move_boss(allegroObj);
+        //move_boss2(allegroObj);
+        move_boss3(allegroObj);
         //role_jump(allegroObj);
-        move_role(mainData, allegroObj);
+        //move_role(mainData, allegroObj);
+        move_role_with_boss(mainData, allegroObj);
         //meteor_drop(allegroObj);
         /* Check Crash */
         CrachCheck(mainData, allegroObj);

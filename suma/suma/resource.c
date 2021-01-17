@@ -206,6 +206,9 @@ void boss_init(AllegroObjStut *allegroObj)
     allegroObj->boss.imgs_runing = al_load_bitmap( PATH_IMG_BOSS_SEQ_RUNING );
     allegroObj->boss.start_x=1300;
     allegroObj->boss.start_y=200;
+    allegroObj->boss2.imgs_runing = al_load_bitmap( PATH_IMG_BOSS_SEQ_RUNING );
+    allegroObj->boss2.start_x=1300;
+    allegroObj->boss2.start_y=600;
     //allegroObj->boss.state = ROLE_NULL;
 }
 
