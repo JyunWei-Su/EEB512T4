@@ -260,6 +260,17 @@ void AttackxXY(ObjectStut *attackx)
 
 /* Floor */
 
+void ReSetFullFloor(ObjectStut *full_floor)
+{
+    full_floor->start_x = DISPLAY_WIDTH;
+    full_floor->end_x = DISPLAY_WIDTH*2;
+}
+
+void SetFullFloor(ObjectStut *full_floor)
+{
+    full_floor->start_x = 0;
+    full_floor->end_x = DISPLAY_WIDTH;
+}
 
 void SetFloor(FloorStut *floor)
 {
@@ -319,7 +330,160 @@ void FirstFloorXY(ObjectStut *floor)
 void RandFloorXY(ObjectStut *floor, int pre_x)
 {
     floor->start_x = pre_x + (float)((rand()%16+10)*10);
-    floor->end_x = floor->start_x + (float)((rand()%21+60)*10);
+    floor->end_x = floor->start_x + (float)((rand()%21+70)*10);
     floor->start_y = DISPLAY_HEIGHT - SIZE_IMG_FLOOR_HEIGHT;
     floor->end_y = DISPLAY_HEIGHT;
 }
+
+/* Standby Role */
+void CreateStandbyRole(MainDataStut *mainData,StandbyRoleStut *strole)
+{
+    ObjectStut *nowPtr = NULL, *newPtr = NULL;
+    nowPtr = strole->objs; //第一筆資料
+    if(nowPtr == NULL) //如果為空(沒有新物件)就創新的
+    {
+        newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //配一個新的
+        nowPtr = newPtr; //把new指派給now(此時now就是新物件), 和pre.next(應當要是now)
+        strole->objs = newPtr;
+    }
+    else
+    {
+        while(nowPtr->nextObj != NULL) nowPtr = nowPtr->nextObj;
+        newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //配一個新的
+        nowPtr->nextObj = newPtr;
+        nowPtr = nowPtr->nextObj;
+    }
+    StandbyRoleXY(nowPtr); //設定參數
+}
+
+void StandbyRoleXY(ObjectStut *strole )
+{
+    strole->start_x = DISPLAY_WIDTH ;
+    strole->start_y = (DISPLAY_HEIGHT-OFFSET_FLOOR)-SIZE_IMG_ROLE_HEIGHT;
+}
+
+void DestoryStandbyRole(StandbyRoleStut *stbRole)
+{
+    int count = 0;
+    ObjectStut *nowSTB = NULL, *preSTB = NULL;
+    nowSTB = stbRole->objs;
+
+    while(nowSTB != NULL)
+    {
+        if (nowSTB->state == STB_ROLE_DESTORY || nowSTB->state == STB_ROLE_CRASH)
+        {
+            count == 0 ? stbRole->objs = nowSTB->nextObj : preSTB->nextObj = nowSTB->nextObj;
+            free(nowSTB);
+        }
+        else
+        {
+            preSTB = nowSTB;
+            count += 1;
+        }
+        nowSTB = nowSTB->nextObj;
+    }
+}
+
+void StandbyRoleCheck_Boundary(StandbyRoleStut *strole)
+{
+    float end_x = strole->objs->end_x;
+    if(end_x <= 0) strole->objs->state = STB_ROLE_DESTORY;
+}
+
+/* Obscals */
+void CreateObscales(MainDataStut *mainData,ObscaleStut *obscale)
+{
+    ObjectStut *nowPtr = NULL, *newPtr = NULL;
+    nowPtr = obscale->objs; //第一筆資料
+    if(nowPtr == NULL) //如果為空(沒有新物件)就創新的
+    {
+        newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //配一個新的
+        nowPtr = newPtr; //把new指派給now(此時now就是新物件), 和pre.next(應當要是now)
+        obscale->objs = newPtr;
+    }
+    else
+    {
+        while(nowPtr->nextObj != NULL) nowPtr = nowPtr->nextObj;
+        newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //配一個新的
+        nowPtr->nextObj = newPtr;
+        nowPtr = nowPtr->nextObj;
+    }
+    ObscaleXY(mainData,nowPtr); //設定參數
+}
+
+void DestoryObscales(ObscaleStut *obscale)
+{
+    int count = 0;
+    ObjectStut *nowObscale = NULL, *preObscale = NULL;
+    nowObscale = obscale->objs;
+
+    while(nowObscale != NULL)
+    {
+        if (nowObscale->state == OBSCALE_DESTORY || nowObscale->state == OBSCALE_CRASH_MAIN
+                || nowObscale->state == OBSCALE_CRASH_FOLLOWER)
+        {
+            count == 0 ? obscale->objs = nowObscale->nextObj : preObscale->nextObj = nowObscale->nextObj;
+            free(nowObscale);
+        }
+        else
+        {
+            preObscale = nowObscale;
+            count += 1;
+        }
+        nowObscale = nowObscale->nextObj;
+    }
+}
+
+void ObscaleXY(MainDataStut *mainData,ObjectStut *obscale )
+{
+    int persent=0;
+    switch(mainData->game_mode)
+    {
+    case MODE_EASY:
+        obscale->start_x = DISPLAY_WIDTH ;
+        obscale->start_y = (DISPLAY_HEIGHT-OFFSET_FLOOR)-SIZE_IMG_OBSCALE_HEIGHT;
+        break;
+    case MODE_MEDIUM:
+        obscale->start_x = DISPLAY_WIDTH ;
+        obscale->start_y = (DISPLAY_HEIGHT-OFFSET_FLOOR)-SIZE_IMG_OBSCALE_HEIGHT;
+        break;
+    case MODE_HARD:
+        obscale->start_x = DISPLAY_WIDTH ;
+        persent =rand()%5;
+        persent == 0 ? obscale->start_y = obscale->start_y = 5.7*SIZE_IMG_SCOREBOARD_ICON_HEIGHT :
+                                          obscale->start_y = (DISPLAY_HEIGHT-SIZE_IMG_FLOOR_HEIGHT)-SIZE_IMG_OBSCALE_HEIGHT;
+        break;
+    }
+}
+
+void SetObscale(MainDataStut *mainData,AllegroObjStut *allegroObj)
+{
+    switch (mainData->game_mode)
+    {
+    case MODE_EASY:
+        if(rand()%3 == 0 && FloorObscale(allegroObj->floor))
+        {
+            CreateObscales(mainData,&(allegroObj->obscale));
+        }
+        break;
+    case MODE_MEDIUM:
+        if(rand()%2 == 0 && FloorObscale(allegroObj->floor))
+        {
+            CreateObscales(mainData,&(allegroObj->obscale));
+        }
+        break;
+    case MODE_HARD:
+        if(FloorObscale(allegroObj->floor))
+        {
+            CreateObscales(mainData,&(allegroObj->obscale));
+        }
+        break;
+    }
+}
+
+void ObscaleCheck_Boundary(ObscaleStut *obscale)
+{
+    float end_x = obscale->objs->end_x;
+    if(end_x <= 0) obscale->objs->state = OBSCALE_DESTORY;
+}
+

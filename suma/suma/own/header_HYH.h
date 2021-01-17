@@ -21,16 +21,23 @@ void SetObscale(MainDataStut *mainData,AllegroObjStut *allegroObj);
 bool FloorObscale(FloorStut floor);
 void CrashCheck_subrole_obscale(MainDataStut *mainData, AllegroObjStut *allegroObj);
 //=======================
-void CreateStandByRole(MainDataStut *mainData,StandByRoleStut *strole);
-void StandByRoleXY(ObjectStut *strole );
-void DestoryStandByRole(StandByRoleStut *strole);
-//void CrashCheck_role_standbyrole(MainDataStut *mainData, AllegroObjStut *allegroObj);
-void StandbyRoleCheck_Boundary(StandByRoleStut *strole);
-void move_standbyrole(MainDataStut *mainData, AllegroObjStut *allegroObj);
-void end_xy_update_StandByRole(StandByRoleStut *strole);
+void CreateStandbyRole(MainDataStut *mainData,StandbyRoleStut *strole);
+void StandbyRoleXY(ObjectStut *strole );
+void DestoryStandbyRole(StandbyRoleStut *strole);
+//void CrashCheck_role_StandbyRole(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void StandbyRoleCheck_Boundary(StandbyRoleStut *strole);
+void move_stb_role(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void end_xy_update_StandbyRole(StandbyRoleStut *strole);
 void SetStandbyRole(MainDataStut *mainData,AllegroObjStut *allegroObj);
 void DrawSTBRole(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void SetChoose(MainDataStut *mainData,AllegroObjStut *allegroObj);
+
+void ReSetFullFloor(ObjectStut *full_floor);
+void SetFullFloor(ObjectStut *full_floor);
+void move_full_floor(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void DrawFullFloor(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void DrawNormalObj(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void full_floor_init(AllegroObjStut *allegroObj);
 #endif //_HYH_H_
 
 

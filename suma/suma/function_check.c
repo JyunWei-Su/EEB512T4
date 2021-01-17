@@ -114,9 +114,6 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
             //
             //printf("rrr: %d", allegroObj->role.keyDownRecord);
             break;
-        case ALLEGRO_KEY_V:
-            CreateMeteors(&allegroObj->meteor);
-            break;
         case ALLEGRO_KEY_Z:
             mainData->game_state = GAME_PLAYING_MID_BOSS;
             //creat
@@ -150,12 +147,18 @@ void CheckStateModeSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
             {
             case 0:
                 mainData->game_mode = MODE_EASY;
+                mainData->speed.background = 2.5;
+                mainData->speed.object = 3.5;
                 break;
             case 1:
                 mainData->game_mode = MODE_MEDIUM;
+                mainData->speed.background = 3.5;
+                mainData->speed.object = 4.5;
                 break;
             case 2:
                 mainData->game_mode = MODE_HARD;
+                mainData->speed.background = 4.5;
+                mainData->speed.object = 5.5;
                 break;
             }
             allegroObj->modeButton[i].isSelected = 0; //切換狀態後要重設
