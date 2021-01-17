@@ -110,6 +110,10 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
     case GAME_PLAYING_NORMAL:
         switch(allegroObj->events.keyboard.keycode)
         {
+        case ALLEGRO_KEY_W:
+            //
+            //printf("rrr: %d", allegroObj->role.keyDownRecord);
+            break;
         case ALLEGRO_KEY_V:
             CreateMeteors(&allegroObj->meteor);
             break;
@@ -124,10 +128,13 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
             if(mainData->game_state == GAME_PLAYING_NORMAL) CreateCoins(&allegroObj->coin);
             break;
         case ALLEGRO_KEY_R:
-            if(mainData->game_state == GAME_PLAYING_NORMAL) CreateRoles(&allegroObj->subRole);
+            //if(mainData->game_state == GAME_PLAYING_NORMAL) CreateRoles(&allegroObj->subRole);
             break;
         case ALLEGRO_KEY_K:
             //if(mainData->game_state == GAME_PLAYING_NORMAL) CreateObscales(mainData,&allegroObj->obscale);
+        break;
+        case ALLEGRO_KEY_B:
+            if(mainData->game_state == GAME_PLAYING_NORMAL) CreateAttackX(&allegroObj->attackx);
         default:
             break;
         }

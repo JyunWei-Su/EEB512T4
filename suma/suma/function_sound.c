@@ -35,6 +35,11 @@ void PlaySoundEffect(MainDataStut *mainData, AllegroObjStut *allegroObj)
             al_play_sample(allegroObj->sound.coinCrash.sfx, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE, &allegroObj->sound.id);
             allegroObj->sound.coinCrash.readyToPlay = 0;
         }
+        if(allegroObj->sound.damageBook.readyToPlay)
+        {
+            al_play_sample(allegroObj->sound.damageBook.sfx, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE, &allegroObj->sound.id);
+            allegroObj->sound.damageBook.readyToPlay = 0;
+        }
     default:
         break;
     }

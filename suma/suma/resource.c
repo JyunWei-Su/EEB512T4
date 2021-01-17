@@ -47,7 +47,7 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     score_board_init(allegroObj);
     role_init(allegroObj);
     standbyrole_init(allegroObj);
-
+boss_init(allegroObj);
     coin_init(allegroObj);
     obscale_init(allegroObj);
 
@@ -83,6 +83,8 @@ void sound_init(AllegroObjStut *allegroObj)
     allegroObj->sound.buttonMoveIn.sfi = al_create_sample_instance(allegroObj->sound.buttonMoveIn.sfx);
     allegroObj->sound.coinCrash.sfx = al_load_sample( PATH_SFX_COINCRASH );
     allegroObj->sound.coinCrash.sfi = al_create_sample_instance( allegroObj->sound.coinCrash.sfx);
+    allegroObj->sound.damageBook.sfx = al_load_sample( PATH_SFX_DAMAGE );
+    allegroObj->sound.damageBook.sfi = al_create_sample_instance( allegroObj->sound.damageBook.sfx);
 
 
     al_attach_sample_instance_to_mixer(allegroObj->sound.sfi_background, allegroObj->sound.mixer);//將聲音物件link buffer
@@ -125,8 +127,8 @@ void sub_role_init(AllegroObjStut *allegroObj)
 
 void standbyrole_init(AllegroObjStut *allegroObj)
 {
-    if(allegroObj->obscale.imgs_shining == NULL) allegroObj->strole.imgs_running = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
-    allegroObj->strole.objs = NULL;
+    if(allegroObj->obscale.imgs_shining == NULL) allegroObj->stbRole.imgs_running = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
+    allegroObj->stbRole.objs = NULL;
     //這裡無須配置資料, 只需讀圖片, 配置在遊戲中配置
 }
 
@@ -146,8 +148,13 @@ void meteor_init(AllegroObjStut *allegroObj)
 }
 void attackx_init(AllegroObjStut *allegroObj)
 {
-    if(allegroObj->attackx.imgs_runing == NULL) allegroObj->attackx.imgs_runing = al_load_bitmap( PATH_IMG_ATTACKX );
+    if(allegroObj->attackx.imgs_runing[0] == NULL) allegroObj->attackx.imgs_runing[0] = al_load_bitmap( PATH_IMG_ATTACKX_1 );
+    if(allegroObj->attackx.imgs_runing[1] == NULL) allegroObj->attackx.imgs_runing[1] = al_load_bitmap( PATH_IMG_ATTACKX_2 );
+    if(allegroObj->attackx.imgs_runing[2] == NULL) allegroObj->attackx.imgs_runing[2] = al_load_bitmap( PATH_IMG_ATTACKX_3 );
+    if(allegroObj->attackx.imgs_runing[3] == NULL) allegroObj->attackx.imgs_runing[3] = al_load_bitmap( PATH_IMG_ATTACKX_4 );
+    if(allegroObj->attackx.imgs_runing[4] == NULL) allegroObj->attackx.imgs_runing[4] = al_load_bitmap( PATH_IMG_ATTACKX_5 );
     allegroObj->attackx.objs = NULL;
+    allegroObj->attackx.id =rand()%5+1;
 
 }
 void font_init(FontStut *font, const char *filePath)
@@ -167,8 +174,6 @@ void image_init(AllegroObjStut *allegroObj)
     allegroObj->iconImg = al_load_bitmap( PATH_IMG_ICON );
 }
 
-
-//FTT
 void floor_init(AllegroObjStut *allegroObj)
 {
     if(allegroObj->floor.img == NULL) allegroObj->floor.img = al_load_bitmap( PATH_IMG_FLOOR );
@@ -190,8 +195,16 @@ void role_init(AllegroObjStut *allegroObj)
     allegroObj->role.img = al_load_bitmap( PATH_IMG_ROLE_1 );
     allegroObj->role.imgs_runing = al_load_bitmap( PATH_IMG_ROLE_SEQ_RUNING );
     allegroObj->role.start_x=800;
-    allegroObj->role.start_y=700;
+    allegroObj->role.start_y=DISPLAY_HEIGHT-OFFSET_FLOOR-SIZE_IMG_ROLE_HEIGHT;
     allegroObj->role.state = ROLE_NULL;
+}
+void boss_init(AllegroObjStut *allegroObj)
+{
+    //allegroObj->boss.img = al_load_bitmap( PATH_IMG_ROLE_1 );
+    allegroObj->boss.imgs_runing = al_load_bitmap( PATH_IMG_BOSS_SEQ_RUNING );
+    allegroObj->boss.start_x=1300;
+    allegroObj->boss.start_y=200;
+    //allegroObj->boss.state = ROLE_NULL;
 }
 
 /*
@@ -326,7 +339,7 @@ void MainDataInit(MainDataStut *mainData)
     mainData->scoreFileData = (RankScoreDataStut *)calloc(sizeof(RankScoreDataStut), 1);
     mainData->scoreFileData->data = (RankRowStut *)calloc(sizeof(RankRowStut), NUM_SCORE_DATA);
     mainData->scoreFileData->fileIsRead = 0;
-    mainData->speed.background = 3;
-    mainData->speed.object = 2.5;
+    mainData->speed.background = 2.5;
+    mainData->speed.object = 3.5;
 }
 
