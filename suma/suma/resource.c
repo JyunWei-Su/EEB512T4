@@ -222,10 +222,10 @@ void role_reset(AllegroObjStut *allegroObj)
 void boss_init(AllegroObjStut *allegroObj)
 {
     //allegroObj->boss.img = al_load_bitmap( PATH_IMG_ROLE_1 );
-    allegroObj->boss.imgs_runing = al_load_bitmap( PATH_IMG_BOSS_SEQ_RUNING );
+    allegroObj->boss.imgs_runing = al_load_bitmap( PATH_IMG_BOSS_01 );
     allegroObj->boss.start_x=1300;
-    allegroObj->boss.start_y=200;
-    allegroObj->boss2.imgs_runing = al_load_bitmap( PATH_IMG_BOSS_SEQ_RUNING );
+    allegroObj->boss.start_y=600;
+    allegroObj->boss2.imgs_runing = al_load_bitmap( PATH_IMG_BOSS_01 );
     allegroObj->boss2.start_x=1300;
     allegroObj->boss2.start_y=600;
     //allegroObj->boss.state = ROLE_NULL;
@@ -321,5 +321,7 @@ void MainDataInit(MainDataStut *mainData)
     mainData->scoreFileData->fileIsRead = 0;
     mainData->speed.background = 0;
     mainData->speed.object = 0;
+    mainData->speed.background = 2.5;
+    mainData->speed.object = 3.5;
 }
 

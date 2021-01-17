@@ -80,6 +80,7 @@ void CoinDebugPrint(ObjectStut *nowPtr, ObjectStut *prePtr, ObjectStut *newPtr)
 /* Roles */
 void AppendSubRole(MainDataStut *mainData, SubRoleStut *subRole, RoleStut *role)
 {
+    dbp;
     ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
     nowPtr = subRole->objs; //第一筆資料
     while(nowPtr != NULL)//找到目前的最後一個
@@ -216,7 +217,7 @@ void FirstRoleXY(ObjectStut *role)
 /* Meteors */
 void CreateMeteors(MeteorStut *meteor)
 {
-    int count = 0, n = rand()%10+10; //產生n個物件
+    int count = 0, n = 15; //產生n個物件
     ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
     nowPtr = meteor->objs; //第一筆資料
     while(count < n) //舊資料可能要destroy
@@ -228,6 +229,7 @@ void CreateMeteors(MeteorStut *meteor)
             count == 0 ? meteor->objs = newPtr : prePtr->nextObj = newPtr;
         }
         RandMeteorXY(nowPtr); //設定參數
+        end_xy_update_object(nowPtr, SIZE_IMG_METEOR_BIG_WIDTH, SIZE_IMG_METEOR_BIG_HEIGHT);
         prePtr = nowPtr; //轉往下一物件
         nowPtr = nowPtr->nextObj;
         count += 1;
@@ -257,6 +259,7 @@ void CreateAttackX(AttackXStut *attackx)
             count == 0 ? attackx->objs = newPtr : prePtr->nextObj = newPtr;
         }
         AttackxXY(nowPtr); //設定參數
+        end_xy_update_object(nowPtr, SIZE_IMG_ATTACKX_WIDTH, SIZE_IMG_ATTACKX_HEIGHT);
         prePtr = nowPtr; //轉往下一物件
         nowPtr = nowPtr->nextObj;
         count += 1;
@@ -266,7 +269,7 @@ void AttackxXY(ObjectStut *attackx)
 {
     attackx->id =  rand()%5+1;
     attackx->start_x =  2000;
-    attackx->start_y = rand()%800;
+    attackx->start_y = rand()%300;
     attackx->speed_x = (float)(rand()%300+200)/100;
     attackx->speed_y = (float)(rand()%500+500)/100;
 }
@@ -475,10 +478,12 @@ void ObscaleXY(MainDataStut *mainData,ObjectStut *obscale )
         obscale->start_y = (DISPLAY_HEIGHT-OFFSET_FLOOR)-SIZE_IMG_OBSCALE_HEIGHT;
         break;
     case MODE_HARD:
-        obscale->start_x = DISPLAY_WIDTH ;
+        /*obscale->start_x = DISPLAY_WIDTH ;
         persent =rand()%5;
         persent == 0 ? obscale->start_y = obscale->start_y = 5.7*SIZE_IMG_SCOREBOARD_ICON_HEIGHT :
-                                          obscale->start_y = (DISPLAY_HEIGHT-SIZE_IMG_FLOOR_HEIGHT)-SIZE_IMG_OBSCALE_HEIGHT;
+                                          obscale->start_y = (DISPLAY_HEIGHT-SIZE_IMG_FLOOR_HEIGHT)-SIZE_IMG_OBSCALE_HEIGHT;*/
+                obscale->start_x = DISPLAY_WIDTH ;
+     obscale->start_y = (DISPLAY_HEIGHT-OFFSET_FLOOR)-SIZE_IMG_OBSCALE_HEIGHT;
         break;
     }
 }
@@ -494,7 +499,7 @@ void SetObscale(MainDataStut *mainData,AllegroObjStut *allegroObj)
         }
         break;
     case MODE_MEDIUM:
-        if(rand()%2 == 0 && FloorObscale(allegroObj->floor))
+        if(rand()%5 == 0 && FloorObscale(allegroObj->floor))
         {
             CreateObscales(mainData,&(allegroObj->obscale));
         }

@@ -47,7 +47,9 @@
 #define PATH_IMG_ATTACKX_3 "./img/attackx3.png"
 #define PATH_IMG_ATTACKX_4 "./img/attackx4.png"
 #define PATH_IMG_ATTACKX_5 "./img/attackx5.png"
-#define PATH_IMG_BOSS_SEQ_RUNING "./img/dragon.png"
+#define PATH_IMG_BOSS_01 "./img/boss01.png"
+#define PATH_IMG_BOSS_02 "./img/boss02.png"
+#define PATH_IMG_BOSS_03 "./img/boss03.png"
 
 
 #define PATH_FNT_DFT "./DFT_TL9.TTC"
@@ -91,8 +93,8 @@
 #define SIZE_IMG_METEOR_BIG_HEIGHT 200
 #define SIZE_IMG_ATTACKX_WIDTH 300
 #define SIZE_IMG_ATTACKX_HEIGHT 65
-#define SIZE_IMG_BOSS_WIDTH 254
-#define SIZE_IMG_BOSS_HEIGHT 207
+#define SIZE_IMG_BOSS_WIDTH 200
+#define SIZE_IMG_BOSS_HEIGHT 300
 #define SIZE_IMG_MENU_BUTTON_WIDTH 480
 #define SIZE_IMG_MENU_BUTTON_HEIGHT 90
 #define SIZE_IMG_MODE_BUTTON_WIDTH 480
@@ -110,7 +112,7 @@
 #define NUM_IMG_METEOR_SEQUENCE 12
 #define NUM_IMG_COIN_SEQUENCE 16
 #define NUM_IMG_ATTACKX 1
-#define NUM_IMG_BOSS_SEQUENCE 6
+#define NUM_IMG_BOSS_SEQUENCE 1
 #define NUM_SAMPLES 3 //聲音數量
 #define SCALE_MENU_BUTTON 1.2
 #define SCALE_MODE_BUTTON 1.2
@@ -128,7 +130,8 @@
 
 /*Role_Define*/
 #define OFFSET_ROLE_JUMP 10
-#define OFFSET_ROLE_WALK 0.5
+#define OFFSET_ROLE_JUMP_X 2.5
+#define OFFSET_ROLE_WALK 10
 #define MAX_ROLE_Y 300
 #define MIN_ROLE_Y 600
 #define MAX_ROLE_X 1500
@@ -150,8 +153,9 @@
 #define SPEED_X_METEOR_RIGHT 3
 /* Game persend*/
 #define GAME_PERSEND_100 10000
-#define GAME_PERSEND_99  9900
+#define GAME_PERSEND_70  7200
 #define GAME_PERSEND_50  5040
+#define GAME_PERSEND_25  2700
 #define GAME_PERSEND_APPEND  3
 #define GAME_PERSEND_MID_TIME  2500
 #define GAME_PERSEND_FINAL_TIME  5800

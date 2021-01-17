@@ -35,6 +35,14 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         //DrawAttackx(mainData, allegroObj);
         //al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "GAME_PLAYING_NORMAL", mainData->game_mode);
         DrawNormalObj(mainData, allegroObj);
+        if(mainData->game_mode ==MODE_MEDIUM)
+        {
+            DrawMeteor(mainData, allegroObj);
+            DrawAttackx(mainData, allegroObj);
+        }
+
+        if(mainData->game_mode ==MODE_HARD)DrawBoss(mainData, allegroObj);
+
         break;
     case GAME_PLAYING_END:
         DrawGameEnd(mainData, allegroObj);
