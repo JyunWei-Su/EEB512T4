@@ -30,6 +30,7 @@ void move_standbyrole(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void end_xy_update_StandByRole(StandByRoleStut *strole);
 void SetStandbyRole(MainDataStut *mainData,AllegroObjStut *allegroObj);
 void DrawSTBRole(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void SetChoose(MainDataStut *mainData,AllegroObjStut *allegroObj);
 #endif //_HYH_H_
 
 

@@ -2,233 +2,29 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-<<<<<<< HEAD
-	<File name="resource.h" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+	<File name="resource.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4199" topLine="104" />
-=======
-<<<<<<< HEAD
-	<File name="own\func_JWS.c" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-3" zoom_2="0">
-=======
-<<<<<<< HEAD
-	<File name="function_sound.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="662" topLine="0" />
+			<Cursor1 position="0" topLine="302" />
 		</Cursor>
 	</File>
-	<File name="Array2dFunctionUsingPointer.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="function_check.c" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="16580" topLine="614" />
+			<Cursor1 position="1477" topLine="5" />
 		</Cursor>
 	</File>
-	<File name="resource.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6809" topLine="229" />
-		</Cursor>
-	</File>
-	<File name="function_operate.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-=======
-<<<<<<< HEAD
-	<File name="function_check.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5023" topLine="103" />
-=======
-	<File name="function_sound.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
->>>>>>> 916b8c32b3849e4adebd12f4448eaf246c941ee7
-		<Cursor>
-			<Cursor1 position="137" topLine="0" />
->>>>>>> 80d16f0efd569a395a96f0c246a81db298a767c0
-		</Cursor>
-	</File>
-	<File name="TeamWork.md" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1372" topLine="36" />
-		</Cursor>
-	</File>
-<<<<<<< HEAD
-	<File name="function_sound.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-=======
-	<File name="Array2dFunctionUsingPointer.c" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
->>>>>>> 80d16f0efd569a395a96f0c246a81db298a767c0
+	<File name="function_operate.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-<<<<<<< HEAD
-	<File name="function_gaming_object.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1113" topLine="15" />
-		</Cursor>
-	</File>
-	<File name="defineHeader.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-=======
-	<File name="function_draw.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1631" topLine="7" />
-		</Cursor>
-	</File>
-	<File name="resource.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="9482" topLine="173" />
-		</Cursor>
-	</File>
-	<File name="main.c" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="549" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="function_gaming_object.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6368" topLine="160" />
-		</Cursor>
-	</File>
-	<File name="own\header_JWS.h" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="435" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="RefInfo.md" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="481" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="function_operate.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1796" topLine="5" />
-		</Cursor>
-	</File>
-	<File name="own\header_HYH.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="142" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="function_operate.c" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3476" topLine="62" />
-		</Cursor>
-	</File>
-	<File name="own\func_HYH.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3696" topLine="0" />
-		</Cursor>
-	</File>
-<<<<<<< HEAD
-	<File name="function_sound.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="191" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="resource.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5305" topLine="138" />
-		</Cursor>
-	</File>
-	<File name="function_draw.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-=======
-	<File name="function_gaming_object.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
->>>>>>> 2767de4b8c3f2eb9559de549c04e8f5e700e8503
->>>>>>> 4bec6bfe50dced718b599fb44d05a8a302f01713
-		<Cursor>
-			<Cursor1 position="9645" topLine="219" />
-		</Cursor>
-	</File>
-<<<<<<< HEAD
-	<File name="function_gaming_object.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-=======
-<<<<<<< HEAD
-	<File name="Array2dFunctionUsingPointer.c" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
->>>>>>> 4bec6bfe50dced718b599fb44d05a8a302f01713
-		<Cursor>
-			<Cursor1 position="551" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="function_draw.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1305" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="own\header_HYH.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1413" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="own\func_HYH.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5446" topLine="136" />
-		</Cursor>
-	</File>
-	<File name="resource.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5907" topLine="110" />
-		</Cursor>
-	</File>
-	<File name="function_gaming_object.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3026" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="function_draw.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="11889" topLine="223" />
-		</Cursor>
-	</File>
-	<File name="function_check.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="7841" topLine="195" />
-		</Cursor>
-	</File>
-<<<<<<< HEAD
-=======
-	<File name="own\header_JWS.h" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
->>>>>>> 916b8c32b3849e4adebd12f4448eaf246c941ee7
-		<Cursor>
-			<Cursor1 position="11858" topLine="223" />
-		</Cursor>
-	</File>
-	<File name="function_check.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5023" topLine="103" />
-		</Cursor>
-	</File>
-	<File name="defineHeader.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="resource.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="myFunc.c" open="0" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1884" topLine="25" />
+			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="function_gaming_object.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="949" topLine="7" />
-		</Cursor>
-	</File>
-	<File name="function_sound.c" open="0" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="-3" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1106" topLine="2" />
-		</Cursor>
-	</File>
-	<File name="function_check.h" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="507" topLine="0" />
->>>>>>> 80d16f0efd569a395a96f0c246a81db298a767c0
-		</Cursor>
-	</File>
-<<<<<<< HEAD
-=======
-=======
-	<Target name="Debug" top="resource.h">
-		<File name="defineHeader.h" />
-		<File name="resource.h" />
-		<File name="function_sound.h" />
-		<File name="function_sound.c" />
-		<File name="function_gaming_object.c" />
-	</Target>
->>>>>>> 2767de4b8c3f2eb9559de549c04e8f5e700e8503
->>>>>>> 4bec6bfe50dced718b599fb44d05a8a302f01713
->>>>>>> 916b8c32b3849e4adebd12f4448eaf246c941ee7
 </CodeBlocks_layout_file>

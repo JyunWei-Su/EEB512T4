@@ -229,7 +229,7 @@ void DoCrashOrDestorys(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     mainData->score.coins += ScoreAdd_Coins(&allegroObj->coin)*50;
     DestoryCoins(&allegroObj->coin);
-    DestorySubRloe(&allegroObj->subRole, &allegroObj->role);
+    DestorySubRole(&allegroObj->subRole, &allegroObj->role);
     //DestoryRoles(&allegroObj->subRole,allegroObj);
 }
 
@@ -380,8 +380,9 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
     case GAME_PLAYING_NORMAL:
 
         move_background(mainData, allegroObj);
-        SetObscale(mainData,allegroObj);
-        SetStandbyRole(mainData,allegroObj);
+        SetChoose(mainData,allegroObj);
+        //SetObscale(mainData,allegroObj);
+        //SetStandbyRole(mainData,allegroObj);
         move_coin(mainData, allegroObj);
         //¶¶§Ç²§±`
         move_sub_role(mainData, allegroObj);
