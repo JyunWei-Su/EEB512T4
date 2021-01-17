@@ -41,7 +41,11 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
             DrawAttackx(mainData, allegroObj);
         }
 
-        if(mainData->game_mode ==MODE_HARD)DrawBoss(mainData, allegroObj);
+        if(mainData->game_mode ==MODE_HARD)
+        {
+            DrawBoss(mainData, allegroObj);
+            DrawBoss2(mainData, allegroObj);
+        }
 
         break;
     case GAME_PLAYING_END:
@@ -274,6 +278,20 @@ void DrawBoss(MainDataStut *mainData, AllegroObjStut *allegroObj)
                           , allegroObj->boss.start_x, allegroObj->boss.start_y, 0);
     allegroObj->boss.imgCount += 1;
     DrawObjBoundary(allegroObj->boss.start_x, allegroObj->boss.start_y, allegroObj->boss.end_x, allegroObj->boss.end_y);
+}
+void DrawBoss2(MainDataStut *mainData, AllegroObjStut *allegroObj)
+//Role°Êµe
+{
+    if(allegroObj->boss2.imgCount % (int)(FPS*TIME_PER_IMG_ROLE) == 0)
+    {
+        allegroObj->boss2.imgCount = 0;
+        allegroObj->boss2.nowImg += 1;
+        if(allegroObj->boss2.nowImg % NUM_IMG_BOSS_SEQUENCE == 0) allegroObj->boss2.nowImg = 0;
+    }
+    al_draw_bitmap_region(allegroObj->boss2.imgs_runing, SIZE_IMG_BOSS2_WIDTH*allegroObj->boss2.nowImg, 0, SIZE_IMG_BOSS2_WIDTH, SIZE_IMG_BOSS2_HEIGHT
+                          , allegroObj->boss2.start_x, allegroObj->boss2.start_y, 0);
+    allegroObj->boss2.imgCount += 1;
+    DrawObjBoundary(allegroObj->boss2.start_x, allegroObj->boss2.start_y, allegroObj->boss2.end_x, allegroObj->boss2.end_y);
 }
 
 void DrawSubRole(MainDataStut *mainData, AllegroObjStut *allegroObj)

@@ -502,10 +502,10 @@ void SetObscale(MainDataStut *mainData,AllegroObjStut *allegroObj)
         }
         break;
     case MODE_HARD:
-        if(FloorObscale(allegroObj->floor))
+        /*if(FloorObscale(allegroObj->floor))
         {
             CreateObscales(mainData,&(allegroObj->obscale));
-        }
+        }*/
         break;
     }
 }
