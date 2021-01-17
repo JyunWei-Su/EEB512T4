@@ -70,7 +70,7 @@ void GetTime(struct tm *tm)
 
 int ScoreFileRead(const char *fileName, RankScoreDataStut *scoreData)
 {
-    dbp;
+    //dbp;
     char line[1024];
     int i = 0;
     FILE *fileStream = fopen(fileName, "r");
@@ -88,7 +88,8 @@ int ScoreFileRead(const char *fileName, RankScoreDataStut *scoreData)
 void ScoreFileAppend(const char *fileName, MainDataStut *mainData)
 {
     struct tm *ttm;
-    GetTime(ttm);
+    time_t t = time(NULL);
+    ttm = localtime(&t);
     char line[1024];
     int i = 0, j = 0, n = 0;
     FILE *fileStream = NULL;
@@ -98,7 +99,7 @@ void ScoreFileAppend(const char *fileName, MainDataStut *mainData)
     while(fgets(line, 1024, fileStream) != NULL)
     {
         sscanf(line, "id:%d,score:%d,name:%[^,],time:%[^;];", &scoreData->data[i].id, &scoreData->data[i].score, scoreData->data[i].name, scoreData->data[i].time);
-        printf("| %d\t| %d\t| %s\t| %s\t|\n", scoreData->data[i].id, scoreData->data[i].score, scoreData->data[i].name, scoreData->data[i].time);
+        //printf("| %d\t| %d\t| %s\t| %s\t|\n", scoreData->data[i].id, scoreData->data[i].score, scoreData->data[i].name, scoreData->data[i].time);
         i++;
     }
     n = i;
