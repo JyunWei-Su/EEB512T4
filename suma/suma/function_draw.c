@@ -185,7 +185,7 @@ void DrawScoreboard(MainDataStut *mainData, AllegroObjStut *allegroObj)
     al_draw_bitmap(allegroObj->sb_coins.img, allegroObj->sb_coins.start_x, allegroObj->sb_coins.start_y, 0);
     al_draw_bitmap(allegroObj->sb_chars.img, allegroObj->sb_chars.start_x, allegroObj->sb_chars.start_y, 0);
     al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->sb_coins.end_x, allegroObj->sb_coins.start_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.coins);
-    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->sb_chars.end_x, allegroObj->sb_chars.start_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.chars);
+    al_draw_textf(allegroObj->font_a.font64, al_map_rgb(218,112,214), allegroObj->sb_chars.end_x, allegroObj->sb_chars.start_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.chars);
     DrawObjBoundary(allegroObj->sb_coins.start_x, allegroObj->sb_coins.start_y, allegroObj->sb_coins.end_x, allegroObj->sb_coins.end_y);
     DrawObjBoundary(allegroObj->sb_chars.start_x, allegroObj->sb_chars.start_y, allegroObj->sb_chars.end_x, allegroObj->sb_chars.end_y);
 }
@@ -211,10 +211,11 @@ void DrawGameEnd(MainDataStut *mainData, AllegroObjStut *allegroObj)
     al_draw_textf(allegroObj->font_a.font120, COLOR_PAUSE_TEXT, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/4, ALLEGRO_ALIGN_CENTER, "END");
     int x = DISPLAY_WIDTH / 2;
     int y = DISPLAY_HEIGHT / 2;
+    al_draw_textf(allegroObj->font_a.font120, al_map_rgb(255, 0, 0), x, y-SIZE_TEXT_RANK_LEADONG*8, ALLEGRO_ALIGN_CENTER, (mainData->game_percent/100 == 100 ? "WIN" : "FAIL"));
     al_draw_textf(allegroObj->font_a.font48, COLOR_SCORE, x, y-SIZE_TEXT_RANK_LEADONG*2, ALLEGRO_ALIGN_CENTER, "Please type your NAME and press ENTER");
     al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, x, y+SIZE_TEXT_RANK_LEADONG*0, ALLEGRO_ALIGN_CENTER, "Coin:%d Char:%d Done:%d%%", mainData->score.coins, mainData->score.chars, mainData->game_percent/100);
     al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, x, y+SIZE_TEXT_RANK_LEADONG*2, ALLEGRO_ALIGN_CENTER, "Total Score:%d", mainData->score.score);
-    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, x, y+SIZE_TEXT_RANK_LEADONG*4, ALLEGRO_ALIGN_CENTER, "Name:%s", mainData->usrName.name);
+    al_draw_textf(allegroObj->font_a.font64, al_map_rgb(0, 199, 140), x, y+SIZE_TEXT_RANK_LEADONG*5, ALLEGRO_ALIGN_CENTER, "Name:%s", mainData->usrName.name);
 }
 
 /* 遊戲角色相關(角色、金幣、跟班、障礙、地板、隕石) */
