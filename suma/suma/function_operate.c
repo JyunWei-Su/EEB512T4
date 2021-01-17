@@ -670,6 +670,7 @@ void CrachCheck_subrole_nothing(MainDataStut *mainData, AllegroObjStut *allegroO
             if(nowSubRole->end_x < 0 || nowSubRole->start_y > DISPLAY_HEIGHT)
             {
                 nowSubRole->state = ROLE_DESTORY;
+                allegroObj->sound.roleDead.readyToPlay = 1;
                 //printf("ddd\n");
             }
         }

@@ -55,6 +55,7 @@
 #define PATH_SFX_BUTTON_MOVEIN "./sfx/button02a.wav"
 #define PATH_SFX_COINCRASH "./sfx/coin.wav"
 #define PATH_SFX_DAMAGE "./sfx/damage.wav"
+#define PATH_SFX_ROLEDEAD "./sfx/roledead.wav"
 #define PATH_FILE_SCORE "user.score"
 #define PATH_FONT_HIMAJI "./font/KFhimajiFACE.otf"
 #define PATH_FONT_FANCYH "./font/FancyHeart.otf"
@@ -401,6 +402,7 @@ typedef struct SoundStut
     SoundEffectStut buttonMoveIn;
     SoundEffectStut coinCrash;
     SoundEffectStut damageBook;
+    SoundEffectStut roleDead;
 
 } SoundStut;
 

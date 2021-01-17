@@ -86,6 +86,8 @@ void sound_init(AllegroObjStut *allegroObj)
     allegroObj->sound.coinCrash.sfi = al_create_sample_instance( allegroObj->sound.coinCrash.sfx);
     allegroObj->sound.damageBook.sfx = al_load_sample( PATH_SFX_DAMAGE );
     allegroObj->sound.damageBook.sfi = al_create_sample_instance( allegroObj->sound.damageBook.sfx);
+    allegroObj->sound.roleDead.sfx = al_load_sample( PATH_SFX_ROLEDEAD );
+    allegroObj->sound.roleDead.sfi = al_create_sample_instance(allegroObj->sound.roleDead.sfx);
 
 
     al_attach_sample_instance_to_mixer(allegroObj->sound.sfi_background, allegroObj->sound.mixer);//將聲音物件link buffer
