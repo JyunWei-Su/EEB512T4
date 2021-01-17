@@ -191,6 +191,7 @@ void CheckMouseClick(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 mainData->game_state = GAME_MENU;
                 allegroObj->homeButton.isSelected = 0; //切換狀態後要重設
             }
+            mainData->timerCount = 0;
             break;
         case GAME_RULE:
             if(allegroObj->homeButton.isSelected)

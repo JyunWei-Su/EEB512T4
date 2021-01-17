@@ -715,7 +715,7 @@
 	<stdlib.h>
 	<math.h>
 
-1610851852 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_check.c
+1610866148 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_check.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -802,7 +802,7 @@
 1609739929 c:\users\user\documents\github\eeb512t4\suma\suma\function_check.h
 	"resource.h"
 
-1610852080 c:\users\user\documents\github\eeb512t4\suma\suma\resource.h
+1610863454 c:\users\user\documents\github\eeb512t4\suma\suma\resource.h
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
@@ -877,7 +877,7 @@
 1609739929 c:\users\user\documents\github\eeb512t4\suma\suma\function_sound.h
 	"resource.h"
 
-1610853177 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.c
+1610867738 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_draw.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -959,7 +959,7 @@
 1610851852 c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.h
 	"resource.h"
 
-1610853259 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.c
+1610866531 source:c:\users\user\documents\github\eeb512t4\suma\suma\function_operate.c
 	"defineHeader.h"
 	"resource.h"
 

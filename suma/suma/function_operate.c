@@ -99,9 +99,9 @@ void move_boss(AllegroObjStut *allegroObj)
         if(allegroObj->boss.start_y<=-400) allegroObj->boss.state = BOSS_NULL;
         break;
     case BOSS_BEYOND_Y:
-     allegroObj->boss.start_y -=5;
-     allegroObj->boss.start_x -=10;
-     if(allegroObj->boss.start_y<=0) allegroObj->boss.state = BOSS_NULL;
+        allegroObj->boss.start_y -=5;
+        allegroObj->boss.start_x -=10;
+        if(allegroObj->boss.start_y<=0) allegroObj->boss.state = BOSS_NULL;
         break;
     }
     /*allegroObj->boss.start_x -=rand()%10+3;
@@ -323,13 +323,13 @@ void OnFloorCheck_subRole(ObjectStut *subRole, FloorStut *floor)
     ObjectStut *nowFloor;
     nowFloor = floor->objs;
     while(nowFloor != NULL)
-        {
-            onFloor += FloorCrashCheck(subRole->start_x, subRole->start_y, subRole->end_x, subRole->end_y,
-                                       nowFloor->start_x, nowFloor->start_y, nowFloor->end_x, nowFloor->end_y);
-            nowFloor = nowFloor->nextObj;
-        }
-        if(!onFloor) subRole->state = ROLE_DROP_FLOOR;
-        else subRole->state = ROLE_NULL;
+    {
+        onFloor += FloorCrashCheck(subRole->start_x, subRole->start_y, subRole->end_x, subRole->end_y,
+                                   nowFloor->start_x, nowFloor->start_y, nowFloor->end_x, nowFloor->end_y);
+        nowFloor = nowFloor->nextObj;
+    }
+    if(!onFloor) subRole->state = ROLE_DROP_FLOOR;
+    else subRole->state = ROLE_NULL;
 }
 
 void CrashCheck_role_standbyRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -398,7 +398,8 @@ void CrachCheck_subrole_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
 }
 
 void CrachCheck_subrole_nothing(MainDataStut *mainData, AllegroObjStut *allegroObj)
-{//½T»{subrow¬O§_¦º¤`
+{
+    //½T»{subrow¬O§_¦º¤`
     ObjectStut *nowSubRole = NULL;
     nowSubRole = allegroObj->subRole.objs;
 
@@ -456,41 +457,51 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         move_floor(mainData, allegroObj); //FTT
         SetFloor(&allegroObj->floor); //½T»{¬O§_»Ý­n·s¼W¦aªOorÄÀ©ñ¦aªO¿
         /* ¶i«×±ø */
-
-        if(mainData->game_percent < 10000) mainData->game_percent += 3;
+        if(mainData->game_percent <= GAME_PERSEND_100 )
+        {
+            if (mainData->game_percent == GAME_PERSEND_99)
+            {
+                mainData->game_state= GAME_PLAYING_FINAL_BOSS;
+                mainData->game_percent += 1;
+            }
+            else if (mainData->game_percent == GAME_PERSEND_50)
+            {
+                mainData->game_percent += 1;
+                mainData->game_state= GAME_PLAYING_MID_BOSS;
+            }
+                        mainData->game_percent += GAME_PERSEND_APPEND;
+            printf("time=%d,game_percent=%d\n",mainData->timerCount,mainData->game_percent);
+        }
         /* Role */
-
-
         move_boss(allegroObj);
-
         //role_jump(allegroObj);
         move_role(mainData, allegroObj);
-
         //meteor_drop(allegroObj);
         /* Check Crash */
         CrachCheck(mainData, allegroObj);
         //CrachCheckForFloor(mainData, allegroObj); //FTT
         DoCrashOrDestorys(mainData, allegroObj);
-
-
-
         break;
-
     case GAME_PLAYING_MID_BOSS:
-        move_background(mainData, allegroObj);
         move_floor(mainData, allegroObj); //FTT
+        move_role(mainData, allegroObj);
+        move_background(mainData, allegroObj);
         //move_coin_old(mainData, allegroObj);
-
+        printf("MIDtime=%d\n",mainData->timerCount);
+        if(mainData->timerCount>=GAME_PERSEND_MID_TIME)  mainData->game_state= GAME_PLAYING_NORMAL;
         /* Role*/
         //role_jump(allegroObj);
         //meteor_drop(allegroObj);
         break;
 
     case GAME_PLAYING_FINAL_BOSS:
-        move_background(mainData, allegroObj);
         move_floor(mainData, allegroObj); //FTT
+        move_boss(allegroObj);
+        move_role(mainData, allegroObj);
+        move_background(mainData, allegroObj);
+        printf("BOSStime=%d\n",mainData->timerCount);
+        if(mainData->timerCount>=GAME_PERSEND_FINAL_TIME)  mainData->game_state= GAME_PLAYING_NORMAL;
         //move_coin_old(mainData, allegroObj);
-
         //role_jump(allegroObj);
         //meteor_drop(allegroObj);
         break;

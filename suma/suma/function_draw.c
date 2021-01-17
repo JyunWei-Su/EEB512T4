@@ -46,7 +46,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         DrawScoreboard(mainData, allegroObj);
         DrawBoss(mainData, allegroObj);
         DrawAttackx(mainData, allegroObj);
-        al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
+        al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "GAME_PLAYING_NORMAL", mainData->game_mode);
         break;
     case GAME_PLAYING_MID_BOSS:
         DrawBackground(mainData, allegroObj);
@@ -55,7 +55,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         DrawFloor(mainData, allegroObj); //FTT
         DrawScoreboard(mainData, allegroObj);
         //DrawMeteor(mainData, allegroObj);
-        al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
+        al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "GAME_PLAYING_MID_BOSS ", mainData->game_mode);
         break;
     case GAME_PLAYING_FINAL_BOSS:
         DrawBackground(mainData, allegroObj);
@@ -64,7 +64,7 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         DrawFloor(mainData, allegroObj); //FTT
         DrawScoreboard(mainData, allegroObj);
         //DrawMeteorAnimation(mainData, allegroObj);
-        al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "Play Mode : %d", mainData->game_mode);
+        al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "GAME_PLAYING_FINAL_BOSS", mainData->game_mode);
         break;
     case GAME_NONE:
         break;
@@ -359,35 +359,26 @@ void DrawAttackx(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
             al_draw_bitmap_region(allegroObj->attackx.imgs_runing[0], SIZE_IMG_ATTACKX_WIDTH*nowAttackx->imgNow, 0, SIZE_IMG_ATTACKX_WIDTH, SIZE_IMG_ATTACKX_HEIGHT
                                   , nowAttackx->start_x, nowAttackx->start_y, 0);
-             printf("%f,%f\n",nowAttackx->start_x,nowAttackx->start_y);
             DrawObjBoundary_object(nowAttackx);
             break;
         case 2:
             al_draw_bitmap_region(allegroObj->attackx.imgs_runing[1], SIZE_IMG_ATTACKX_WIDTH*nowAttackx->imgNow, 0, SIZE_IMG_ATTACKX_WIDTH, SIZE_IMG_ATTACKX_HEIGHT
                                   , nowAttackx->start_x, nowAttackx->start_y, 0);
-
-             printf("%f,%f\n",nowAttackx->start_x,nowAttackx->start_y);
             DrawObjBoundary_object(nowAttackx);
             break;
         case 3:
             al_draw_bitmap_region(allegroObj->attackx.imgs_runing[2], SIZE_IMG_ATTACKX_WIDTH*nowAttackx->imgNow, 0, SIZE_IMG_ATTACKX_WIDTH, SIZE_IMG_ATTACKX_HEIGHT
                                   , nowAttackx->start_x, nowAttackx->start_y, 0);
-
-             printf("%f,%f\n",nowAttackx->start_x,nowAttackx->start_y);
             DrawObjBoundary_object(nowAttackx);
             break;
         case 4:
             al_draw_bitmap_region(allegroObj->attackx.imgs_runing[3], SIZE_IMG_ATTACKX_WIDTH*nowAttackx->imgNow, 0, SIZE_IMG_ATTACKX_WIDTH, SIZE_IMG_ATTACKX_HEIGHT
                                   , nowAttackx->start_x, nowAttackx->start_y, 0);
-
-             printf("%f,%f\n",nowAttackx->start_x,nowAttackx->start_y);
             DrawObjBoundary_object(nowAttackx);
             break;
         case 5:
             al_draw_bitmap_region(allegroObj->attackx.imgs_runing[4], SIZE_IMG_ATTACKX_WIDTH*nowAttackx->imgNow, 0, SIZE_IMG_ATTACKX_WIDTH, SIZE_IMG_ATTACKX_HEIGHT
                                   , nowAttackx->start_x, nowAttackx->start_y, 0);
-
-             printf("%f,%f\n",nowAttackx->start_x,nowAttackx->start_y);
             DrawObjBoundary_object(nowAttackx);
             break;
         }
