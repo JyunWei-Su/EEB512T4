@@ -308,18 +308,6 @@ typedef struct AttackXStut
     int n,id;
 } AttackXStut;
 
-/*
-typedef struct CoinStut_old
-
-{
-    float start_x, start_y;
-    float end_x, end_y;
-    ALLEGRO_BITMAP *imgs_runing;
-    int imgCount, nowImg;
-    int persent;
-} CoinStut_old;
-*/
-
 typedef struct RoleStut
 {
     float start_x, start_y;
@@ -339,6 +327,7 @@ typedef struct BossStut
     int imgCount, nowImg;
     int state;
 } BossStut;
+
 /*
 typedef struct MeteorStu
 {
@@ -461,6 +450,11 @@ typedef struct SpeedStut
     float object;
 } SpeedStut;
 
+typedef struct NameStut{
+    char name[20];
+    int len;
+}NameStut;
+
 typedef struct MainDataStut
 {
     unsigned long long int timerCount;
@@ -497,7 +491,7 @@ void floor_init(AllegroObjStut *allegroObj);
 /* MainDataStut Function*/
 MainDataStut *ClocMainData();
 void MainDataInit(MainDataStut *mainData);
-
+void role_reset(AllegroObjStut *allegroObj);
 void coin_init(AllegroObjStut *allegroObj);
 void function_bar_init(AllegroObjStut *allegroObj);
 void meteor_init(AllegroObjStut *allegroObj);

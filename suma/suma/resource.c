@@ -211,6 +211,14 @@ void role_init(AllegroObjStut *allegroObj)
     allegroObj->role.start_y=DISPLAY_HEIGHT-OFFSET_FLOOR-SIZE_IMG_ROLE_HEIGHT;
     allegroObj->role.state = ROLE_NULL;
 }
+
+void role_reset(AllegroObjStut *allegroObj)
+{
+    allegroObj->role.start_x=800;
+    allegroObj->role.start_y=DISPLAY_HEIGHT-OFFSET_FLOOR-SIZE_IMG_ROLE_HEIGHT-200;
+    allegroObj->role.state = ROLE_DROP;
+}
+
 void boss_init(AllegroObjStut *allegroObj)
 {
     //allegroObj->boss.img = al_load_bitmap( PATH_IMG_ROLE_1 );

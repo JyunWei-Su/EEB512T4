@@ -3,7 +3,7 @@
 
 /**
  * 運算相關函式
- * 主要呼叫：
+ * 主要呼叫：ParameterOperate
 **/
 
 /* 主要參數運算與狀態判別 */
@@ -38,11 +38,17 @@ void PlayingStateSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
     {
     case GAME_PLAYING_NORMAL:
         if(mainData->game_percent <= GAME_PERSEND_100) mainData->game_percent += GAME_PERSEND_APPEND;
-        else mainData->game_state = GAME_PLAYING_END;
+
+        if(mainData->score.chars <= 0 || allegroObj->role.state == ROLE_DESTORY) mainData->game_state = GAME_PLAYING_END;
+        else if(mainData->game_percent > GAME_PERSEND_100) mainData->game_state = GAME_PLAYING_END;
+
+        if(mainData->game_state == GAME_PLAYING_END){
+            mainData->score.score = (int)((mainData->score.chars+1) * (mainData->score.coins/50) * ((float)mainData->game_percent/100));
+        }
     break;
     }
 }
-//move_attackx(mainData, allegroObj);
+
 
 /* move 合集 */
 void move_playing_normal(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -56,46 +62,6 @@ void move_playing_normal(MainDataStut *mainData, AllegroObjStut *allegroObj)
     move_role_with_boss(mainData, allegroObj);
     move_sub_role(mainData, allegroObj);
     move_stb_role(mainData,allegroObj);
-}
-
-void move_playing_ready_mid(MainDataStut *mainData, AllegroObjStut *allegroObj)
-{
-    move_background(mainData, allegroObj);
-    move_coin(mainData, allegroObj);
-    move_obscale(mainData,allegroObj);
-    move_floor(mainData, allegroObj);
-    move_full_floor(mainData, allegroObj);
-
-    move_role(mainData, allegroObj);
-    move_sub_role(mainData, allegroObj);
-    move_stb_role(mainData,allegroObj);
-}
-
-void move_playing_mid(MainDataStut *mainData, AllegroObjStut *allegroObj)
-{
-    move_floor(mainData, allegroObj);
-    move_meteor(mainData, allegroObj);
-    //move_role(mainData, allegroObj);
-}
-
-void move_playing_ready_final(MainDataStut *mainData, AllegroObjStut *allegroObj)
-{
-    move_background(mainData, allegroObj);
-    move_coin(mainData, allegroObj);
-    move_obscale(mainData,allegroObj);
-    move_floor(mainData, allegroObj);
-    move_full_floor(mainData, allegroObj);
-
-    move_role(mainData, allegroObj);
-    move_sub_role(mainData, allegroObj);
-    move_stb_role(mainData,allegroObj);
-}
-
-void move_playing_final(MainDataStut *mainData, AllegroObjStut *allegroObj)
-{
-    //move_full_floor(mainData, allegroObj);
-    //move_role(mainData, allegroObj);
-    move_boss(allegroObj);
 }
 
 

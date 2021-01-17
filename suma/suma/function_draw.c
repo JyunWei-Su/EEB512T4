@@ -144,7 +144,7 @@ void DrawRankScore(MainDataStut *mainData, AllegroObjStut *allegroObj)
     int x = DISPLAY_WIDTH/2;
     int y = DISPLAY_HEIGHT/2;
     //al_draw_textf(allegroObj->font_b.font64, COLOR_SCORE, x, y-SIZE_TEXT_RANK_LEADONG*8, ALLEGRO_ALIGN_CENTER, "Rank");
-    al_draw_textf(allegroObj->font_b.font36, COLOR_SCORE, x, y-SIZE_TEXT_RANK_LEADONG*5, ALLEGRO_ALIGN_CENTER, "--No act: Press Q or Esc to return to menu.");
+    al_draw_textf(allegroObj->font_b.font36, COLOR_SCORE, x, y-SIZE_TEXT_RANK_LEADONG*5, ALLEGRO_ALIGN_CENTER, "----------------------------------------------");
     for(i = 0; i < NUM_SCORE_DATA; i++)
     {
         al_draw_textf(allegroObj->font_b.font36, COLOR_SCORE, x/3, y-SIZE_TEXT_RANK_LEADONG*(4-i), ALLEGRO_ALIGN_LEFT, "%2d\t%5d\t%20s\t%s",
@@ -201,6 +201,12 @@ void DrawGameEnd(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     al_draw_filled_rectangle(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, al_map_rgba(120, 120, 120, 120));
     al_draw_textf(allegroObj->font_a.font120, COLOR_PAUSE_TEXT, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/4, ALLEGRO_ALIGN_CENTER, "END");
+    int x = DISPLAY_WIDTH / 2;
+    int y = DISPLAY_HEIGHT / 2;
+    al_draw_textf(allegroObj->font_a.font48, COLOR_SCORE, x, y-SIZE_TEXT_RANK_LEADONG*2, ALLEGRO_ALIGN_CENTER, "Please type your NAME and press ENTER");
+    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, x, y+SIZE_TEXT_RANK_LEADONG*0, ALLEGRO_ALIGN_CENTER, "Coin:%d Char:%d Done:%d%%", mainData->score.coins, mainData->score.chars, mainData->game_percent/100);
+    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, x, y+SIZE_TEXT_RANK_LEADONG*2, ALLEGRO_ALIGN_CENTER, "Total Score:%d", mainData->score.score);
+    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, x, y+SIZE_TEXT_RANK_LEADONG*4, ALLEGRO_ALIGN_CENTER, "Name:%s", mainData->usrName.name);
 }
 
 /* 遊戲角色相關(角色、金幣、跟班、障礙、地板、隕石) */
@@ -458,7 +464,7 @@ void DrawObjBoundary_object(ObjectStut *obj)
 
 void DrawPlayMode(MainDataStut *mainData, AllegroObjStut *allegroObj)//顯示遊戲難度
 {
-    if(mainData->game_mode == 0) al_draw_textf(allegroObj->font_a.font36, COLOR_SCORE, OFFSET_PLAYMODE_X, OFFSET_PLAYMODE_y, ALLEGRO_ALIGN_CENTER, "easy", mainData->game_mode);
-    if(mainData->game_mode == 1) al_draw_textf(allegroObj->font_a.font36, COLOR_SCORE, OFFSET_PLAYMODE_X, OFFSET_PLAYMODE_y, ALLEGRO_ALIGN_CENTER, "normal", mainData->game_mode);
-    if(mainData->game_mode == 2) al_draw_textf(allegroObj->font_a.font36, COLOR_SCORE, OFFSET_PLAYMODE_X, OFFSET_PLAYMODE_y, ALLEGRO_ALIGN_CENTER, "hard", mainData->game_mode);
+    if(mainData->game_mode == 0) al_draw_textf(allegroObj->font_a.font36, COLOR_SCORE, OFFSET_PLAYMODE_X, OFFSET_PLAYMODE_y, ALLEGRO_ALIGN_CENTER, "easy");
+    if(mainData->game_mode == 1) al_draw_textf(allegroObj->font_a.font36, COLOR_SCORE, OFFSET_PLAYMODE_X, OFFSET_PLAYMODE_y, ALLEGRO_ALIGN_CENTER, "normal");
+    if(mainData->game_mode == 2) al_draw_textf(allegroObj->font_a.font36, COLOR_SCORE, OFFSET_PLAYMODE_X, OFFSET_PLAYMODE_y, ALLEGRO_ALIGN_CENTER, "hard");
 }
