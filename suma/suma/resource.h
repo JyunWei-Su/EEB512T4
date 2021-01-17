@@ -24,7 +24,7 @@
 #define PATH_IMG_COIN "./img/coin.png"
 #define PATH_IMG_COINS_ROTATE "./img/coins.png"
 #define PATH_IMG_COINS_CRASH "./img/coinCrashs.png"
-#define PATH_IMG_OBSCALE_SHINING "./img/obscale.png"
+#define PATH_IMG_OBSCALE_SHINING "./img/book150.png"
 #define PATH_IMG_OBSCALE_CRASH "./img/coinCrashs.png" //**下面要路徑調??
 #define PATH_IMG_CHAR "./img/char.png"
 #define PATH_IMG_PROBAR "./img/progressbar.png"
@@ -32,8 +32,13 @@
 #define PATH_IMG_MODE_BUTTON "./img/menuButton.png"
 #define PATH_IMG_HOME_BUTTON_1 "./img/homeButton_1.png"
 #define PATH_IMG_HOME_BUTTON_2 "./img/homeButton_2.png"
-#define PATH_IMG_ROLE_1 "./img/role.png"
+#define PATH_IMG_ROLE "./img/role.png"
 #define PATH_IMG_ROLE_SEQ_RUNING "./img/roles.png"
+#define PATH_IMG_SUB_ROLE "./img/sub_role.png"
+#define PATH_IMG_SUB_ROLE_SEQ_RUNING "./img/sub_roles.png"
+#define PATH_IMG_STB_ROLE "./img/stb_role.png"
+#define PATH_IMG_STB_ROLE_SEQ_RUNING "./img/stb_roles.png"
+
 #define PATH_IMG_FLOOR "./img/floor.png"
 #define PATH_IMG_METEOR "./img/meteor.png"
 #define PATH_IMG_METEOR_SEQ_RUNING "./img/meteors80.png"
@@ -49,6 +54,7 @@
 #define PATH_SFX_BACKGROUND "./sfx/bkg.wav"
 #define PATH_SFX_BUTTON_MOVEIN "./sfx/button02a.wav"
 #define PATH_SFX_COINCRASH "./sfx/coin.wav"
+#define PATH_SFX_DAMAGE "./sfx/damage.wav"
 #define PATH_FILE_SCORE "user.score"
 #define PATH_FONT_HIMAJI "./font/KFhimajiFACE.otf"
 #define PATH_FONT_FANCYH "./font/FancyHeart.otf"
@@ -76,8 +82,8 @@
 #define SIZE_IMG_ROLE_HEIGHT 210
 #define SIZE_IMG_FLOOR_WIDTH 1600
 #define SIZE_IMG_FLOOR_HEIGHT 130
-#define SIZE_IMG_OBSCALE_WIDTH 128
-#define SIZE_IMG_OBSCALE_HEIGHT 128
+#define SIZE_IMG_OBSCALE_WIDTH 150
+#define SIZE_IMG_OBSCALE_HEIGHT 150
 #define SIZE_IMG_METEOR_WIDTH 80
 #define SIZE_IMG_METEOR_HEIGHT 80
 #define SIZE_IMG_METEOR_BIG_WIDTH 200
@@ -116,6 +122,8 @@
 #define OFFSET_PRONUMBER_X 610
 #define OFFSET_PRONUMBER_Y 65
 #define OFFSET_FLOOR 75
+#define OFFSET_PLAYMODE_X 1480
+#define OFFSET_PLAYMODE_y 30
 
 /*Role_Define*/
 #define OFFSET_ROLE_JUMP 10
@@ -169,17 +177,11 @@ typedef enum RoleState
     ROLE_JUMP, ROLE_DROP, ROLE_MUST_DROP, ROLE_NULL, ROLE_DESTORY,
     ROLE_DROP_FLOOR,
 } RoleState;
+
 typedef enum BossState
 {
     BOSS_NULL,BOSS_BEYOND_X,BOSS_BEYOND_Y,
 } BossState;
-
-/*
-typedef enum SubRoleState
-{
-    SUBROLE_MOVE,
-} SubRoleState;
-*/
 
 typedef enum CoinState
 {
@@ -263,6 +265,7 @@ typedef struct CoinStut
 
 typedef struct SubRoleStut
 {
+    ALLEGRO_BITMAP *img;
     ALLEGRO_BITMAP *imgs_runing;
     ObjectStut *objs;
     int n;
@@ -285,6 +288,7 @@ typedef struct ObscaleStut
 
 typedef struct StandByRoleStut
 {
+    ALLEGRO_BITMAP *img;
     ALLEGRO_BITMAP *imgs_running;
     ObjectStut *objs;
     int n;
@@ -396,6 +400,7 @@ typedef struct SoundStut
 
     SoundEffectStut buttonMoveIn;
     SoundEffectStut coinCrash;
+    SoundEffectStut damageBook;
 
 } SoundStut;
 
@@ -418,20 +423,13 @@ typedef struct AllegroObjStut
     BossStut boss;
     SubRoleStut subRole;
     StandByRoleStut stbRole;
-    //CoinStut_old coin_old;
     CoinStut coin;
     ObscaleStut obscale;
 
     MeteorStut meteor;
     AttackXStut attackx;
 
-
-    //FloorsStut floors; //newfloor
-    FloorStut floor; //FTT
-    //MeteorStut meteor;
-    //MeteorStut *meteors;
-    //MeteorStut *meteors_right_drop;
-    //  MeteorStut *meteors_left_drop;
+    FloorStut floor;
     int meteor_n;
 
     FontStut font_a;
@@ -487,7 +485,7 @@ void home_button_init(AllegroObjStut *allegroObj);
 void mode_button_init(AllegroObjStut *allegroObj);
 void sound_init(AllegroObjStut *allegroObj);
 void role_init(AllegroObjStut *allegroObj);
-void standbyrole_init(AllegroObjStut *allegroObj);
+void stb_role_init(AllegroObjStut *allegroObj);
 void obscale_init(AllegroObjStut *allegroObj);
 void coin_init_old(AllegroObjStut *allegroObj);
 void floor_init(AllegroObjStut *allegroObj);

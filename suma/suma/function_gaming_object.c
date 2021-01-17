@@ -77,7 +77,7 @@ void CoinDebugPrint(ObjectStut *nowPtr, ObjectStut *prePtr, ObjectStut *newPtr)
 }
 
 /* Roles */
-void AppendSubRole(SubRoleStut *subRole, RoleStut *role)
+void AppendSubRole(MainDataStut *mainData, SubRoleStut *subRole, RoleStut *role)
 {
     ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
     nowPtr = subRole->objs; //第一筆資料
@@ -92,7 +92,8 @@ void AppendSubRole(SubRoleStut *subRole, RoleStut *role)
     prePtr == NULL ? nowPtr->id = 1 : nowPtr->id = prePtr->id+1;
     nowPtr->id == 1 ? subRole->objs = nowPtr : prePtr->nextObj = nowPtr;
     SubRoleXY(nowPtr, role);
-    printf("NEW:%d\n", nowPtr->id);
+    mainData->score.chars += 1;
+    //printf("NEW:%d\n", nowPtr->id);
 }
 
 void SubRoleXY(ObjectStut *subRole, RoleStut *role)
@@ -101,7 +102,7 @@ void SubRoleXY(ObjectStut *subRole, RoleStut *role)
     subRole->start_y = role->start_y;
 }
 
-void DestorySubRloe(SubRoleStut *subRole, RoleStut *role)
+void DestorySubRole(SubRoleStut *subRole, RoleStut *role)
 {
     int count = 0;//nowSubRle前方有幾筆
     ObjectStut *nowSubRole = NULL, *preSubRole = NULL;

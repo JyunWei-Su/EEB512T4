@@ -46,7 +46,11 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         DrawScoreboard(mainData, allegroObj);
         DrawBoss(mainData, allegroObj);
         DrawAttackx(mainData, allegroObj);
+
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "GAME_PLAYING_NORMAL", mainData->game_mode);
+
+        DrawPlayMode(mainData, allegroObj);
+
         break;
     case GAME_PLAYING_MID_BOSS:
         DrawBackground(mainData, allegroObj);
@@ -65,6 +69,9 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         DrawScoreboard(mainData, allegroObj);
         //DrawMeteorAnimation(mainData, allegroObj);
         al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "GAME_PLAYING_FINAL_BOSS", mainData->game_mode);
+        break;
+    case GAME_PLAYING_END:
+        DrawGameEnd(mainData, allegroObj);
         break;
     case GAME_NONE:
         break;
@@ -210,6 +217,11 @@ void DrawPause(MainDataStut *mainData, AllegroObjStut *allegroObj)
     al_draw_textf(allegroObj->font_a.font120, COLOR_PAUSE_TEXT, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/4, ALLEGRO_ALIGN_CENTER, "PAUSE");
 }
 
+void DrawGameEnd(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    al_draw_filled_rectangle(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, al_map_rgba(120, 120, 120, 120));
+    al_draw_textf(allegroObj->font_a.font120, COLOR_PAUSE_TEXT, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/4, ALLEGRO_ALIGN_CENTER, "END");
+}
 
 /* 遊戲角色相關(角色、金幣、跟班、障礙、地板、隕石) */
 
@@ -235,21 +247,23 @@ void DrawRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
     }
     DrawObjBoundary(allegroObj->role.start_x, allegroObj->role.start_y, allegroObj->role.end_x, allegroObj->role.end_y);
 }
+
 void DrawBoss(MainDataStut *mainData, AllegroObjStut *allegroObj)
 //Role動畫
 {
 
-        if(allegroObj->boss.imgCount % (int)(FPS*TIME_PER_IMG_ROLE) == 0)
-        {
-            allegroObj->boss.imgCount = 0;
-            allegroObj->boss.nowImg += 1;
-            if(allegroObj->boss.nowImg % NUM_IMG_BOSS_SEQUENCE == 0) allegroObj->boss.nowImg = 0;
-        }
-        al_draw_bitmap_region(allegroObj->boss.imgs_runing, SIZE_IMG_BOSS_WIDTH*allegroObj->boss.nowImg, 0, SIZE_IMG_BOSS_WIDTH, SIZE_IMG_BOSS_HEIGHT
-                              , allegroObj->boss.start_x, allegroObj->boss.start_y, 0);
-        allegroObj->boss.imgCount += 1;
+    if(allegroObj->boss.imgCount % (int)(FPS*TIME_PER_IMG_ROLE) == 0)
+    {
+        allegroObj->boss.imgCount = 0;
+        allegroObj->boss.nowImg += 1;
+        if(allegroObj->boss.nowImg % NUM_IMG_BOSS_SEQUENCE == 0) allegroObj->boss.nowImg = 0;
+    }
+    al_draw_bitmap_region(allegroObj->boss.imgs_runing, SIZE_IMG_BOSS_WIDTH*allegroObj->boss.nowImg, 0, SIZE_IMG_BOSS_WIDTH, SIZE_IMG_BOSS_HEIGHT
+                          , allegroObj->boss.start_x, allegroObj->boss.start_y, 0);
+    allegroObj->boss.imgCount += 1;
     DrawObjBoundary(allegroObj->boss.start_x, allegroObj->boss.start_y, allegroObj->boss.end_x, allegroObj->boss.end_y);
 }
+
 void DrawSubRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowRole = NULL;
@@ -257,6 +271,7 @@ void DrawSubRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
     while(nowRole != NULL)
     {
+/*
         if(nowRole->imgCount % (int)(FPS*TIME_PER_IMG_ROLE) == 0)
         {
             nowRole->imgCount = 0;
@@ -267,7 +282,26 @@ void DrawSubRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
                               , nowRole->start_x, nowRole->start_y, 0);
         DrawObjBoundary_object(nowRole);
 
-        nowRole->imgCount += 1;
+        nowRole->imgCount += 1;*/
+
+        switch(nowRole->state)
+        {
+        case ROLE_NULL:
+            if(nowRole->imgCount % (int)(FPS*TIME_PER_IMG_ROLE) == 0)
+            {
+                nowRole->imgCount = 0;
+                nowRole->imgNow += 1;
+                if(nowRole->imgNow % NUM_IMG_ROLE_SEQUENCE == 0) nowRole->imgNow = 0;
+            }
+            al_draw_bitmap_region(allegroObj->subRole.imgs_runing, SIZE_IMG_ROLE_WIDTH*nowRole->imgNow, 0, SIZE_IMG_ROLE_WIDTH, SIZE_IMG_ROLE_HEIGHT
+                                  , nowRole->start_x, nowRole->start_y, 0);
+            nowRole->imgCount += 1;
+            break;
+        default:
+            al_draw_bitmap(allegroObj->subRole.img, nowRole->start_x, nowRole->start_y, 0); // Draw bitmap
+            break;
+        }
+        DrawObjBoundary_object(nowRole);
         nowRole = nowRole->nextObj;
     }
 }
@@ -339,12 +373,13 @@ void DrawMeteor(MainDataStut *mainData, AllegroObjStut *allegroObj)
         nowMeteor = nowMeteor->nextObj;
     }
 }
+
 void DrawAttackx(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     ObjectStut *nowAttackx = NULL;
     nowAttackx = allegroObj->attackx.objs;
     //int random=rand()%5+1;
-   // nowAttackx->id
+    // nowAttackx->id
     while(nowAttackx != NULL)
     {
         if(nowAttackx->imgCount % (int)(FPS*TIME_PER_IMG_METEOR) == 0)
@@ -405,4 +440,11 @@ void DrawObjBoundary_object(ObjectStut *obj)
 //畫物件邊界(新)
 {
     DrawObjBoundary(obj->start_x, obj->start_y, obj->end_x, obj->end_y);
+}
+
+void DrawPlayMode(MainDataStut *mainData, AllegroObjStut *allegroObj)//顯示遊戲難度
+{
+    if(mainData->game_mode == 0) al_draw_textf(allegroObj->font_a.font36, COLOR_SCORE, OFFSET_PLAYMODE_X, OFFSET_PLAYMODE_y, ALLEGRO_ALIGN_CENTER, "easy", mainData->game_mode);
+    if(mainData->game_mode == 1) al_draw_textf(allegroObj->font_a.font36, COLOR_SCORE, OFFSET_PLAYMODE_X, OFFSET_PLAYMODE_y, ALLEGRO_ALIGN_CENTER, "normal", mainData->game_mode);
+    if(mainData->game_mode == 2) al_draw_textf(allegroObj->font_a.font36, COLOR_SCORE, OFFSET_PLAYMODE_X, OFFSET_PLAYMODE_y, ALLEGRO_ALIGN_CENTER, "hard", mainData->game_mode);
 }

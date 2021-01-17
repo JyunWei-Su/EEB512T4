@@ -19,6 +19,7 @@ void end_xy_update_Obscale(ObscaleStut *obscale);
 void DrawObscale(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void SetObscale(MainDataStut *mainData,AllegroObjStut *allegroObj);
 bool FloorObscale(FloorStut floor);
+void CrashCheck_subrole_obscale(MainDataStut *mainData, AllegroObjStut *allegroObj);
 //=======================
 void CreateStandByRole(MainDataStut *mainData,StandByRoleStut *strole);
 void StandByRoleXY(ObjectStut *strole );
@@ -29,6 +30,7 @@ void move_standbyrole(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void end_xy_update_StandByRole(StandByRoleStut *strole);
 void SetStandbyRole(MainDataStut *mainData,AllegroObjStut *allegroObj);
 void DrawSTBRole(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void SetChoose(MainDataStut *mainData,AllegroObjStut *allegroObj);
 #endif //_HYH_H_
 
 

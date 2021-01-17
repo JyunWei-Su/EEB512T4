@@ -127,12 +127,6 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
         case ALLEGRO_KEY_C:
             if(mainData->game_state == GAME_PLAYING_NORMAL) CreateCoins(&allegroObj->coin);
             break;
-        case ALLEGRO_KEY_R:
-            //if(mainData->game_state == GAME_PLAYING_NORMAL) CreateRoles(&allegroObj->subRole);
-            break;
-        case ALLEGRO_KEY_K:
-            //if(mainData->game_state == GAME_PLAYING_NORMAL) CreateObscales(mainData,&allegroObj->obscale);
-        break;
         case ALLEGRO_KEY_B:
             if(mainData->game_state == GAME_PLAYING_NORMAL) CreateAttackX(&allegroObj->attackx);
         default:

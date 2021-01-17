@@ -28,7 +28,7 @@ void CreateObscales(MainDataStut *mainData,ObscaleStut *obscale)
 
 void DestoryObscales(ObscaleStut *obscale)
 {
-    int count = 0;//nowCoin前方有幾筆coin
+    int count = 0;
     ObjectStut *nowObscale = NULL, *preObscale = NULL;
     nowObscale = obscale->objs;
 
@@ -60,13 +60,47 @@ void CrashCheck_role_obscale(MainDataStut *mainData, AllegroObjStut *allegroObj)
     {
         crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
                               nowObscale->start_x, nowObscale->start_y, nowObscale->end_x, nowObscale->end_y);
-        if(crash) nowObscale->state = OBSCALE_CRASH_MAIN;
+        if(crash)
+        {
+            nowObscale->state = OBSCALE_CRASH_MAIN;
+            allegroObj->sound.damageBook.readyToPlay = 1;
+        }
         if(nowObscale->state == OBSCALE_CRASH_MAIN) DestoryObscales(&(allegroObj->obscale));
         //crash ? printf("\tCrash\n") : printf("\tNoCrash\n") ;
         nowObscale = nowObscale->nextObj;
     }
-
 }
+
+void CrashCheck_subrole_obscale(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    bool crash;
+    ObjectStut *nowObscale = NULL;
+    ObjectStut *nowSubRole = NULL;
+    nowObscale = allegroObj->obscale.objs;
+
+    while(nowObscale != NULL)
+    {
+        nowSubRole = allegroObj->subRole.objs;
+        while(nowSubRole)
+        {
+            crash = ObjCrashCheck(nowSubRole->start_x, nowSubRole->start_y, nowSubRole->end_x, nowSubRole->end_y,
+                                  nowObscale->start_x, nowObscale->start_y, nowObscale->end_x, nowObscale->end_y);
+            if(crash)
+            {
+                nowObscale->state = OBSCALE_CRASH_MAIN;
+                nowSubRole->state = ROLE_DESTORY;
+                //allegroObj->sound.damageBook.readyToPlay = 1;
+                //聲音預留*2
+            }
+            if(nowObscale->state == OBSCALE_CRASH_MAIN) DestoryObscales(&(allegroObj->obscale));
+            //crash ? printf("\tCrash\n") : printf("\tNoCrash\n") ;
+            nowSubRole = nowSubRole->nextObj;
+        }
+        nowObscale = nowObscale->nextObj;
+    }
+}
+
+
 void ObscaleCheck_Boundary(ObscaleStut *obscale)
 {
     float end_x = obscale->objs->end_x;
@@ -126,16 +160,8 @@ void DrawObscale(MainDataStut *mainData, AllegroObjStut *allegroObj)
         switch(nowObscale->state)
         {
         case OBSCALE_NULL:
-            /*if(nowCoin->imgCount % (int)(FPS*TIME_PER_IMG_COIN) == 0)
-            {
-                nowCoin->imgCount = 0;
-                nowCoin->imgNow += 1;
-                if(nowCoin->imgNow % NUM_IMG_COIN_SEQUENCE == 0) nowCoin->imgNow = 0;
-            }*/
             al_draw_bitmap_region(allegroObj->obscale.imgs_shining, 0, 0, SIZE_IMG_OBSCALE_WIDTH, SIZE_IMG_OBSCALE_HEIGHT
                                   , nowObscale->start_x, nowObscale->start_y, 0);
-            //DrawObjBoundary_object(nowCoin);
-            //nowCoin->imgCount += 1;
             nowObscale = nowObscale->nextObj;
             break;
         }
@@ -149,19 +175,19 @@ void SetObscale(MainDataStut *mainData,AllegroObjStut *allegroObj)
         switch (mainData->game_mode)
         {
         case MODE_EASY:
-            if(rand()%5 ==0 && FloorObscale(allegroObj->floor))
+            if(rand()%3 ==0 && FloorObscale(allegroObj->floor))
             {
                 CreateObscales(mainData,&(allegroObj->obscale));
             }
             break;
         case MODE_MEDIUM:
-            if(rand()%3 ==0 && FloorObscale(allegroObj->floor))
+            if(rand()%2==0 && FloorObscale(allegroObj->floor))
             {
                 CreateObscales(mainData,&(allegroObj->obscale));
             }
             break;
         case MODE_HARD:
-            if(rand()%3 ==0 && FloorObscale(allegroObj->floor))
+            if(FloorObscale(allegroObj->floor))
             {
                 CreateObscales(mainData,&(allegroObj->obscale));
             }
@@ -171,8 +197,8 @@ void SetObscale(MainDataStut *mainData,AllegroObjStut *allegroObj)
 }
 bool FloorObscale(FloorStut floor)
 {
-    if(floor.objs->start_x < DISPLAY_WIDTH && DISPLAY_WIDTH < floor.objs->end_x && floor.objs->start_x < DISPLAY_WIDTH + SIZE_IMG_OBSCALE_WIDTH
-            && DISPLAY_WIDTH + SIZE_IMG_OBSCALE_WIDTH < floor.objs->end_x) return 1;
+    if(floor.objs->start_x+SIZE_IMG_OBSCALE_WIDTH < DISPLAY_WIDTH && DISPLAY_WIDTH < floor.objs->end_x-SIZE_IMG_OBSCALE_WIDTH
+            && floor.objs->start_x+SIZE_IMG_OBSCALE_WIDTH < DISPLAY_WIDTH + SIZE_IMG_OBSCALE_WIDTH && DISPLAY_WIDTH + SIZE_IMG_OBSCALE_WIDTH < floor.objs->end_x-SIZE_IMG_OBSCALE_WIDTH) return 1;
     else return 0;
 }
 /** 觸碰扣分**/
@@ -224,7 +250,7 @@ void DestoryStandByRole(StandByRoleStut *stbRole)
     }
 }
 
-/*
+/* //此功能取消
 void CrashCheck_role_standbyrole(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     bool crash;
@@ -274,7 +300,7 @@ void SetStandbyRole(MainDataStut *mainData,AllegroObjStut *allegroObj)
 {
     if(mainData->timerCount%60 == 0 )
     {
-        if(rand()%5 ==0 && FloorObscale(allegroObj->floor))
+        if(rand()%2 ==0 && FloorObscale(allegroObj->floor))
         {
             CreateStandByRole(mainData,&allegroObj->stbRole);
         }
@@ -303,4 +329,18 @@ void DrawSTBRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
         nowSTB = nowSTB->nextObj;
     }
 
+}
+void SetChoose(MainDataStut *mainData,AllegroObjStut *allegroObj)
+{
+    int persent=0;
+    persent = rand()%3;
+    switch(persent)
+    {
+    case 0:
+        SetStandbyRole(mainData,allegroObj);
+        break;
+    default:
+        SetObscale(mainData,allegroObj);
+        break;
+    }
 }
