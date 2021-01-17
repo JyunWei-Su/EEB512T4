@@ -42,6 +42,7 @@
 #define PATH_FNT_DFT "./DFT_TL9.TTC"
 #define PATH_SFX_BACKGROUND "./sfx/bkg.wav"
 #define PATH_SFX_BUTTON_MOVEIN "./sfx/button02a.wav"
+#define PATH_SFX_COINCRASH "./sfx/coin.wav"
 #define PATH_FILE_SCORE "user.score"
 #define PATH_FONT_HIMAJI "./font/KFhimajiFACE.otf"
 #define PATH_FONT_FANCYH "./font/FancyHeart.otf"
@@ -93,6 +94,7 @@
 #define NUM_IMG_ROLE_SEQUENCE 10
 #define NUM_IMG_METEOR_SEQUENCE 12
 #define NUM_IMG_COIN_SEQUENCE 16
+#define NUM_IMG_ATTACKX 1
 #define NUM_SAMPLES 3 //聲音數量
 #define SCALE_MENU_BUTTON 1.2
 #define SCALE_MODE_BUTTON 1.2
@@ -102,8 +104,8 @@
 #define OFFSET_SCOREBOARD_TEXT 320
 #define OFFSET_PROBAR_X 5
 #define OFFSET_PROBAR_Y 1
-#define OFFSET_PRONUMBER_X 600
-#define OFFSET_PRONUMBER_Y 60
+#define OFFSET_PRONUMBER_X 610
+#define OFFSET_PRONUMBER_Y 65
 #define OFFSET_FLOOR 75
 
 /*Role_Define*/
@@ -117,9 +119,14 @@
 #define TIME_PER_IMG_ROLE 0.1
 #define TIME_PER_IMG_COIN 0.1
 #define TIME_PER_IMG_METEOR 0.1
+
+#define SPEED_ROLE_JUMP 5.5
+#define OFFSET_SUB_ROLE_DELAY 6
+#define TIME_ROLE_JUMP_MAINTAIN 80
+
 /*Meteor_Define*/
 #define NUMBER_METEOR 30
-#define SPEED_Y_METEOR 7w
+#define SPEED_Y_METEOR 7
 #define SPEED_X_METEOR 0
 #define SPEED_Y_METEOR_RIGHT 5
 #define SPEED_X_METEOR_RIGHT 3
@@ -143,15 +150,16 @@ typedef enum PlayMode
 
 typedef enum RoleState
 {
-    ROLE_JUMP, ROLE_DROP, ROLE_MUST_DROP, ROLE_NULL, SUPROLE_CRASH,
+    ROLE_JUMP, ROLE_DROP, ROLE_MUST_DROP, ROLE_NULL, ROLE_DESTORY,
     ROLE_DROP_FLOOR,
 } RoleState;
 
+/*
 typedef enum SubRoleState
 {
-SUBROLE_MOVE,
+    SUBROLE_MOVE,
 } SubRoleState;
-
+*/
 
 typedef enum CoinState
 {
@@ -167,6 +175,11 @@ typedef enum ObscaleState
 {
     OBSCALE_NULL, OBSCALE_CRASH_MAIN,OBSCALE_CRASH_FOLLOWER, OBSCALE_MOVEOUT, OBSCALE_DESTORY,
 } ObscaleState;
+
+typedef enum StbRoleState
+{
+    STB_ROLE_NULL, STB_ROLE_CRASH, STB_ROLE_DESTORY,
+} StandByRoleState;
 
 /**  struct  **/
 typedef struct tm TmStut;
@@ -216,6 +229,7 @@ typedef struct ObjectStut
     float speed_x, speed_y;
     int imgCount, imgNow;
     int state;
+    int id;
     ObjectStut *nextObj;
 } ObjectStut;
 
@@ -248,6 +262,13 @@ typedef struct ObscaleStut
     ObjectStut *objs;
     int n;
 } ObscaleStut;
+
+typedef struct StandByRoleStut
+{
+    ALLEGRO_BITMAP *imgs_running;
+    ObjectStut *objs;
+    int n;
+} StandByRoleStut;
 
 typedef struct MeteorStut
 {
@@ -346,6 +367,7 @@ typedef struct SoundStut
     ALLEGRO_SAMPLE_INSTANCE *sfi_background; //https://www.allegro.cc/forums/thread/611901
 
     SoundEffectStut buttonMoveIn;
+    SoundEffectStut coinCrash;
 
 } SoundStut;
 
@@ -366,6 +388,7 @@ typedef struct AllegroObjStut
 
     RoleStut role;
     SubRoleStut subRole;
+    StandByRoleStut stbRole;
     //CoinStut_old coin_old;
     CoinStut coin;
     ObscaleStut obscale;
@@ -379,7 +402,7 @@ typedef struct AllegroObjStut
     //MeteorStut meteor;
     //MeteorStut *meteors;
     //MeteorStut *meteors_right_drop;
-  //  MeteorStut *meteors_left_drop;
+    //  MeteorStut *meteors_left_drop;
     int meteor_n;
 
     FontStut font_a;
@@ -435,6 +458,7 @@ void home_button_init(AllegroObjStut *allegroObj);
 void mode_button_init(AllegroObjStut *allegroObj);
 void sound_init(AllegroObjStut *allegroObj);
 void role_init(AllegroObjStut *allegroObj);
+void standbyrole_init(AllegroObjStut *allegroObj);
 void obscale_init(AllegroObjStut *allegroObj);
 void coin_init_old(AllegroObjStut *allegroObj);
 void floor_init(AllegroObjStut *allegroObj);

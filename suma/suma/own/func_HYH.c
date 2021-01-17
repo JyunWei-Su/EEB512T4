@@ -23,7 +23,7 @@ void CreateObscales(MainDataStut *mainData,ObscaleStut *obscale)
         nowPtr->nextObj = newPtr;
         nowPtr = nowPtr->nextObj;
     }
-    RandObscaleXY(mainData,nowPtr); //設定參數
+    ObscaleXY(mainData,nowPtr); //設定參數
 }
 
 void DestoryObscales(ObscaleStut *obscale)
@@ -73,18 +73,18 @@ void ObscaleCheck_Boundary(ObscaleStut *obscale)
     if(end_x <= 0) obscale->objs->state = OBSCALE_DESTORY;
 }
 
-void RandObscaleXY(MainDataStut *mainData,ObjectStut *obscale )
+void ObscaleXY(MainDataStut *mainData,ObjectStut *obscale )
 {
     int persent=0;
     switch(mainData->game_mode)
     {
     case MODE_EASY:
         obscale->start_x = DISPLAY_WIDTH ;
-        obscale->start_y = (DISPLAY_HEIGHT-SIZE_IMG_FLOOR_HEIGHT)-SIZE_IMG_OBSCALE_HEIGHT;
+        obscale->start_y = (DISPLAY_HEIGHT-OFFSET_FLOOR)-SIZE_IMG_OBSCALE_HEIGHT;
         break;
     case MODE_MEDIUM:
         obscale->start_x = DISPLAY_WIDTH ;
-        obscale->start_y = (DISPLAY_HEIGHT-SIZE_IMG_FLOOR_HEIGHT)-SIZE_IMG_OBSCALE_HEIGHT;
+        obscale->start_y = (DISPLAY_HEIGHT-OFFSET_FLOOR)-SIZE_IMG_OBSCALE_HEIGHT;
         break;
     case MODE_HARD:
         obscale->start_x = DISPLAY_WIDTH ;
@@ -172,7 +172,135 @@ void SetObscale(MainDataStut *mainData,AllegroObjStut *allegroObj)
 bool FloorObscale(FloorStut floor)
 {
     if(floor.objs->start_x < DISPLAY_WIDTH && DISPLAY_WIDTH < floor.objs->end_x && floor.objs->start_x < DISPLAY_WIDTH + SIZE_IMG_OBSCALE_WIDTH
-       && DISPLAY_WIDTH + SIZE_IMG_OBSCALE_WIDTH < floor.objs->end_x) return 1;
+            && DISPLAY_WIDTH + SIZE_IMG_OBSCALE_WIDTH < floor.objs->end_x) return 1;
     else return 0;
 }
 /** 觸碰扣分**/
+void CreateStandByRole(MainDataStut *mainData,StandByRoleStut *strole)
+{
+    ObjectStut *nowPtr = NULL, *newPtr = NULL;
+    nowPtr = strole->objs; //第一筆資料
+    if(nowPtr == NULL) //如果為空(沒有新物件)就創新的
+    {
+        newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //配一個新的
+        nowPtr = newPtr; //把new指派給now(此時now就是新物件), 和pre.next(應當要是now)
+        strole->objs = newPtr;
+    }
+    else
+    {
+        while(nowPtr->nextObj != NULL) nowPtr = nowPtr->nextObj;
+        newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //配一個新的
+        nowPtr->nextObj = newPtr;
+        nowPtr = nowPtr->nextObj;
+    }
+    StandByRoleXY(nowPtr); //設定參數
+}
+
+void StandByRoleXY(ObjectStut *strole )
+{
+    strole->start_x = DISPLAY_WIDTH ;
+    strole->start_y = (DISPLAY_HEIGHT-OFFSET_FLOOR)-SIZE_IMG_ROLE_HEIGHT;
+}
+
+void DestoryStandByRole(StandByRoleStut *stbRole)
+{
+    int count = 0;
+    ObjectStut *nowSTB = NULL, *preSTB = NULL;
+    nowSTB = stbRole->objs;
+
+    while(nowSTB != NULL)
+    {
+        if (nowSTB->state == STB_ROLE_DESTORY || nowSTB->state == STB_ROLE_CRASH)
+        {
+            count == 0 ? stbRole->objs = nowSTB->nextObj : preSTB->nextObj = nowSTB->nextObj;
+            free(nowSTB);
+        }
+        else
+        {
+            preSTB = nowSTB;
+            count += 1;
+        }
+        nowSTB = nowSTB->nextObj;
+    }
+}
+
+/*
+void CrashCheck_role_standbyrole(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    bool crash;
+    ObjectStut *nowStbRole = NULL;
+    RoleStut *nowRole = NULL;
+    nowStbRole = allegroObj->stbRole.objs;
+    nowRole = &allegroObj->role;
+    while(nowStbRole != NULL)
+    {
+        crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
+                              nowStbRole->start_x, nowStbRole->start_y, nowStbRole->end_x, nowStbRole->end_y);
+        if(crash) nowStbRole->state = STB_ROLE_CRASH;
+        if(nowStbRole->state == STB_ROLE_CRASH) DestoryStandByRole(&(allegroObj->stbRole));
+        nowStbRole = nowStbRole->nextObj;
+    }
+
+}*/
+
+void StandbyRoleCheck_Boundary(StandByRoleStut *strole)
+{
+    float end_x = strole->objs->end_x;
+    if(end_x <= 0) strole->objs->state = STB_ROLE_DESTORY;
+}
+
+void move_standbyrole(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    ObjectStut *nowSTB = NULL;
+    nowSTB = allegroObj->stbRole.objs;
+
+    while(nowSTB != NULL)
+    {
+        nowSTB->start_x -= mainData->speed.object;
+        end_xy_update_object(nowSTB, SIZE_IMG_ROLE_WIDTH, SIZE_IMG_ROLE_HEIGHT);
+        StandbyRoleCheck_Boundary(&allegroObj->stbRole);
+        //if(nowSTB->state == STB_ROLE_DESTORY) DestoryStandByRole(&allegroObj->stbRole);
+        nowSTB = nowSTB->nextObj;
+    }
+}
+void end_xy_update_StandByRole(StandByRoleStut *strole)
+//計算待吃角色邊界
+{
+    strole->objs->end_x = strole->objs->start_x + SIZE_IMG_ROLE_WIDTH;
+    strole->objs->end_y = strole->objs->start_y + SIZE_IMG_ROLE_HEIGHT;
+}
+
+void SetStandbyRole(MainDataStut *mainData,AllegroObjStut *allegroObj)
+{
+    if(mainData->timerCount%60 == 0 )
+    {
+        if(rand()%5 ==0 && FloorObscale(allegroObj->floor))
+        {
+            CreateStandByRole(mainData,&allegroObj->stbRole);
+        }
+    }
+}
+
+void DrawSTBRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
+//Role動畫
+{
+    ObjectStut *nowSTB = NULL;
+    nowSTB = allegroObj->stbRole.objs;
+
+    while(nowSTB != NULL)
+    {
+        if(nowSTB->imgCount % (int)(FPS*TIME_PER_IMG_ROLE) == 0)
+        {
+            nowSTB->imgCount = 0;
+            nowSTB->imgNow += 1;
+            if(nowSTB->imgNow % NUM_IMG_ROLE_SEQUENCE == 0) nowSTB->imgNow = 0;
+        }
+        al_draw_bitmap_region(allegroObj->stbRole.imgs_running, SIZE_IMG_ROLE_WIDTH*nowSTB->imgNow, 0, SIZE_IMG_ROLE_WIDTH, SIZE_IMG_ROLE_HEIGHT
+                              , nowSTB->start_x, nowSTB->start_y, 0);
+        DrawObjBoundary_object(nowSTB);
+
+        nowSTB->imgCount += 1;
+        nowSTB = nowSTB->nextObj;
+    }
+
+}

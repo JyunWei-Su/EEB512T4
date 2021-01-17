@@ -29,6 +29,12 @@ void PlaySoundEffect(MainDataStut *mainData, AllegroObjStut *allegroObj)
     case GAME_ABOUT:
         PlayButtonSfx(mainData, allegroObj);
         break;
+    case GAME_PLAYING_NORMAL:
+        if(allegroObj->sound.coinCrash.readyToPlay)
+        {
+            al_play_sample(allegroObj->sound.coinCrash.sfx, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE, &allegroObj->sound.id);
+            allegroObj->sound.coinCrash.readyToPlay = 0;
+        }
     default:
         break;
     }

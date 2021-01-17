@@ -76,13 +76,57 @@ void CoinDebugPrint(ObjectStut *nowPtr, ObjectStut *prePtr, ObjectStut *newPtr)
     printf("--new : %x\n", newPtr);
 }
 
-
 /* Roles */
-void AppendSubRoles(SubRoleStut *role)
+void AppendSubRole(SubRoleStut *subRole, RoleStut *role)
 {
-
+    ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
+    nowPtr = subRole->objs; //第一筆資料
+    while(nowPtr != NULL)//找到目前的最後一個
+    {
+        prePtr = nowPtr;
+        nowPtr = nowPtr->nextObj;
+    }
+    newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //配一個新的
+    nowPtr = newPtr; //把new指派給now(此時now就是新物件)
+    nowPtr->state = NULL;
+    prePtr == NULL ? nowPtr->id = 1 : nowPtr->id = prePtr->id+1;
+    nowPtr->id == 1 ? subRole->objs = nowPtr : prePtr->nextObj = nowPtr;
+    SubRoleXY(nowPtr, role);
+    printf("NEW:%d\n", nowPtr->id);
 }
 
+void SubRoleXY(ObjectStut *subRole, RoleStut *role)
+{
+    subRole->start_x = role->start_x - SIZE_IMG_ROLE_WIDTH * subRole->id;
+    subRole->start_y = role->start_y;
+}
+
+void DestorySubRloe(SubRoleStut *subRole, RoleStut *role)
+{
+    int count = 0;//nowSubRle前方有幾筆
+    ObjectStut *nowSubRole = NULL, *preSubRole = NULL;
+    nowSubRole = subRole->objs;
+
+    while(nowSubRole != NULL)
+    {
+        if (nowSubRole->state == ROLE_DESTORY)
+        {
+            count == 0 ? subRole->objs = nowSubRole->nextObj : preSubRole->nextObj = nowSubRole->nextObj;
+            free(nowSubRole);
+            printf("free\n");
+        }
+        else
+        {
+            preSubRole = nowSubRole;
+            count += 1;
+            preSubRole->id = count;
+            //SubRoleXY(preSubRole, role);
+        }
+        nowSubRole = nowSubRole->nextObj;
+    }
+}
+
+/*
 void CreateRoles(SubRoleStut *role)
 {
     int count = 0, n = 5; //產生n個物件
@@ -108,30 +152,19 @@ void CreateRoles(SubRoleStut *role)
         nowPtr = nowPtr->nextObj;
         count += 1;
     }
-}
+}*/
 
+//修正
 void DestoryRoles(SubRoleStut *role, AllegroObjStut *allegroObj)
 {
 
-    int count = 0,n=1;//nowCoin前方有幾筆coin
+    int count = 0, n=1;
     ObjectStut *nowRole = NULL, *preRole = NULL;
     nowRole = role->objs;
 
     while(nowRole != NULL)
     {
-        if (nowRole->state == SUPROLE_CRASH)
-        {
-            CrashRoleXY(nowRole,allegroObj,n);
-            //printf("n=%d\n",n);
-            //nowRole->state = SUBROLE_MOVE;
-            // count == 0 ? role->objs = nowRole->nextObj : preRole->nextObj = nowRole->nextObj;
-            // free(nowRole);
-        }
-        else
-        {
-            preRole = nowRole;
-            count += 1;
-        }
+
         nowRole = nowRole->nextObj;
         n+=1;
     }
@@ -143,6 +176,7 @@ void RandRoleXY(ObjectStut *role,int n)
     role->start_y = 300;
 }
 
+/*
 void CrashRoleXY(ObjectStut *role,AllegroObjStut *allegroObj,int n)
 {
     role->start_x = allegroObj->role.start_x-150*n;
@@ -155,14 +189,14 @@ void CrashRoleXY(ObjectStut *role,AllegroObjStut *allegroObj,int n)
     {
         role->start_y = allegroObj->role.start_y-15*n;
     }
-}
-
+}*/
+/*
 void FirstRoleXY(ObjectStut *role)
 {
     role->start_x = 1300;
     role->start_y = 600;
 }
-
+*/
 
 /* Meteors */
 void CreateMeteors(MeteorStut *meteor)
@@ -192,6 +226,35 @@ void RandMeteorXY(ObjectStut *meteor)
     meteor->speed_x = (float)(rand()%500-200)/100;
     meteor->speed_y = (float)(rand()%500+500)/100;
 }
+
+/*Attackx*/
+void CreateAttackX(AttackXStut *attackx)
+{
+    int count = 0, n = 5; //產生n個物件
+    ObjectStut *nowPtr = NULL, *prePtr = NULL, *newPtr = NULL;
+    nowPtr = attackx->objs; //第一筆資料
+    while(count < n) //舊資料可能要destroy
+    {
+        if(nowPtr == NULL) //如果為空(沒有新物件)就創新的
+        {
+            newPtr = (ObjectStut *)calloc(1, sizeof(ObjectStut)); //配一個新的
+            nowPtr = newPtr; //把new指派給now(此時now就是新物件), 和pre.next(應當要是now)
+            count == 0 ? attackx->objs = newPtr : prePtr->nextObj = newPtr;
+        }
+        AttackxXY(nowPtr); //設定參數
+        prePtr = nowPtr; //轉往下一物件
+        nowPtr = nowPtr->nextObj;
+        count += 1;
+    }
+}
+void AttackxXY(ObjectStut *attackx)
+{
+    attackx->start_x =  2000;
+    attackx->start_y = rand()%800;
+    attackx->speed_x = (float)(rand()%500+200)/100;
+    attackx->speed_y = (float)(rand()%500+500)/100;
+}
+
 
 /* Floor */
 
