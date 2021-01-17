@@ -47,14 +47,15 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     score_board_init(allegroObj);
     role_init(allegroObj);
     stb_role_init(allegroObj);
-boss_init(allegroObj);
+    boss_init(allegroObj);
     coin_init(allegroObj);
     obscale_init(allegroObj);
 
     meteor_init(allegroObj);
-     attackx_init(allegroObj);
+    attackx_init(allegroObj);
     sub_role_init(allegroObj);
-    floor_init(allegroObj); //FTT
+    floor_init(allegroObj);
+    full_floor_init(allegroObj);
     meteor_init(allegroObj);
 
 
@@ -181,6 +182,14 @@ void floor_init(AllegroObjStut *allegroObj)
     if(allegroObj->floor.img == NULL) allegroObj->floor.img = al_load_bitmap( PATH_IMG_FLOOR );
 }
 
+void full_floor_init(AllegroObjStut *allegroObj)
+{
+    allegroObj->full_floor.start_x = 0;
+    allegroObj->full_floor.start_y = DISPLAY_HEIGHT - SIZE_IMG_FLOOR_HEIGHT;
+    allegroObj->full_floor.end_x = DISPLAY_WIDTH;
+    allegroObj->full_floor.end_y = DISPLAY_HEIGHT;
+}
+
 void home_button_init(AllegroObjStut *allegroObj)
 {
     allegroObj->homeButton.img = al_load_bitmap( PATH_IMG_HOME_BUTTON_1 );
@@ -300,7 +309,7 @@ void MainDataInit(MainDataStut *mainData)
     mainData->scoreFileData = (RankScoreDataStut *)calloc(sizeof(RankScoreDataStut), 1);
     mainData->scoreFileData->data = (RankRowStut *)calloc(sizeof(RankRowStut), NUM_SCORE_DATA);
     mainData->scoreFileData->fileIsRead = 0;
-    mainData->speed.background = 2.5;
-    mainData->speed.object = 3.5;
+    mainData->speed.background = 0;
+    mainData->speed.object = 0;
 }
 
