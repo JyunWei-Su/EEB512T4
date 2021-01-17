@@ -33,13 +33,12 @@ void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void move_attackx(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void move_coin(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void move_boss(AllegroObjStut *allegroObj);
-
 void move_boss2(AllegroObjStut *allegroObj);
 void move_boss3(AllegroObjStut *allegroObj);
 void CrashCheck_role_standbyRole(MainDataStut *mainData, AllegroObjStut *allegroObj);
 
 
-
+void CrashCheck_role_boss_(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void CrachCheck(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void CrachCheckForFloor(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void CrachCheck_role_coin(MainDataStut *mainData, AllegroObjStut *allegroObj);
@@ -48,10 +47,9 @@ void CrachCheck_subrole_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
 void move_meteor(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void CrachCheck_subrole_nothing(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void move_role(MainDataStut *mainData, AllegroObjStut *allegroObj);
+void move_role_xy(MainDataStut *mainData, AllegroObjStut *allegroObj);
 
-void move_role_with_boss(MainDataStut *mainData, AllegroObjStut *allegroObj);
-
-
+void CrashCheck_mid(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void PlayingStateSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj);
 
 /* move 合集 */

@@ -38,6 +38,7 @@
 #define PATH_IMG_SUB_ROLE_SEQ_RUNING "./img/sub_roles.png"
 #define PATH_IMG_STB_ROLE "./img/stb_role.png"
 #define PATH_IMG_STB_ROLE_SEQ_RUNING "./img/stb_roles.png"
+#define PATH_IMG_STB_GUIDE "./img/guide.png"
 
 #define PATH_IMG_FLOOR "./img/floor.png"
 #define PATH_IMG_METEOR "./img/meteor.png"
@@ -47,7 +48,9 @@
 #define PATH_IMG_ATTACKX_3 "./img/attackx3.png"
 #define PATH_IMG_ATTACKX_4 "./img/attackx4.png"
 #define PATH_IMG_ATTACKX_5 "./img/attackx5.png"
-#define PATH_IMG_BOSS_SEQ_RUNING "./img/dragon.png"
+#define PATH_IMG_BOSS_01 "./img/boss01.png"
+#define PATH_IMG_BOSS_02 "./img/boss02.png"
+#define PATH_IMG_BOSS_03 "./img/boss03.png"
 
 
 #define PATH_FNT_DFT "./DFT_TL9.TTC"
@@ -91,8 +94,10 @@
 #define SIZE_IMG_METEOR_BIG_HEIGHT 200
 #define SIZE_IMG_ATTACKX_WIDTH 300
 #define SIZE_IMG_ATTACKX_HEIGHT 65
-#define SIZE_IMG_BOSS_WIDTH 254
-#define SIZE_IMG_BOSS_HEIGHT 207
+#define SIZE_IMG_BOSS_WIDTH 200
+#define SIZE_IMG_BOSS_HEIGHT 300
+#define SIZE_IMG_BOSS2_WIDTH 265
+#define SIZE_IMG_BOSS2_HEIGHT 200
 #define SIZE_IMG_MENU_BUTTON_WIDTH 480
 #define SIZE_IMG_MENU_BUTTON_HEIGHT 90
 #define SIZE_IMG_MODE_BUTTON_WIDTH 480
@@ -110,7 +115,7 @@
 #define NUM_IMG_METEOR_SEQUENCE 12
 #define NUM_IMG_COIN_SEQUENCE 16
 #define NUM_IMG_ATTACKX 1
-#define NUM_IMG_BOSS_SEQUENCE 6
+#define NUM_IMG_BOSS_SEQUENCE 1
 #define NUM_SAMPLES 3 //聲音數量
 #define SCALE_MENU_BUTTON 1.2
 #define SCALE_MODE_BUTTON 1.2
@@ -128,7 +133,8 @@
 
 /*Role_Define*/
 #define OFFSET_ROLE_JUMP 10
-#define OFFSET_ROLE_WALK 0.5
+#define OFFSET_ROLE_JUMP_X 3
+#define OFFSET_ROLE_WALK 10
 #define MAX_ROLE_Y 300
 #define MIN_ROLE_Y 600
 #define MAX_ROLE_X 1500
@@ -150,8 +156,9 @@
 #define SPEED_X_METEOR_RIGHT 3
 /* Game persend*/
 #define GAME_PERSEND_100 10000
-#define GAME_PERSEND_99  9900
+#define GAME_PERSEND_70  7200
 #define GAME_PERSEND_50  5040
+#define GAME_PERSEND_25  2700
 #define GAME_PERSEND_APPEND  3
 #define GAME_PERSEND_MID_TIME  2500
 #define GAME_PERSEND_FINAL_TIME  5800
@@ -399,6 +406,7 @@ typedef struct AllegroObjStut
 {
     ALLEGRO_DISPLAY *display;  //display
     ALLEGRO_BITMAP *iconImg;    //ICON Img
+    ALLEGRO_BITMAP *ruleImg;
     BackgroundStut background;
 
     ALLEGRO_EVENT_QUEUE *event_queue; //拿來存事件 #1 (目前用於視窗X叉叉)
@@ -500,6 +508,7 @@ void sub_role_init(AllegroObjStut *allegroObj);
 void meteor_init(AllegroObjStut *allegroObj);
 void boss_init(AllegroObjStut *allegroObj);
 void Gravity(AllegroObjStut *allegroObj); //運算
+void DestoryAllegroObj(AllegroObjStut *allegroObj);
 #endif //_RESOURSE_H_
 
 //ALLEGRO_MENU *menu; //待整併

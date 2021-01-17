@@ -35,6 +35,18 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         //DrawAttackx(mainData, allegroObj);
         //al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "GAME_PLAYING_NORMAL", mainData->game_mode);
         DrawNormalObj(mainData, allegroObj);
+        if(mainData->game_mode ==MODE_MEDIUM)
+        {
+            DrawMeteor(mainData, allegroObj);
+            DrawAttackx(mainData, allegroObj);
+        }
+
+        if(mainData->game_mode ==MODE_HARD)
+        {
+            DrawBoss(mainData, allegroObj);
+            DrawBoss2(mainData, allegroObj);
+        }
+
         break;
     case GAME_PLAYING_END:
         DrawGameEnd(mainData, allegroObj);
@@ -161,8 +173,8 @@ void DrawAbout(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
 void DrawRule(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    al_draw_bitmap(allegroObj->background.img, 0, 0, 0); // Draw bitmap
-    al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "rule");
+    al_draw_bitmap(allegroObj->ruleImg, 0, 0, 0); // Draw bitmap
+    //al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "rule");
     DrawHomeButton(mainData, allegroObj);
 }
 
@@ -177,7 +189,7 @@ void DrawScoreboard(MainDataStut *mainData, AllegroObjStut *allegroObj)
     al_draw_bitmap(allegroObj->sb_coins.img, allegroObj->sb_coins.start_x, allegroObj->sb_coins.start_y, 0);
     al_draw_bitmap(allegroObj->sb_chars.img, allegroObj->sb_chars.start_x, allegroObj->sb_chars.start_y, 0);
     al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->sb_coins.end_x, allegroObj->sb_coins.start_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.coins);
-    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, allegroObj->sb_chars.end_x, allegroObj->sb_chars.start_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.chars);
+    al_draw_textf(allegroObj->font_a.font64, al_map_rgb(218,112,214), allegroObj->sb_chars.end_x, allegroObj->sb_chars.start_y, ALLEGRO_ALIGN_RIGHT, "%05d", mainData->score.chars);
     DrawObjBoundary(allegroObj->sb_coins.start_x, allegroObj->sb_coins.start_y, allegroObj->sb_coins.end_x, allegroObj->sb_coins.end_y);
     DrawObjBoundary(allegroObj->sb_chars.start_x, allegroObj->sb_chars.start_y, allegroObj->sb_chars.end_x, allegroObj->sb_chars.end_y);
 }
@@ -203,10 +215,11 @@ void DrawGameEnd(MainDataStut *mainData, AllegroObjStut *allegroObj)
     al_draw_textf(allegroObj->font_a.font120, COLOR_PAUSE_TEXT, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/4, ALLEGRO_ALIGN_CENTER, "END");
     int x = DISPLAY_WIDTH / 2;
     int y = DISPLAY_HEIGHT / 2;
+    al_draw_textf(allegroObj->font_a.font120, al_map_rgb(255, 0, 0), x, y-SIZE_TEXT_RANK_LEADONG*8, ALLEGRO_ALIGN_CENTER, (mainData->game_percent/100 == 100 ? "WIN" : "FAIL"));
     al_draw_textf(allegroObj->font_a.font48, COLOR_SCORE, x, y-SIZE_TEXT_RANK_LEADONG*2, ALLEGRO_ALIGN_CENTER, "Please type your NAME and press ENTER");
     al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, x, y+SIZE_TEXT_RANK_LEADONG*0, ALLEGRO_ALIGN_CENTER, "Coin:%d Char:%d Done:%d%%", mainData->score.coins, mainData->score.chars, mainData->game_percent/100);
     al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, x, y+SIZE_TEXT_RANK_LEADONG*2, ALLEGRO_ALIGN_CENTER, "Total Score:%d", mainData->score.score);
-    al_draw_textf(allegroObj->font_a.font64, COLOR_SCORE, x, y+SIZE_TEXT_RANK_LEADONG*4, ALLEGRO_ALIGN_CENTER, "Name:%s", mainData->usrName.name);
+    al_draw_textf(allegroObj->font_a.font64, al_map_rgb(0, 199, 140), x, y+SIZE_TEXT_RANK_LEADONG*5, ALLEGRO_ALIGN_CENTER, "Name:%s", mainData->usrName.name);
 }
 
 /* 遊戲角色相關(角色、金幣、跟班、障礙、地板、隕石) */
@@ -266,6 +279,20 @@ void DrawBoss(MainDataStut *mainData, AllegroObjStut *allegroObj)
                           , allegroObj->boss.start_x, allegroObj->boss.start_y, 0);
     allegroObj->boss.imgCount += 1;
     DrawObjBoundary(allegroObj->boss.start_x, allegroObj->boss.start_y, allegroObj->boss.end_x, allegroObj->boss.end_y);
+}
+void DrawBoss2(MainDataStut *mainData, AllegroObjStut *allegroObj)
+//Role動畫
+{
+    if(allegroObj->boss2.imgCount % (int)(FPS*TIME_PER_IMG_ROLE) == 0)
+    {
+        allegroObj->boss2.imgCount = 0;
+        allegroObj->boss2.nowImg += 1;
+        if(allegroObj->boss2.nowImg % NUM_IMG_BOSS_SEQUENCE == 0) allegroObj->boss2.nowImg = 0;
+    }
+    al_draw_bitmap_region(allegroObj->boss2.imgs_runing, SIZE_IMG_BOSS2_WIDTH*allegroObj->boss2.nowImg, 0, SIZE_IMG_BOSS2_WIDTH, SIZE_IMG_BOSS2_HEIGHT
+                          , allegroObj->boss2.start_x, allegroObj->boss2.start_y, 0);
+    allegroObj->boss2.imgCount += 1;
+    DrawObjBoundary(allegroObj->boss2.start_x, allegroObj->boss2.start_y, allegroObj->boss2.end_x, allegroObj->boss2.end_y);
 }
 
 void DrawSubRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -447,7 +474,7 @@ void DrawObjBoundary(float x1, float y1, float x2, float y2)
 //畫長方形邊界
 {
     //printf("x1: %f, y1: %f\nx2: %f, y2: %f\n", x1, x2, y1, y2);
-    al_draw_rectangle(x1, y1, x2, y2, al_map_rgb(255, 0, 0), 0);
+    //al_draw_rectangle(x1, y1, x2, y2, al_map_rgb(255, 0, 0), 0);
 }
 /*
 void DrawObjBoundary_meteor(MeteorStut meteor)

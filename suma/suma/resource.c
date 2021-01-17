@@ -57,7 +57,7 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     floor_init(allegroObj);
     full_floor_init(allegroObj);
     meteor_init(allegroObj);
-
+    allegroObj->ruleImg = al_load_bitmap(PATH_IMG_STB_GUIDE);
 
     /* window title and menu*/
     al_set_window_title(allegroObj->display,"SUMA");
@@ -222,11 +222,11 @@ void role_reset(AllegroObjStut *allegroObj)
 void boss_init(AllegroObjStut *allegroObj)
 {
     //allegroObj->boss.img = al_load_bitmap( PATH_IMG_ROLE_1 );
-    allegroObj->boss.imgs_runing = al_load_bitmap( PATH_IMG_BOSS_SEQ_RUNING );
+    allegroObj->boss.imgs_runing = al_load_bitmap( PATH_IMG_BOSS_02 );
     allegroObj->boss.start_x=1300;
-    allegroObj->boss.start_y=200;
-    allegroObj->boss2.imgs_runing = al_load_bitmap( PATH_IMG_BOSS_SEQ_RUNING );
-    allegroObj->boss2.start_x=1300;
+    allegroObj->boss.start_y=500;
+    allegroObj->boss2.imgs_runing = al_load_bitmap( PATH_IMG_BOSS_03 );
+    allegroObj->boss2.start_x=0;
     allegroObj->boss2.start_y=600;
     //allegroObj->boss.state = ROLE_NULL;
 }
@@ -321,5 +321,35 @@ void MainDataInit(MainDataStut *mainData)
     mainData->scoreFileData->fileIsRead = 0;
     mainData->speed.background = 0;
     mainData->speed.object = 0;
+    mainData->speed.background = 2.5;
+    mainData->speed.object = 3.5;
+}
+
+void DestoryAllegroObj(AllegroObjStut *allegroObj)
+{
+    al_pause_event_queue(allegroObj->event_queue, true);
+    al_stop_timer(allegroObj->timer);
+
+    al_destroy_bitmap(allegroObj->iconImg);
+    al_destroy_bitmap(allegroObj->ruleImg);
+    al_destroy_bitmap(allegroObj->background.img);
+
+    al_destroy_event_queue(allegroObj->event_queue);
+    al_destroy_timer(allegroObj->timer);
+
+    al_destroy_bitmap(allegroObj->probar.img);
+    al_destroy_bitmap(allegroObj->sb_chars.img);
+    al_destroy_bitmap(allegroObj->sb_chars.img);
+    al_destroy_bitmap(allegroObj->role.img);
+    al_destroy_bitmap(allegroObj->role.imgs_runing);
+    al_destroy_bitmap(allegroObj->boss.img);
+    al_destroy_bitmap(allegroObj->boss.imgs_runing);
+    al_destroy_bitmap(allegroObj->boss2.img);
+    al_destroy_bitmap(allegroObj->boss2.imgs_runing);
+    al_destroy_bitmap(allegroObj->boss3.img);
+    al_destroy_bitmap(allegroObj->boss3.imgs_runing);
+
+    al_destroy_display(allegroObj->display);
+
 }
 

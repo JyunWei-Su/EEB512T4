@@ -346,6 +346,12 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
 void CheckStateModeSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     int i;
+    mainData->timerCount = 0;
+    mainData->game_state = GAME_PLAYING_NORMAL;
+    mainData->score.chars = (mainData->game_mode == MODE_HARD ? 10 : 5);
+    role_reset(allegroObj);
+
+    SetFloor(&allegroObj->floor);
     for(i = 0; i < NUM_MODE_BUTTON; i++)
     {
         if(allegroObj->modeButton[i].isSelected)
@@ -396,12 +402,7 @@ void CheckMouseClick(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 mainData->game_state = GAME_MENU;
                 allegroObj->homeButton.isSelected = 0; //切換狀態後要重設
             }
-            mainData->timerCount = 0;
-            mainData->game_state = GAME_PLAYING_NORMAL;
-            mainData->score.chars = 1;
-            role_reset(allegroObj);
 
-            SetFloor(&allegroObj->floor);
             break;
         case GAME_RULE:
             if(allegroObj->homeButton.isSelected)
