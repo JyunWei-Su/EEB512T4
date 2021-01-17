@@ -111,7 +111,7 @@ void ScoreFileAppend(const char *fileName, MainDataStut *mainData)
     //sprintf(scoreData->data[n].time, "%d/%02d/%02d_%02d:%02d:%02d%c", //format char array
     //        mainData->tm->tm_year + 1900, mainData->tm->tm_mon + 1, mainData->tm->tm_mday, mainData->tm->tm_hour, mainData->tm->tm_min, mainData->tm->tm_sec, '\0');
     sprintf(scoreData->data[n].time, "%d/%02d/%02d_%02d:%02d:%02d%c", //format char array
-            ttm->tm_year + 1900, 01, 02,22, 12, 11, '\0');
+            ttm->tm_year + 1900, ttm->tm_mon + 1, ttm->tm_mday, ttm->tm_hour, ttm->tm_min, ttm->tm_sec, '\0');
     //printf("N:%d\nSORT\n", n);
     printf("3.1\n");
     if(fileStream != NULL) fclose(fileStream);

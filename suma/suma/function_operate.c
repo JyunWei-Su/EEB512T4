@@ -3,7 +3,7 @@
 
 /**
  * 運算相關函式
- * 主要呼叫：
+ * 主要呼叫：ParameterOperate
 **/
 
 /* 主要參數運算與狀態判別 */
@@ -37,9 +37,10 @@ void PlayingStateSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
     switch(mainData->game_state)
     {
     case GAME_PLAYING_NORMAL:
-        if(mainData->score.chars <= 0 || allegroObj->role.state == ROLE_DESTORY) mainData->game_state = GAME_PLAYING_END;
         if(mainData->game_percent <= GAME_PERSEND_100) mainData->game_percent += GAME_PERSEND_APPEND;
-        else mainData->game_state = GAME_PLAYING_END;
+
+        if(mainData->score.chars <= 0 || allegroObj->role.state == ROLE_DESTORY) mainData->game_state = GAME_PLAYING_END;
+        else if(mainData->game_percent > GAME_PERSEND_100) mainData->game_state = GAME_PLAYING_END;
 
         if(mainData->game_state == GAME_PLAYING_END){
             mainData->score.score = (int)((mainData->score.chars+1) * (mainData->score.coins/50) * ((float)mainData->game_percent/100));
@@ -635,6 +636,7 @@ void CrachCheck_subrole_nothing(MainDataStut *mainData, AllegroObjStut *allegroO
             if(nowSubRole->end_x < 0 || nowSubRole->start_y > DISPLAY_HEIGHT)
             {
                 nowSubRole->state = ROLE_DESTORY;
+                allegroObj->sound.roleDead.readyToPlay = 1;
                 //printf("ddd\n");
             }
         }

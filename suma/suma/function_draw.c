@@ -464,7 +464,7 @@ void DrawObjBoundary_object(ObjectStut *obj)
 
 void DrawPlayMode(MainDataStut *mainData, AllegroObjStut *allegroObj)//顯示遊戲難度
 {
-    if(mainData->game_mode == 0) al_draw_textf(allegroObj->font_a.font36, COLOR_SCORE, OFFSET_PLAYMODE_X, OFFSET_PLAYMODE_y, ALLEGRO_ALIGN_CENTER, "easy", mainData->game_mode);
-    if(mainData->game_mode == 1) al_draw_textf(allegroObj->font_a.font36, COLOR_SCORE, OFFSET_PLAYMODE_X, OFFSET_PLAYMODE_y, ALLEGRO_ALIGN_CENTER, "normal", mainData->game_mode);
-    if(mainData->game_mode == 2) al_draw_textf(allegroObj->font_a.font36, COLOR_SCORE, OFFSET_PLAYMODE_X, OFFSET_PLAYMODE_y, ALLEGRO_ALIGN_CENTER, "hard", mainData->game_mode);
+    if(mainData->game_mode == 0) al_draw_textf(allegroObj->font_a.font36, COLOR_SCORE, OFFSET_PLAYMODE_X, OFFSET_PLAYMODE_y, ALLEGRO_ALIGN_CENTER, "easy");
+    if(mainData->game_mode == 1) al_draw_textf(allegroObj->font_a.font36, COLOR_SCORE, OFFSET_PLAYMODE_X, OFFSET_PLAYMODE_y, ALLEGRO_ALIGN_CENTER, "normal");
+    if(mainData->game_mode == 2) al_draw_textf(allegroObj->font_a.font36, COLOR_SCORE, OFFSET_PLAYMODE_X, OFFSET_PLAYMODE_y, ALLEGRO_ALIGN_CENTER, "hard");
 }

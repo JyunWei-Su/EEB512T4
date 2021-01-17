@@ -43,7 +43,7 @@
 	"defineHeader.h"
 	"resource.h"
 
-1610894979 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\myfunc.c
+1610898038 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\myfunc.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -458,7 +458,7 @@
 1609516321 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\own\header_jws.h
 	"../resource.h"
 
-1610894979 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\resource.h
+1610899501 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\resource.h
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
@@ -529,18 +529,18 @@
 	"../own/header_JWS.h"
 	"../defineHeader.h"
 
-1610891888 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\resource.c
+1610899501 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\resource.c
 	"resource.h"
 	"defineHeader.h"
 
-1610896064 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_draw.c
+1610896351 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_draw.c
 	"defineHeader.h"
 	"resource.h"
 
 1610863284 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_draw.h
 	"resource.h"
 
-1610895286 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_check.c
+1610899598 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_check.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -579,7 +579,7 @@
 1609392882 c:\users\lu frank\documents\github\eeb512t4\suma\suma\own\header_byk.h
 	"../resource.h"
 
-1610890698 c:\users\lu frank\documents\github\eeb512t4\suma\suma\resource.h
+1610892996 c:\users\lu frank\documents\github\eeb512t4\suma\suma\resource.h
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
@@ -611,7 +611,7 @@
 1610863695 c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_draw.h
 	"resource.h"
 
-1610890698 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_draw.c
+1610891862 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_draw.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -668,7 +668,7 @@
 	"../own/header_JWS.h"
 	"../defineHeader.h"
 
-1610890698 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\resource.c
+1610892996 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\resource.c
 	"resource.h"
 	"defineHeader.h"
 
@@ -676,7 +676,7 @@
 
 1609395320 098e01d9844175607ab97e9bc04b1756c5378
 
-1610863225 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_sound.c
+1610896246 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_sound.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -1000,7 +1000,7 @@
 1610891888 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_operate.h
 	"resource.h"
 
-1610893796 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_operate.c
+1610899370 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_operate.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -1015,7 +1015,7 @@
 
 1609739929 source:c:\users\user\documents\github\eeb512t4\suma\suma\icon.rc
 
-1610870961 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_gaming_object.h
+1610897896 c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_gaming_object.h
 	"resource.h"
 
 1610870507 c:\users\user\documents\github\eeb512t4\suma\suma\function_gaming_object.h
@@ -1025,7 +1025,7 @@
 	"defineHeader.h"
 	"resource.h"
 
-1610878542 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_gaming_object.c
+1610898634 source:c:\users\jyun-wei\documents\github\eeb512t4\suma\suma\function_gaming_object.c
 	"defineHeader.h"
 	"resource.h"
 
@@ -1035,7 +1035,7 @@
 1609590830 c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_check.h
 	"resource.h"
 
-1610890698 c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_operate.h
+1610891862 c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_operate.h
 	"resource.h"
 
 1610869951 c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_gaming_object.h
@@ -1045,11 +1045,11 @@
 	"defineHeader.h"
 	"resource.h"
 
-1610890698 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_operate.c
+1610893376 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_operate.c
 	"defineHeader.h"
 	"resource.h"
 
-1610856727 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_sound.c
+1610893413 source:c:\users\lu frank\documents\github\eeb512t4\suma\suma\function_sound.c
 	"defineHeader.h"
 	"resource.h"
 

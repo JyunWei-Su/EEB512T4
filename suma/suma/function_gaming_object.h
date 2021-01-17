@@ -19,6 +19,7 @@ void DestoryRoles(SubRoleStut *role,AllegroObjStut *allegroObj);
 void RandRoleXY(ObjectStut *role,int n);
 void CrashRoleXY(ObjectStut *role,AllegroObjStut *allegroObj,int n);
 void FirstRoleXY(ObjectStut *role);
+void FreeSubRole(SubRoleStut *sub_role);
 
 /* Meteors */
 void CreateMeteors(MeteorStut *meteor);
@@ -28,6 +29,7 @@ void RandMeteorXY(ObjectStut *meteor);
 void SetFloor(FloorStut *floor);
 void CreateFloorOnce(FloorStut *floor);
 void DestoryFloorOnce(FloorStut *floor);
+void FreeAllFloor(FloorStut *floor);
 void FirstFloorXY(ObjectStut *floor);
 void RandFloorXY(ObjectStut *floor, int pre_x);
 

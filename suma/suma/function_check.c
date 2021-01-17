@@ -34,7 +34,7 @@ void CheckEvent(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 mainData->mouse.isClick = 0;
                 CheckMouseClick(mainData, allegroObj);
                 break;
-            case ALLEGRO_EVENT_KEY_CHAR:
+            case ALLEGRO_EVENT_KEY_DOWN:
                 CheckKeyboardDown(mainData, allegroObj);
                 break;
             case ALLEGRO_EVENT_DISPLAY_SWITCH_IN:
@@ -126,6 +126,15 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
             GetTime(mainData->tm);
             ScoreFileAppend(PATH_FILE_SCORE, mainData);
             mainData->game_state = GAME_MENU;
+            mainData->score.coins = 0;
+            mainData->score.probar = 0;
+            mainData->score.score = 0;
+            mainData->game_percent = 0;
+            memset(mainData->usrName.name, 0, 20);
+            mainData->usrName.len = 0;
+            FreeSubRole(&allegroObj->subRole);
+            FreeAllFloor(&allegroObj->floor);
+            role_reset(allegroObj);
             break;
         case ALLEGRO_KEY_BACKSPACE:
             if(mainData->usrName.len == 0) break;
@@ -341,15 +350,7 @@ void CheckStateModeSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
     {
         if(allegroObj->modeButton[i].isSelected)
         {
-            mainData->game_state = GAME_PLAYING_NORMAL;
-            mainData->score.chars = 1;
-            SetFloor(&allegroObj->floor);
-            mainData->score.coins = 0;
-            mainData->score.probar = 0;
-            mainData->score.score = 0;
-            mainData->game_percent = 0;
-            mainData->timerCount = 0;
-            //CreateCoins(&allegroObj->Coin);
+
             switch(i)
             {
             case 0:
@@ -396,6 +397,11 @@ void CheckMouseClick(MainDataStut *mainData, AllegroObjStut *allegroObj)
                 allegroObj->homeButton.isSelected = 0; //切換狀態後要重設
             }
             mainData->timerCount = 0;
+            mainData->game_state = GAME_PLAYING_NORMAL;
+            mainData->score.chars = 1;
+            role_reset(allegroObj);
+
+            SetFloor(&allegroObj->floor);
             break;
         case GAME_RULE:
             if(allegroObj->homeButton.isSelected)
