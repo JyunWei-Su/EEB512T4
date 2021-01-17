@@ -110,17 +110,6 @@ void CheckKeyboardDown(MainDataStut *mainData, AllegroObjStut *allegroObj)
     case GAME_PLAYING_NORMAL:
         switch(allegroObj->events.keyboard.keycode)
         {
-        case ALLEGRO_KEY_W:
-            //
-            //printf("rrr: %d", allegroObj->role.keyDownRecord);
-            break;
-        case ALLEGRO_KEY_Z:
-            mainData->game_state = GAME_PLAYING_MID_BOSS;
-            //creat
-            break;
-        case ALLEGRO_KEY_X:
-            mainData->game_state = GAME_PLAYING_FINAL_BOSS;
-            break;
         case ALLEGRO_KEY_C:
             if(mainData->game_state == GAME_PLAYING_NORMAL) CreateCoins(&allegroObj->coin);
             break;

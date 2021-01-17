@@ -37,30 +37,6 @@ void DrawDisplayAndFlip(MainDataStut *mainData, AllegroObjStut *allegroObj)
         //al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "GAME_PLAYING_NORMAL", mainData->game_mode);
         DrawNormalObj(mainData, allegroObj);
         break;
-    case GAME_READY_SWITCH_TO_MID:
-        DrawNormalObj(mainData, allegroObj);
-        al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "WARINING!!!");
-        break;
-    case GAME_READY_SWITCH_TO_FINAL:
-        DrawNormalObj(mainData, allegroObj);
-        al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "WARINING!!!");
-        break;
-    case GAME_PLAYING_MID_BOSS:
-        DrawBackground(mainData, allegroObj);
-        DrawMeteor(mainData, allegroObj);
-        DrawFullFloor(mainData, allegroObj);
-        DrawRole(mainData, allegroObj);
-        DrawScoreboard(mainData, allegroObj);
-        DrawPlayMode(mainData, allegroObj);
-        break;
-    case GAME_PLAYING_FINAL_BOSS:
-        DrawBackground(mainData, allegroObj);
-        DrawRole(mainData, allegroObj);
-        DrawFullFloor(mainData, allegroObj);
-        DrawScoreboard(mainData, allegroObj);
-        DrawBoss(mainData, allegroObj);
-        DrawPlayMode(mainData, allegroObj);
-        break;
     case GAME_PLAYING_END:
         DrawGameEnd(mainData, allegroObj);
         break;
@@ -75,7 +51,6 @@ void DrawNormalObj(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     DrawBackground(mainData, allegroObj);
     DrawFloor(mainData, allegroObj);
-    if(mainData->game_state == GAME_READY_SWITCH_TO_MID || mainData->game_state == GAME_READY_SWITCH_TO_FINAL) DrawFullFloor(mainData, allegroObj);
     DrawRole(mainData, allegroObj);
     DrawSubRole(mainData, allegroObj);
     DrawSTBRole(mainData,allegroObj);

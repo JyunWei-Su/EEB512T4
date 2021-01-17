@@ -25,34 +25,6 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
         /* 遊戲進度更新*/
         PlayingStateSwitchTo(mainData, allegroObj);
         break;
-    case GAME_READY_SWITCH_TO_MID:
-        /*移動物件*/
-        move_playing_normal(mainData, allegroObj);
-        move_full_floor(mainData, allegroObj);
-        /* Check Crash */
-        CrachCheck(mainData, allegroObj);
-        DoCrashOrDestorys(mainData, allegroObj);
-        /* 遊戲進度更新*/
-        PlayingStateSwitchTo(mainData, allegroObj);
-        break;
-    case GAME_READY_SWITCH_TO_FINAL:
-        /*移動物件*/
-        move_playing_normal(mainData, allegroObj);
-        move_full_floor(mainData, allegroObj);
-        /* Check Crash */
-        CrachCheck(mainData, allegroObj);
-        DoCrashOrDestorys(mainData, allegroObj);
-        /* 遊戲進度更新*/
-        PlayingStateSwitchTo(mainData, allegroObj);
-        break;
-    case GAME_PLAYING_MID_BOSS:
-        move_playing_mid(mainData, allegroObj);
-        PlayingStateSwitchTo(mainData, allegroObj);
-        break;
-    case GAME_PLAYING_FINAL_BOSS:
-        move_playing_final(mainData, allegroObj);
-        printf("BOSStime=%d\n",mainData->timerCount);
-        break;
     case GAME_PLAYING_END:
 
         break;
@@ -61,55 +33,12 @@ void ParameterOperate(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
 void PlayingStateSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    printf("tt:%d\n", mainData->timerCount);
     switch(mainData->game_state)
     {
     case GAME_PLAYING_NORMAL:
-        if(mainData->score.chars <=0 || allegroObj->role.state == ROLE_DESTORY)
-        {
-            mainData->game_state = GAME_PLAYING_END;
-        }
-        /*
-        if(mainData->game_percent == GAME_PERSEND_50)
-        {
-            mainData->game_percent += 1;
-            mainData->game_state= GAME_READY_SWITCH_TO_MID;
-            //free(allegroObj->floor.objs);
-            ReSetFullFloor(&allegroObj->full_floor);
-        }*/
-        printf("===========%d\n", mainData->game_percent);
-        if (mainData->game_percent == GAME_PERSEND_99)
-        {
-            mainData->game_percent += 1;
-            mainData->game_state= GAME_READY_SWITCH_TO_FINAL;
-            ReSetFullFloor(&allegroObj->full_floor);
-        }
         if(mainData->game_percent <= GAME_PERSEND_100) mainData->game_percent += GAME_PERSEND_APPEND;
-        break;
-    case GAME_READY_SWITCH_TO_MID:
-        if (allegroObj->full_floor.end_x <= DISPLAY_WIDTH)
-        {
-            mainData->game_state= GAME_PLAYING_MID_BOSS;
-            CreateMeteors(&allegroObj->meteor);
-        }
-        break;
-    case GAME_READY_SWITCH_TO_FINAL:
-        if (allegroObj->full_floor.end_x <= DISPLAY_WIDTH)
-        {
-            mainData->game_state= GAME_PLAYING_FINAL_BOSS;
-            //CreateMeteors(&allegroObj->meteor);
-        }
-        break;
-    case GAME_PLAYING_MID_BOSS:
-        if(mainData->timerCount>=GAME_PERSEND_MID_TIME)
-        {
-            printf("xxxxxxx: %x\n", allegroObj->floor.objs);
-            mainData->game_state= GAME_PLAYING_NORMAL;
-        }
-        break;
-    case GAME_PLAYING_FINAL_BOSS:
-        if(mainData->timerCount>=GAME_PERSEND_FINAL_TIME)  mainData->game_state= GAME_PLAYING_END;
-        break;
+        else mainData->game_state = GAME_PLAYING_END;
+    break;
     }
 }
 //move_attackx(mainData, allegroObj);
@@ -235,8 +164,6 @@ void move_sub_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
             break;
         case ROLE_DROP_FLOOR:
             Gravity(&nowSubRole->start_y);
-            if(mainData->game_state == GAME_READY_SWITCH_TO_MID || mainData->game_state == GAME_READY_SWITCH_TO_FINAL)
-                nowSubRole->state = ROLE_NULL;
             nowSubRole->start_x -= mainData->speed.object;
             break;
         default:
@@ -289,8 +216,6 @@ void move_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
     role_start_y_ref = DISPLAY_HEIGHT-OFFSET_FLOOR-SIZE_IMG_ROLE_HEIGHT;
     time_during = mainData->timerCount - allegroObj->role.keyDownRecord;
     role_state = allegroObj->role.state;
-    if(mainData->game_state == GAME_READY_SWITCH_TO_MID || mainData->game_state == GAME_READY_SWITCH_TO_FINAL)
-                allegroObj->role.state = ROLE_NULL;
     switch(role_state)
     {
     case ROLE_NULL:
@@ -322,8 +247,6 @@ void move_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
         break;
     case ROLE_DROP_FLOOR:
         Gravity(&allegroObj->role.start_y);
-        if(mainData->game_state == GAME_READY_SWITCH_TO_MID || mainData->game_state == GAME_READY_SWITCH_TO_FINAL)
-                allegroObj->role.state = ROLE_NULL;
         allegroObj->role.start_x -= mainData->speed.object;
         break;
     default:
@@ -435,22 +358,6 @@ void CrachCheck(MainDataStut *mainData, AllegroObjStut *allegroObj) //FTT
         CrachCheck_subrole_nothing(mainData, allegroObj);
         CrachCheck_subrole_coin(mainData, allegroObj);
         break;
-    case GAME_READY_SWITCH_TO_MID:
-        CrachCheck_role_coin(mainData, allegroObj);
-        CrashCheck_role_obscale(mainData, allegroObj);
-        CrashCheck_role_StandbyRole(mainData, allegroObj);
-
-        CrashCheck_subrole_obscale(mainData, allegroObj);
-        CrachCheck_subrole_coin(mainData, allegroObj);
-        break;
-    case GAME_READY_SWITCH_TO_FINAL:
-        CrachCheck_role_coin(mainData, allegroObj);
-        CrashCheck_role_obscale(mainData, allegroObj);
-        CrashCheck_role_StandbyRole(mainData, allegroObj);
-
-        CrashCheck_subrole_obscale(mainData, allegroObj);
-        CrachCheck_subrole_coin(mainData, allegroObj);
-        break;
     }
 
 }
@@ -549,16 +456,8 @@ void OnFloorCheck_role(MainDataStut *mainData, AllegroObjStut *allegroObj)
                                    nowFloor->start_x, nowFloor->start_y, nowFloor->end_x, nowFloor->end_y);
         nowFloor = nowFloor->nextObj;
     }
-
-    if(mainData->game_state == GAME_READY_SWITCH_TO_MID || mainData->game_state == GAME_READY_SWITCH_TO_FINAL)
-    {
-        if(role->start_x > allegroObj->full_floor.start_x) role->state = ROLE_NULL;
-    }
-    else
-    {
         if(!onFloor) role->state = ROLE_DROP_FLOOR;
         else role->state = ROLE_NULL;
-    }
 
 }
 
@@ -573,15 +472,8 @@ void OnFloorCheck_subRole(MainDataStut *mainData, AllegroObjStut *allegroObj, Ob
                                    nowFloor->start_x, nowFloor->start_y, nowFloor->end_x, nowFloor->end_y);
         nowFloor = nowFloor->nextObj;
     }
-    if(mainData->game_state == GAME_READY_SWITCH_TO_MID || mainData->game_state == GAME_READY_SWITCH_TO_FINAL)
-    {
-        subRole->state = ROLE_NULL;
-    }
-    else
-    {
         if(!onFloor) subRole->state = ROLE_DROP_FLOOR;
         else subRole->state = ROLE_NULL;
-    }
 }
 
 void CrachCheck_role_coin(MainDataStut *mainData, AllegroObjStut *allegroObj)
