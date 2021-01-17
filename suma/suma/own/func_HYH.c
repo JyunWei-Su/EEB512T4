@@ -149,19 +149,19 @@ void SetObscale(MainDataStut *mainData,AllegroObjStut *allegroObj)
         switch (mainData->game_mode)
         {
         case MODE_EASY:
-            if(rand()%3 ==0 && FloorObscale(allegroObj->floor))
+            if(rand()%5 ==0 && FloorObscale(allegroObj->floor))
             {
                 CreateObscales(mainData,&(allegroObj->obscale));
             }
             break;
         case MODE_MEDIUM:
-            if(rand()%2 ==0 && FloorObscale(allegroObj->floor))
+            if(rand()%3 ==0 && FloorObscale(allegroObj->floor))
             {
                 CreateObscales(mainData,&(allegroObj->obscale));
             }
             break;
         case MODE_HARD:
-            if(rand()%2==0 && FloorObscale(allegroObj->floor))
+            if(rand()%3 ==0 && FloorObscale(allegroObj->floor))
             {
                 CreateObscales(mainData,&(allegroObj->obscale));
             }
