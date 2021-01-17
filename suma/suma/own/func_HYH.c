@@ -42,3 +42,11 @@ void SetChoose(MainDataStut *mainData,AllegroObjStut *allegroObj)
     }
 
 }
+
+void CheckForCoin(AllegroObjStut *allegroObj)
+{
+ if(allegroObj->coin.objs == NULL)
+ {
+  CreateCoins(&(allegroObj->coin));
+ }
+}

@@ -38,6 +38,7 @@ void move_full_floor(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawFullFloor(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void DrawNormalObj(MainDataStut *mainData, AllegroObjStut *allegroObj);
 void full_floor_init(AllegroObjStut *allegroObj);
+void CheckForCoin(AllegroObjStut *allegroObj);
 #endif //_HYH_H_
 
 
