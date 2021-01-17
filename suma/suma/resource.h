@@ -38,6 +38,7 @@
 #define PATH_IMG_SUB_ROLE_SEQ_RUNING "./img/sub_roles.png"
 #define PATH_IMG_STB_ROLE "./img/stb_role.png"
 #define PATH_IMG_STB_ROLE_SEQ_RUNING "./img/stb_roles.png"
+#define PATH_IMG_STB_GUIDE "./img/guide.png"
 
 #define PATH_IMG_FLOOR "./img/floor.png"
 #define PATH_IMG_METEOR "./img/meteor.png"
@@ -405,6 +406,7 @@ typedef struct AllegroObjStut
 {
     ALLEGRO_DISPLAY *display;  //display
     ALLEGRO_BITMAP *iconImg;    //ICON Img
+    ALLEGRO_BITMAP *ruleImg;
     BackgroundStut background;
 
     ALLEGRO_EVENT_QUEUE *event_queue; //拿來存事件 #1 (目前用於視窗X叉叉)

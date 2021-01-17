@@ -173,8 +173,8 @@ void DrawAbout(MainDataStut *mainData, AllegroObjStut *allegroObj)
 
 void DrawRule(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
-    al_draw_bitmap(allegroObj->background.img, 0, 0, 0); // Draw bitmap
-    al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "rule");
+    al_draw_bitmap(allegroObj->ruleImg, 0, 0, 0); // Draw bitmap
+    //al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "rule");
     DrawHomeButton(mainData, allegroObj);
 }
 

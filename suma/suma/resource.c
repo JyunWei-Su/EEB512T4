@@ -57,7 +57,7 @@ void AllegroObjectInit(AllegroObjStut *allegroObj)
     floor_init(allegroObj);
     full_floor_init(allegroObj);
     meteor_init(allegroObj);
-
+    allegroObj->ruleImg = al_load_bitmap(PATH_IMG_STB_GUIDE);
 
     /* window title and menu*/
     al_set_window_title(allegroObj->display,"SUMA");
@@ -321,5 +321,7 @@ void MainDataInit(MainDataStut *mainData)
     mainData->scoreFileData->fileIsRead = 0;
     mainData->speed.background = 0;
     mainData->speed.object = 0;
+    mainData->speed.background = 2.5;
+    mainData->speed.object = 3.5;
 }
 

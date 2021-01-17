@@ -54,8 +54,10 @@ void PlayingStateSwitchTo(MainDataStut *mainData, AllegroObjStut *allegroObj)
             mainData->game_percent += GAME_PERSEND_APPEND;
         }
 
-        //CreateAttackX(&allegroObj->attackx);
-        //if(mainData->game_percent <= GAME_PERSEND_100) mainData->game_percent += GAME_PERSEND_APPEND;
+
+//CreateAttackX(&allegroObj->attackx);
+//if(mainData->game_percent <= GAME_PERSEND_100) mainData->game_percent += GAME_PERSEND_APPEND;
+
 
         if(mainData->score.chars <= 0 || allegroObj->role.state == ROLE_DESTORY) mainData->game_state = GAME_PLAYING_END;
         else if(mainData->game_percent > GAME_PERSEND_100) mainData->game_state = GAME_PLAYING_END;
@@ -253,12 +255,14 @@ void move_boss2(AllegroObjStut *allegroObj)
     case BOSS_BEYOND_X:
         allegroObj->boss2.start_x +=2;
         //allegroObj->boss.start_y -=1;
+
         if(allegroObj->boss2.start_x>=1400) allegroObj->boss2.state = BOSS_NULL;
         // if(allegroObj->boss.start_y<=0) allegroObj->boss.state = BOSS_NULL;
         break;
     case BOSS_BEYOND_Y:
         allegroObj->boss2.start_y -=5;
         allegroObj->boss2.start_x -=10;
+
         // if(allegroObj->boss.start_y<=0) allegroObj->boss.state = BOSS_NULL;
         break;
     }
@@ -535,7 +539,15 @@ void CrachCheck(MainDataStut *mainData, AllegroObjStut *allegroObj) //FTT
         CrachCheck_subrole_coin(mainData, allegroObj);
         break;
     }
-
+    switch(mainData->game_mode)
+    {
+    case MODE_HARD:
+        CrashCheck_role_boss_(mainData, allegroObj);
+        break;
+    case MODE_MEDIUM:
+        CrashCheck_mid(mainData, allegroObj);
+        break;
+    }
 }
 
 void CrashCheck_role_StandbyRole(MainDataStut *mainData, AllegroObjStut *allegroObj)
@@ -559,6 +571,48 @@ void CrashCheck_role_StandbyRole(MainDataStut *mainData, AllegroObjStut *allegro
     }
 }
 
+void CrashCheck_mid(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    bool crash;
+    ObjectStut *nowPtr = NULL;
+    ObjectStut *nowRole = NULL;
+
+
+    nowPtr = allegroObj->meteor.objs;
+    while(nowPtr != NULL)
+    {
+        crash = ObjCrashCheck(allegroObj->role.start_x, allegroObj->role.start_y, allegroObj->role.end_x, allegroObj->role.end_y,
+                              nowPtr->start_x, nowPtr->start_y, nowPtr->end_x, nowPtr->end_y);
+        if(crash)
+        {
+            allegroObj->sound.roleDead.readyToPlay = 1;
+            mainData->score.chars -= 1;
+        }
+        nowPtr = nowPtr->nextObj;
+    }
+
+    nowPtr = allegroObj->attackx.objs;
+    while(nowPtr != NULL)
+    {
+        nowRole = allegroObj->subRole.objs;
+        while(nowRole != NULL)
+        {
+            crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
+                                  nowPtr->start_x, nowPtr->start_y, nowPtr->end_x, nowPtr->end_y);
+            if(crash)
+            {
+                allegroObj->sound.roleDead.readyToPlay = 1;
+                //mainData->score.chars -= 1;
+                nowRole->state = ROLE_DESTORY;
+                DestorySubRole(&allegroObj->subRole, &allegroObj->role);
+            }
+            //crash ? printf("\tCrash\n") : printf("\tNoCrash\n") ;
+            nowRole = nowRole->nextObj;
+        }
+        nowPtr = nowPtr->nextObj;
+    }
+}
+
 void CrashCheck_role_obscale(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     bool crash;
@@ -579,6 +633,37 @@ void CrashCheck_role_obscale(MainDataStut *mainData, AllegroObjStut *allegroObj)
         if(nowObscale->state == OBSCALE_CRASH_MAIN) DestoryObscales(&(allegroObj->obscale));
         //crash ? printf("\tCrash\n") : printf("\tNoCrash\n") ;
         nowObscale = nowObscale->nextObj;
+    }
+}
+
+void CrashCheck_role_boss_(MainDataStut *mainData, AllegroObjStut *allegroObj)
+{
+    bool crash;
+    BossStut *boss = NULL;
+    ObjectStut *nowRole = NULL;
+    boss = &allegroObj->boss;
+    nowRole = allegroObj->subRole.objs;
+    while(nowRole != NULL)
+    {
+        crash = ObjCrashCheck(nowRole->start_x, nowRole->start_y, nowRole->end_x, nowRole->end_y,
+                              boss->start_x, boss->start_y, boss->end_x, boss->end_y);
+        if(crash)
+        {
+            allegroObj->sound.roleDead.readyToPlay = 1;
+            mainData->score.chars -= 1;
+            nowRole->state = ROLE_DESTORY;
+            DestorySubRole(&allegroObj->subRole, &allegroObj->role);
+        }
+        //crash ? printf("\tCrash\n") : printf("\tNoCrash\n") ;
+        nowRole = nowRole->nextObj;
+    }
+
+    crash = ObjCrashCheck(allegroObj->role.start_x, allegroObj->role.start_y, allegroObj->role.end_x, allegroObj->role.end_y,
+                          boss->start_x, boss->start_y, boss->end_x, boss->end_y);
+    if(crash)
+    {
+        allegroObj->sound.roleDead.readyToPlay = 1;
+        //mainData->score.chars -= 1;
     }
 }
 

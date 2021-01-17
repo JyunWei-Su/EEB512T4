@@ -398,7 +398,8 @@ void CheckMouseClick(MainDataStut *mainData, AllegroObjStut *allegroObj)
             }
             mainData->timerCount = 0;
             mainData->game_state = GAME_PLAYING_NORMAL;
-            mainData->score.chars = 5;
+            mainData->score.chars = (mainData->game_mode == MODE_HARD ? 10 : 5);
+             ;
             role_reset(allegroObj);
 
             SetFloor(&allegroObj->floor);
