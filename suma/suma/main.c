@@ -5,7 +5,7 @@
 #include "defineHeader.h"
 
 int main(){
-    HideWindow();
+   // HideWindow();
     MainDataStut *mainData;
     AllegroObjStut *allegroObj;
 

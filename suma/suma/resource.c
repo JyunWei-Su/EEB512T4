@@ -327,6 +327,7 @@ void MainDataInit(MainDataStut *mainData)
 
 void DestoryAllegroObj(AllegroObjStut *allegroObj)
 {
+    int i;
     al_pause_event_queue(allegroObj->event_queue, true);
     al_stop_timer(allegroObj->timer);
 
@@ -339,15 +340,74 @@ void DestoryAllegroObj(AllegroObjStut *allegroObj)
 
     al_destroy_bitmap(allegroObj->probar.img);
     al_destroy_bitmap(allegroObj->sb_chars.img);
-    al_destroy_bitmap(allegroObj->sb_chars.img);
+    al_destroy_bitmap(allegroObj->sb_coins.img);
     al_destroy_bitmap(allegroObj->role.img);
     al_destroy_bitmap(allegroObj->role.imgs_runing);
-    al_destroy_bitmap(allegroObj->boss.img);
     al_destroy_bitmap(allegroObj->boss.imgs_runing);
-    al_destroy_bitmap(allegroObj->boss2.img);
     al_destroy_bitmap(allegroObj->boss2.imgs_runing);
-    al_destroy_bitmap(allegroObj->boss3.img);
-    al_destroy_bitmap(allegroObj->boss3.imgs_runing);
+
+    al_destroy_bitmap(allegroObj->subRole.img);
+    al_destroy_bitmap(allegroObj->subRole.imgs_runing);
+    al_destroy_bitmap(allegroObj->stbRole.img);
+    al_destroy_bitmap(allegroObj->stbRole.imgs_running);
+    al_destroy_bitmap(allegroObj->coin.imgs_crashing);
+    al_destroy_bitmap(allegroObj->coin.imgs_rotating);
+    al_destroy_bitmap(allegroObj->obscale.imgs_crashing);
+    al_destroy_bitmap(allegroObj->obscale.imgs_shining);
+    for(i=0; i<5; i++)
+    {
+        al_destroy_bitmap(allegroObj->attackx.imgs_runing[i]);
+    }
+    //subrolestut subRole
+    //standbyrolstut stbRole
+    //CoinStut coin
+    //ObscaleStut obsscale
+    //attackXStut
+
+    al_destroy_font(allegroObj->font_a.font24);
+    al_destroy_font(allegroObj->font_a.font36);
+    al_destroy_font(allegroObj->font_a.font48);
+    al_destroy_font(allegroObj->font_a.font64);
+    al_destroy_font(allegroObj->font_a.font90);
+    al_destroy_font(allegroObj->font_a.font120);
+
+    al_destroy_font(allegroObj->font_b.font24);
+    al_destroy_font(allegroObj->font_b.font36);
+    al_destroy_font(allegroObj->font_b.font48);
+    al_destroy_font(allegroObj->font_b.font64);
+    al_destroy_font(allegroObj->font_b.font90);
+    al_destroy_font(allegroObj->font_b.font120);
+
+    al_destroy_mixer(allegroObj->sound.mixer);
+    al_destroy_voice(allegroObj->sound.voice);
+    al_destroy_sample(allegroObj->sound.sfx_background);
+    al_destroy_sample(allegroObj->sound.buttonMoveIn.sfx);
+    al_destroy_sample(allegroObj->sound.coinCrash.sfx);
+    al_destroy_sample(allegroObj->sound.damageBook.sfx);
+    al_destroy_sample(allegroObj->sound.roleDead.sfx);
+
+    al_destroy_sample_instance(allegroObj->sound.sfi_background);
+    al_destroy_sample_instance(allegroObj->sound.buttonMoveIn.sfi);
+    al_destroy_sample_instance(allegroObj->sound.coinCrash.sfi);
+    al_destroy_sample_instance(allegroObj->sound.damageBook.sfi);
+    al_destroy_sample_instance(allegroObj->sound.roleDead.sfi);
+    for(i=0 ; i<NUM_MENU_BUTTON; i++)
+    {
+        al_destroy_bitmap(allegroObj->menuButton[i].img);
+        al_destroy_bitmap(allegroObj->menuButton[i].img2);
+    }
+    for(i=0 ; i<NUM_MODE_BUTTON; i++)
+    {
+        al_destroy_bitmap(allegroObj->modeButton[i].img);
+        al_destroy_bitmap(allegroObj->modeButton[i].img2);
+    }
+
+    al_destroy_bitmap(allegroObj->homeButton.img);
+    al_destroy_bitmap(allegroObj->homeButton.img2);
+
+
+
+
 
     al_destroy_display(allegroObj->display);
 

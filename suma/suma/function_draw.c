@@ -167,7 +167,12 @@ void DrawRankScore(MainDataStut *mainData, AllegroObjStut *allegroObj)
 void DrawAbout(MainDataStut *mainData, AllegroObjStut *allegroObj)
 {
     al_draw_bitmap(allegroObj->background.img, 0, 0, 0); // Draw bitmap
-    al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, ALLEGRO_ALIGN_CENTER, "about");
+    al_draw_textf(allegroObj->font_a.font90, COLOR_SCORE, DISPLAY_WIDTH/2, 0, ALLEGRO_ALIGN_CENTER, "about");
+    al_draw_textf(allegroObj->font_b.font64, COLOR_SCORE, DISPLAY_WIDTH/2, 300, ALLEGRO_ALIGN_CENTER, "TEAM");
+    al_draw_textf(allegroObj->font_b.font64, COLOR_SCORE, DISPLAY_WIDTH/2, 400, ALLEGRO_ALIGN_CENTER, "B1085107 Bo-Yu, Ko");
+    al_draw_textf(allegroObj->font_b.font64, COLOR_SCORE, DISPLAY_WIDTH/2, 500, ALLEGRO_ALIGN_CENTER, "B1085118 Hoong-Yu, Huang");
+    al_draw_textf(allegroObj->font_b.font64, COLOR_SCORE, DISPLAY_WIDTH/2, 600, ALLEGRO_ALIGN_CENTER, "B1085123 I-Ruei, LU");
+    al_draw_textf(allegroObj->font_b.font64, COLOR_SCORE, DISPLAY_WIDTH/2, 700, ALLEGRO_ALIGN_CENTER, "B1085151 Jyun-Wei, Su");
     DrawHomeButton(mainData, allegroObj);
 }
 

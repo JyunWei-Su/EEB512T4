@@ -427,7 +427,7 @@ typedef struct AllegroObjStut
     CoinStut coin;
     ObscaleStut obscale;
 
-    MeteorStut meteor;
+     MeteorStut meteor;
     AttackXStut attackx;
 
     FloorStut floor;
